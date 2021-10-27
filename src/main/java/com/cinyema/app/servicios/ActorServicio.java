@@ -32,7 +32,7 @@ public class ActorServicio {
 		    
 		    validar(nombreCompleto, pais);
 		    
-		    Actor actor = actorRepositorio.getById(id);
+		    Actor actor = obtenerActor(id);
 			actor.setNombreCompleto(nombreCompleto);
 			actor.setPais(pais);
 	        return actorRepositorio.save(actor);

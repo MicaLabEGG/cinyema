@@ -98,8 +98,14 @@ public class Usuario {
 		Long id = (long) uuid.hashCode();
 		id = id<0 ? -id:id;
 		return id;
-
-
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nombre=" + nombre + ", mail=" + mail + ", nombreDeUsuario=" + nombreDeUsuario
+				+ ", contraseña=" + contraseña + ", alta=" + alta + ", rol=" + rol + "]";
+	}
+	
+	
 	
 }

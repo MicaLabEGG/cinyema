@@ -3,10 +3,17 @@ package com.cinyema.app.Entidad;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.cinyema.app.enumeracion.Genero;
+import com.cinyema.app.enumeracion.Idioma;
+import com.cinyema.app.enumeracion.Pais;
+import com.cinyema.app.enumeracion.Subtitulo;
 
 @Entity
 @Table(name = "pelicula")
@@ -25,7 +32,7 @@ public class Pelicula {
 	@Enumerated(EnumType.STRING)
 	private Idioma idioma;
 	@Enumerated(EnumType.STRING)
-	private Doblado doblado;
+	private Subtitulo subtitulo;
 	private Imagen imagen;
 	private Boolean alta;
 	@OneToOne
@@ -38,7 +45,7 @@ public class Pelicula {
 	}
 	
 	public Pelicula(Long idPelicula, String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Doblado doblado, Imagen imagen, Boolean alta, Director director, Actor actores) {
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, Boolean alta, Director director, Actor actores) {
 		super();
 		this.idPelicula = idPelicula;
 		this.titulo = titulo;
@@ -48,7 +55,7 @@ public class Pelicula {
 		this.genero = genero;
 		this.pais = pais;
 		this.idioma = idioma;
-		this.doblado = doblado;
+		this.subtitulo = subtitulo;
 		this.imagen = imagen;
 		this.alta = alta;
 		this.director = director;
@@ -122,12 +129,12 @@ public class Pelicula {
 		this.idioma = idioma;
 	}
 
-	public Doblado getDoblado() {
-		return doblado;
+	public Subtitulo getSubtitulo() {
+		return subtitulo;
 	}
 
-	public void setDoblado(Doblado doblado) {
-		this.doblado = doblado;
+	public void setSubtitulo(Subtitulo subtitulo) {
+		this.subtitulo = subtitulo;
 	}
 
 	public Imagen getImagen() {

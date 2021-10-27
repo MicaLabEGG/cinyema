@@ -5,7 +5,9 @@ import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -14,9 +16,10 @@ public class Ticket {
 
 	@Id
 	private Long idTicket = randomId();
-	@ManyToOne
+	@OneToOne
 	private Pelicula pelicula;
 	@ManyToOne
+	@JoinColumn(name = "FK_TICKUSER", nullable = false, updatable = false)
 	private Usuario usuario;
 	@Temporal(TemporalType.DATE)
 	private Date fecha;

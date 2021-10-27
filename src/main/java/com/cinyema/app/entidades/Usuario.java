@@ -16,7 +16,7 @@ import com.cinyema.app.enumeraciones.Rol;
 public class Usuario {
 	
 	@Id
-	private long idUsuario = randomId();
+	private Long idUsuario = randomId();
 	
 	private String nombre;
 	private String mail;

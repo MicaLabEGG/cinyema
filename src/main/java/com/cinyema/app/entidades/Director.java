@@ -1,4 +1,4 @@
-package com.cinyema.app.Entidad;
+package com.cinyema.app.entidades;
 
 import java.util.UUID;
 
@@ -7,7 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
-import com.cinyema.app.enumeracion.Pais;
+import com.cinyema.app.enumeraciones.Pais;
 
 @Entity
 public class Director {

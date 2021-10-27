@@ -1,7 +1,9 @@
 package com.cinyema.app.entidades;
 
+import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,8 +29,8 @@ public class Usuario {
 	@Enumerated(EnumType.STRING)
 	private Rol rol;
 	
-	@OneToMany
-	private Ticket ticket;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+	private List<Ticket> ticket;
 	
 	public Usuario() {
 	}

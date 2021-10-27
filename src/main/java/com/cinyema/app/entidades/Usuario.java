@@ -1,4 +1,4 @@
-package com.cinyema.app.Entidad;
+package com.cinyema.app.entidades;
 
 import java.util.UUID;
 
@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.cinyema.app.enumeracion.Rol;
+import com.cinyema.app.enumeraciones.Rol;
 
 @Entity
 @Table(name = "Usuario")

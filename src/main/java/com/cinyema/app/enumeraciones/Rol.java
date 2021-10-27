@@ -1,4 +1,4 @@
-package com.cinyema.app.enumeracion;
+package com.cinyema.app.enumeraciones;
 
 public enum Rol {
 	ADMINISTRADOR, USUARIO, VISITANTE; 

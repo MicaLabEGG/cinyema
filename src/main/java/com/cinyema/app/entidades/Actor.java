@@ -1,11 +1,14 @@
 package com.cinyema.app.entidades;
 
 import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.cinyema.app.enumeraciones.Pais;
 
@@ -17,6 +20,10 @@ public class Actor {
 	private String nombreCompleto;
 	@Enumerated(EnumType.STRING)
 	private Pais pais;
+	@ManyToOne
+    @JoinColumn(name = "FK_PELIACT", nullable = false, updatable = false)
+    private Pelicula pelicula;
+	
 	
 	public Actor(Long idActor, String nombreCompleto, Pais pais) {
 		super();
@@ -27,6 +34,14 @@ public class Actor {
 
 	public Actor() {
 		super();
+	}
+
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
 	}
 
 	public Long getIdActor() {

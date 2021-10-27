@@ -1,4 +1,4 @@
-package com.cinyema.app.Entidad;
+package com.cinyema.app.entidades;
 
 import java.util.UUID;
 
@@ -10,10 +10,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.cinyema.app.enumeracion.Genero;
-import com.cinyema.app.enumeracion.Idioma;
-import com.cinyema.app.enumeracion.Pais;
-import com.cinyema.app.enumeracion.Subtitulo;
+import com.cinyema.app.enumeraciones.Genero;
+import com.cinyema.app.enumeraciones.Idioma;
+import com.cinyema.app.enumeraciones.Pais;
+import com.cinyema.app.enumeraciones.Subtitulo;
 
 @Entity
 @Table(name = "pelicula")

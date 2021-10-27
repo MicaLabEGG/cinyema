@@ -1,4 +1,4 @@
-package com.cinyema.app.Entidad;
+package com.cinyema.app.entidades;
 
 import java.util.Date;
 import java.util.UUID;

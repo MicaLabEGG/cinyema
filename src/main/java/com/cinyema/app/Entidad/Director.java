@@ -7,6 +7,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
+import com.cinyema.app.enumeracion.Pais;
+
 @Entity
 public class Director {
 
@@ -20,8 +22,10 @@ public class Director {
 	
 	
 
+	
+
 	public Director() {
-		
+		super();
 	}
 
 	public Director(Long idDirector, String nombre, Pais pais) {

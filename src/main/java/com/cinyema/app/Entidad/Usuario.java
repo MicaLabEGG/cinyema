@@ -3,6 +3,8 @@ package com.cinyema.app.Entidad;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,11 +16,14 @@ public class Usuario {
 	
 	@Id
 	private long id = randomId();
+	
 	private String nombre;
 	private String mail;
 	private String nombreDeUsuario;
 	private String contraseña;
 	private Boolean alta;
+	
+	@Enumerated(EnumType.STRING)
 	private Rol rol;
 	
 	public Usuario() {

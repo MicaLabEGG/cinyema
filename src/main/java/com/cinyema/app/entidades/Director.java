@@ -2,6 +2,7 @@ package com.cinyema.app.entidades;
 
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,7 +15,8 @@ public class Director {
 
 	@Id
 	private Long idDirector = randomId();
-
+	
+	@Column(unique = true)
 	private String nombre;
 
 	@Enumerated(EnumType.STRING)
@@ -32,6 +34,10 @@ public class Director {
 		this.idDirector = idDirector;
 		this.nombre = nombre;
 		this.pais = pais;
+	}
+	
+	public Director(String nombre) {
+		this.nombre = nombre;
 	}
 
 	public Long getIdDirector() {
@@ -60,9 +66,11 @@ public class Director {
 	
 	
 
+	
+
 	@Override
 	public String toString() {
-		return "Director [idDirector=" + idDirector + ", nombre=" + nombre + "]";
+		return "Director [idDirector=" + idDirector + ", nombre=" + nombre + ", pais=" + pais + "]";
 	}
 
 	public Long randomId() {

@@ -23,9 +23,6 @@ public class Director {
 	private Pais pais;
 	
 	
-
-	
-
 	public Director() {
 		super();
 	}
@@ -64,10 +61,6 @@ public class Director {
 		this.pais = pais;
 	}
 	
-	
-
-	
-
 	@Override
 	public String toString() {
 		return "Director [idDirector=" + idDirector + ", nombre=" + nombre + ", pais=" + pais + "]";

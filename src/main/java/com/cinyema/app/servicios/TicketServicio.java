@@ -59,7 +59,4 @@ public class TicketServicio {
 		return tic;
 	}
 	
-	
-	
-	
 }

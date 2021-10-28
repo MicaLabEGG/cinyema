@@ -71,9 +71,6 @@ public class Pelicula implements Serializable {
 		this.actores = actores;
 	}
 	
-	
-
-
 	public Long getIdPelicula() {
 		return idPelicula;
 	}

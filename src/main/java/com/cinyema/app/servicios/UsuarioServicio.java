@@ -12,10 +12,19 @@ import com.cinyema.app.repositorios.UsuarioRepositorio;
 public class UsuarioServicio {
 
 	@Autowired
-	UsuarioRepositorio usuarioRepositorio;
+	private UsuarioRepositorio usuarioRepositorio;
+	
 	
 	@Transactional
-	public Usuario crearUsuario() {
+	public Usuario registroUsuario(String nombre, String mail, String nombreDeUsuario, String contrasenia, Boolean alta) throws Exception{
 		
+		Usuario usuario = new Usuario();
+		usuario.setNombre(nombre);
+		usuario.setMail(mail);
+		usuario.setNombreDeUsuario(nombreDeUsuario);
+		usuario.setContrasenia(contrasenia);
+		usuario.setAlta(alta);
+		return usuarioRepositorio.save(usuario);
 	}
+	
 }

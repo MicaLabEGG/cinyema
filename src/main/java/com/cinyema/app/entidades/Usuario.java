@@ -26,7 +26,7 @@ public class Usuario {
 	private String nombre;
 	private String mail;
 	private String nombreDeUsuario;
-	private String contraseña;
+	private String contrasenia;
 	private Boolean alta;
 	
 	@Temporal(TemporalType.DATE)
@@ -41,14 +41,14 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(long idUsuario, String nombre, String mail, String nombreDeUsuario, String contraseña, Boolean alta,
+	public Usuario(long idUsuario, String nombre, String mail, String nombreDeUsuario, String contrasenia, Boolean alta,
 			Rol rol) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.mail = mail;
 		this.nombreDeUsuario = nombreDeUsuario;
-		this.contraseña = contraseña;
+		this.contrasenia = contrasenia;
 		this.alta = alta;
 		this.rol = rol;
 	}
@@ -87,12 +87,12 @@ public class Usuario {
 		this.nombreDeUsuario = nombreDeUsuario;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasenia() {
+		return contrasenia;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasenia(String contrasenia) {
+		this.contrasenia = contrasenia;
 	}
 
 	public Boolean getAlta() {
@@ -137,7 +137,7 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", mail=" + mail + ", nombreDeUsuario="
-				+ nombreDeUsuario + ", contraseña=" + contraseña + ", alta=" + alta + ", fechaNacimiento="
+				+ nombreDeUsuario + ", contrasenia=" + contrasenia + ", alta=" + alta + ", fechaNacimiento="
 				+ fechaNacimiento + ", rol=" + rol + ", ticket=" + ticket + "]";
 	}
 

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import com.cinyema.app.enumeraciones.Rol;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name = "usuario")
 public class Usuario {
 	
 	@Id

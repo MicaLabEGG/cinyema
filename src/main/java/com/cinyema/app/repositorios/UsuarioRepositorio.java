@@ -12,6 +12,6 @@ import com.cinyema.app.entidades.Usuario;
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long>{
 
 	@Query("SELECT a FROM Usuario a where a.nombreDeUsuario = :nombreDeUsuario")
-	public Optional<Actor> buscarPorNombreDeUsuario(@Param("nombreDeUsuario") String nombreDeUsuario);
+	public Optional<Usuario> buscarPorNombreDeUsuario(@Param("nombreDeUsuario") String nombreDeUsuario);
 	
 }

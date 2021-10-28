@@ -17,6 +17,7 @@ import com.cinyema.app.enumeraciones.Idioma;
 import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.enumeraciones.Subtitulo;
 import com.cinyema.app.repositorios.ActorRepositorio;
+import com.cinyema.app.repositorios.DirectorRepositorio;
 import com.cinyema.app.repositorios.PeliculaRepositorio;
 
 
@@ -34,12 +35,12 @@ public class PeliculaServicio {
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void crearPelicula(String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, String idDirector, String idActor) throws Exception{
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, Long idDirector, Long idActor) throws Exception{
 		
 		@SuppressWarnings("deprecation")
 		Director d = repositorioDirector.getOne(idDirector);
-		@SuppressWarnings("deprecation")
-		Actor a = repositorioActor.getOne(idActor);
+		@SuppressWarnings({ "deprecation", "unchecked" })
+		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
 		//validarCrearPelicula();
 				
@@ -61,12 +62,12 @@ public class PeliculaServicio {
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void modificarPelicula(Long idPelicula, String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, String idDirector, String idActor) throws Exception{
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, Long idDirector, Long idActor) throws Exception{
 		
 		@SuppressWarnings("deprecation")
 		Director d = repositorioDirector.getOne(idDirector);
-		@SuppressWarnings("deprecation")
-		Actor a = repositorioActor.getOne(idActor);
+		@SuppressWarnings({ "deprecation", "unchecked" })
+		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
 		//validarModificarPelicula();
 		

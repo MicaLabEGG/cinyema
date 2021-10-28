@@ -42,7 +42,7 @@ public class Pelicula implements Serializable {
 	private Idioma idioma;
 	@Enumerated(EnumType.STRING)
 	private Subtitulo subtitulo;
-	//private Imagen imagen;
+	private Imagen imagen;
 	private Boolean alta;
 	@OneToOne
 	private Director director;
@@ -65,7 +65,7 @@ public class Pelicula implements Serializable {
 		this.pais = pais;
 		this.idioma = idioma;
 		this.subtitulo = subtitulo;
-		//this.imagen = imagen;
+		this.imagen = imagen;
 		this.alta = alta;
 		this.director = director;
 		this.actores = actores;
@@ -146,13 +146,13 @@ public class Pelicula implements Serializable {
 		this.subtitulo = subtitulo;
 	}
 
-//	public Imagen getImagen() {
-//		return imagen;
-//	}
-//
-//	public void setImagen(Imagen imagen) {
-//		this.imagen = imagen;
-//	}
+	public Imagen getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(Imagen imagen) {
+		this.imagen = imagen;
+	}
 
 	public Boolean getAlta() {
 		return alta;

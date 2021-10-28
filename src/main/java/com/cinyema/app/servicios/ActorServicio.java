@@ -55,6 +55,7 @@ public class ActorServicio {
 	    }
 	}
 	
+	@Transactional
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
 		Optional<Actor> result = actorRepositorio.buscarPorNombre(nombreCompleto);
 	       

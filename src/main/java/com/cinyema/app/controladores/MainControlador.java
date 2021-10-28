@@ -10,6 +10,6 @@ public class MainControlador {
 	
 	@GetMapping()
 	public String index() {			
-		return "index.html";
+		return "index";
 	}
 }

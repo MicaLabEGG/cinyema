@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:insert="fragmentos/head :: _head"></head>
+<body>
+    <nav th:insert="fragmentos/nav :: _cabezeraAdmin"></nav>
+    <div th:remplace="fragmentos/listarPelicula :: _listar(pelicula=$(pelicula))"></div>
+</body>
+</html>

@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import com.cinyema.app.enumeraciones.Rol;
 
 @Entity
-@Table(name = "Usuario")
+@Table(name = "usuario")
 public class Usuario {
 	
 	@Id
@@ -35,8 +35,6 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	
-
 	public Usuario(long idUsuario, String nombre, String mail, String nombreDeUsuario, String contraseña, Boolean alta,
 			Rol rol) {
 		super();
@@ -50,13 +48,9 @@ public class Usuario {
 	}
 
 
-	
-	
-	
 	public long getIdUsuario() {
 		return idUsuario;
 	}
-
 
 
 	public void setIdUsuario(long idUsuario) {
@@ -64,17 +58,14 @@ public class Usuario {
 	}
 
 
-
 	public String getNombre() {
 		return nombre;
 	}
 
-
-
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 
 
 	public String getMail() {
@@ -82,11 +73,9 @@ public class Usuario {
 	}
 
 
-
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-
 
 
 	public String getNombreDeUsuario() {
@@ -94,11 +83,9 @@ public class Usuario {
 	}
 
 
-
 	public void setNombreDeUsuario(String nombreDeUsuario) {
 		this.nombreDeUsuario = nombreDeUsuario;
 	}
-
 
 
 	public String getContraseña() {
@@ -106,11 +93,9 @@ public class Usuario {
 	}
 
 
-
 	public void setContraseña(String contraseña) {
 		this.contraseña = contraseña;
 	}
-
 
 
 	public Boolean getAlta() {
@@ -118,11 +103,9 @@ public class Usuario {
 	}
 
 
-
 	public void setAlta(Boolean alta) {
 		this.alta = alta;
 	}
-
 
 
 	public Rol getRol() {
@@ -130,11 +113,9 @@ public class Usuario {
 	}
 
 
-
 	public void setRol(Rol rol) {
 		this.rol = rol;
 	}
-
 
 
 	public Long randomId() {
@@ -145,15 +126,11 @@ public class Usuario {
 	}
 
 
-
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", mail=" + mail + ", nombreDeUsuario="
 				+ nombreDeUsuario + ", contraseña=" + contraseña + ", alta=" + alta + ", rol=" + rol + "]";
 	}
 
-	
-	
-	
 	
 }

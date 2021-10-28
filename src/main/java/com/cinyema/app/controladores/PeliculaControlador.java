@@ -12,8 +12,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cinyema.app.entidades.Actor;
+import com.cinyema.app.entidades.Director;
+import com.cinyema.app.entidades.Imagen;
 import com.cinyema.app.entidades.Pelicula;
+import com.cinyema.app.enumeraciones.Genero;
+import com.cinyema.app.enumeraciones.Idioma;
+import com.cinyema.app.enumeraciones.Pais;
+import com.cinyema.app.enumeraciones.Subtitulo;
 import com.cinyema.app.servicios.ActorServicio;
+import com.cinyema.app.servicios.DirectorServicio;
 import com.cinyema.app.servicios.PeliculaServicio;
 
 
@@ -63,7 +71,7 @@ public class PeliculaControlador {
 	@GetMapping("/agregarPelicula")
 	public String agregarPelicula(ModelMap modelo) {
 		List<Director> directores = servicioDirector.listarDirectores();
-		List<Editorial> actores = servicioActor.listarActores();
+		List<Actor> actores = servicioActor.buscarActores();
 		modelo.addAttribute("directores",directores);
 		modelo.addAttribute("actores",actores);
 		
@@ -71,7 +79,7 @@ public class PeliculaControlador {
 	}
 	
 	@PostMapping("/agregarPelicula") 
-	public String guardarPelicula(ModelMap modelo, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam String genero, @RequestParam String pais, @RequestParam String idioma, @RequestParam String subtitulo, @RequestParam String imagen, @RequestParam String idDirector, @RequestParam String idActor) throws Exception{
+	public String guardarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Imagen imagen, @RequestParam Long idDirector, @RequestParam Long idActor) throws Exception{
 		
 		try {
 			servicioPelicula.crearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, idDirector, idActor);
@@ -95,8 +103,10 @@ public class PeliculaControlador {
 	public String modificarPelicula(ModelMap modelo, @PathVariable Long idPelicula) {
 		
 		Optional<Pelicula> pelicula = servicioPelicula.buscarPeliculaPorId(idPelicula);		
+		@SuppressWarnings("unused")
 		List<Director> directores = servicioDirector.listarDirectores();
-		List<Actor> actores = servicioActor.listarActores();
+		@SuppressWarnings("unused")
+		List<Actor> actores = servicioActor.buscarActores();
 		
 		modelo.addAttribute("titulo", pelicula.get().getTitulo());
 		modelo.addAttribute("anio", pelicula.get().getAnio());
@@ -107,7 +117,7 @@ public class PeliculaControlador {
 	}
 	
 	@PostMapping("/modificarPelicula") 
-	public String editarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam String genero, @RequestParam String pais, @RequestParam String idioma, @RequestParam String subtitulo, @RequestParam String imagen, @RequestParam String idDirector, @RequestParam String idActor) throws Exception{
+	public String editarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Imagen imagen, @RequestParam Long idDirector, @RequestParam Long idActor) throws Exception{
 		
 		try {
 			servicioPelicula.modificarPelicula(idPelicula, titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, idDirector, idActor);

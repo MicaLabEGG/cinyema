@@ -80,5 +80,4 @@ public class Actor {
 		return "Actor [idActor=" + idActor + ", nombreCompleto=" + nombreCompleto + ", pais=" + pais + "]";
 	}
 
-	
 }

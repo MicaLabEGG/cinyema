@@ -52,7 +52,7 @@ public class ActorServicio {
 	    }else {
 		Actor actor = result.get();
 		return actor;
-	}
+	    }
 	}
 	
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
@@ -63,9 +63,8 @@ public class ActorServicio {
 	    }else {
 		Actor actor  = result.get();
 		return actor;
-	}
-}
-	
+	    }
+    }
 	
 	public void validar(String nombreCompleto, Pais pais) throws Exception {
 
@@ -77,5 +76,5 @@ public class ActorServicio {
 			throw new Exception();
 		}
 
-}
+    }
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	
+<head>
+	<title>Inicio</title>
+</head>
+
+<body>
+	<div th:insert="fragmentos/headUsuario :: head"></div> 
+	<div th:insert="fragmentos/navUsuario :: nav"></div> 
+</body>
+
+<footer th:replace="fragmentos/footerUsuario :: footer"></footer> 
+
+</html>

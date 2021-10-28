@@ -42,7 +42,7 @@ public class PeliculaServicio {
 		@SuppressWarnings({ "deprecation", "unchecked" })
 		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
-		//validarCrearPelicula();
+		validarCrearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, d, a);
 				
 		Pelicula p = new Pelicula();
 		p.setTitulo(titulo);
@@ -69,7 +69,7 @@ public class PeliculaServicio {
 		@SuppressWarnings({ "deprecation", "unchecked" })
 		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
-		//validarModificarPelicula();
+		validarCrearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, d, a);
 		
 		Optional<Pelicula> respuesta = repositorioPelicula.findById(idPelicula);
 		
@@ -164,6 +164,55 @@ public class PeliculaServicio {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminarPeliculaPorId(Long idPelicula) throws Exception {
 		repositorioPelicula.deleteById(idPelicula);
+	}
+	
+	public void validarCrearPelicula(String titulo, String anio, String descripcion, String duracion, Genero genero,
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, Director d, List<Actor>a) throws Exception {
+
+		if (titulo == null || titulo.isEmpty() || titulo.contains("  ")) {
+			throw new Exception("Nombre de Pelicula invalido ");
+		}
+		
+		if (anio == null || anio.isEmpty() || anio.contains("  ")) {
+			throw new Exception("Año de Pelicula invalido");
+		}
+		
+		if (descripcion == null || descripcion.isEmpty() || descripcion.contains("  ")) {
+			throw new Exception("Descripcion de Pelicula invalido");
+		}
+		
+		if (duracion == null || duracion.isEmpty() || duracion.contains("  ")) {
+			throw new Exception("Duracion de Pelicula invalido");
+		}
+		
+		if (genero == null) {
+			throw new Exception("Genero de Pelicula invalido");
+		}
+		
+		if (pais== null) {
+			throw new Exception("Pais de Pelicula invalido");
+		}
+		
+		if (idioma == null) {
+			throw new Exception("Idioma de Pelicula invalido");
+		}
+		
+		if (subtitulo == null) {
+			throw new Exception("Subtitulo de Pelicula invalido");
+		}
+		
+		if (imagen == null) {
+			throw new Exception("Imagen de Pelicula invalido");
+		}
+		
+		if (d == null || d.getNombre().isEmpty()) {
+			throw new Exception("Director de Pelicula invalido");
+		}
+		
+		if (a == null || a.isEmpty()) {
+			throw new Exception("Actores de Pelicula invalido");
+		}
+		
 	}
 	
 }

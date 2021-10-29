@@ -2,7 +2,6 @@ package com.cinyema.app.entidades;
 
 import java.util.Date;
 import java.util.UUID;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -10,10 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.cinyema.app.funciones.RandomId;
 
 @Entity
 public class Ticket {

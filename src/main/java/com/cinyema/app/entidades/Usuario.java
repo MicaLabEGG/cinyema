@@ -13,11 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.cinyema.app.enumeraciones.Rol;
-import com.cinyema.app.funciones.RandomId;
 
 @Entity
 @Table(name = "usuario")

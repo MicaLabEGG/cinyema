@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.entidades.Director;
@@ -33,16 +34,19 @@ public class PeliculaServicio {
 	@Autowired
 	private ActorRepositorio repositorioActor;
 	
+	@Autowired
+	private ImagenServicio imagenServicio;
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void crearPelicula(String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, Long idDirector, Long idActor) throws Exception{
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Long idDirector, Long idActor, MultipartFile archivo) throws Exception{
 		
 		@SuppressWarnings("deprecation")
 		Director d = repositorioDirector.getOne(idDirector);
 		@SuppressWarnings({ "deprecation", "unchecked" })
 		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
-		validarCrearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, d, a);
+		validarCrearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, d, a, archivo);
 				
 		Pelicula p = new Pelicula();
 		p.setTitulo(titulo);
@@ -56,20 +60,22 @@ public class PeliculaServicio {
 		p.setDirector(d);
 		p.setActores(a);
 		
+		Imagen imagen = imagenServicio.guardarImagen(archivo);
+		p.setImagen(imagen);
 		repositorioPelicula.save(p);
 		
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void modificarPelicula(Long idPelicula, String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, Long idDirector, Long idActor) throws Exception{
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Long idDirector, Long idActor,MultipartFile archivo ) throws Exception{
 		
 		@SuppressWarnings("deprecation")
 		Director d = repositorioDirector.getOne(idDirector);
 		@SuppressWarnings({ "deprecation", "unchecked" })
 		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
-		validarCrearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, d, a);
+		validarCrearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, d, a, archivo);
 		
 		Optional<Pelicula> respuesta = repositorioPelicula.findById(idPelicula);
 		
@@ -87,6 +93,14 @@ public class PeliculaServicio {
 				p.setSubtitulo(Subtitulo.SINSUBTITULO);
 				p.setDirector(d);
 				p.setActores(a);
+				
+				Long idImagen = null;
+				if(p.getImagen() != null) {
+					idImagen = p.getImagen().getIdImagen();
+				}
+				
+				Imagen imagen = imagenServicio.actualizarImagen(idImagen, archivo);
+				p.setImagen(imagen);
 				
 				repositorioPelicula.save(p);
 			}else {
@@ -167,7 +181,7 @@ public class PeliculaServicio {
 	}
 	
 	public void validarCrearPelicula(String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, Director d, List<Actor>a) throws Exception {
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Director d, List<Actor>a, MultipartFile archivo ) throws Exception {
 
 		if (titulo == null || titulo.isEmpty() || titulo.contains("  ")) {
 			throw new Exception("Nombre de Pelicula invalido ");
@@ -201,7 +215,7 @@ public class PeliculaServicio {
 			throw new Exception("Subtitulo de Pelicula invalido");
 		}
 		
-		if (imagen == null) {
+		if (archivo == null) {
 			throw new Exception("Imagen de Pelicula invalido");
 		}
 		

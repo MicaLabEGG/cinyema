@@ -20,7 +20,7 @@ public class Imagen implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long idImagen;
 	
 	private String nombre;
 	/*mime asigna formato 
@@ -34,9 +34,9 @@ public class Imagen implements Serializable {
 	@Lob @Basic(fetch = FetchType.LAZY)
 	private byte[] contenido;
 
-	public Imagen(Long id, String nombre, String mime, byte[] contenido) {
+	public Imagen(Long idImagen, String nombre, String mime, byte[] contenido) {
 		super();
-		this.id = id;
+		this.idImagen = idImagen;
 		this.nombre = nombre;
 		this.mime = mime;
 		this.contenido = contenido;
@@ -46,12 +46,12 @@ public class Imagen implements Serializable {
 		super();
 	}
 
-	public Long getId() {
-		return id;
+	public Long getIdImagen() {
+		return idImagen;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setIdImagen(Long idImagen) {
+		this.idImagen = idImagen;
 	}
 
 	public String getNombre() {

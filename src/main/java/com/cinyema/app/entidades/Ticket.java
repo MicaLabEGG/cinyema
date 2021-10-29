@@ -2,7 +2,6 @@ package com.cinyema.app.entidades;
 
 import java.util.Date;
 import java.util.UUID;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -90,7 +89,7 @@ public class Ticket {
 	
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
-		Long id = (long)uuid.hashCode();
+		Long id = (long) uuid.hashCode();
 		id = id<0 ? -id:id;
 		return id;
 	}

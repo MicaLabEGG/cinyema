@@ -1,14 +1,29 @@
 <table>
-    <thead th:fragment="fields(theadFields)">
-        <tr th:replace="${theadFields}">
+
+    <thead th:fragment="_thead" class="thead-dark">
+    	<tr class="misCampos">
+                <th>NOMBRE COMPLETO</th>
+				<th>PAÍS</th>
+				<th>EDIT</th>
+				<th>DELETE</th>
         </tr>
     </thead>
-    <tbody th:fragment="tableBody(tableData)">
-        <tr th:each="row: ${tableData}">
-            <td th:text="${row.id}">0</td>
-            <td th:text="${row.name}">Name</td>
+    <tbody th:fragment="cuerpoTabla(directores)">
+        <tr th:each="fila: ${entidad}">
+            <td th:text="${fila.nombre}"></td>
+            <td>
+				<select name="pais">
+   					 <option th:each="paisOpt : ${T(com.baeldung.thymeleaf.model.Pais).values()}" th:value="${paisOpt}" th:text="${paisOpt}"></option>
+				</select>
+			</td>
+            <td><a th:href="@{/entidad/edit/__${fila.id}__}">Edit</a></td>
+			<td><a th:href="@{/entidad/delete/__${fila.id}__}">Delete</a></td>
         </tr>
     </tbody>
-    <tfoot>
-    </tfoot>
+    
+    <div th:fragment="_botones(entidad)">
+    	<a class="btn btn-primary" th:href="@{/entidad/create}">Add</a>
+		<a class="btn btn-primary" th:href="@{/}">Index</a>
+    </div>
+    
 </table>

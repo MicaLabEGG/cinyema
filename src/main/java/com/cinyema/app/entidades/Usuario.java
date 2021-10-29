@@ -1,6 +1,6 @@
 package com.cinyema.app.entidades;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +13,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import com.cinyema.app.enumeraciones.Rol;
 
 @Entity
@@ -126,7 +125,7 @@ public class Usuario {
 	public void setTicket(List<Ticket> ticket) {
 		this.ticket = ticket;
 	}
-
+	
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
 		Long id = (long) uuid.hashCode();
@@ -141,8 +140,4 @@ public class Usuario {
 				+ fechaNacimiento + ", rol=" + rol + ", ticket=" + ticket + "]";
 	}
 
-
-	
-
-	
 }

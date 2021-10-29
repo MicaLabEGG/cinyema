@@ -23,30 +23,30 @@ public class DirectorControlador {
 	DirectorServicio directorServicio;
 
 	@SuppressWarnings("finally")
-	@GetMapping()
+	@GetMapping("")
 	public String mostrarDirectores(ModelMap modelo) throws Exception {
 
 		try {
 			List<Director> listaDirector = directorServicio.listarDirectores();
-			modelo.addAttribute("director", listaDirector);
+			modelo.addAttribute("directores", listaDirector);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
-			return "lista_directores";
+			return "admin/vistas/director/director";
 		}
 
 	}
 
+	/*
 	@GetMapping("/guardar")
 	public String guardar() {
-		return "guardar_director";
+		return "crearDirector";
 	}
 
 	@SuppressWarnings("finally")
 	@PostMapping("/guardar")
-	public String guardarDirector(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam Pais pais)
-			throws Exception {
-
+	public String guardarDirector(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam Pais pais) throws Exception {
+		
 		try {
 			directorServicio.crearDirector(nombre, pais);
 			modelo.put("exito", "Ingreso exitoso");
@@ -56,7 +56,7 @@ public class DirectorControlador {
 			return "gurdar_director";
 
 		} finally {
-			return "redirect:/lista_directores";
+			return "redirect:/director";
 		}
 	}
 
@@ -96,5 +96,6 @@ public class DirectorControlador {
 			return "redirect:/lista_directores";
 		}
 	}
+	*/
 
 }

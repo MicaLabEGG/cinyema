@@ -14,7 +14,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.cinyema.app.enumeraciones.Rol;
+import com.cinyema.app.funciones.RandomId;
 
 @Entity
 @Table(name = "usuario")
@@ -126,7 +129,7 @@ public class Usuario {
 	public void setTicket(List<Ticket> ticket) {
 		this.ticket = ticket;
 	}
-
+	
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
 		Long id = (long) uuid.hashCode();
@@ -141,8 +144,4 @@ public class Usuario {
 				+ fechaNacimiento + ", rol=" + rol + ", ticket=" + ticket + "]";
 	}
 
-
-	
-
-	
 }

@@ -8,10 +8,14 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.cinyema.app.enumeraciones.Pais;
+import com.cinyema.app.funciones.RandomId;
 
 @Entity
 public class Director {
+	
 
 	@Id
 	private Long idDirector = randomId();
@@ -61,16 +65,16 @@ public class Director {
 		this.pais = pais;
 	}
 	
-	@Override
-	public String toString() {
-		return "Director [idDirector=" + idDirector + ", nombre=" + nombre + ", pais=" + pais + "]";
-	}
-
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
 		Long id = (long) uuid.hashCode();
-		id = id < 0 ? -id : id;
+		id = id<0 ? -id:id;
 		return id;
+	}
+	
+	@Override
+	public String toString() {
+		return "Director [idDirector=" + idDirector + ", nombre=" + nombre + ", pais=" + pais + "]";
 	}
 
 }

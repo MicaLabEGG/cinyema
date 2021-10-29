@@ -1,8 +1,23 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head th:insert="fragmentos/head :: _head"></head>
+
 <body>
     <nav th:insert="fragmentos/nav :: _cabezeraAdmin"></nav>
-    <div th:remplace="fragmentos/listarPelicula :: _listar(pelicula=$(pelicula))"></div>
+    <div th:if="${listar}!= null">
+        <div th:remplace="fragmentos/listarPelicula :: _listar(pelicula=$(pelicula))"></div>
+    </div>
+    <div th:if="${registro}!= null">
+        <div
+            th:remplace="fragmentos/registroPelicula :: _registroPelicula(registro=${registro},error=${error},director=${director},actores=${actores})">
+        </div>
+    </div>
+    <div th:if="${editar}!= null">
+        <div
+            th:remplace="fragmentos/registroPelicula :: _registroPelicula(editar=${editar},error=${error},director=${director},actores=${actores})">
+        </div>
+    </div>
 </body>
+
 </html>

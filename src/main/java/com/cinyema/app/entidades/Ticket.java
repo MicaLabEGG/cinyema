@@ -11,6 +11,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.cinyema.app.funciones.RandomId;
+
 @Entity
 public class Ticket {
 
@@ -90,7 +94,7 @@ public class Ticket {
 	
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
-		Long id = (long)uuid.hashCode();
+		Long id = (long) uuid.hashCode();
 		id = id<0 ? -id:id;
 		return id;
 	}

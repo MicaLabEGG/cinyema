@@ -26,6 +26,7 @@ public class UsuarioServicio {
 
 		validar(nombre, mail, nombreDeUsuario, contrasenia, alta, fechaNacimiento, rol);
 		
+	//	validarMayoriaEdad();
 		
 		Usuario usuario = new Usuario();
 		usuario.setNombre(nombre);
@@ -97,7 +98,7 @@ public class UsuarioServicio {
 		/*
 		 * codigo de validacion de mail sacado de internet :D
 		 */
-		if (mail == null || mail.trim().isEmpty() || !mail.contains("@")) {
+		if (mail == null || mail.isEmpty() || !mail.contains("@")) {
             throw new Error("Debe ser un mail correcto.");
         }
 

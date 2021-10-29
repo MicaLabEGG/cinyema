@@ -31,9 +31,10 @@ public class DirectorServicio {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Director modificarDirector(Long idDirector, String nombre) {
+	public Director modificarDirector(Long idDirector, String nombre, Pais pais) {
 		Director director = verificarDirectorPorId(idDirector);
 		director.setNombre(nombre);
+		director.setPais(pais);
 		return director;
 	}
 
@@ -43,18 +44,22 @@ public class DirectorServicio {
 		return director;
 
 	}
-	
+
 	@Transactional(readOnly = true)
-	public List<Director> listarDirectores(){
-		
+	public List<Director> listarDirectores() {
+
 		return directorRepositorio.findAll();
 	}
 	
-	
-	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void eliminarDirector(Long idDirector) {
+
+		directorRepositorio.deleteById(idDirector);
+	}
+
 	public Director verificarDirectorPorNombre(String nombre) {
 		Director director = directorRepositorio.buscarDirectorPorNombre(nombre);
-		if(director == null) {
+		if (director == null) {
 			director = directorRepositorio.save(new Director(nombre));
 		}
 		return director;

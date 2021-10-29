@@ -16,11 +16,9 @@ import com.cinyema.app.funciones.RandomId;
 @Entity
 public class Director {
 	
-	@Autowired
-	private RandomId randomId;
 
 	@Id
-	private Long idDirector = randomId.randomId();
+	private Long idDirector = randomId();
 	
 	@Column(unique = true)
 	private String nombre;
@@ -65,6 +63,13 @@ public class Director {
 
 	public void setPais(Pais pais) {
 		this.pais = pais;
+	}
+	
+	public Long randomId() {
+		String uuid = UUID.randomUUID().toString();
+		Long id = (long) uuid.hashCode();
+		id = id<0 ? -id:id;
+		return id;
 	}
 	
 	@Override

@@ -17,12 +17,9 @@ import com.cinyema.app.funciones.RandomId;
 
 @Entity
 public class Ticket {
-	
-	@Autowired
-	private RandomId randomId;
 
 	@Id
-	private Long idTicket = randomId.randomId();
+	private Long idTicket = randomId();
 	@OneToOne
 	private Pelicula pelicula;
 	@ManyToOne
@@ -93,6 +90,13 @@ public class Ticket {
 	
 	public Ticket() {
 		super();
+	}
+	
+	public Long randomId() {
+		String uuid = UUID.randomUUID().toString();
+		Long id = (long) uuid.hashCode();
+		id = id<0 ? -id:id;
+		return id;
 	}
 
 }

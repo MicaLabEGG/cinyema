@@ -96,7 +96,7 @@ public class PeliculaServicio {
 				
 				Long idImagen = null;
 				if(p.getImagen() != null) {
-					idImagen = p.getImagen().getId();
+					idImagen = p.getImagen().getIdImagen();
 				}
 				
 				Imagen imagen = imagenServicio.actualizarImagen(idImagen, archivo);

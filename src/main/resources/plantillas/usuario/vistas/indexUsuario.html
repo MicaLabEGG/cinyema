@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	
-<head>
-	<title>Inicio</title>
-</head>
+<head th:insert="fragmentos/headUsuario :: _headUsuario"></head>
 
 <body>
-	<div th:insert="fragmentos/headUsuario :: head"></div> 
-	<div th:insert="fragmentos/navUsuario :: nav"></div> 
+	<div th:insert="fragmentos/navUsuario :: _navUsuario"></div> 
 </body>
 
-<footer th:replace="fragmentos/footerUsuario :: footer"></footer> 
+<footer th:insert="fragmentos/footerUsuario :: _footerUsuario"></footer> 
 
 </html>

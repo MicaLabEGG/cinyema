@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	
-<head>
-	<title>Registración</title>
-</head>
+<head th:insert="fragmentos/headUsuario :: _headUsuario"></head>
 
 <body>
-	<div th:insert="fragmentos/headUsuario :: head"></div> 
-		
+	<div th:insert="fragmentos/navUsuario :: _navUsuario"></div> 
 		<form action="/Usuario/registrar" method="POST">
   			<div class="form-group">
     			<label for="formGroupExampleInput">Nombre</label>
@@ -18,6 +15,10 @@
    				 <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Correo Electrónico">
   			</div>
   			<div class="form-group">
+   				 <label for="formGroupExampleInput2">Edad</label>
+   				 <input type="date" class="form-control" id="formGroupExampleInput2" placeholder="Edad">
+  			</div>
+  			<div class="form-group">
    				 <label for="formGroupExampleInput2">Contraseña</label>
    				 <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Contraseña">
   			</div>
@@ -25,6 +26,6 @@
 		</form>
 </body>
 
-<footer th:replace="fragmentos/footerUsuario :: footer"></footer> 
+<footer th:insert="fragmentos/footerUsuario :: _footerUsuario"></footer> 
 
 </html>

@@ -1,6 +1,11 @@
 package com.cinyema.app.servicios;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +31,7 @@ public class UsuarioServicio {
 
 		validar(nombre, mail, nombreDeUsuario, contrasenia, alta, fechaNacimiento, rol);
 		
-	//	validarMayoriaEdad();
+		validarMayoriaEdad(fechaNacimiento);
 		
 		Usuario usuario = new Usuario();
 		usuario.setNombre(nombre);
@@ -91,6 +96,8 @@ public class UsuarioServicio {
 	
 	public void validar(String nombre, String mail, String nombreDeUsuario, String contrasenia, Boolean alta, Date fechaDeNacimiento, Rol rol) throws Exception {
 		
+		Date hoy = new Date();
+		
 		if (nombre == null || nombre.isEmpty() || nombre.contains("  ")) {
 			throw new Exception();
 		}
@@ -116,10 +123,8 @@ public class UsuarioServicio {
 			throw new Exception();
 		}
 	
-		/*
-		 * Completar validacion de fechaDeNacimiento que la fecha no sea en el futuro
-		 */
-		if(fechaDeNacimiento == null) {
+	
+		if(fechaDeNacimiento == null || fechaDeNacimiento.after(hoy)) {
 			throw new Exception();
 		}
 	
@@ -127,5 +132,22 @@ public class UsuarioServicio {
 		if(rol == null) {
 			throw new Exception();
 		}
+	}
+
+	public Boolean validarMayoriaEdad(Date fechaNacimiento) {
+		
+		DateFormat formateoFechaAString = new SimpleDateFormat("dd/MM/yyyy");
+		String fechaNacimientoEnString = formateoFechaAString.format(fechaNacimiento);
+		DateTimeFormatter farmateo = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate fechaDeNacimiento = LocalDate.parse(fechaNacimientoEnString, farmateo);
+		Period edad = Period.between(fechaDeNacimiento, LocalDate.now());
+		
+		if(edad.getYears() < 18) {
+			return false;
+		}
+		else {
+			return true;
+		}
+		
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.entidades.Director;
@@ -79,10 +80,10 @@ public class PeliculaControlador {
 	}
 	
 	@PostMapping("/agregarPelicula") 
-	public String guardarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Imagen imagen, @RequestParam Long idDirector, @RequestParam Long idActor) throws Exception{
+	public String guardarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Long idDirector, @RequestParam Long idActor, MultipartFile archivo) throws Exception{
 		
 		try {
-			servicioPelicula.crearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, idDirector, idActor);
+			servicioPelicula.crearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, idDirector, idActor, archivo);
 			
 			return "redirect:/pelicula";	
 			
@@ -117,10 +118,10 @@ public class PeliculaControlador {
 	}
 	
 	@PostMapping("/modificarPelicula") 
-	public String editarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Imagen imagen, @RequestParam Long idDirector, @RequestParam Long idActor) throws Exception{
+	public String editarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Long idDirector, @RequestParam Long idActor, MultipartFile archivo) throws Exception{
 		
 		try {
-			servicioPelicula.modificarPelicula(idPelicula, titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, idDirector, idActor);
+			servicioPelicula.modificarPelicula(idPelicula, titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, idDirector, idActor, archivo);
 			
 			return "redirect:/pelicula";
 			

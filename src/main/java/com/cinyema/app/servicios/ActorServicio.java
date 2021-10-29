@@ -52,9 +52,10 @@ public class ActorServicio {
 	    }else {
 		Actor actor = result.get();
 		return actor;
-	}
+	    }
 	}
 	
+	@Transactional
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
 		Optional<Actor> result = actorRepositorio.buscarPorNombre(nombreCompleto);
 	       
@@ -63,9 +64,8 @@ public class ActorServicio {
 	    }else {
 		Actor actor  = result.get();
 		return actor;
-	}
-}
-	
+	    }
+    }
 	
 	public void validar(String nombreCompleto, Pais pais) throws Exception {
 
@@ -77,5 +77,5 @@ public class ActorServicio {
 			throw new Exception();
 		}
 
-}
+    }
 }

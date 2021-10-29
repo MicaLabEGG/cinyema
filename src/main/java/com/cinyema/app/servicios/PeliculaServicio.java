@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.entidades.Director;
@@ -33,16 +34,19 @@ public class PeliculaServicio {
 	@Autowired
 	private ActorRepositorio repositorioActor;
 	
+	@Autowired
+	private ImagenServicio imagenServicio;
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void crearPelicula(String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, Long idDirector, Long idActor) throws Exception{
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Long idDirector, Long idActor, MultipartFile archivo) throws Exception{
 		
 		@SuppressWarnings("deprecation")
 		Director d = repositorioDirector.getOne(idDirector);
 		@SuppressWarnings({ "deprecation", "unchecked" })
 		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
-		//validarCrearPelicula();
+		validarCrearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, d, a, archivo);
 				
 		Pelicula p = new Pelicula();
 		p.setTitulo(titulo);
@@ -56,20 +60,22 @@ public class PeliculaServicio {
 		p.setDirector(d);
 		p.setActores(a);
 		
+		Imagen imagen = imagenServicio.guardarImagen(archivo);
+		p.setImagen(imagen);
 		repositorioPelicula.save(p);
 		
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void modificarPelicula(Long idPelicula, String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, Imagen imagen, Long idDirector, Long idActor) throws Exception{
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Long idDirector, Long idActor,MultipartFile archivo ) throws Exception{
 		
 		@SuppressWarnings("deprecation")
 		Director d = repositorioDirector.getOne(idDirector);
 		@SuppressWarnings({ "deprecation", "unchecked" })
 		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
-		//validarModificarPelicula();
+		validarCrearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, d, a, archivo);
 		
 		Optional<Pelicula> respuesta = repositorioPelicula.findById(idPelicula);
 		
@@ -87,6 +93,14 @@ public class PeliculaServicio {
 				p.setSubtitulo(Subtitulo.SINSUBTITULO);
 				p.setDirector(d);
 				p.setActores(a);
+				
+				Long idImagen = null;
+				if(p.getImagen() != null) {
+					idImagen = p.getImagen().getIdImagen();
+				}
+				
+				Imagen imagen = imagenServicio.actualizarImagen(idImagen, archivo);
+				p.setImagen(imagen);
 				
 				repositorioPelicula.save(p);
 			}else {
@@ -164,6 +178,55 @@ public class PeliculaServicio {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminarPeliculaPorId(Long idPelicula) throws Exception {
 		repositorioPelicula.deleteById(idPelicula);
+	}
+	
+	public void validarCrearPelicula(String titulo, String anio, String descripcion, String duracion, Genero genero,
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Director d, List<Actor>a, MultipartFile archivo ) throws Exception {
+
+		if (titulo == null || titulo.isEmpty() || titulo.contains("  ")) {
+			throw new Exception("Nombre de Pelicula invalido ");
+		}
+		
+		if (anio == null || anio.isEmpty() || anio.contains("  ")) {
+			throw new Exception("Año de Pelicula invalido");
+		}
+		
+		if (descripcion == null || descripcion.isEmpty() || descripcion.contains("  ")) {
+			throw new Exception("Descripcion de Pelicula invalido");
+		}
+		
+		if (duracion == null || duracion.isEmpty() || duracion.contains("  ")) {
+			throw new Exception("Duracion de Pelicula invalido");
+		}
+		
+		if (genero == null) {
+			throw new Exception("Genero de Pelicula invalido");
+		}
+		
+		if (pais== null) {
+			throw new Exception("Pais de Pelicula invalido");
+		}
+		
+		if (idioma == null) {
+			throw new Exception("Idioma de Pelicula invalido");
+		}
+		
+		if (subtitulo == null) {
+			throw new Exception("Subtitulo de Pelicula invalido");
+		}
+		
+		if (archivo == null) {
+			throw new Exception("Imagen de Pelicula invalido");
+		}
+		
+		if (d == null || d.getNombre().isEmpty()) {
+			throw new Exception("Director de Pelicula invalido");
+		}
+		
+		if (a == null || a.isEmpty()) {
+			throw new Exception("Actores de Pelicula invalido");
+		}
+		
 	}
 	
 }

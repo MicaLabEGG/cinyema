@@ -42,6 +42,7 @@ public class Pelicula implements Serializable {
 	private Idioma idioma;
 	@Enumerated(EnumType.STRING)
 	private Subtitulo subtitulo;
+	@OneToOne
 	private Imagen imagen;
 	private Boolean alta;
 	@OneToOne
@@ -71,9 +72,6 @@ public class Pelicula implements Serializable {
 		this.actores = actores;
 	}
 	
-	
-
-
 	public Long getIdPelicula() {
 		return idPelicula;
 	}

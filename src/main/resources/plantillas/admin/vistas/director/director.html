@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:insert="fragmentos/head :: _head"></head>
+<head th:replace="admin/fragmentos/head :: _head"></head>
 
 <body>
-	<nav th:insert="fragmentos/nav :: _cabezeraAdmin"></nav>
+	<nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
 	    <table>
-        <thead th:replace="fragments/tableActorDirector.html :: _thead(~{ :: .misCampos})"></thead>
-        <div th:replace="fragments/tableActorDierctor.html :: cuerpoTabla(directores=${director})"></div>
+        <thead th:replace="admin/fragmentos/tableActorDirector.html :: _thead"></thead>
+        <div th:replace="admin/fragmentos/tableActorDirector.html :: cuerpoTabla(directores=${directores})"></div>
     </table>
-    <div th:replace="fragmentos/tableActorDirector :: _botones(director='director')"></div>
+    <div th:replace="admin/fragmentos/tableActorDirector :: _botones(director='director')"></div>
 </body>

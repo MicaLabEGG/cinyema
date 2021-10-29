@@ -17,4 +17,7 @@ public interface PeliculaRepositorio extends JpaRepository<Pelicula,Long>{
 	@Query("SELECT p FROM Pelicula p WHERE p.titulo LIKE %:titulo%")
 	public List<Pelicula> buscarPeliculaPorTitulo(@Param("titulo") String titulo);
 	
+	@Query("SELECT p FROM Pelicula p WHERE p.titulo LIKE :titulo")
+	public Pelicula validarTituloPelicula(@Param("titulo") String titulo);
+	
 }

@@ -1,7 +1,6 @@
 package com.cinyema.app.entidades;
 
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,12 +9,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.cinyema.app.enumeraciones.Pais;
+import com.cinyema.app.funciones.RandomId;
 
 @Entity
 public class Actor {
+	
+	@Autowired
+	private RandomId randomId;
+	
 	@Id
-	private Long idActor = randomId();
+	private Long idActor = randomId.randomId();
 	@Column(unique = true)
 	private String nombreCompleto;
 	@Enumerated(EnumType.STRING)
@@ -66,13 +72,6 @@ public class Actor {
 
 	public void setPais(Pais pais) {
 		this.pais = pais;
-	}
-	
-	public Long randomId() {
-		String uuid = UUID.randomUUID().toString();
-		Long id = (long) uuid.hashCode();
-		id = id<0 ? -id:id;
-		return id;
 	}
 
 	@Override

@@ -14,14 +14,20 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.cinyema.app.enumeraciones.Rol;
+import com.cinyema.app.funciones.RandomId;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
 	
+	@Autowired
+	private RandomId randomId;
+	
 	@Id
-	private Long idUsuario = randomId();
+	private Long idUsuario = randomId.randomId();
 	
 	private String nombre;
 	private String mail;
@@ -127,13 +133,6 @@ public class Usuario {
 		this.ticket = ticket;
 	}
 
-	public Long randomId() {
-		String uuid = UUID.randomUUID().toString();
-		Long id = (long) uuid.hashCode();
-		id = id<0 ? -id:id;
-		return id;
-	}
-
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", mail=" + mail + ", nombreDeUsuario="
@@ -141,8 +140,4 @@ public class Usuario {
 				+ fechaNacimiento + ", rol=" + rol + ", ticket=" + ticket + "]";
 	}
 
-
-	
-
-	
 }

@@ -51,7 +51,7 @@ public class DirectorControlador {
 		try {
 			Director director = directorServicio.crearDirector(nombre, pais);
 			modelo.put("director", director);
-			modelo.put("exito", "Ingreso exitoso");
+			modelo.put("exito", "Ingreso exitoso");	
 			return "admin/vistas/director";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -25,14 +25,16 @@
             </tbody>
 
         </table>
+        <div th:fragment="_botonesLista(parametro)">
         <div class=" text-center container">
                     <div class="row justify-content-md-center">
                         <div class="col col-md-2">
-                            <a class="btn btn-success my-2" th:href="@{/${director}/create}">Nuevo</a>
+                            <a class="btn btn-success my-2" th:href="@{/${parametro}/registrar}">Nuevo</a>
                         </div>
                         <div class="col col-md-2">
                             <a class="btn btn-primary my-2" th:href="@{/}">Volver</a>
                         </div>
                     </div>
                 </div>
+		</div>
 </div>

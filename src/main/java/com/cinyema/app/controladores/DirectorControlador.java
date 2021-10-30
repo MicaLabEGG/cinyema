@@ -28,6 +28,7 @@ public class DirectorControlador {
 
 		try {
 			List<Director> listaDirector = directorServicio.listarDirectores();
+			modelo.addAttribute("listar", "Lista Directores");
 			modelo.addAttribute("directores", listaDirector);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -38,8 +39,9 @@ public class DirectorControlador {
 	}
 	
 	@GetMapping("/registrar")
-	public String guardar() {
-		return "director";
+	public String guardar(ModelMap modelo) {
+		modelo.addAttribute("registrar", "Registrar Director");
+		return "admin/vistas/director";
 	}
 	
 	@SuppressWarnings("finally")
@@ -47,16 +49,17 @@ public class DirectorControlador {
 	public String guardarDirector(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam Pais pais) throws Exception {
 		
 		try {
-			directorServicio.crearDirector(nombre, pais);
-			modelo.put("exito", "Ingreso exitoso");
-			return "gurdar_director";
+			Director director = directorServicio.crearDirector(nombre, pais);
+			modelo.put("director", director);
+			modelo.put("exito", "Ingreso exitoso");	
+			return "admin/vistas/director";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Error al ingresar los datos del director");
-			return "redirect:/director";
+			return "admin/vistas/director";
 
 		} finally {
-			return "redirect:/director";
+			return "admin/vistas/director";
 		}
 	}
 

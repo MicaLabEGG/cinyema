@@ -22,32 +22,40 @@ public class ActorControlador {
 
 	@GetMapping("")
 	public String lista(ModelMap modelo) {
+		try {
+			List<Actor> todosActores = actorServicio.buscarActores();
+			modelo.addAttribute("listar", "Lista Actores");
+			modelo.addAttribute("actores", todosActores);
+			return "admin/vistas/actor";
+		} catch (Exception e) {
+			e.getMessage();
+			return "admin/vistas/actor";
+		}
 
-		List<Actor> todosActores = actorServicio.buscarActores();
-		modelo.addAttribute("actores", todosActores);
+	}
+
+	@GetMapping("/registrar")
+	public String ingreso(ModelMap modelo) {
+		modelo.addAttribute("registrar", "Registrar Actor");
 		return "admin/vistas/actor";
 	}
 
-	@GetMapping("/ingreso")
-	public String ingreso() {
-		return "ingreso-actor";
-	}
-
-	@PostMapping("/ingreso")
+	@PostMapping("/registrar")
 	public String registrarActor(ModelMap modelo, @RequestParam String nombreCompleto, @RequestParam Pais pais)
 			throws Exception {
 		try {
-			actorServicio.registrarActor(nombreCompleto, pais);
+			Actor actor = actorServicio.registrarActor(nombreCompleto, pais);
+			modelo.put("actor", actor);
 			modelo.put("exito", "Ingreso exitoso!");
-			return "redirect:/actor";
+			return "admin/vistas/actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			System.out.println(e.getStackTrace());
 			modelo.put("error", "Falta algun dato o no puede ingresar un Actor con igual nombre a otro");
-			return "ingreso-actor";
+			return "admin/vistas/actor";
 		}
 	}
 
+	/*
 	@GetMapping("/modificar/{id}")
 	public String modificarActor(ModelMap modelo, @PathVariable Long id) throws Exception {
 		try {
@@ -75,4 +83,5 @@ public class ActorControlador {
 		}
 		return "redirect:/actor";
 	}
+	*/
 }

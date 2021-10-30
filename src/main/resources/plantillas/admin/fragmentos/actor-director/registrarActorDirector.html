@@ -1,8 +1,7 @@
 <div th:fragment="_registrarActorDirector(parametro)">
-	<form th:action="@{/parametro/registroActorDirector}" th:object=${parametro} method="POST">
+	<form th:action="@{/parametro/registrar}" th:object=${parametro} method="POST">
 		<label>Nombre</label>
 		<input type="text" name="nombre" th:value="${nombre}" required></input>
 		<button type="submit">Hecho</button>
-
 	</form>
 </div>

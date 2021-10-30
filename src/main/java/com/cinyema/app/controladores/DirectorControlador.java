@@ -36,30 +36,31 @@ public class DirectorControlador {
 		}
 
 	}
-
-	/*
-	@GetMapping("/guardar")
+	
+	@GetMapping("/registrar")
 	public String guardar() {
-		return "crearDirector";
+		return "director";
 	}
-
+	
 	@SuppressWarnings("finally")
-	@PostMapping("/guardar")
+	@PostMapping("/registrar")
 	public String guardarDirector(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam Pais pais) throws Exception {
 		
 		try {
 			directorServicio.crearDirector(nombre, pais);
 			modelo.put("exito", "Ingreso exitoso");
+			return "gurdar_director";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Error al ingresar los datos del director");
-			return "gurdar_director";
+			return "redirect:/director";
 
 		} finally {
 			return "redirect:/director";
 		}
 	}
 
+	/*
 	@SuppressWarnings("finally")
 	@GetMapping("/modificar/{id}")
 	public String modificar(@PathVariable Long id, ModelMap modelo) {
@@ -95,7 +96,9 @@ public class DirectorControlador {
 		} finally {
 			return "redirect:/lista_directores";
 		}
+		
 	}
 	*/
+	
 
 }

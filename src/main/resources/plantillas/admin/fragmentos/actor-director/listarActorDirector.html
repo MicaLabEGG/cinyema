@@ -10,7 +10,6 @@
                     <th>ID</th>
                     <th>Nombre Completo</th>
                     <th>País</th>
-                    <th>Alta</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -25,15 +24,8 @@
                                 th:value="${paisOpt}" th:text="${paisOpt}"></option>
                         </select>
                     </td>
-                    <td>
-                        <i th:if="${fila.alta}" class="fa fa-circle text-success"><a
-                                th:href="@{/fila/baja/__${fila.id}__}"><i class="fa fa-ban"></i></a></i>
-                        <i th:unless="${fila.alta}" class="fa fa-circle" style="color:red;"><a
-                                th:href="@{/fila/alta/__${fila.id}__}"><i
-                                    class="fa fa-arrow-up"></i></a></i>
-                    </td>
-                    <td><a th:href="@{/entidad/edit/__${fila.id}__}">Edit</a></td>
-                    <td><a th:href="@{/entidad/delete/__${fila.id}__}">Delete</a></td>
+                    <td><a th:href="@{/entidad/editar/__${fila.id}__}">Edit</a></td>
+                    <td><a th:href="@{/entidad/borrar/__${fila.id}__}">Delete</a></td>
                 </tr>
             </tbody>
         </table>

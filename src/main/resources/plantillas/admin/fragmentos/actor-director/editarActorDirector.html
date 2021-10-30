@@ -1,10 +1,10 @@
-<div th:fragment="_registrarActorDirector(entidadARegistrar,error)">
+<div th:fragment="_editarActorDirector(entidadAEditar,error)">
 
     <section class="container">
         <div class="row vh-50 justify-content-center align-items-center">
             <div class="col-auto">
 
-                <h1 th:text="${registrar}" class="text-center"></h1>
+                <h1 th:text="${editar}" class="text-center"></h1>
 
                 <div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
                     <div class="card-body">
@@ -13,7 +13,7 @@
                     </div>
                 </div>
 
-                <form th:action="@{/__${entidadARegistrar}__/registrar}" method="POST">
+                <form th:action="@{/__${entidadAEditar}__/editar}" method="POST">
                     <div class="form-group">
                         <label class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombre" th:value="${nombre}" required></input>

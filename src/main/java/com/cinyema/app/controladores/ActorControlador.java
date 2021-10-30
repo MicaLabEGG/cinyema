@@ -55,21 +55,22 @@ public class ActorControlador {
 		}
 	}
 
-	/*
-	@GetMapping("/modificar/{id}")
+	
+	@GetMapping("/editar/{id}")
 	public String modificarActor(ModelMap modelo, @PathVariable Long id) throws Exception {
 		try {
 			Actor actor = actorServicio.obtenerActor(id);
+			modelo.addAttribute("editar", "Editar Actor");
 			modelo.addAttribute("actor", actor);
 			return "modificar-actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			modelo.put("error", "falta algun dato");
-			return "modificar-actor";
+			modelo.put("error", "Falta algun dato");
+			return "admin/vistas/actor";
 		}
 	}
 
-	@PostMapping("/modificar/{id}")
+	@PostMapping("/editar/{id}")
 	public String modificar(ModelMap modelo, @PathVariable Long id, @RequestParam String nombreCompleto,
 			@RequestParam Pais pais) throws Exception {
 		try {
@@ -81,7 +82,7 @@ public class ActorControlador {
 			e.printStackTrace();
 			modelo.addAttribute("error", e.getMessage());
 		}
-		return "redirect:/actor";
+		return "admin/vistas/actor";
 	}
-	*/
+	
 }

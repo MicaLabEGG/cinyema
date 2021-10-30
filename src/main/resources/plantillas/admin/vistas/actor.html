@@ -5,18 +5,25 @@
 
 <body>
     <nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
-    
+
     <div th:if="${listar}!= null">
-        <table 
-        	th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _listarActorDirector(botones='actor', lista=${actores})">>
+        <table
+            th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _listarActorDirector(botones='actor', lista=${actores})">
+            >
         </table>
     </div>
-    
+
     <div th:if="${registrar}!= null">
         <div
             th:replace="admin/fragmentos/actor-director/registrarActorDirector.html :: _registrarActorDirector(entidadARegistrar=${actor}, error=${error})">
         </div>
-        
+    </div>
+    
+    <div th:if="${editar}!= null">
+         <div
+                th:replace="admin/fragmentos/actor-director/registrarActorDirector.html :: _editarActorDirector(entidadAEditar=${actor}, error=${error})">
+         </div>
+    </div>
 </body>
 
 </html>

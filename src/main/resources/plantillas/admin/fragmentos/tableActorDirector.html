@@ -1,5 +1,4 @@
 <table>
-
     <thead th:fragment="_thead" class="thead-dark">
     	<tr class="misCampos">
                 <th>NOMBRE COMPLETO</th>
@@ -9,7 +8,7 @@
         </tr>
     </thead>
     <tbody th:fragment="cuerpoTabla(directores)">
-        <tr th:each="fila: ${entidad}">
+        <tr th:each="fila: ${directores}">
             <td th:text="${fila.nombre}"></td>
             <td>
 				<select name="pais">
@@ -21,9 +20,8 @@
         </tr>
     </tbody>
     
-    <div th:fragment="_botones(entidad)">
-    	<a class="btn btn-primary" th:href="@{/entidad/create}">Add</a>
+    <div th:fragment="_botones(director)">
+    	<a class="btn btn-primary" th:href="@{/${director}/create}">Add</a>
 		<a class="btn btn-primary" th:href="@{/}">Index</a>
     </div>
-    
 </table>

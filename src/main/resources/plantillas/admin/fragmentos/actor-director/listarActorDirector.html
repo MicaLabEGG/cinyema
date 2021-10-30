@@ -1,4 +1,4 @@
-<div th:fragment="_tableActorDirector">
+<div th:fragment="_listarActorDirector">
     <section class="container m-5">
         <h1 class="text-center">Listar</h1>
         <table class="table table-dark">
@@ -11,13 +11,12 @@
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody th:fragment="cuerpoTabla(directores)">
-                <tr th:each="fila: ${directores}">
+            <tbody th:fragment="_tbody(parametro)">
+                <tr th:each="fila: ${parametro}">
                     <td scope="row" th:text="${fila.nombre}"></td>
                     <td>
                         <select name="pais">
-                            <option th:each="paisOpt : ${T(com.baeldung.thymeleaf.model.Pais).values()}"
-                                th:value="${paisOpt}" th:text="${paisOpt}"></option>
+                            <option th:each="paisOpt : ${T(com.baeldung.thymeleaf.model.Pais).values()}" th:value="${paisOpt}" th:text="${paisOpt}"></option>
                         </select>
                     </td>
                     <td><a th:href="@{/entidad/edit/__${fila.id}__}">Edit</a></td>

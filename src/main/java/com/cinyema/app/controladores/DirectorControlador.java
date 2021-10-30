@@ -32,7 +32,7 @@ public class DirectorControlador {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
-			return "admin/vistas/director/director";
+			return "admin/vistas/director";
 		}
 
 	}

@@ -1,12 +1,13 @@
 <div th:fragment="_listarActorDirector(botones, lista)">
 
     <section class="container m-5">
-    
+
         <h1 th:text="${listar}" class="text-center"></h1>
-        
+
         <table class="table table-dark">
             <thead class="thead-dark">
                 <tr class="misCampos">
+                    <th>ID</th>
                     <th>Nombre Completo</th>
                     <th>País</th>
                     <th>Alta</th>
@@ -16,27 +17,35 @@
             </thead>
             <tbody>
                 <tr th:each="fila: ${lista}">
-                    <td scope="row" th:text="${fila.nombre}"></td>
+                    <td scope="row" th:text="${fila.id}"></td>
+                    <td th:text="${fila.nombre}"></td>
                     <td>
                         <select name="pais">
                             <option th:each="paisOpt : ${T(com.baeldung.thymeleaf.model.Pais).values()}"
                                 th:value="${paisOpt}" th:text="${paisOpt}"></option>
                         </select>
                     </td>
+                    <td>
+                        <i th:if="${fila.alta}" class="fa fa-circle text-success"><a
+                                th:href="@{/fila/baja/__${fila.id}__}"><i class="fa fa-ban"></i></a></i>
+                        <i th:unless="${fila.alta}" class="fa fa-circle" style="color:red;"><a
+                                th:href="@{/fila/alta/__${fila.id}__}"><i
+                                    class="fa fa-arrow-up"></i></a></i>
+                    </td>
                     <td><a th:href="@{/entidad/edit/__${fila.id}__}">Edit</a></td>
                     <td><a th:href="@{/entidad/delete/__${fila.id}__}">Delete</a></td>
                 </tr>
             </tbody>
         </table>
-        
-    <div class=" text-center container">
-        <div class="row justify-content-md-center">
-            <div class="col col-md-2">
-                <a class="btn btn-success my-2" th:href="@{/__${botones}__/registrar}">Nuevo</a>
+
+        <div class=" text-center container">
+            <div class="row justify-content-md-center">
+                <div class="col col-md-2">
+                    <a class="btn btn-success my-2" th:href="@{/__${botones}__/registrar}">Nuevo</a>
+                </div>
+                <div class="col col-md-2">
+                    <a class="btn btn-primary my-2" th:href="@{/}">Volver</a>
+                </div>
             </div>
-            <div class="col col-md-2">
-                <a class="btn btn-primary my-2" th:href="@{/}">Volver</a>
-            </div>
+
         </div>
-    
-</div>

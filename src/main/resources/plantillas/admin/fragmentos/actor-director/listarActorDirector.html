@@ -1,4 +1,4 @@
-<div th:fragment="_listarActorDirector(lista)">
+<div th:fragment="_listarActorDirector(botones, lista)">
 
     <section class="container m-5">
     
@@ -28,18 +28,15 @@
                 </tr>
             </tbody>
         </table>
-</div>
-
-<div th:fragment="_botonesLista(parametro)">
+        
     <div class=" text-center container">
         <div class="row justify-content-md-center">
             <div class="col col-md-2">
-                <a class="btn btn-success my-2" th:href="@{/__${parametro}__/registrar}">Nuevo</a>
+                <a class="btn btn-success my-2" th:href="@{/__${botones}__/registrar}">Nuevo</a>
             </div>
             <div class="col col-md-2">
                 <a class="btn btn-primary my-2" th:href="@{/}">Volver</a>
             </div>
         </div>
-    </div>
     
 </div>

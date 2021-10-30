@@ -8,11 +8,8 @@
     
     <div th:if="${listar}!= null">
         <table 
-        	th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _listarActorDirector(lista=${directores})">>
+        	th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _listarActorDirector(botones='director', lista=${directores})">>
         </table>
-        <div 
-        	th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _botonesLista(parametro='director')">
-        </div>
     </div>
     
     <div th:if="${registrar}!= null">

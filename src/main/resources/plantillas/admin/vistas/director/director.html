@@ -6,8 +6,7 @@
 <body>
 	<nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
 	    <table>
-        <thead th:replace="admin/fragmentos/tableActorDirector.html :: _thead"></thead>
+        <thead th:replace="admin/fragmentos/tableActorDirector.html :: _tableActorDirector"></thead>
         <div th:replace="admin/fragmentos/tableActorDirector.html :: cuerpoTabla(directores=${directores})"></div>
     </table>
-    <div th:replace="admin/fragmentos/tableActorDirector :: _botones(director='director')"></div>
 </body>

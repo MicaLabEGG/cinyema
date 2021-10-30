@@ -29,7 +29,6 @@ public class DirectorControlador {
 		try {
 			List<Director> listaDirector = directorServicio.listarDirectores();
 			modelo.addAttribute("listar", "Lista Directores");
-			modelo.addAttribute("director", "director");
 			modelo.addAttribute("directores", listaDirector);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -40,7 +39,8 @@ public class DirectorControlador {
 	}
 	
 	@GetMapping("/registrar")
-	public String guardar() {
+	public String guardar(ModelMap modelo) {
+		modelo.addAttribute("registrar", "Registrar Directores");
 		return "admin/vistas/director";
 	}
 	
@@ -50,7 +50,6 @@ public class DirectorControlador {
 		
 		try {
 			Director director = directorServicio.crearDirector(nombre, pais);
-			modelo.addAttribute("registrar", "Registro Directores");
 			modelo.addAttribute("director", director);
 			modelo.put("exito", "Ingreso exitoso");
 			return "admin/vistas/director";

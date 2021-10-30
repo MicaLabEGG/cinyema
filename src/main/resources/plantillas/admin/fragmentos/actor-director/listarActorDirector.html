@@ -1,4 +1,4 @@
-<div th:fragment="_listarActorDirector">
+<div th:fragment="_listarActorDirector(parametro)">
     <section class="container m-5">
         <h1 class="text-center">Listar</h1>
         <table class="table table-dark">
@@ -11,12 +11,13 @@
                     <th>Delete</th>
                 </tr>
             </thead>
-            <tbody th:fragment="_tbody(parametro)">
+            <tbody>
                 <tr th:each="fila: ${parametro}">
                     <td scope="row" th:text="${fila.nombre}"></td>
                     <td>
                         <select name="pais">
-                            <option th:each="paisOpt : ${T(com.baeldung.thymeleaf.model.Pais).values()}" th:value="${paisOpt}" th:text="${paisOpt}"></option>
+                            <option th:each="paisOpt : ${T(com.baeldung.thymeleaf.model.Pais).values()}"
+                                th:value="${paisOpt}" th:text="${paisOpt}"></option>
                         </select>
                     </td>
                     <td><a th:href="@{/entidad/edit/__${fila.id}__}">Edit</a></td>
@@ -25,16 +26,17 @@
             </tbody>
 
         </table>
-        <div th:fragment="_botonesLista(parametro)">
-        <div class=" text-center container">
-                    <div class="row justify-content-md-center">
-                        <div class="col col-md-2">
-                            <a class="btn btn-success my-2" th:href="@{/${parametro}/registrar}">Nuevo</a>
-                        </div>
-                        <div class="col col-md-2">
-                            <a class="btn btn-primary my-2" th:href="@{/}">Volver</a>
-                        </div>
-                    </div>
-                </div>
-		</div>
+
+</div>
+<div th:fragment="_botonesLista(parametro)">
+    <div class=" text-center container">
+        <div class="row justify-content-md-center">
+            <div class="col col-md-2">
+                <a class="btn btn-success my-2" th:href="@{/${parametro}/registrar}">Nuevo</a>
+            </div>
+            <div class="col col-md-2">
+                <a class="btn btn-primary my-2" th:href="@{/}">Volver</a>
+            </div>
+        </div>
+    </div>
 </div>

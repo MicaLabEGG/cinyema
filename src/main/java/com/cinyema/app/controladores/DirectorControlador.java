@@ -40,7 +40,7 @@ public class DirectorControlador {
 	
 	@GetMapping("/registrar")
 	public String guardar(ModelMap modelo) {
-		modelo.addAttribute("registrar", "Registrar Directores");
+		modelo.addAttribute("registrar", "Registrar Director");
 		return "admin/vistas/director";
 	}
 	
@@ -50,7 +50,7 @@ public class DirectorControlador {
 		
 		try {
 			Director director = directorServicio.crearDirector(nombre, pais);
-			modelo.addAttribute("director", director);
+			modelo.put("director", director);
 			modelo.put("exito", "Ingreso exitoso");
 			return "admin/vistas/director";
 		} catch (Exception e) {

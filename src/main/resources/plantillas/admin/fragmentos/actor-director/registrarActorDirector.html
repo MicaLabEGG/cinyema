@@ -1,10 +1,10 @@
-<div th:fragment="_registrarActorDirector(registro,error)">
+<div th:fragment="_registrarActorDirector(entidadARegistrar,error)">
 
     <section class="container">
-        <div class="row vh-100 justify-content-center align-items-center">
+        <div class="row vh-50 justify-content-center align-items-center">
             <div class="col-auto">
 
-                <h1 th:text="${registro}" class="text-center"></h1>
+                <h1 th:text="${registrar}" class="text-center"></h1>
 
                 <div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
                     <div class="card-body">
@@ -13,15 +13,17 @@
                     </div>
                 </div>
 
-                <form th:action="@{/__${registro}/registrar}" method="POST">
+                <form th:action="@{/__${entidadARegistrar}/registrar}" method="POST">
                     <div class="form-group">
                         <label class="form-label">Nombre</label>
                         <input type="text" class="form-control" name="nombre" th:value="${nombre}" required></input>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Pais</label>
-                        <textarea class="form-control" style="height: 100px" name="pais"
-                            th:value="${pais}"></textarea>
+                        <select class="form-select" name="pais" required>
+                            <option th:each="pais : ${T(com.cinyema.app.enumeraciones.Pais).values()}"
+                                th:value="${pais}" th:text="${pais}"></option>
+                        </select>
                     </div>
 
 

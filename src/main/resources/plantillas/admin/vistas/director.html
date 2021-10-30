@@ -17,7 +17,7 @@
     
     <div th:if="${registrar}!= null">
         <div
-            th:replace="admin/fragmentos/actor-director/registrarActorDirector.html :: _registrarActorDirector(registro=${director}, error=${error})">
+            th:replace="admin/fragmentos/actor-director/registrarActorDirector.html :: _registrarActorDirector(entidadARegistrar=${director}, error=${error})">
         </div>
         
 </body>

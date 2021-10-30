@@ -7,14 +7,11 @@
     <nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
     <div th:if="${directores}!= null">
         <table>
-            <thead th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _listarActorDirector">
+            <thead th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _listarActorDirector(parametro=${directores})">
             </thead>
             <div
-                th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _tbody(parametro=${directores})">
-            </div>
-            <div
             th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _botonesLista(parametro='director')">
-        </div>
+        	</div>
         </table>
     </div>
     <div th:if="${registrar}!= null">

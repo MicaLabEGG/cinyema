@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="admin/fragmentos/head :: _head"></head>
+
+<body>
+    <nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
+    <table>
+            <thead th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _listarActorDirector">
+            </thead>
+            <div
+                th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: tbody(parametro=${actores})">
+            </div>
+    </table>
+</body>
+
+</html>

@@ -4,26 +4,23 @@
 <head th:replace="admin/fragmentos/head :: _head"></head>
 
 <body>
-    <nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
+	<nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
 
-    <div th:if="${listar}!= null">
-        <table
-            th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _listarActorDirector(botones='actor', lista=${actores})">
-            >
-        </table>
-    </div>
+	<div th:if="${listar}!= null">
+		<div th:replace="admin/fragmentos/actor/listarActor.html :: _listarActor(actores=${actores})">>
+		</div>
+	</div>
 
-    <div th:if="${registrar}!= null">
-        <div
-            th:replace="admin/fragmentos/actor-director/registrarActorDirector.html :: _registrarActorDirector(entidadARegistrar=${actor}, error=${error})">
-        </div>
-    </div>
-    
-    <div th:if="${editar}!= null">
-         <div
-                th:replace="admin/fragmentos/actor-director/registrarActorDirector.html :: _editarActorDirector(entidadAEditar=${actor}, error=${error})">
-         </div>
-    </div>
+	<div th:if="${registrar}!= null">
+		<div th:replace="admin/fragmentos/actor/registrarActor.html :: _registrarActor(actor=${actor}, error=${error})">
+		</div>
+	</div>
+
+	<div th:if="${editar}!= null">
+		<div th:replace="admin/fragmentos/actor/editarActor.html :: _editarActor(actor=${actor}, error=${error})">>
+		</div>
+	</div>
+	</div>
 </body>
 
 </html>

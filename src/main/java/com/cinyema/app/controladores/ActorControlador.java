@@ -62,7 +62,7 @@ public class ActorControlador {
 			Actor actor = actorServicio.obtenerActor(id);
 			modelo.addAttribute("editar", "Editar Actor");
 			modelo.addAttribute("actor", actor);
-			return "modificar-actor";
+			return "admin/vistas/actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Falta algun dato");
@@ -76,7 +76,7 @@ public class ActorControlador {
 		try {
 			actorServicio.modificarActor(id, nombreCompleto, pais);
 			modelo.put("exito", "Ingreso exitoso!");
-			return "redirect:/actor";
+			return "admin/vistas/actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();

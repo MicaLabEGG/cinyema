@@ -53,7 +53,6 @@ public class DirectorServicio {
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminarDirector(Long idDirector) {
-
 		directorRepositorio.deleteById(idDirector);
 	}
 

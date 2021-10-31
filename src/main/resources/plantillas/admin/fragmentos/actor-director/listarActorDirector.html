@@ -16,12 +16,7 @@
                 <tr th:each="fila: ${lista}">
                     <td scope="row" th:text="${fila.id}"></td>
                     <td th:text="${fila.nombre}"></td>
-                    <td>
-                        <select name="pais">
-                            <option th:each="paisOpt : ${T(com.cinyema.app.enumeraciones.Pais).values()}"
-                                th:value="${paisOpt}" th:text="${paisOpt}"></option>
-                        </select>
-                    </td>
+                    <td th:text="${fila.pais}"></td>
                     <td><a th:href="@{/entidad/editar/__${fila.id}__}">Edit</a></td>
                     <td><a th:href="@{/entidad/borrar/__${fila.id}__}">Delete</a></td>
                 </tr>

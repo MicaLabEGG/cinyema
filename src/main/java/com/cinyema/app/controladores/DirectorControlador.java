@@ -70,6 +70,7 @@ public class DirectorControlador {
 
 		try {
 			Director director = directorServicio.verificarDirectorPorId(id);
+			modelo.addAttribute("editar", "Editar Directores");
 			modelo.addAttribute("director", director);
 			return "admin/vistas/director";
 		} catch (Exception e) {
@@ -84,8 +85,7 @@ public class DirectorControlador {
 
 	@SuppressWarnings("finally")
 	@PostMapping("/editar/{id}")
-	public String modificarDirector(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre,
-			@RequestParam Pais pais) throws Exception {
+	public String modificarDirector(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre, @RequestParam Pais pais) throws Exception {
 
 		try {
 			directorServicio.modificarDirector(id, nombre, pais);

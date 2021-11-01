@@ -138,9 +138,9 @@ public class UsuarioServicio implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String nombreDeUsuario) throws UsernameNotFoundException {
 
-		Usuario usuario = usuarioRepositorio.buscarPorEmail(mail);
+		Usuario usuario =  usuarioRepositorio.buscarPorNombreDeUsuario(nombreDeUsuario);
 		User user = null;
 
 		if (usuario != null) {
@@ -148,7 +148,7 @@ public class UsuarioServicio implements UserDetailsService {
 			GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
 			permisos.add(p);
 
-			user = new User(mail, usuario.getContrasenia(), permisos);
+			user = new User(nombreDeUsuario, usuario.getContrasenia(), permisos);
 		} else {
 			throw new UsernameNotFoundException("El ususario no se encontro");
 		}

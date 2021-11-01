@@ -69,7 +69,7 @@ public class DirectorControlador {
 	public String modificar(@PathVariable Long id, ModelMap modelo) {
 
 		try {
-			Director director = directorServicio.verificarDirectorPorId(id);
+			Director director = directorServicio.obtenerDirectorPorId(id);
 			modelo.addAttribute("editar", "Editar Directores");
 			modelo.addAttribute("director", director);
 			return "admin/vistas/director";

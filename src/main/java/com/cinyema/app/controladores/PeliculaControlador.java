@@ -90,14 +90,14 @@ public class PeliculaControlador {
 			return "redirect:/pelicula";	
 			
 		} catch (Exception e) {
-			modelo.put("Error", e.getMessage());
+			modelo.put("error", e.getMessage());
 			// devolvemos los valores ingresados al formulario
 			modelo.put("titulo", titulo);
 			modelo.put("anio", anio);
 			modelo.put("descripcion", descripcion);
 			
 			
-			return "/pelicula/formAgregarPelicula";
+			return "admin/vistas/pelicula";
 		}
 			
 	}

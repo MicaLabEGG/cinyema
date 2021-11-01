@@ -68,13 +68,14 @@ public class TicketControlador {
 		return "redirect:/autores";
 	}
 	
-	@GetMapping()
+	@GetMapping("")
 	public String listaTicket(ModelMap modelo) {
 		
 		List<Ticket> listTickets = servTic.listarTicket();
 
 		modelo.addAttribute("tickets", listTickets);
+		modelo.addAttribute("listar", "Lista de Tickets");
 
-		return "listaTickets.html";
+		return "admin/vistas/ticket.html";
 	}
 }

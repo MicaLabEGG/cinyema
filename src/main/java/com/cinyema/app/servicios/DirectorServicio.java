@@ -19,14 +19,10 @@ public class DirectorServicio {
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director crearDirector(String nombre, Pais pais) throws Exception {
-
 		validar(nombre, pais);
-
 		Director director = verificarDirectorPorNombre(nombre);
-
 		director.setNombre(nombre);
 		director.setPais(pais);
-
 		return directorRepositorio.save(director);
 	}
 
@@ -39,7 +35,6 @@ public class DirectorServicio {
 	}
 
 	public Director verificarDirectorPorId(Long idDirector) {
-
 		Director director = directorRepositorio.getById(idDirector);
 		return director;
 
@@ -47,13 +42,11 @@ public class DirectorServicio {
 
 	@Transactional(readOnly = true)
 	public List<Director> listarDirectores() {
-
 		return directorRepositorio.findAll();
 	}
-	
+
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminarDirector(Long idDirector) {
-
 		directorRepositorio.deleteById(idDirector);
 	}
 

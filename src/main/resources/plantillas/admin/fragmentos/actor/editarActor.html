@@ -1,0 +1,43 @@
+<div th:fragment="_editarActor(actor,error)">
+	<section class="container">
+		<div class="row vh-100 justify-content-center align-items-center">
+			<div class="col-auto">
+				<h1 th:text="${registro}" class="text-center">Editar Actor</h1>
+
+				<div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
+					<div class="card-body">
+						<h5 class="card-title">Error</h5>
+						<p class="card-text" th:text="${error}"></p>
+					</div>
+				</div>
+
+				<form th:action="@{/actor/editar/__${actor.id}__}" method="POST">
+
+					<div class="form-group">
+						<label class="form-label">Nombre</label>
+						<input type="text" class="form-control" name="nombreCompleto" th:value="${nombreCompleto}"
+							required></input>
+					</div>
+
+					<div class="form-group">
+						<label class="form-label">Pais</label>
+						<select class="form-select" name="pais" required>
+							<option th:each="pais : ${T(com.cinyema.app.enumeraciones.Pais).values()}"
+								th:value="${pais}" th:text="${pais}"></option>
+						</select>
+					</div>
+
+					<label class="form-label">Peliculas (multiple select):</label>
+					<select th:field="*{pelicula}" multiple="multiple">
+						<option th:each="pelicula : ${peliculas}" th:value="${{pelicula}}" th:text="${pelicula.titulo}">
+						</option>
+					</select>
+
+					<button class="btn btn-primary" type="submit">Guardar</button>
+
+				</form>
+
+			</div>
+		</div>
+	</section>
+</div>

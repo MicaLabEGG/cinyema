@@ -20,10 +20,10 @@
 					<td th:text="${director.nombre}"></td>
 					<td th:text="${director.pais}"></td>
 					<td>
-						<a th:href="@{/director/editar/__${director.idDirector}__}"><i class="fa fa-arrow-up"></i></a>
+						<a th:href="@{/director/editar/__${director.idDirector}__}"class="btn btn-primary" role="button" aria-pressed="true">Modificar</a>
 					</td>
 					<td>
-						<a th:href="@{/director/eliminar/__${director.idDirector}__}"><i class="fa fa-ban"></i></a>
+						<a th:href="@{/director/eliminar/__${director.idDirector}__}"class="btn btn-danger" role="button" aria-pressed="true">Eliminar</a>
 					</td>
 				</tr>
 

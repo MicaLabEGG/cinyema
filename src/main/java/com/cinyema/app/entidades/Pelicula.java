@@ -4,14 +4,15 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -47,7 +48,11 @@ public class Pelicula implements Serializable {
 	private Boolean alta;
 	@OneToOne
 	private Director director;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pelicula")
+	@ManyToMany
+	@JoinTable(
+			  name = "peliculaActor", 
+			  joinColumns = @JoinColumn(name = "idPelicula"), 
+			  inverseJoinColumns = @JoinColumn(name = "idActor"))
 	private List<Actor> actores;
 	
 	public Pelicula() {

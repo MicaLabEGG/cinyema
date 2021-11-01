@@ -68,7 +68,7 @@ public class TicketControlador {
 		return "redirect:/autores";
 	}
 	
-	@GetMapping()
+	@GetMapping("")
 	public String listaTicket(ModelMap modelo) {
 		
 		List<Ticket> listTickets = servTic.listarTicket();

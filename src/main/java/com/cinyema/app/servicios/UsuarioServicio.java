@@ -1,12 +1,13 @@
 package com.cinyema.app.servicios;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +35,10 @@ public class UsuarioServicio implements UserDetailsService {
 
 	@Transactional
 	public Usuario registroUsuario(String nombre, String mail, String nombreDeUsuario, String contrasenia,
-			Date fechaNacimiento) throws Exception {
-
+			String fechaNacimiento2) throws Exception {
+		
+		Date fechaNacimiento = new SimpleDateFormat("dd-MM-yyyy").parse(fechaNacimiento2);
+	
 		validar(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
 
 		validarMayoriaEdad(fechaNacimiento);
@@ -92,13 +95,12 @@ public class UsuarioServicio implements UserDetailsService {
 
 	@Transactional
 	public Usuario obtenerUsuarioPorNombreDeUsuario(String nombreDeUsuario) throws Exception {
-		Optional<Usuario> result = usuarioRepositorio.buscarPorNombreDeUsuario(nombreDeUsuario);
+		Usuario result = usuarioRepositorio.buscarPorNombreDeUsuario(nombreDeUsuario);
 
-		if (result.isEmpty()) {
+		if (result == null) {
 			throw new Exception("No se encontro");
 		} else {
-			Usuario usuario = result.get();
-			return usuario;
+			return result;
 		}
 	}
 

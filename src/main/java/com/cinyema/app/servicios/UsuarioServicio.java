@@ -27,10 +27,10 @@ public class UsuarioServicio {
 	
 	
 	@Transactional
-	public Usuario registroUsuario(String nombre, String mail, String nombreDeUsuario, String contrasenia, Boolean alta, Date fechaNacimiento, Rol rol) throws Exception{
+	public Usuario registroUsuario(String nombre, String mail, String nombreDeUsuario, String contrasenia, Date fechaNacimiento) throws Exception{
 		
 
-		validar(nombre, mail, nombreDeUsuario, contrasenia, alta, fechaNacimiento, rol);
+		validar(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
 		
 		validarMayoriaEdad(fechaNacimiento);
 		
@@ -39,17 +39,17 @@ public class UsuarioServicio {
 		usuario.setMail(mail);
 		usuario.setNombreDeUsuario(nombreDeUsuario);
 		usuario.setContrasenia(contrasenia);
-		usuario.setAlta(alta);
+		usuario.setAlta(true);
 		usuario.setFechaNacimiento(fechaNacimiento);
-		usuario.setRol(rol);
+		usuario.setRol(Rol.USUARIO);
 		return usuarioRepositorio.save(usuario);
 	}
 	
 	@Transactional
-	public Usuario modificarUsuario(Long id, String nombre, String mail, String nombreDeUsuario, String contrasenia, Boolean alta, Date fechaNacimiento, Rol rol) throws Exception{
+	public Usuario modificarUsuario(Long id, String nombre, String mail, String nombreDeUsuario, String contrasenia, Date fechaNacimiento) throws Exception{
 		
 
-		validar(nombre, mail, nombreDeUsuario, contrasenia, alta, fechaNacimiento, rol);
+		validar(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
 
 		
 		Usuario usuario = obtenerUsuario(id);  //Crear metodo obtenerUsuario
@@ -57,9 +57,9 @@ public class UsuarioServicio {
 		usuario.setMail(mail);
 		usuario.setNombreDeUsuario(nombreDeUsuario);
 		usuario.setContrasenia(contrasenia);
-		usuario.setAlta(alta);
+		usuario.setAlta(true);
 		usuario.setFechaNacimiento(fechaNacimiento);
-		usuario.setRol(rol);
+		usuario.setRol(Rol.USUARIO);
 		return usuarioRepositorio.save(usuario);
 		
 	}
@@ -100,7 +100,7 @@ public class UsuarioServicio {
 		usuarioRepositorio.deleteById(idUsuario);
 	}
 	
-	public void validar(String nombre, String mail, String nombreDeUsuario, String contrasenia, Boolean alta, Date fechaDeNacimiento, Rol rol) throws Exception {
+	public void validar(String nombre, String mail, String nombreDeUsuario, String contrasenia, Date fechaDeNacimiento) throws Exception {
 		
 		Date hoy = new Date();
 		
@@ -123,21 +123,11 @@ public class UsuarioServicio {
 		if (contrasenia == null || contrasenia.isEmpty() || contrasenia.contains("  ")) {
 			throw new Exception();
 		}
-		
-		
-		if(alta == null) {
-			throw new Exception();
-		}
-	
 	
 		if(fechaDeNacimiento == null || fechaDeNacimiento.after(hoy)) {
 			throw new Exception();
 		}
 	
-		
-		if(rol == null) {
-			throw new Exception();
-		}
 	}
 
 	public Boolean validarMayoriaEdad(Date fechaNacimiento) {

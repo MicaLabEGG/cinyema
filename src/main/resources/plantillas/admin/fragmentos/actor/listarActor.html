@@ -8,7 +8,6 @@
 					<th scope="col">Id</th>
 					<th scope="col">Nombre</th>
 					<th scope="col">Pais</th>
-					<th scope="col">Peliculas</th>
 					<th scope="col">Modificar</th>
 					<th scope="col">Eliminar</th>
 				</tr>
@@ -18,7 +17,6 @@
 					<th scope="row" th:text="${actor.idActor}"></th>
 					<td th:text="${actor.nombreCompleto}"></td>
 					<td th:text="${actor.pais}"></td>
-					<td th:text="${actor.pelicula}"></td>
 					<td>
 						<a th:href="@{/actor/editar/__${actor.id}__}"><i class="fa fa-arrow-up"></i></a>
 					</td>

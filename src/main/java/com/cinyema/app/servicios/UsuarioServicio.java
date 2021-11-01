@@ -9,10 +9,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.enumeraciones.Rol;
@@ -92,6 +93,11 @@ public class UsuarioServicio {
 			Usuario usuario = result.get();
 			return usuario;
 		}
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void eliminarUsuario(Long idUsuario) {
+		usuarioRepositorio.deleteById(idUsuario);
 	}
 	
 	public void validar(String nombre, String mail, String nombreDeUsuario, String contrasenia, Boolean alta, Date fechaDeNacimiento, Rol rol) throws Exception {

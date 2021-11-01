@@ -74,7 +74,8 @@ public class TicketControlador {
 		List<Ticket> listTickets = servTic.listarTicket();
 
 		modelo.addAttribute("tickets", listTickets);
+		modelo.addAttribute("listar", "Lista de Tickets");
 
-		return "listaTickets.html";
+		return "admin/vistas/ticket.html";
 	}
 }

@@ -50,11 +50,11 @@ public class UsuarioControlador {
 	
 	@SuppressWarnings("finally")
 	@PostMapping("/registrar")
-	public String guardarUsuario(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam("mail") String mail, @RequestParam("nombreDeUsuario") String nombreDeUsuario, @RequestParam("contrasenia") String contrasenia, @RequestParam("alta") Boolean alta, @RequestParam("fechaNacimiento") Date fechaNacimiento, @RequestParam Rol rol)
+	public String guardarUsuario(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam("mail") String mail, @RequestParam("nombreDeUsuario") String nombreDeUsuario, @RequestParam("contrasenia") String contrasenia, @RequestParam("fechaNacimiento") Date fechaNacimiento)
 			throws Exception{
 		
 		try {
-			Usuario usuario =usuarioServicio.registroUsuario(nombre, mail, nombreDeUsuario, contrasenia, alta, fechaNacimiento, rol);
+			Usuario usuario =usuarioServicio.registroUsuario(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
 			modelo.put("exito", "ingreso exitoso");
 			modelo.put("usuario", usuario);
 			return "redirect:/lista_usuarios";
@@ -90,11 +90,11 @@ public class UsuarioControlador {
 	
 	@SuppressWarnings("finally")
 	@PostMapping("/editar/{id}")
-	public String modificarUsuario(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre, @RequestParam String mail, @RequestParam String nombreDeUsuario, @RequestParam String contrasenia, @RequestParam Boolean alta, @RequestParam Date fechaNacimiento, @RequestParam Rol rol)
+	public String modificarUsuario(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre, @RequestParam String mail, @RequestParam String nombreDeUsuario, @RequestParam String contrasenia, @RequestParam Date fechaNacimiento)
 			throws Exception{
 		
 		try {
-			usuarioServicio.modificarUsuario(id, nombre, mail, nombreDeUsuario, contrasenia, alta, fechaNacimiento, rol);
+			usuarioServicio.modificarUsuario(id, nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
 			modelo.put("exito", "Modificacion exitosa");
 			return "admin/vistas/usuario";
 		}

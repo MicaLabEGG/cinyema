@@ -1,17 +1,12 @@
 package com.cinyema.app.entidades;
 
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.cinyema.app.enumeraciones.Pais;
-import com.cinyema.app.funciones.RandomId;
 
 @Entity
 public class Director {

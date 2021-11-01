@@ -42,12 +42,13 @@ public class PeliculaControlador {
 	
 	
 	
-	@GetMapping()
+	@GetMapping("")
 	public String listarPeliculas(ModelMap modelo) {
 		List<Pelicula> peliculas = servicioPelicula.listarPeliculas();
 		modelo.addAttribute("peliculas", peliculas);
+		modelo.addAttribute("listar", "Lista de Peliculas");
 		
-		return "/pelicula/pelicula";
+		return "admin/vistas/pelicula";
 	}
 	
 	
@@ -75,8 +76,9 @@ public class PeliculaControlador {
 		List<Actor> actores = servicioActor.buscarActores();
 		modelo.addAttribute("directores",directores);
 		modelo.addAttribute("actores",actores);
+		modelo.addAttribute("registro", "Registro de Peliculas");
 		
-		return "/pelicula/formAgregarPelicula";
+		return "admin/vistas/pelicula";
 	}
 	
 	@PostMapping("/agregarPelicula") 
@@ -88,14 +90,14 @@ public class PeliculaControlador {
 			return "redirect:/pelicula";	
 			
 		} catch (Exception e) {
-			modelo.put("Error", e.getMessage());
+			modelo.put("error", e.getMessage());
 			// devolvemos los valores ingresados al formulario
 			modelo.put("titulo", titulo);
 			modelo.put("anio", anio);
 			modelo.put("descripcion", descripcion);
 			
 			
-			return "/pelicula/formAgregarPelicula";
+			return "admin/vistas/pelicula";
 		}
 			
 	}

@@ -1,5 +1,6 @@
 package com.cinyema.app.servicios;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,13 @@ import java.util.Optional;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +28,7 @@ import com.cinyema.app.enumeraciones.Rol;
 import com.cinyema.app.repositorios.UsuarioRepositorio;
 
 @Service
-public class UsuarioServicio {
+public class UsuarioServicio  implements UserDetailsService{
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
@@ -53,10 +61,13 @@ public class UsuarioServicio {
 
 		
 		Usuario usuario = obtenerUsuario(id);  //Crear metodo obtenerUsuario
+		
+		BCryptPasswordEncoder encriptada = new BCryptPasswordEncoder();
+		
 		usuario.setNombre(nombre);
 		usuario.setMail(mail);
 		usuario.setNombreDeUsuario(nombreDeUsuario);
-		usuario.setContrasenia(contrasenia);
+		usuario.setContrasenia(encriptada.encode(contrasenia));
 		usuario.setAlta(true);
 		usuario.setFechaNacimiento(fechaNacimiento);
 		usuario.setRol(Rol.USUARIO);
@@ -128,6 +139,26 @@ public class UsuarioServicio {
 			throw new Exception();
 		}
 	
+	}
+	
+	@Override
+	public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+		
+		Usuario usuario = usuarioRepositorio.buscarPorEmail(mail);
+		User user = null;
+		
+		if(usuario != null) {
+			List<GrantedAuthority> permisos = new ArrayList<>();
+			GrantedAuthority  p =  new SimpleGrantedAuthority("ROLE_"+usuario.getRol().toString());
+			permisos.add(p);
+			
+			user = new User(mail, usuario.getContrasenia(), permisos);
+		}else {
+			throw new UsernameNotFoundException("El ususario no se encontro");
+		}
+		
+		return user;
+		
 	}
 
 	public Boolean validarMayoriaEdad(Date fechaNacimiento) {

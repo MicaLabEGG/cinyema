@@ -2,6 +2,7 @@
 	<section class="container">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
+			
 				<h1 class="text-center">Registro Actor</h1>
 
 				<div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
@@ -12,13 +13,10 @@
 				</div>
 
 				<form th:action="@{/actor/registrar}" method="POST">
-
 					<div class="form-group">
 						<label class="form-label">Nombre</label>
-						<input type="text" class="form-control" name="nombreCompleto" th:value="${nombreCompleto}"
-							required></input>
+						<input type="text" class="form-control" name="nombreCompleto" th:value="${nombreCompleto}" required></input>
 					</div>
-
 					<div class="form-group">
 						<label class="form-label">Pais</label>
 						<select class="form-select" name="pais" required>
@@ -26,18 +24,9 @@
 								th:value="${pais}" th:text="${pais}"></option>
 						</select>
 					</div>
-
-					<div class="form-group">
-						<label class="form-label">Peliculas</label>
-						<select multiple class="form-select" name="pelicula" required>
-							<option th:each="pelicula : ${pleiculas}" th:value="${pelicula}" th:text="${pelicula}">
-							</option>
-						</select>
-					</div>
-
 					<button class="btn btn-primary" type="submit">Guardar</button>
-
 				</form>
+				
 			</div>
 		</div>
 	</section>

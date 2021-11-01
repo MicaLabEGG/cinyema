@@ -1,0 +1,53 @@
+<div th:fragment="_editarUsuario(usuario,error)">
+	<section class="container">
+		<div class="row vh-50 justify-content-center align-items-center">
+			<div class="col-auto">
+			
+				<h1 class="text-center">Editar Usuario</h1>
+
+				<div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
+					<div class="card-body">
+						<h5 class="card-title">Error</h5>
+						<p class="card-text" th:text="${error}"></p>
+					</div>
+				</div>
+				
+				<form th:action="@{/usuario/editar/__${usuario.idUsuario}__}" method="POST">
+				
+					<div class="form-group">
+						<label class="form-label">Rol</label>
+						<input type="text" class="form-control" name="rol" th:value="${rol}" required></input>
+					</div>
+
+					<div class="form-group">
+						<label class="form-label">Nombre</label>
+						<input type="text" class="form-control" name="nombre" th:value="${nombre}" required></input>
+					</div>
+					
+					<div class="form-group">
+						<label class="form-label">Contraseña</label>
+						<input type="text" class="form-control" name="contrasenia" th:value="${contrasenia}" required></input>
+					</div>
+					
+					<div class="form-group">
+						<label class="form-label">MAil</label>
+						<input type="text" class="form-control" name="mail" th:value="${mail}" required></input>
+					</div>
+					
+					<div class="form-group">
+						<label class="form-label">Fecha de Nacimiento</label>
+						<input type="text" class="form-control" name="fechaNacimiento" th:value="${fechaNacimiento}" required></input>
+					</div>
+					
+					<div class="form-group">
+						<label class="form-label">Nombre de Usuario</label>
+						<input type="text" class="form-control" name="nombreDeUsuario" th:value="${nombreDeUsuario}" required></input>
+					</div>
+					
+					<button class="btn btn-primary" type="submit">Guardar</button>
+				</form>
+
+			</div>
+		</div>
+	</section>
+</div>

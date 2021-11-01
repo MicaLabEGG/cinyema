@@ -20,7 +20,7 @@ public class DirectorServicio {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director crearDirector(String nombre, Pais pais) throws Exception {
 		validar(nombre, pais);
-		Director director = verificarDirectorPorNombre(nombre);
+		Director director = obtenerDirectorPorNombre(nombre);
 		director.setNombre(nombre);
 		director.setPais(pais);
 		return directorRepositorio.save(director);
@@ -28,13 +28,13 @@ public class DirectorServicio {
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director modificarDirector(Long idDirector, String nombre, Pais pais) {
-		Director director = verificarDirectorPorId(idDirector);
+		Director director = directorRepositorio.getById(idDirector);
 		director.setNombre(nombre);
 		director.setPais(pais);
 		return director;
 	}
 
-	public Director verificarDirectorPorId(Long idDirector) {
+	public Director obtenerDirectorPorId(Long idDirector) {
 		Director director = directorRepositorio.getById(idDirector);
 		return director;
 
@@ -50,7 +50,7 @@ public class DirectorServicio {
 		directorRepositorio.deleteById(idDirector);
 	}
 
-	public Director verificarDirectorPorNombre(String nombre) {
+	public Director obtenerDirectorPorNombre(String nombre) {
 		Director director = directorRepositorio.buscarDirectorPorNombre(nombre);
 		if (director == null) {
 			director = directorRepositorio.save(new Director(nombre));

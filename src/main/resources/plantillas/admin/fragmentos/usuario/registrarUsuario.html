@@ -2,7 +2,7 @@
 	<section class="container">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
-			
+
 				<h1 class="text-center">Registrar Director</h1>
 
 				<div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
@@ -13,28 +13,32 @@
 				</div>
 
 				<form action="/Usuario/registrar" method="POST">
-  			<div class="form-group">
-    			<label for="formGroupExampleInput">Nombre</label>
-   			    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre Completo">
- 			 </div>
-  			<div class="form-group">
-   				 <label for="formGroupExampleInput2">Correo Electrónico</label>
-   				 <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Correo Electrónico">
-  			</div>
-  			<div class="form-group">
-   				 <label for="formGroupExampleInput2">Fecha de Nacimiento</label>
-   				 <input type="date" class="form-control" id="formGroupExampleInput2" placeholder="Fecha de Nacimiento">
-  			</div>
-  			<div class="form-group">
-    			<label for="formGroupExampleInput">Nombre de Usuario</label>
-   			    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Nombre de Usuario">
- 			 </div>
-  			<div class="form-group">
-   				 <label for="formGroupExampleInput2">Contraseña</label>
-   				 <input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Contraseña">
-  			</div>
-  			<button type="button" class="btn btn-dark">Registrarse</button>
-		</form>
+					<div class="form-group">
+						<label for="formGroupExampleInput">Nombre</label>
+						<input type="text" class="form-control" id="formGroupExampleInput"
+							placeholder="Nombre Completo">
+					</div>
+					<div class="form-group">
+						<label for="formGroupExampleInput2">Correo Electrónico</label>
+						<input type="text" class="form-control" id="formGroupExampleInput2"
+							placeholder="Correo Electrónico">
+					</div>
+					<div class="form-group">
+						<label for="formGroupExampleInput2">Fecha de Nacimiento</label>
+						<input type="date" class="form-control" id="formGroupExampleInput2"
+							placeholder="Fecha de Nacimiento">
+					</div>
+					<div class="form-group">
+						<label for="formGroupExampleInput">Nombre de Usuario</label>
+						<input type="text" class="form-control" id="formGroupExampleInput"
+							placeholder="Nombre de Usuario">
+					</div>
+					<div class="form-group">
+						<label for="formGroupExampleInput2">Contraseña</label>
+						<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Contraseña">
+					</div>
+					<button type="button" class="btn btn-dark">Registrarse</button>
+				</form>
 
 			</div>
 		</div>

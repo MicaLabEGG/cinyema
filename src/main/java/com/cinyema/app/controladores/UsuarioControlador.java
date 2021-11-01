@@ -24,7 +24,7 @@ public class UsuarioControlador {
 	UsuarioServicio usuarioServicio;
 	
 	@SuppressWarnings("finally")
-	@GetMapping()
+	@GetMapping("")
 	public String mostrarUsuarios(ModelMap modelo) throws Exception {
 		
 		try {

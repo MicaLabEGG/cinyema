@@ -7,19 +7,19 @@
 	<nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
 
 	<div th:if="${listar}!= null">
-		<div th:replace="admin/fragmentos/actor/listarActor.html :: _listarActor(actores=${actores})">>
+		<div th:replace="admin/fragmentos/usuario/listarUsuario.html :: _listarUsuario(usuarios=${usuarios})">
 		</div>
 	</div>
 
 	<div th:if="${registrar}!= null">
-		<div 
-			th:replace="admin/fragmentos/actor/registrarActor.html :: _registrarActor(actor=${actor}, error=${error})">
+		<div
+			th:replace="admin/fragmentos/usuario/registrarUsuario.html :: _registrarUsuario(usuario=${usuario}, error=${error})">
 		</div>
 	</div>
 
 	<div th:if="${editar}!= null">
-		<div 
-			th:replace="admin/fragmentos/actor/editarActor.html :: _editarActor(actor=${actor}, error=${error})">>
+		<div
+			th:replace="admin/fragmentos/usuario/editarUsuario.html :: _editarUsuario(usuario=${usuario}, error=${error})">
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

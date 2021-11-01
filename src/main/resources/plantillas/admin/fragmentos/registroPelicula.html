@@ -27,16 +27,16 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">Director</label>
-                    <select class="form-select" name="director" required>
+                    <select class="form-select" name="idDirector" required>
                         <option th:each="director : ${director}" 
-        th:value="${director}" th:text="${director}"></option>
+        th:value="${director.idDirector}" th:text="${director}"></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Actores</label>
-                    <select multiple class="form-select" name="actores" required>
+                    <select multiple class="form-select" name="idActor" required>
                         <option th:each="actor : ${actores}" 
-        th:value="${actor}" th:text="${actor}"></option>
+        th:value="${{actor}}" th:text="${actor}"></option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -67,6 +67,10 @@
                 <div class="form-group">
                     <label class="form-label">Duracion</label>
                     <input type="text" class="form-control" name="duracion" th:value="${duracion}" required></input>
+                </div>
+                <div class="form-group">
+                    <label for="formFile" class="form-label">Imagen</label>
+                    <input type="file" class="form-control"  id="formFile" name="archivo" th:value="${archivo}"></input>
                 </div>
                 
 

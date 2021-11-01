@@ -47,11 +47,11 @@ public class ActorControlador {
 			Actor actor = actorServicio.registrarActor(nombreCompleto, pais);
 			modelo.put("actor", actor);
 			modelo.put("exito", "Ingreso exitoso!");
-			return "admin/vistas/actor";
+			return "redirect:/actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Falta algun dato o no puede ingresar un Actor con igual nombre a otro");
-			return "admin/vistas/actor";
+			return "redirect:/actor";
 		}
 	}
 
@@ -62,7 +62,7 @@ public class ActorControlador {
 			Actor actor = actorServicio.obtenerActor(id);
 			modelo.addAttribute("editar", "Editar Actor");
 			modelo.addAttribute("actor", actor);
-			return "modificar-actor";
+			return "admin/vistas/actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Falta algun dato");
@@ -82,7 +82,19 @@ public class ActorControlador {
 			e.printStackTrace();
 			modelo.addAttribute("error", e.getMessage());
 		}
-		return "admin/vistas/actor";
+		return "redirect:/actor";
+	}
+	
+	@GetMapping("/eliminar/{id}")
+	public String eliminar(@PathVariable Long id) {
+		try {
+			actorServicio.eliminarDirector(id);
+			return "redirect:/actor";		
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "redirect:/actor";	
+		}
+		
 	}
 	
 }

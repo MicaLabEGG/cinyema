@@ -4,19 +4,27 @@
 <head th:replace="admin/fragmentos/head :: _head"></head>
 
 <body>
-    <nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
-    
-    <div th:if="${listar}!= null">
-        <table 
-        	th:replace="admin/fragmentos/actor-director/listarActorDirector.html :: _listarActorDirector(botones='director', lista=${directores})">>
-        </table>
-    </div>
-    
-    <div th:if="${registrar}!= null">
-        <div
-            th:replace="admin/fragmentos/actor-director/registrarActorDirector.html :: _registrarActorDirector(entidadARegistrar=${director}, error=${error})">
-        </div>
-        
+	<nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
+
+	<div th:if="${listar}!= null">
+		<div th:replace="admin/fragmentos/director/listarDirector.html :: _listarDirector(directores=${directores})">>
+		</div>
+	</div>
+
+	<div th:if="${registrar}!= null">
+		<div
+			th:replace="admin/fragmentos/director/registrarDirector.html :: _registrarDirector(director=${director}, error=${error})">
+		</div>
+	</div>
+
+	<div th:if="${editar}!= null">
+		<div
+			th:replace="admin/fragmentos/director/editarDirector.html :: _editarDirector(director=${director}, error=${error})">
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
 </body>
 
 </html>

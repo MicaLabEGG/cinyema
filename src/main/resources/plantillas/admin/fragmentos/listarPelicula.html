@@ -1,4 +1,4 @@
-<div th:fragment="_listarPelicula(pelicula)">
+<div th:fragment="_listarPelicula(peliculas)">
     <section class="container m-5">
         <!-- clase de bootstrap -->
         <h1 class="text-center">Listar Pelicula </h1>
@@ -22,7 +22,7 @@
                     <th scope="col">Eliminar</th>
                 </tr>
             </thead>
-            <tbody th:each="pelicula : ${pelicula}">
+            <tbody th:each="pelicula : ${peliculas}">
                 <tr>
                     <th scope="row" th:text="${pelicula.id}"></th>
                     <td th:text="${pelicula.titulo}"></td>
@@ -50,7 +50,7 @@
         <div class=" text-center container">
             <div class="row justify-content-md-center">
                 <div class="col col-md-2">
-                    <a th:href="@{/pelicula/registro}" class="btn btn-success my-2">Nuevo</a>
+                    <a th:href="@{/pelicula/agregarPelicula}" class="btn btn-success my-2">Nuevo</a>
                 </div>
                 <div class="col col-md-2">
                     <a th:href="@{/}" class="btn btn-primary my-2">Volver</a>

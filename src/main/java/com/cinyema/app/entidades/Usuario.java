@@ -13,21 +13,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.cinyema.app.enumeraciones.Rol;
-import com.cinyema.app.funciones.RandomId;
 
 @Entity
 @Table(name = "usuario")
 public class Usuario {
 	
-	@Autowired
-	private RandomId randomId;
-	
 	@Id
-	private Long idUsuario = randomId.randomId();
+	private Long idUsuario = randomId();
 	
 	private String nombre;
 	private String mail;
@@ -131,6 +124,13 @@ public class Usuario {
 
 	public void setTicket(List<Ticket> ticket) {
 		this.ticket = ticket;
+	}
+	
+	public Long randomId() {
+		String uuid = UUID.randomUUID().toString();
+		Long id = (long) uuid.hashCode();
+		id = id<0 ? -id:id;
+		return id;
 	}
 
 	@Override

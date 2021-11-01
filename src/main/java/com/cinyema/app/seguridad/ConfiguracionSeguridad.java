@@ -36,7 +36,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 								.and().formLogin()
 												.loginPage("/login")
 												.loginProcessingUrl("/logincheck")
-												.usernameParameter("mail")
+												.usernameParameter("nombredeusuario")
 												.passwordParameter("contrasenia")
 												.defaultSuccessUrl("/")
 												.failureUrl("/login?error=error")

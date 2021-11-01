@@ -54,13 +54,13 @@ public class DirectorControlador {
 			Director director = directorServicio.crearDirector(nombre, pais);
 			modelo.put("director", director);
 			modelo.put("exito", "Ingreso exitoso");
-			return "admin/vistas/director";
+			return "redirect:/director";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Error al ingresar los datos del director");
-			return "admin/vistas/director";
+			return "redirect:/director";
 		} finally {
-			return "admin/vistas/director";
+			return "redirect:/director";
 		}
 	}
 
@@ -90,25 +90,25 @@ public class DirectorControlador {
 		try {
 			directorServicio.modificarDirector(id, nombre, pais);
 			modelo.put("exito", "Modificacion exitosa");
-			return "admin/vistas/director";
+			return "redirect:/director";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Falta algun dato al ingresar un Director");
-			return "admin/vistas/director";
+			return "redirect:/director";
 		} finally {
-			return "admin/vistas/director";
+			return "redirect:/director";
 		}
 
 	}
 	
 	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable Long idPelicula) {
+	public String eliminar(@PathVariable Long id) {
 		try {
-			directorServicio.eliminarDirector(idPelicula);
-			return "admin/vistas/director";		
+			directorServicio.eliminarDirector(id);
+			return "redirect:/director";		
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return "admin/vistas/director";	
+			return "redirect:/director";	
 		}
 		
 	}

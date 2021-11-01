@@ -23,78 +23,94 @@ public class DirectorControlador {
 	DirectorServicio directorServicio;
 
 	@SuppressWarnings("finally")
-	@GetMapping()
+	@GetMapping("")
 	public String mostrarDirectores(ModelMap modelo) throws Exception {
 
 		try {
 			List<Director> listaDirector = directorServicio.listarDirectores();
-			modelo.addAttribute("director", listaDirector);
+			modelo.addAttribute("listar", "Lista Directores");
+			modelo.addAttribute("directores", listaDirector);
+			return "admin/vistas/director";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		} finally {
-			return "lista_directores";
+			return "admin/vistas/director";
 		}
 
 	}
 
-	@GetMapping("/guardar")
-	public String guardar() {
-		return "guardar_director";
+	@GetMapping("/registrar")
+	public String guardar(ModelMap modelo) {
+		modelo.addAttribute("registrar", "Registrar Director");
+		return "admin/vistas/director";
 	}
 
 	@SuppressWarnings("finally")
-	@PostMapping("/guardar")
+	@PostMapping("/registrar")
 	public String guardarDirector(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam Pais pais)
 			throws Exception {
 
 		try {
-			directorServicio.crearDirector(nombre, pais);
+			Director director = directorServicio.crearDirector(nombre, pais);
+			modelo.put("director", director);
 			modelo.put("exito", "Ingreso exitoso");
+			return "redirect:/director";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Error al ingresar los datos del director");
-			return "gurdar_director";
-
+			return "redirect:/director";
 		} finally {
-			return "redirect:/lista_directores";
+			return "redirect:/director";
 		}
 	}
 
 	@SuppressWarnings("finally")
-	@GetMapping("/modificar/{id}")
+	@GetMapping("/editar/{id}")
 	public String modificar(@PathVariable Long id, ModelMap modelo) {
 
 		try {
-			Director director = directorServicio.verificarDirectorPorId(id);
+			Director director = directorServicio.obtenerDirectorPorId(id);
+			modelo.addAttribute("editar", "Editar Directores");
 			modelo.addAttribute("director", director);
-
+			return "admin/vistas/director";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Falta algun dato");
 			return "modificar_director";
 		} finally {
-			return "redirect:/lista_directores";
+			return "admin/vistas/director";
 		}
 
 	}
 
 	@SuppressWarnings("finally")
-	@PostMapping("/modificar/{id}")
-	public String modificarDirector(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre,
-			@RequestParam Pais pais) throws Exception {
+	@PostMapping("/editar/{id}")
+	public String modificarDirector(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre, @RequestParam Pais pais) throws Exception {
 
 		try {
 			directorServicio.modificarDirector(id, nombre, pais);
-			modelo.put("exito", "Modificacon exitosa");
-
+			modelo.put("exito", "Modificacion exitosa");
+			return "redirect:/director";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			System.out.println(e.getStackTrace());
 			modelo.put("error", "Falta algun dato al ingresar un Director");
-			return "modificar_directores";
+			return "redirect:/director";
 		} finally {
-			return "redirect:/lista_directores";
+			return "redirect:/director";
 		}
+
+	}
+	
+	@GetMapping("/eliminar/{id}")
+	public String eliminar(@PathVariable Long id) {
+		try {
+			directorServicio.eliminarDirector(id);
+			return "redirect:/director";		
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return "redirect:/director";	
+		}
+		
 	}
 
 }

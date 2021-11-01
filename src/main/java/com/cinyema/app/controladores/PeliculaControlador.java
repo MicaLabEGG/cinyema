@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.entidades.Director;
@@ -41,12 +42,13 @@ public class PeliculaControlador {
 	
 	
 	
-	@GetMapping()
+	@GetMapping("")
 	public String listarPeliculas(ModelMap modelo) {
 		List<Pelicula> peliculas = servicioPelicula.listarPeliculas();
 		modelo.addAttribute("peliculas", peliculas);
+		modelo.addAttribute("listar", "Lista de Peliculas");
 		
-		return "/pelicula/pelicula";
+		return "admin/vistas/pelicula";
 	}
 	
 	
@@ -74,27 +76,28 @@ public class PeliculaControlador {
 		List<Actor> actores = servicioActor.buscarActores();
 		modelo.addAttribute("directores",directores);
 		modelo.addAttribute("actores",actores);
+		modelo.addAttribute("registro", "Registro de Peliculas");
 		
-		return "/pelicula/formAgregarPelicula";
+		return "admin/vistas/pelicula";
 	}
 	
 	@PostMapping("/agregarPelicula") 
-	public String guardarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Imagen imagen, @RequestParam Long idDirector, @RequestParam Long idActor) throws Exception{
+	public String guardarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Long idDirector, @RequestParam Long idActor, MultipartFile archivo) throws Exception{
 		
 		try {
-			servicioPelicula.crearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, idDirector, idActor);
+			servicioPelicula.crearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, idDirector, idActor, archivo);
 			
 			return "redirect:/pelicula";	
 			
 		} catch (Exception e) {
-			modelo.put("Error", e.getMessage());
+			modelo.put("error", e.getMessage());
 			// devolvemos los valores ingresados al formulario
 			modelo.put("titulo", titulo);
 			modelo.put("anio", anio);
 			modelo.put("descripcion", descripcion);
 			
 			
-			return "/pelicula/formAgregarPelicula";
+			return "admin/vistas/pelicula";
 		}
 			
 	}
@@ -117,10 +120,10 @@ public class PeliculaControlador {
 	}
 	
 	@PostMapping("/modificarPelicula") 
-	public String editarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Imagen imagen, @RequestParam Long idDirector, @RequestParam Long idActor) throws Exception{
+	public String editarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Long idDirector, @RequestParam Long idActor, MultipartFile archivo) throws Exception{
 		
 		try {
-			servicioPelicula.modificarPelicula(idPelicula, titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, imagen, idDirector, idActor);
+			servicioPelicula.modificarPelicula(idPelicula, titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, idDirector, idActor, archivo);
 			
 			return "redirect:/pelicula";
 			

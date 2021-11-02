@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.entidades.Director;
-import com.cinyema.app.entidades.Imagen;
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.enumeraciones.Idioma;

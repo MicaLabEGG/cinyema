@@ -1,12 +1,13 @@
 package com.cinyema.app.servicios;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +35,10 @@ public class UsuarioServicio implements UserDetailsService {
 
 	@Transactional
 	public Usuario registroUsuario(String nombre, String mail, String nombreDeUsuario, String contrasenia,
-			Date fechaNacimiento) throws Exception {
-
+			String fechaNacimiento2) throws Exception {
+		
+		Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimiento2);
+	
 		validar(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
 
 		validarMayoriaEdad(fechaNacimiento);
@@ -92,13 +95,12 @@ public class UsuarioServicio implements UserDetailsService {
 
 	@Transactional
 	public Usuario obtenerUsuarioPorNombreDeUsuario(String nombreDeUsuario) throws Exception {
-		Optional<Usuario> result = usuarioRepositorio.buscarPorNombreDeUsuario(nombreDeUsuario);
+		Usuario result = usuarioRepositorio.buscarPorNombreDeUsuario(nombreDeUsuario);
 
-		if (result.isEmpty()) {
+		if (result == null) {
 			throw new Exception("No se encontro");
 		} else {
-			Usuario usuario = result.get();
-			return usuario;
+			return result;
 		}
 	}
 
@@ -138,9 +140,9 @@ public class UsuarioServicio implements UserDetailsService {
 	}
 
 	@Override
-	public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String nombreDeUsuario) throws UsernameNotFoundException {
 
-		Usuario usuario = usuarioRepositorio.buscarPorEmail(mail);
+		Usuario usuario =  usuarioRepositorio.buscarPorNombreDeUsuario(nombreDeUsuario);
 		User user = null;
 
 		if (usuario != null) {
@@ -148,7 +150,7 @@ public class UsuarioServicio implements UserDetailsService {
 			GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
 			permisos.add(p);
 
-			user = new User(mail, usuario.getContrasenia(), permisos);
+			user = new User(nombreDeUsuario, usuario.getContrasenia(), permisos);
 		} else {
 			throw new UsernameNotFoundException("El ususario no se encontro");
 		}

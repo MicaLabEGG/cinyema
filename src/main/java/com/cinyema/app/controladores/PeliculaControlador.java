@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.entidades.Director;
-import com.cinyema.app.entidades.Imagen;
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.enumeraciones.Idioma;
@@ -46,6 +45,8 @@ public class PeliculaControlador {
 	public String listarPeliculas(ModelMap modelo) {
 		List<Pelicula> peliculas = servicioPelicula.listarPeliculas();
 		modelo.addAttribute("peliculas", peliculas);
+		List<Actor> actores = servicioActor.buscarActores();
+		modelo.addAttribute("actores", actores);
 		modelo.addAttribute("listar", "Lista de Peliculas");
 		
 		return "admin/vistas/pelicula";
@@ -84,7 +85,7 @@ public class PeliculaControlador {
 	}
 	
 	@PostMapping("/agregarPelicula") 
-	public String guardarPelicula(ModelMap modelo,Pelicula pelicula , MultipartFile archivo) throws Exception{
+	public String guardarPelicula(ModelMap modelo,Pelicula pelicula ,@RequestParam MultipartFile archivo) throws Exception{
 		
 		try {
 			servicioPelicula.crearPelicula(pelicula, archivo);

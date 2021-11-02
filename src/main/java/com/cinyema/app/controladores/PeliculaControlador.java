@@ -46,6 +46,8 @@ public class PeliculaControlador {
 	public String listarPeliculas(ModelMap modelo) {
 		List<Pelicula> peliculas = servicioPelicula.listarPeliculas();
 		modelo.addAttribute("peliculas", peliculas);
+		List<Actor> actores = servicioActor.buscarActores();
+		modelo.addAttribute("actores", actores);
 		modelo.addAttribute("listar", "Lista de Peliculas");
 		
 		return "admin/vistas/pelicula";
@@ -84,7 +86,7 @@ public class PeliculaControlador {
 	}
 	
 	@PostMapping("/agregarPelicula") 
-	public String guardarPelicula(ModelMap modelo,Pelicula pelicula , MultipartFile archivo) throws Exception{
+	public String guardarPelicula(ModelMap modelo,Pelicula pelicula ,@RequestParam MultipartFile archivo) throws Exception{
 		
 		try {
 			servicioPelicula.crearPelicula(pelicula, archivo);

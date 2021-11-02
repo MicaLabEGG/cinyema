@@ -1,5 +1,6 @@
 package com.cinyema.app.servicios;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cinyema.app.entidades.Actor;
@@ -61,9 +63,12 @@ public class PeliculaServicio {
 //		p.setSubtitulo(subtitulo);
 //		p.setDirector(d);
 //		p.setActores(a);
+		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
+		if(fileName.contains("..")) {
+			System.out.println("No es un archivo valdio");
+		}
+		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
 		
-		Imagen imagen = imagenServicio.guardarImagen(archivo);
-		pelicula.setImagen(imagen);
 		
 		repositorioPelicula.save(pelicula);
 		
@@ -97,13 +102,11 @@ public class PeliculaServicio {
 				p.setDirector(d);
 				p.setActores(a);
 				
-				Long idImagen = null;
-				if(p.getImagen() != null) {
-					idImagen = p.getImagen().getIdImagen();
+				String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
+				if(fileName.contains("..")) {
+					System.out.println("No es un archivo valdio");
 				}
-				
-				Imagen imagen = imagenServicio.actualizarImagen(idImagen, archivo);
-				p.setImagen(imagen);
+				//pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
 				
 				repositorioPelicula.save(p);
 			}else {

@@ -57,10 +57,11 @@ public class UsuarioControlador {
 			Usuario usuario = usuarioServicio.registroUsuario(nombre, mail, nombreDeUsuario, contrasenia,
 					fechaNacimiento);
 			modelo.put("usuario", usuario);
-			return "redirect:/lista_usuarios";
+			return "redirect:/usuario";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Error al ingresar los datos del usuario");
+			modelo.addAttribute("registrar", "Registrar usuarios");
 			return "admin/vistas/usuario";
 		} 
 	}

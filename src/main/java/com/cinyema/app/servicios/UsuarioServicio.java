@@ -4,13 +4,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +20,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.enumeraciones.Rol;
 import com.cinyema.app.repositorios.UsuarioRepositorio;
@@ -57,9 +54,13 @@ public class UsuarioServicio implements UserDetailsService {
 
 	@Transactional
 	public Usuario modificarUsuario(Long id, String nombre, String mail, String nombreDeUsuario, String contrasenia,
-			Date fechaNacimiento) throws Exception {
+			String fechaNacimiento2) throws Exception {
+		
+		Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimiento2);
 
 		validar(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
+		
+		validarMayoriaEdad(fechaNacimiento);
 
 		Usuario usuario = obtenerUsuario(id); // Crear metodo obtenerUsuario
 

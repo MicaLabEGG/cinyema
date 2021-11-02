@@ -48,15 +48,12 @@ public class TicketControlador {
 	}
 	
 	@GetMapping("/registrar")
-	public String registrarTicket(ModelMap modelo, @PathVariable Long id) {
+	public String registrarTicket(ModelMap modelo) {
 		try {
-			Ticket ticket = new Ticket();
-			Optional<Pelicula> pelicula = servicioPelicula.buscarPeliculaPorId(id);
-			Usuario usuario = servicioUsuario.obtenerUsuario(id);
 			modelo.addAttribute("registrar", "Registrar Ticket");
-			modelo.addAttribute("ticket", ticket);
-			modelo.addAttribute("pelicula", pelicula);
-			modelo.addAttribute("usuario", usuario);
+			modelo.addAttribute("ticket", servicioTicket.crearTicketVac());
+			modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
+			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
 			return "admin/vistas/ticket";
 		} catch (Exception e) {
 			modelo.put("error", e.getMessage());
@@ -66,7 +63,7 @@ public class TicketControlador {
 	}
 	
 	@PostMapping("/registrar")
-	public String registrarTicket(ModelMap modelo, Ticket ticket, @RequestParam("pelicula") Pelicula pelicula, @RequestParam("usuario") Usuario usuario, @RequestParam("fecha") String fecha, @RequestParam("lugar") String lugar, @RequestParam("precio") Double precio )throws Exception {
+	public String registrarTicket(ModelMap modelo, Ticket ticket, @RequestParam("pelicula") Pelicula pelicula, @RequestParam("usuario") Usuario usuario, @RequestParam("fecha") String fecha, @RequestParam("lugar") String lugar, @RequestParam("precio") Double precio) throws Exception {
 		try {
 			servicioTicket.crearTicket(pelicula, usuario, fecha, lugar,precio);
 			return "redirect:/ticket";
@@ -80,36 +77,39 @@ public class TicketControlador {
 	}
 	
 	@GetMapping("/editar/{id}")
-	public String modificarTicket(ModelMap modelo, @PathVariable Long id) throws Exception {
+	public String modificarTicket(ModelMap modelo) throws Exception {
 		try {
-		     Ticket ticket = servicioTicket.buscarxId(id);
-		     modelo.addAttribute("editar", "Editar Ticket");
-		     modelo.addAttribute("ticket", ticket);
-		     return "admin/vistas/ticket";
+			modelo.addAttribute("registrar", "Registrar Ticket");
+			modelo.addAttribute("ticket", servicioTicket.crearTicketVac());
+			modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
+			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
+			return "admin/vistas/ticket";
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-			modelo.put("error", "falta algun dato");
+			modelo.put("error", e.getMessage());
 			return "admin/vistas/ticket";
 		}
 	}
 	
 	@PostMapping("editar/{id}")
-	public String modificarTicket(ModelMap modelo, @PathVariable Long id, @RequestParam Pelicula pelicula, @RequestParam Usuario usuario, @RequestParam String fecha, @RequestParam String lugar, @RequestParam Double precio) throws Exception {
+	public String modificarTicket(ModelMap modelo, Ticket ticket, @PathVariable Long id, @RequestParam Pelicula pelicula, @RequestParam Usuario usuario, @RequestParam String fecha, @RequestParam String lugar, @RequestParam Double precio) throws Exception {
 		try {
 		     servicioTicket.modificarTicket(id, pelicula, usuario, fecha, lugar, precio);
 		     return "redirect:/ticket";
 		}catch(Exception e) {
-			 System.out.println(e.getMessage());
-			 e.printStackTrace();
-			 modelo.addAttribute("error", e.getMessage());
+			System.out.println(e.getMessage());
+			modelo.put("error", "Falta algun dato");
+			modelo.addAttribute("registrar", "Registrar Ticketr");
+			modelo.addAttribute(ticket);
+			return "redirect:/ticket";
 		}
-		return "redirect:/ticket";
+		
 	}
 	
 	@GetMapping("/eliminar/{id}")
-	public String eliminarrTicket(@PathVariable Long id) {
+	public String eliminarrTicket(@PathVariable Long idTicket) {
 		try {
-		     servicioTicket.eliminarTicket(id);		
+		     servicioTicket.eliminarTicket(idTicket);		
 		     return "redirect:/ticket";
 		}catch(Exception e) {
 			System.out.println(e.getMessage());

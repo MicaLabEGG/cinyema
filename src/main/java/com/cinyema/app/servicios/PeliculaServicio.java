@@ -1,5 +1,6 @@
 package com.cinyema.app.servicios;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,11 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.entidades.Director;
-import com.cinyema.app.entidades.Imagen;
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.enumeraciones.Idioma;
@@ -33,9 +34,7 @@ public class PeliculaServicio {
 	
 	@Autowired
 	private ActorRepositorio repositorioActor;
-	
-	@Autowired
-	private ImagenServicio imagenServicio;
+
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void crearPelicula(Pelicula pelicula, MultipartFile archivo) throws Exception{
@@ -47,7 +46,10 @@ public class PeliculaServicio {
 		
 		System.err.println("No toma id");
 		
-		validarPelicula(pelicula.getTitulo(),pelicula.getAnio(),pelicula.getDescripcion(), pelicula.getDuracion(), pelicula.getGenero(), pelicula.getPais(), pelicula.getIdioma(), pelicula.getSubtitulo(),pelicula.getDirector(),pelicula.getActores(), archivo);
+		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
+		
+		
+		validarPelicula(pelicula.getTitulo(),pelicula.getAnio(),pelicula.getDescripcion(), pelicula.getDuracion(), pelicula.getGenero(), pelicula.getPais(), pelicula.getIdioma(), pelicula.getSubtitulo(),pelicula.getDirector(),pelicula.getActores(), archivo, fileName);
 				
 //		Pelicula p = new Pelicula();
 //		System.out.println("Id es "+p.getIdPelicula());
@@ -62,8 +64,9 @@ public class PeliculaServicio {
 //		p.setDirector(d);
 //		p.setActores(a);
 		
-		Imagen imagen = imagenServicio.guardarImagen(archivo);
-		pelicula.setImagen(imagen);
+		
+		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
+		
 		
 		repositorioPelicula.save(pelicula);
 		
@@ -78,7 +81,9 @@ public class PeliculaServicio {
 		@SuppressWarnings({ "deprecation", "unchecked" })
 		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
-		validarPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, d, a, archivo);
+		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
+		
+		validarPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, d, a, archivo, fileName);
 		
 		Optional<Pelicula> respuesta = repositorioPelicula.findById(idPelicula);
 		
@@ -97,13 +102,7 @@ public class PeliculaServicio {
 				p.setDirector(d);
 				p.setActores(a);
 				
-				Long idImagen = null;
-				if(p.getImagen() != null) {
-					idImagen = p.getImagen().getIdImagen();
-				}
-				
-				Imagen imagen = imagenServicio.actualizarImagen(idImagen, archivo);
-				p.setImagen(imagen);
+				p.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
 				
 				repositorioPelicula.save(p);
 			}else {
@@ -184,7 +183,7 @@ public class PeliculaServicio {
 	}
 	
 	public void validarPelicula(String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, Director d, List<Actor> a, MultipartFile archivo) throws Exception {
+			Pais pais, Idioma idioma, Subtitulo subtitulo, Director d, List<Actor> a, MultipartFile archivo, String fileName) throws Exception {
 
 		if (titulo == null || titulo.isEmpty() || titulo.contains("  ")) {
 			throw new Exception("*Nombre de Película inválido");
@@ -224,6 +223,10 @@ public class PeliculaServicio {
 		
 		if (archivo == null) {
 			throw new Exception("Imagen de Película inválido");
+		}
+		
+		if(fileName.contains("..")) {
+			throw new Exception("No es un archivo valdio");
 		}
 		
 		if (d == null || d.getNombre().isEmpty()) {

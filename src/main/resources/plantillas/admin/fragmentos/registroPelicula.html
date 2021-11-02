@@ -9,7 +9,7 @@
                     <p class="card-text" th:text="${error}"></p>
                 </div>
             </div>
-            <form th:object="${pelicula}" th:action="@{/pelicula/agregarPelicula}" method="POST">
+            <form th:object="${pelicula}" th:action="@{/pelicula/agregarPelicula}" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label class="form-label">Titulo</label>
                     <input type="text" class="form-control" th:field="*{titulo}" th:value="${titulo}" required></input>

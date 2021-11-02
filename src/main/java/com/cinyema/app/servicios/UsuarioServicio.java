@@ -57,9 +57,13 @@ public class UsuarioServicio implements UserDetailsService {
 
 	@Transactional
 	public Usuario modificarUsuario(Long id, String nombre, String mail, String nombreDeUsuario, String contrasenia,
-			Date fechaNacimiento) throws Exception {
+			String fechaNacimiento2) throws Exception {
+		
+		Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimiento2);
 
 		validar(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
+		
+		validarMayoriaEdad(fechaNacimiento);
 
 		Usuario usuario = obtenerUsuario(id); // Crear metodo obtenerUsuario
 

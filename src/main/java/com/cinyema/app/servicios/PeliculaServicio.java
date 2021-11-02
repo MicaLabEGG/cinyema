@@ -38,32 +38,34 @@ public class PeliculaServicio {
 	private ImagenServicio imagenServicio;
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void crearPelicula(String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, Long idDirector, Long idActor, MultipartFile archivo) throws Exception{
+	public void crearPelicula(Pelicula pelicula, MultipartFile archivo) throws Exception{
 		
-		@SuppressWarnings("deprecation")
-		Director d = repositorioDirector.getOne(idDirector);
-		@SuppressWarnings({ "deprecation", "unchecked" })
-		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
+//		@SuppressWarnings("deprecation")
+//		Director d = repositorioDirector.getOne(idDirector);
+//		@SuppressWarnings({ "deprecation", "unchecked" })
+//		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
-		validarPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, d, a, archivo);
+		System.err.println("No toma id");
+		
+		validarPelicula(pelicula.getTitulo(),pelicula.getAnio(),pelicula.getDescripcion(), pelicula.getDuracion(), pelicula.getGenero(), pelicula.getPais(), pelicula.getIdioma(), pelicula.getSubtitulo(),pelicula.getDirector(),pelicula.getActores(), archivo);
 				
-		Pelicula p = new Pelicula();
-		p.setTitulo(titulo);
-		p.setAnio(anio);
-		p.setDescripcion(descripcion);
-		p.setDuracion(duracion);
-		p.setGenero(genero);
-		p.setPais(pais);
-		p.setIdioma(idioma);
-		p.setSubtitulo(subtitulo);
-		p.setDirector(d);
-		p.setActores(a);
+//		Pelicula p = new Pelicula();
+//		System.out.println("Id es "+p.getIdPelicula());
+//		p.setTitulo(titulo);
+//		p.setAnio(anio);
+//		p.setDescripcion(descripcion);
+//		p.setDuracion(duracion);
+//		p.setGenero(genero);
+//		p.setPais(pais);
+//		p.setIdioma(idioma);
+//		p.setSubtitulo(subtitulo);
+//		p.setDirector(d);
+//		p.setActores(a);
 		
 		Imagen imagen = imagenServicio.guardarImagen(archivo);
-		p.setImagen(imagen);
+		pelicula.setImagen(imagen);
 		
-		repositorioPelicula.save(p);
+		repositorioPelicula.save(pelicula);
 		
 	}
 	

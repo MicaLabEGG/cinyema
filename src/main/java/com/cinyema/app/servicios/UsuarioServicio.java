@@ -37,7 +37,7 @@ public class UsuarioServicio implements UserDetailsService {
 	public Usuario registroUsuario(String nombre, String mail, String nombreDeUsuario, String contrasenia,
 			String fechaNacimiento2) throws Exception {
 		
-		Date fechaNacimiento = new SimpleDateFormat("dd-MM-yyyy").parse(fechaNacimiento2);
+		Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimiento2);
 	
 		validar(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
 

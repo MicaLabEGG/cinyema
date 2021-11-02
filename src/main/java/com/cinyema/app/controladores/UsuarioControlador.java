@@ -39,6 +39,17 @@ public class UsuarioControlador {
 			return "admin/vistas/usuario";
 		}
 	}
+	
+	// required = false porque puede no venir el dato (en caso de login exitoso)
+	@GetMapping("/login")
+	public String login(ModelMap modelo, @RequestParam(required = false) String error) {		
+		
+		if (error != null) {
+			modelo.put("Error", "*Los datos son incorrectos");
+		}
+		
+		return "/login";
+	}
 
 	@GetMapping("/registrar")
 	public String guardar(ModelMap modelo) {

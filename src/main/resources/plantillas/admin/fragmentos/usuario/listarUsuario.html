@@ -30,10 +30,10 @@
 					<td th:text="${usuario.nombreDeUsuario}"></td>
 					<td th:text="${usuario.alta}"></td>
 					<td>
-						<a th:href="@{/usuario/editar/__${usuario.idUsuario}__}"><i class="fa fa-arrow-up"></i></a>
+						<a th:href="@{/usuario/editar/__${usuario.idUsuario}__}"class="btn btn-primary" role="button" aria-pressed="true">Modificar</a>
 					</td>
 					<td>
-						<a th:href="@{/usuario/eliminar/__${usuario.idUsuario}__}"><i class="fa fa-ban"></i></a>
+						<a th:href="@{/usuario/eliminar/__${usuario.idUsuario}__}"class="btn btn-danger" role="button" aria-pressed="true">Eliminar</a>
 					</td>
 				</tr>
 

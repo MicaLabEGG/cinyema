@@ -23,7 +23,6 @@ public class UsuarioControlador {
 	@Autowired
 	UsuarioServicio usuarioServicio;
 
-	@SuppressWarnings("finally")
 	@GetMapping("")
 	public String mostrarUsuarios(ModelMap modelo) throws Exception {
 
@@ -35,19 +34,17 @@ public class UsuarioControlador {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return "admin/vistas/usuario";
-		} finally {
-			return "admin/vistas/usuario";
 		}
 	}
-	
+
 	// required = false porque puede no venir el dato (en caso de login exitoso)
 	@GetMapping("/login")
-	public String login(ModelMap modelo, @RequestParam(required = false) String error) {		
-		
+	public String login(ModelMap modelo, @RequestParam(required = false) String error) {
+
 		if (error != null) {
 			modelo.put("Error", "*Los datos son incorrectos");
 		}
-		
+
 		return "/login";
 	}
 
@@ -57,7 +54,6 @@ public class UsuarioControlador {
 		return "admin/vistas/usuario";
 	}
 
-	@SuppressWarnings("finally")
 	@PostMapping("/registrar")
 	public String guardarUsuario(ModelMap modelo, @RequestParam("nombre") String nombre,
 			@RequestParam("mail") String mail, @RequestParam("nombreDeUsuario") String nombreDeUsuario,
@@ -74,10 +70,9 @@ public class UsuarioControlador {
 			modelo.put("error", "Error al ingresar los datos del usuario");
 			modelo.addAttribute("registrar", "Registrar usuarios");
 			return "admin/vistas/usuario";
-		} 
+		}
 	}
 
-	@SuppressWarnings("finally")
 	@GetMapping("/editar/{id}")
 	public String modificar(ModelMap modelo, @PathVariable Long id) throws Exception {
 		try {
@@ -89,12 +84,10 @@ public class UsuarioControlador {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Falta algun dato");
 			return "admin/vistas/usuario";
-		} finally {
-			return "admin/vistas/usuario";
 		}
+		
 	}
 
-	@SuppressWarnings("finally")
 	@PostMapping("/editar/{id}")
 	public String modificarUsuario(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre,
 			@RequestParam String mail, @RequestParam String nombreDeUsuario, @RequestParam String contrasenia,
@@ -108,8 +101,6 @@ public class UsuarioControlador {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Falta algun dato al ingresar usuario");
 			return "admin/vistas/usuario";
-		} finally {
-			return "redirect:/usuario";
 		}
 	}
 

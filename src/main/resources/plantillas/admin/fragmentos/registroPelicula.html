@@ -28,15 +28,15 @@
                 <div class="form-group">
                     <label class="form-label">Director</label>
                     <select class="form-select" name="idDirector" required>
-                        <option th:each="director : ${director}" 
-        th:value="${director.idDirector}" th:text="${director}"></option>
+                        <option th:each="director : ${directores}" 
+        th:value="${director.idDirector}" th:text="${director.nombre}"></option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Actores</label>
                     <select multiple class="form-select" name="idActor" required>
                         <option th:each="actor : ${actores}" 
-        th:value="${{actor}}" th:text="${actor}"></option>
+        th:value="${{actor}}" th:text="${actor.nombreCompleto}"></option>
                     </select>
                 </div>
                 <div class="form-group">

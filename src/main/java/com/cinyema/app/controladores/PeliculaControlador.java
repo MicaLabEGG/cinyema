@@ -74,28 +74,28 @@ public class PeliculaControlador {
 	public String agregarPelicula(ModelMap modelo) {
 		List<Director> directores = servicioDirector.listarDirectores();
 		List<Actor> actores = servicioActor.buscarActores();
+		Pelicula pelicula = new Pelicula();
 		modelo.addAttribute("directores",directores);
 		modelo.addAttribute("actores",actores);
 		modelo.addAttribute("registro", "Registro de Peliculas");
+		modelo.addAttribute("pelicula", pelicula);
 		
 		return "admin/vistas/pelicula";
 	}
 	
 	@PostMapping("/agregarPelicula") 
-	public String guardarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Long idDirector, @RequestParam Long idActor, MultipartFile archivo) throws Exception{
+	public String guardarPelicula(ModelMap modelo,Pelicula pelicula , MultipartFile archivo) throws Exception{
 		
 		try {
-			servicioPelicula.crearPelicula(titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, idDirector, idActor, archivo);
+			servicioPelicula.crearPelicula(pelicula, archivo);
 			
 			return "redirect:/pelicula";	
 			
 		} catch (Exception e) {
 			modelo.put("error", e.getMessage());
 			// devolvemos los valores ingresados al formulario
-			modelo.put("titulo", titulo);
-			modelo.put("anio", anio);
-			modelo.put("descripcion", descripcion);
-			
+			modelo.addAttribute(pelicula);
+			modelo.addAttribute("registro", "Registro de Peliculas");
 			
 			return "admin/vistas/pelicula";
 		}

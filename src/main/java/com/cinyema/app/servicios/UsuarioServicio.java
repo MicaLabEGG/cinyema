@@ -4,12 +4,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -22,6 +23,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.enumeraciones.Rol;
@@ -57,9 +60,13 @@ public class UsuarioServicio implements UserDetailsService {
 
 	@Transactional
 	public Usuario modificarUsuario(Long id, String nombre, String mail, String nombreDeUsuario, String contrasenia,
-			Date fechaNacimiento) throws Exception {
+			String fechaNacimiento2) throws Exception {
+		
+		Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(fechaNacimiento2);
 
 		validar(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
+		
+		validarMayoriaEdad(fechaNacimiento);
 
 		Usuario usuario = obtenerUsuario(id); // Crear metodo obtenerUsuario
 
@@ -149,6 +156,13 @@ public class UsuarioServicio implements UserDetailsService {
 			List<GrantedAuthority> permisos = new ArrayList<>();
 			GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
 			permisos.add(p);
+			
+			// Se extraen atributos de contexto del navegador -> INVESTIGAR
+			ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+			// Se crea la sesion y se agrega el cliente a la misma -> FIUMBA
+			HttpSession session = attr.getRequest().getSession(true);
+			session.setAttribute("usuariosession", usuario);
 
 			user = new User(nombreDeUsuario, usuario.getContrasenia(), permisos);
 		} else {

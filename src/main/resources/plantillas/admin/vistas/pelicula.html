@@ -11,7 +11,7 @@
     </div>
     <div th:if="${registro}!= null">
         <div
-            th:replace="admin/fragmentos/registroPelicula :: _registroPelicula(registro=${registro},error=${error},directores=${directores},actores=${actores})">
+            th:replace="admin/fragmentos/registroPelicula :: _registroPelicula(registro=${registro},error=${error},directores=${directores},actores=${actores},pelicula=${pelicula})">
         </div>
     </div>
     <div th:if="${editar}!= null">

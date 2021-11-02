@@ -87,18 +87,18 @@ public class UsuarioControlador {
 	@PostMapping("/editar/{id}")
 	public String modificarUsuario(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre,
 			@RequestParam String mail, @RequestParam String nombreDeUsuario, @RequestParam String contrasenia,
-			@RequestParam Date fechaNacimiento) throws Exception {
+			@RequestParam String fechaNacimiento) throws Exception {
 
 		try {
 			usuarioServicio.modificarUsuario(id, nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
 			modelo.put("exito", "Modificacion exitosa");
-			return "admin/vistas/usuario";
+			return "redirect:/usuario";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Falta algun dato al ingresar usuario");
 			return "admin/vistas/usuario";
 		} finally {
-			return "redirect:/lista_usuarios";
+			return "redirect:/usuario";
 		}
 	}
 
@@ -106,10 +106,10 @@ public class UsuarioControlador {
 	public String eliminar(@PathVariable Long id) {
 		try {
 			usuarioServicio.eliminarUsuario(id);
-			return "redirect:/director";
+			return "redirect:/usuario";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return "redirect:/director";
+			return "redirect:/usuario";
 		}
 
 	}

@@ -1,14 +1,12 @@
 package com.cinyema.app.entidades;
 
-import java.io.Serializable;
+
 import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -23,14 +21,12 @@ import com.cinyema.app.enumeraciones.Subtitulo;
 
 @Entity
 @Table(name = "pelicula")
-public class Pelicula implements Serializable {
+public class Pelicula {
 	
 	
-	private static final long serialVersionUID = 4829800L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idPelicula;
+	private Long idPelicula = randomId();
 	private String titulo;
 	private String anio;
 	private String descripcion;

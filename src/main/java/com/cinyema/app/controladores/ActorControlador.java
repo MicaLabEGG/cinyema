@@ -46,7 +46,6 @@ public class ActorControlador {
 		try {
 			Actor actor = actorServicio.registrarActor(nombreCompleto, pais);
 			modelo.put("actor", actor);
-			modelo.put("exito", "Ingreso exitoso!");
 			return "redirect:/actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

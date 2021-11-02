@@ -19,7 +19,7 @@ public class TicketServicio {
 	private TicketRepositorio repTic;
 	
 	@Transactional
-	public Ticket crearTicket(Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
+	public void crearTicket(Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
 		
 		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
 		
@@ -33,7 +33,14 @@ public class TicketServicio {
 		tic.setLugar(lugar);
 		tic.setPrecio(precio);
 		
-		return repTic.save(tic);
+		repTic.save(tic);
+	}
+	
+	@Transactional
+	public Ticket crearTicketVac() {
+		Ticket t = new Ticket();
+		
+		return t;
 	}
 	
 	@Transactional
@@ -43,7 +50,7 @@ public class TicketServicio {
 	}
 	
 	@Transactional
-	public Ticket modificarTicket(Long id, Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
+	public void modificarTicket(Long id, Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
 		
 		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
 		
@@ -57,7 +64,7 @@ public class TicketServicio {
 		tic.setLugar(lugar);
 		tic.setPrecio(precio);
 		
-		return repTic.save(tic);
+		repTic.save(tic);
 	}
 	
 	@Transactional
@@ -100,5 +107,5 @@ public class TicketServicio {
         }
 
         
-    }
+    }		
 }

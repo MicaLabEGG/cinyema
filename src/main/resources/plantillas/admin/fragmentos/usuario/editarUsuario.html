@@ -16,28 +16,28 @@
 					<div class="form-group">
 						<label for="formGroupExampleInput">Nombre</label>
 						<input type="text" class="form-control" id="formGroupExampleInput"
-							placeholder="Nombre Completo">
+							placeholder="Nombre Completo" name="nombre" th:value="${nombre}"required></input>
 					</div>
 					<div class="form-group">
 						<label for="formGroupExampleInput2">Correo Electrónico</label>
 						<input type="text" class="form-control" id="formGroupExampleInput2"
-							placeholder="Correo Electrónico">
+							placeholder="Correo Electrónico"  name="mail" th:value="${mail}"required></input>>
 					</div>
 					<div class="form-group">
 						<label for="formGroupExampleInput2">Fecha de Nacimiento</label>
 						<input type="date" class="form-control" id="formGroupExampleInput2"
-							placeholder="Fecha de Nacimiento">
+							placeholder="Fecha de Nacimiento" name="fechaNacimiento" th:value="${fechaNacimiento}"required></input>
 					</div>
 					<div class="form-group">
 						<label for="formGroupExampleInput">Nombre de Usuario</label>
 						<input type="text" class="form-control" id="formGroupExampleInput"
-							placeholder="Nombre de Usuario">
+							placeholder="Nombre de Usuario" name="nombreDeUsuario" th:value="${nombreDeUsuario}"required></input>
 					</div>
 					<div class="form-group">
 						<label for="formGroupExampleInput2">Contraseña</label>
-						<input type="text" class="form-control" id="formGroupExampleInput2" placeholder="Contraseña">
+						<input type="password" class="form-control" id="formGroupExampleInput2" placeholder="Contraseña" name="contrasenia" th:value="${contrasenia}"required></input>
 					</div>
-					<button type="button" class="btn btn-dark">Registrarse</button>
+					<button type="submit" class="btn btn-primary">Guardar cambios</button>
 				</form>
 
 			</div>

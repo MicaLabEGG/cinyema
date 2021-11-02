@@ -7,7 +7,7 @@
 	<nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
 
 	<div th:if="${listar}!= null">
-		<div th:replace="admin/fragmentos/usuario/listarUsuario.html :: _listarUsuario(usuarios=${usuarios})">
+		<div th:replace="admin/fragmentos/usuario/listarUsuario.html :: _listarUsuario(usuarios=${usuario})">
 		</div>
 	</div>
 

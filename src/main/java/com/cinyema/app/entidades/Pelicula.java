@@ -1,17 +1,16 @@
 package com.cinyema.app.entidades;
 
-import java.io.Serializable;
+
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,14 +21,12 @@ import com.cinyema.app.enumeraciones.Subtitulo;
 
 @Entity
 @Table(name = "pelicula")
-public class Pelicula implements Serializable {
+public class Pelicula {
 	
 	
-	private static final long serialVersionUID = 4829800L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idPelicula;
+	private Long idPelicula = randomId();
 	private String titulo;
 	private String anio;
 	private String descripcion;
@@ -47,7 +44,11 @@ public class Pelicula implements Serializable {
 	private Boolean alta;
 	@OneToOne
 	private Director director;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pelicula")
+	@ManyToMany
+	@JoinTable(
+			  name = "peliculaActor", 
+			  joinColumns = @JoinColumn(name = "idPelicula"), 
+			  inverseJoinColumns = @JoinColumn(name = "idActor"))
 	private List<Actor> actores;
 	
 	public Pelicula() {

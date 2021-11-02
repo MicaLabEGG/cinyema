@@ -46,7 +46,6 @@ public class ActorControlador {
 		try {
 			Actor actor = actorServicio.registrarActor(nombreCompleto, pais);
 			modelo.put("actor", actor);
-			modelo.put("exito", "Ingreso exitoso!");
 			return "redirect:/actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -75,7 +74,6 @@ public class ActorControlador {
 			@RequestParam Pais pais) throws Exception {
 		try {
 			actorServicio.modificarActor(id, nombreCompleto, pais);
-			modelo.put("exito", "Ingreso exitoso!");
 			return "redirect:/actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

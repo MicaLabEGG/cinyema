@@ -74,9 +74,11 @@ public class PeliculaControlador {
 	public String agregarPelicula(ModelMap modelo) {
 		List<Director> directores = servicioDirector.listarDirectores();
 		List<Actor> actores = servicioActor.buscarActores();
+		Pelicula pelicula = new Pelicula();
 		modelo.addAttribute("directores",directores);
 		modelo.addAttribute("actores",actores);
 		modelo.addAttribute("registro", "Registro de Peliculas");
+		modelo.addAttribute("pelicula", pelicula);
 		
 		return "admin/vistas/pelicula";
 	}

@@ -1,15 +1,12 @@
 package com.cinyema.app.servicios;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Optional;
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.entidades.Usuario;
@@ -46,11 +43,13 @@ public class TicketServicio {
 	}
 	
 	@Transactional
-	public void modificarTicket(Long id, Pelicula pel, Usuario usu, Date fecha, String lugar, Double precio) {
+	public Ticket modificarTicket(Long id, Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
+		
+		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
 		
 		validar(pel, usu, fecha, lugar, precio);
 		
-		Ticket tic = repTic.findById(id).get();
+		Ticket tic = buscarxId(id);
 		
 		tic.setPelicula(pel);
 		tic.setUsuario(usu);
@@ -58,7 +57,7 @@ public class TicketServicio {
 		tic.setLugar(lugar);
 		tic.setPrecio(precio);
 		
-		repTic.save(tic);
+		return repTic.save(tic);
 	}
 	
 	@Transactional
@@ -68,9 +67,15 @@ public class TicketServicio {
 	}
 	
 	@Transactional
-	public Ticket buscarxId(Long id) {
-		Ticket tic = repTic.getById(id);
-		return tic;
+	public Ticket buscarxId(Long id)throws Exception {
+		Optional<Ticket> result = repTic.findById(id);
+	       
+	    if(result.isEmpty()) {
+	    	throw new Exception("No se encontro");
+	    }else {
+		Ticket ticket = result.get();
+		return ticket;
+	    }
 	}
 	
 	private void validar(Pelicula pel, Usuario usu, Date fecha, String lugar, Double precio) throws Error {

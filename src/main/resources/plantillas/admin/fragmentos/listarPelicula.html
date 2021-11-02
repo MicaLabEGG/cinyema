@@ -24,13 +24,13 @@
             </thead>
             <tbody th:each="pelicula : ${peliculas}">
                 <tr>
-                    <th scope="row" th:text="${pelicula.id}"></th>
+                    <th scope="row" th:text="${pelicula.idPelicula}"></th>
                     <td th:text="${pelicula.titulo}"></td>
                     <td th:text="${pelicula.descripcion}"></td>
                     <td th:text="${pelicula.genero}"></td>
                     <td th:text="${pelicula.director.nombre}"></td>
-                    <td th:text="${pelicula.actores.nombre}"></td>
-                    <td th:text="${pelicula.imagen}"></td>
+                    <td><p th:each="actor : ${pelicula.actores}" th:text ="${actor.nombreCompleto}"></p></td>
+                    <td><img alt="" th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" style="width: 50px; height: 50px;"> </td>
                     <td th:text="${pelicula.anio}"></td>
                     <td th:text="${pelicula.pais}"></td>
                     <td th:text="${pelicula.idioma}"></td>
@@ -38,10 +38,10 @@
                     <td th:text="${pelicula.duracion}"></td>
 
                     <td>
-                        <a th:href="@{/pelicula/editar/__${pelicula.id}__}"class="btn btn-primary" role="button" aria-pressed="true">Modificar</a>
+                        <a th:href="@{/pelicula/editar/__${pelicula.idPelicula}__}"class="btn btn-primary" role="button" aria-pressed="true">Modificar</a>
                     </td>
                     <td>
-                        <a th:href="@{/pelicula/eliminar/__${pelicula.id}__}"class="btn btn-danger" role="button" aria-pressed="true">Eliminar</a>
+                        <a th:href="@{/pelicula/eliminar/__${pelicula.idPelicula}__}"class="btn btn-danger" role="button" aria-pressed="true">Eliminar</a>
                     </td>
                 </tr>
 

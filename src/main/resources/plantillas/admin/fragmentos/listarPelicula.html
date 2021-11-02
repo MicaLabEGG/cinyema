@@ -38,10 +38,10 @@
                     <td th:text="${pelicula.duracion}"></td>
 
                     <td>
-                        <a th:href="@{/pelicula/editar/__${pelicula.id}__}"><i class="fa fa-arrow-up"></i></a>
+                        <a th:href="@{/pelicula/editar/__${pelicula.id}__}"class="btn btn-primary" role="button" aria-pressed="true">Modificar</a>
                     </td>
                     <td>
-                        <a th:href="@{/pelicula/eliminar/__${pelicula.id}__}"><i class="fa fa-ban"></i></a>
+                        <a th:href="@{/pelicula/eliminar/__${pelicula.id}__}"class="btn btn-danger" role="button" aria-pressed="true">Eliminar</a>
                     </td>
                 </tr>
 

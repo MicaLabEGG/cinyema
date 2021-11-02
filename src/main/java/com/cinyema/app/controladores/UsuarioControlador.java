@@ -106,10 +106,10 @@ public class UsuarioControlador {
 	public String eliminar(@PathVariable Long id) {
 		try {
 			usuarioServicio.eliminarUsuario(id);
-			return "redirect:/director";
+			return "redirect:/usuario";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return "redirect:/director";
+			return "redirect:/usuario";
 		}
 
 	}

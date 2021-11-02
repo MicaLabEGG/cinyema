@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +23,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.enumeraciones.Rol;
 import com.cinyema.app.repositorios.UsuarioRepositorio;
@@ -150,6 +156,13 @@ public class UsuarioServicio implements UserDetailsService {
 			List<GrantedAuthority> permisos = new ArrayList<>();
 			GrantedAuthority p = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
 			permisos.add(p);
+			
+			// Se extraen atributos de contexto del navegador -> INVESTIGAR
+			ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+
+			// Se crea la sesion y se agrega el cliente a la misma -> FIUMBA
+			HttpSession session = attr.getRequest().getSession(true);
+			session.setAttribute("usuariosession", usuario);
 
 			user = new User(nombreDeUsuario, usuario.getContrasenia(), permisos);
 		} else {

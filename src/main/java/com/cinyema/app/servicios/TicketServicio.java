@@ -1,5 +1,7 @@
 package com.cinyema.app.servicios;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +22,9 @@ public class TicketServicio {
 	private TicketRepositorio repTic;
 	
 	@Transactional
-	public void crearTicket(Pelicula pel, Usuario usu, Date fecha, String lugar, Double precio) {
+	public Ticket crearTicket(Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
+		
+		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
 		
 		validar(pel, usu, fecha, lugar, precio);
 		
@@ -32,7 +36,7 @@ public class TicketServicio {
 		tic.setLugar(lugar);
 		tic.setPrecio(precio);
 		
-		repTic.save(tic);
+		return repTic.save(tic);
 	}
 	
 	@Transactional

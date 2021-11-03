@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Ticket {
 
@@ -21,6 +23,7 @@ public class Ticket {
 	@JoinColumn(name = "FK_TICKUSER", nullable = false, updatable = false)
 	private Usuario usuario;
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date fecha;
 	private String lugar;
 	private Double precio;

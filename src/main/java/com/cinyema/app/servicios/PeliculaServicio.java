@@ -67,6 +67,7 @@ public class PeliculaServicio {
 		
 		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
 		
+		pelicula.setAlta(true);
 		
 		repositorioPelicula.save(pelicula);
 		

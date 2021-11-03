@@ -13,11 +13,11 @@ import javax.persistence.Table;
 @Table(name = "asiento")
 public class Asiento {
 	
-	/*
-	 * 
-	 */
+
 	@Id
 	private Long idAsiento = randomId();
+	
+	private Integer numeroDeAsiento;
 	private Boolean libre;
 	
 	/*
@@ -33,9 +33,15 @@ public class Asiento {
 	
 
 
-	public Asiento(Long idAsiento, Boolean libre, Sala sala) {
+	
+
+	
+
+
+	public Asiento(Long idAsiento, Integer numeroDeAsiento, Boolean libre, Sala sala) {
 		super();
 		this.idAsiento = idAsiento;
+		this.numeroDeAsiento = numeroDeAsiento;
 		this.libre = libre;
 		this.sala = sala;
 	}
@@ -43,9 +49,15 @@ public class Asiento {
 	
 
 
+
 	public Long getIdAsiento() {
 		return idAsiento;
 	}
+
+
+
+
+
 
 
 
@@ -57,9 +69,43 @@ public class Asiento {
 
 
 
+
+
+
+
+
+	public Integer getNumeroDeAsiento() {
+		return numeroDeAsiento;
+	}
+
+
+
+
+
+
+
+
+
+	public void setNumeroDeAsiento(Integer numeroDeAsiento) {
+		this.numeroDeAsiento = numeroDeAsiento;
+	}
+
+
+
+
+
+
+
+
+
 	public Boolean getLibre() {
 		return libre;
 	}
+
+
+
+
+
 
 
 
@@ -71,9 +117,19 @@ public class Asiento {
 
 
 
+
+
+
+
+
 	public Sala getSala() {
 		return sala;
 	}
+
+
+
+
+
 
 
 
@@ -83,13 +139,22 @@ public class Asiento {
 	}
 
 
-
-
+	
+	
 	@Override
 	public String toString() {
-		return "Asiento [libre=" + libre + "]";
+		return "Asiento [idAsiento=" + idAsiento + ", numeroDeAsiento=" + numeroDeAsiento + ", libre=" + libre
+				+ ", sala=" + sala + "]";
 	}
-	
+
+
+
+
+
+
+
+
+
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
 		Long id = (long) uuid.hashCode();

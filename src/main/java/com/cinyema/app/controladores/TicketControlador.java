@@ -63,14 +63,14 @@ public class TicketControlador {
 	}
 	
 	@PostMapping("/registrar")
-	public String registrarTicket(ModelMap modelo, Ticket ticket, @RequestParam("pelicula") Pelicula pelicula, @RequestParam("usuario") Usuario usuario, @RequestParam("fecha") String fecha, @RequestParam("lugar") String lugar, @RequestParam("precio") Double precio) throws Exception {
+	public String registrarTicket(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.crearTicket(pelicula, usuario, fecha, lugar,precio);
+			servicioTicket.crearTicket(ticket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			modelo.put("error", "Falta algun dato");
-			modelo.addAttribute("registrar", "Registrar Ticketr");
+			modelo.addAttribute("registrar", "Registrar Ticket");
 			modelo.addAttribute(ticket);
 			return "redirect:/ticket";
 		}

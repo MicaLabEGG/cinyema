@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+
 import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.enumeraciones.Idioma;
 import com.cinyema.app.enumeraciones.Pais;

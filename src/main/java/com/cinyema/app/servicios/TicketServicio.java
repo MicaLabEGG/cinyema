@@ -19,21 +19,22 @@ public class TicketServicio {
 	private TicketRepositorio repTic;
 	
 	@Transactional
-	public void crearTicket(Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
+	public void crearTicket(Ticket ticket) throws Exception {
 		
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
+		//String fecha1 = ticket.getFecha();
+		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(ticket.getFecha());
 		
-		validar(pel, usu, fecha, lugar, precio);
+		validar(ticket.getPelicula(), ticket.getUsuario(), ticket.getFecha(), ticket.getLugar(), ticket.getPrecio());
 		
-		Ticket tic = new Ticket();
+		//Ticket tic = new Ticket();
 		
-		tic.setPelicula(pel);
-		tic.setUsuario(usu);
-		tic.setFecha(fecha);
-		tic.setLugar(lugar);
-		tic.setPrecio(precio);
+		//tic.setPelicula(pel);
+		//tic.setUsuario(usu);
+		//tic.setFecha(fecha);
+		//tic.setLugar(lugar);
+		//tic.setPrecio(precio);
 		
-		repTic.save(tic);
+		repTic.save(ticket);
 	}
 	
 	@Transactional

@@ -2,6 +2,7 @@ package com.cinyema.app.controladores;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,12 +15,15 @@ import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.servicios.ActorServicio;
 
 @Controller
+//para saber si inicio sesion(esta logueado) no tiene que ver con Roles - PreAhutorize
+@PreAuthorize("isAuthenticated()")
 @RequestMapping("/actor")
 public class ActorControlador {
 
 	@Autowired
 	private ActorServicio actorServicio;
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
 	public String lista(ModelMap modelo) {
 		try {
@@ -34,12 +38,14 @@ public class ActorControlador {
 
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/registrar")
 	public String ingreso(ModelMap modelo) {
 		modelo.addAttribute("registrar", "Registrar Actor");
 		return "admin/vistas/actor";
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/registrar")
 	public String registrarActor(ModelMap modelo, @RequestParam String nombreCompleto, @RequestParam Pais pais)
 			throws Exception {
@@ -54,7 +60,7 @@ public class ActorControlador {
 		}
 	}
 
-	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
 	public String modificarActor(ModelMap modelo, @PathVariable Long id) throws Exception {
 		try {
@@ -69,6 +75,7 @@ public class ActorControlador {
 		}
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/editar/{id}")
 	public String modificar(ModelMap modelo, @PathVariable Long id, @RequestParam String nombreCompleto,
 			@RequestParam Pais pais) throws Exception {
@@ -82,17 +89,18 @@ public class ActorControlador {
 		}
 		return "redirect:/actor";
 	}
-	
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
 		try {
 			actorServicio.eliminarDirector(id);
-			return "redirect:/actor";		
+			return "redirect:/actor";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			return "redirect:/actor";	
+			return "redirect:/actor";
 		}
-		
+
 	}
-	
+
 }

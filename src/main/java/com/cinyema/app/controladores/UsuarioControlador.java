@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class UsuarioControlador {
 	@Autowired
 	UsuarioServicio usuarioServicio;
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
 	public String mostrarUsuarios(ModelMap modelo) throws Exception {
 
@@ -73,6 +75,7 @@ public class UsuarioControlador {
 		}
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
 	public String modificar(ModelMap modelo, @PathVariable Long id) throws Exception {
 		try {
@@ -85,9 +88,10 @@ public class UsuarioControlador {
 			modelo.put("error", "Falta algun dato");
 			return "admin/vistas/usuario";
 		}
-		
+
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/editar/{id}")
 	public String modificarUsuario(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre,
 			@RequestParam String mail, @RequestParam String nombreDeUsuario, @RequestParam String contrasenia,
@@ -104,6 +108,7 @@ public class UsuarioControlador {
 		}
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
 		try {

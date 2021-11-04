@@ -39,6 +39,6 @@ public class ErroresControlador implements ErrorController{
 		
 		model.addAttribute("codigo", codigoError);
 		model.addAttribute("mensaje", mensajeError);
-		return "error";
+		return "error/vistas/error";
 	}
 }

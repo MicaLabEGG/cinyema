@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	
-<head th:insert="visitante/fragmentos/head :: _head"></head>
+<head th:insert="fragmentos/head :: _head"></head>
 
 <body>
-	<nav th:insert="visitante/fragmentos/navbar :: _navbar"></nav>
+	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 	<div
-			th:replace="admin/fragmentos/usuario/registrarUsuario.html :: _registrarUsuario(usuario=${usuario}, error=${error})">
+			th:replace="fragmentos/usuario/registrarUsuario.html :: _registrarUsuario(usuario=${usuario}, error=${error})">
 	</div>	
-	<script th:replace="visitante/fragmentos/head :: _scriptBoostrap"></script>
+	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>
 </html>

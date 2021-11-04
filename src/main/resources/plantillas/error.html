@@ -1,24 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="error/fragmentos/head :: _head"></head>
+<head th:replace="fragmentos/head :: _head"></head>
 
 <body>
-	<nav th:insert="error/fragmentos/nav :: _cabezeraAdmin"></nav>
+	<nav th:insert="fragmentos/nav :: _navbar"></nav>
 
 	<main class="container">
 		<div "row mt-5class=">
 			<div class="col">
-				<div class="display-1 text-center mt-5" th:text="${codigo}"></div>
-			</div>
+			<div class="display-1 text-center mt-5" th:text="${codigo}"></div>
+		</div>
 		</div>
 		<div "row mt-5class=">
 			<div class="col">
-				<div class="display-1 text-center mt-5" th:text="${mensaje}"></div>
-			</div>
+			<div class="display-1 text-center mt-5" th:text="${mensaje}"></div>
+		</div>
 		</div>
 	</main>
-
+	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>
 
 </html>

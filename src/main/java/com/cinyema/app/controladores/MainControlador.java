@@ -20,7 +20,7 @@ public class MainControlador {
 
 	@GetMapping()
 	public String index() {
-		return "admin/vistas/indexAdmin";
+		return "index";
 	}
 
 	@GetMapping("/login")

@@ -77,6 +77,11 @@ public class CineServicio {
 		cineRepositorio.delete(cine);
 	}
 	
+	@Transactional
+	public void eliminarCinePorId(Long idCine) throws Exception {
+		cineRepositorio.deleteById(idCine);
+	}
+	
 	public void validar(Cine cine) throws Exception {
 
 		if (cine.getSalas() == null) {

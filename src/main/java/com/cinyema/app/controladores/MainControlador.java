@@ -20,12 +20,12 @@ public class MainControlador {
 
 	@GetMapping()
 	public String index() {
-		return "admin/vistas/indexAdmin";
+		return "index";
 	}
 
 	@GetMapping("/login")
 	public String login(ModelMap modelo, @RequestParam(required = false) String error,
-			@RequestParam(required = false) String nombreDeUsuario) {
+			@RequestParam(required = false) String nombreDeUsuario, @RequestParam(required = false) String logout) {
 		if (error != null) {
 			modelo.addAttribute("error", "El usuario o la contraseña son inválidos. Vuelva a intentar");
 		}

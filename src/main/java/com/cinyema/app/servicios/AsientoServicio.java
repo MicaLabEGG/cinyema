@@ -21,7 +21,7 @@ public class AsientoServicio {
 	}
 	
 	public void modificarAsiento(Asiento asiento) throws Exception{
-		
+	
 		validar(asiento);
 		
 		Optional<Asiento> respuesta = AsientoRep.findById(asiento.getIdAsiento());

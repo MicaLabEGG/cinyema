@@ -17,7 +17,7 @@ public class Asiento {
 	@Id
 	private Long idAsiento = randomId();
 	
-	private Integer numeroDeAsiento;
+	private String numeroDeAsiento;
 	private Boolean libre;
 	
 	/*
@@ -38,7 +38,7 @@ public class Asiento {
 	
 
 
-	public Asiento(Long idAsiento, Integer numeroDeAsiento, Boolean libre, Sala sala) {
+	public Asiento(Long idAsiento, String numeroDeAsiento, Boolean libre, Sala sala) {
 		super();
 		this.idAsiento = idAsiento;
 		this.numeroDeAsiento = numeroDeAsiento;
@@ -74,7 +74,7 @@ public class Asiento {
 
 
 
-	public Integer getNumeroDeAsiento() {
+	public String getNumeroDeAsiento() {
 		return numeroDeAsiento;
 	}
 
@@ -86,7 +86,7 @@ public class Asiento {
 
 
 
-	public void setNumeroDeAsiento(Integer numeroDeAsiento) {
+	public void setNumeroDeAsiento(String numeroDeAsiento) {
 		this.numeroDeAsiento = numeroDeAsiento;
 	}
 

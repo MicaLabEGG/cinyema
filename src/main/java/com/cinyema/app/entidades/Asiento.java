@@ -20,9 +20,6 @@ public class Asiento {
 	private String numeroDeAsiento;
 	private Boolean libre;
 	
-	/*
-	 * chequear la relacion
-	 */
 	@ManyToOne
 	private Sala sala;
 	

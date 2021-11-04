@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="admin/fragmentos/head :: _head">
+<head th:replace="fragmentos/head :: _head">
 </head>
 
 <body>
-    <nav th:insert="admin/fragmentos/nav :: _cabezeraAdmin"></nav>
-    <div th:if="${listar}!= null">
-        <div th:replace="admin/fragmentos/listarPelicula :: _listarPelicula(peliculas=${peliculas})"></div>
-    </div>
-    <div th:if="${registro}!= null">
-        <div
-            th:replace="admin/fragmentos/registroPelicula :: _registroPelicula(registro=${registro},error=${error},directores=${directores},actores=${actores},pelicula=${pelicula})">
-        </div>
-    </div>
-    <div th:if="${editar}!= null">
-        <div
-            th:replace="admin/fragmentos/editarPelicula :: _registroPelicula(editar=${editar},error=${error},directores=${directores},actores=${actores})">
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
+	<div sec:authorize="hasRole('ADMINISTRADOR')">
+		<div th:if="${listar}!= null">
+			<div
+				th:replace="fragmentos/listarPelicula :: _listarPelicula(peliculas=${peliculas})"></div>
+		</div>
+		<div th:if="${registro}!= null">
+			<div
+				th:replace="fragmentos/registroPelicula :: _registroPelicula(registro=${registro},error=${error},directores=${directores},actores=${actores},pelicula=${pelicula})">
+			</div>
+		</div>
+		<div th:if="${editar}!= null">
+			<div
+				th:replace="fragmentos/editarPelicula :: _registroPelicula(editar=${editar},error=${error},directores=${directores},actores=${actores})">
+			</div>
+		</div>
+	</div>
+	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>
 
 </html>

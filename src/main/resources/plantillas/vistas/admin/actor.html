@@ -5,9 +5,8 @@
 <head th:replace="fragmentos/head :: _head"></head>
 
 <body>
+	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
-		<nav th:insert="fragmentos/navbar :: _navbar"></nav>
-
 		<div th:if="${listar}!= null">
 			<div
 				th:replace="fragmentos/actor/listarActor.html :: _listarActor(actores=${actores})">

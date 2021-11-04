@@ -44,10 +44,7 @@ public class PeliculaServicio {
 //		@SuppressWarnings({ "deprecation", "unchecked" })
 //		List<Actor> a = (List<Actor>) repositorioActor.getOne(idActor);
 		
-		System.err.println("No toma id");
-		
 		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
-		
 		
 		validarPelicula(pelicula.getTitulo(),pelicula.getAnio(),pelicula.getDescripcion(), pelicula.getDuracion(), pelicula.getGenero(), pelicula.getPais(), pelicula.getIdioma(), pelicula.getSubtitulo(),pelicula.getDirector(),pelicula.getActores(), archivo, fileName);
 				
@@ -63,7 +60,6 @@ public class PeliculaServicio {
 //		p.setSubtitulo(subtitulo);
 //		p.setDirector(d);
 //		p.setActores(a);
-		
 		
 		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
 		

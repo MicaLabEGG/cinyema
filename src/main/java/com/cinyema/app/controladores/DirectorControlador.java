@@ -17,6 +17,8 @@ import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.servicios.DirectorServicio;
 
 @Controller
+//para saber si inicio sesion(esta logueado) no tiene que ver con Roles - PreAhutorize
+@PreAuthorize("isAuthenticated()")
 @RequestMapping("/director")
 public class DirectorControlador {
 
@@ -24,6 +26,7 @@ public class DirectorControlador {
 	DirectorServicio directorServicio;
 
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
 	public String mostrarDirectores(ModelMap modelo) throws Exception {
 
@@ -41,13 +44,14 @@ public class DirectorControlador {
 
 	}
 
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/registrar")
 	public String guardar(ModelMap modelo) {
 		modelo.addAttribute("registrar", "Registrar Director");
 		return "admin/vistas/director";
 	}
 
-	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/registrar")
 	public String guardarDirector(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam Pais pais)
 			throws Exception {
@@ -64,7 +68,7 @@ public class DirectorControlador {
 		} 
 	}
 
-	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
 	public String modificar(@PathVariable Long id, ModelMap modelo) {
 
@@ -81,7 +85,7 @@ public class DirectorControlador {
 
 	}
 
-	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/editar/{id}")
 	public String modificarDirector(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre, @RequestParam Pais pais) throws Exception {
 
@@ -97,6 +101,7 @@ public class DirectorControlador {
 
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
 		try {

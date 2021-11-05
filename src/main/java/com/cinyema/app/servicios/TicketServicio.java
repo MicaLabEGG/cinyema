@@ -4,22 +4,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.repositorios.TicketRepositorio;
 
 @Service
-public class TicketServicio {
+public class TicketServicio implements ServicioBase<Ticket> {
 	
 	@Autowired
 	private TicketRepositorio repTic;
 	
+	@Override
 	@Transactional
-	public void crearTicket(Ticket ticket) throws Exception {
+	public Ticket crear(Ticket ticket) throws Exception {
 		
 		//String fecha1 = ticket.getFecha();
 		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(ticket.getFecha());
@@ -34,7 +36,7 @@ public class TicketServicio {
 		//tic.setLugar(lugar);
 		//tic.setPrecio(precio);
 		
-		repTic.save(ticket);
+		return repTic.save(ticket);
 	}
 	
 	@Transactional
@@ -44,20 +46,32 @@ public class TicketServicio {
 		return t;
 	}
 	
+	@Override
 	@Transactional
-	public void eliminarTicket(Long id) {
+	public void eliminarPorId(Long id) {
+		System.err.println(id);
 		
 		repTic.deleteById(id);
 	}
 	
+	//no lo usa//
+	
+	@Override
+	public Ticket modificar(Ticket entity, Long id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	
+	//usa este//
 	@Transactional
-	public void modificarTicket(Long id, Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
+	public Ticket modificar1(Long id, Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
 		
 		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
 		
 		validar(pel, usu, fecha, lugar, precio);
 		
-		Ticket tic = buscarxId(id);
+		Ticket tic = buscarPorId(id);
 		
 		tic.setPelicula(pel);
 		tic.setUsuario(usu);
@@ -65,17 +79,19 @@ public class TicketServicio {
 		tic.setLugar(lugar);
 		tic.setPrecio(precio);
 		
-		repTic.save(tic);
+		return repTic.save(tic);
 	}
 	
+	@Override
 	@Transactional
-	public List<Ticket> listarTicket() {
+	public List<Ticket> listar() throws Exception {
 		List<Ticket> listaTickets = repTic.findAll();
 		return listaTickets;
 	}
 	
+	@Override
 	@Transactional
-	public Ticket buscarxId(Long id)throws Exception {
+	public Ticket buscarPorId(Long id) throws Exception {
 		Optional<Ticket> result = repTic.findById(id);
 	       
 	    if(result.isEmpty()) {
@@ -107,6 +123,6 @@ public class TicketServicio {
             throw new Error("El campo 'precio' no puede estar vacío");
         }
 
-        
-    }		
+    }
+
 }

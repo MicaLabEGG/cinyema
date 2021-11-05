@@ -38,7 +38,6 @@ public class Actor {
 	public Actor() {
 		super();
 	}
-
 	
 
 	public List<Pelicula> getPeliculas() {

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragmentos/head :: _head"></head>
+
+<body>
+	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
+	<div sec:authorize="hasRole('ADMINISTRADOR')">
+		<div th:if="${listar}!= null">
+			<div
+				th:replace="fragmentos/actor/listarActor.html :: _listarActor(actores=${actores}, listar=${listar})">
+			</div>
+		</div>
+
+		<div th:if="${registrar}!= null">
+			<div
+				th:replace="fragmentos/actor/registrarActor.html :: _registrarActor(actor=${actor}, error=${error} , registrar=${registrar})">
+			</div>
+		</div>
+
+		<div th:if="${editar}!= null">
+			<div
+				th:replace="fragmentos/actor/editarActor.html :: _editarActor(actor=${actor}, error=${error}, editar=${editar})">
+			</div>
+		</div>
+	</div>
+	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
+</body>
+
+</html>

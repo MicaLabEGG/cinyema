@@ -36,34 +36,19 @@ public class PeliculaControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
 	public String listar(ModelMap modelo) {
-		modelo.addAttribute("listar", "Lista de Peliculas");
-		modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
-		modelo.addAttribute("actores", servicioActor.buscarActores());
+		modelo.addAttribute("listar", "Lista de Películas");
+		modelo.addAttribute("peliculas", servicioPelicula.listar());
+		modelo.addAttribute("actores", servicioActor.listar());
 		return "vistas/pelicula";
-	}
-
-	// Buscador de peliculas por título: futuro filtro
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/buscarPeliculaPorTitulo")
-	public String buscarPeliculaPorTitulo(ModelMap modelo, @RequestParam String titulo) throws Exception {
-		try {
-			modelo.addAttribute("buscador", "Buscador de Películas por Título");
-			modelo.addAttribute("peliculas", servicioPelicula.buscarPeliculaPorTitulo(titulo));
-			return "vistas/pelicula";
-		} catch (Exception e) {
-			modelo.put("ErrorBuscar", e.getMessage());
-			modelo.put("titulo", titulo);
-			return "vistas/pelicula";
-		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
-		modelo.addAttribute("registro", "Registro de Peliculas");
-		modelo.addAttribute("directores", servicioDirector.listarDirectores());
-		modelo.addAttribute("actores", servicioActor.buscarActores());
-		modelo.addAttribute("pelicula", new Pelicula());
+		modelo.addAttribute("registrar", "Registrar Películas");
+		modelo.addAttribute("directores", servicioDirector.listar());
+		modelo.addAttribute("actores", servicioActor.listar());
+		modelo.addAttribute("pelicula", servicioPelicula.registrarVacio());
 		return "vistas/pelicula";
 	}
 
@@ -71,11 +56,13 @@ public class PeliculaControlador {
 	@PostMapping("/registrar")
 	public String registrar(ModelMap modelo, Pelicula pelicula, @RequestParam MultipartFile archivo) throws Exception {
 		try {
-			servicioPelicula.crearPelicula(pelicula, archivo);
+			servicioPelicula.registrar(pelicula, archivo);
 			return "redirect:/pelicula";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelo.put("error", "Error al ingresar datos");
+			modelo.addAttribute("registrar", "Registrar Película");
+			modelo.addAttribute("pelicula", pelicula);
+			modelo.put("error", e.getMessage());
 			return "redirect:/pelicula";
 		}
 
@@ -84,34 +71,22 @@ public class PeliculaControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
 	public String editar(ModelMap modelo, @PathVariable Long idPelicula) {
-		try {
-			modelo.addAttribute("editar", "Editar Peliculas");
-			modelo.addAttribute("titulo", servicioPelicula.buscarPeliculaPorId(idPelicula).get().getTitulo());
-			modelo.addAttribute("anio", servicioPelicula.buscarPeliculaPorId(idPelicula).get().getAnio());
-			modelo.addAttribute("descripcion", servicioPelicula.buscarPeliculaPorId(idPelicula).get().getDescripcion());
-			return "vistas/pelicula";
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelo.put("error", "Error al ingresar datos");
-			return "vistas/director";
-		}
-		
+		modelo.addAttribute("editar", "Editar Películas");
+		modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
+		return "vistas/pelicula";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/editar")
-	public String editar(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo,
-			@RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion,
-			@RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma,
-			@RequestParam Subtitulo subtitulo, @RequestParam Long idDirector, @RequestParam Long idActor,
-			MultipartFile archivo) throws Exception {
+	public String editar(ModelMap modelo, Pelicula pelicula, MultipartFile archivo) throws Exception {
 		try {
-			servicioPelicula.modificarPelicula(idPelicula, titulo, anio, descripcion, duracion, genero, pais, idioma,
-					subtitulo, idDirector, idActor, archivo);
+			servicioPelicula.editar(pelicula, archivo);
 			return "redirect:/pelicula";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelo.put("error", "Error al ingresar datos");
+			modelo.addAttribute("editar", "Editar Película");
+			modelo.addAttribute("pelicula", pelicula);
+			modelo.put("error", e.getMessage());
 			return "redirect:/pelicula";
 		}
 	}
@@ -120,7 +95,7 @@ public class PeliculaControlador {
 	@GetMapping("/alta/{id}")
 	public String alta(@PathVariable Long idPelicula) {
 		try {
-			servicioPelicula.peliculaAlta(idPelicula);
+			servicioPelicula.alta(idPelicula);
 			return "redirect:/pelicula";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -132,13 +107,30 @@ public class PeliculaControlador {
 	@GetMapping("/baja/{id}")
 	public String baja(@PathVariable Long idPelicula) {
 		try {
-			servicioPelicula.peliculaBaja(idPelicula);
+			servicioPelicula.baja(idPelicula);
 			return "redirect:/pelicula";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/pelicula";
 		}
 
+	}
+
+	// Buscador de peliculas por título: futuro filtro
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@PostMapping("/buscarPeliculaPorTitulo")
+	public String buscarPeliculaPorTitulo(ModelMap modelo, @RequestParam String titulo) throws Exception {
+		try {
+			modelo.addAttribute("buscador", "Buscador de películas por Título");
+			modelo.addAttribute("peliculas", servicioPelicula.obtenerPeliculaPorTitulo(titulo));
+			return "vistas/pelicula";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Película");
+			modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorTitulo(titulo));
+			modelo.put("error", e.getMessage());
+			return "vistas/pelicula";
+		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")

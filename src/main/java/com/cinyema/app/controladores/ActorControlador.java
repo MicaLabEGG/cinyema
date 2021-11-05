@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import com.cinyema.app.entidades.Actor;
-import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.servicios.ActorServicio;
 
 @Controller
@@ -39,16 +37,16 @@ public class ActorControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/registrar")
-	public String registrarActor(ModelMap modelo, Actor actor)
+	public String registrar(ModelMap modelo, Actor actor)
 			throws Exception {
 		try {
 			actorServicio.registrar(actor);
 			return "redirect:/actor";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelo.put("error", "Error al ingresar datos");
 			modelo.addAttribute("registrar", "Registrar Actor");
-			actorServicio.registrar(actor);
+			modelo.addAttribute("actor", actor);
+			modelo.put("error", e.getMessage());
 			return "redirect:/actor";
 		}
 	}
@@ -70,8 +68,8 @@ public class ActorControlador {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Actor");
-			modelo.addAttribute("error", "Error al ingresar datos");
-			actorServicio.editar(actor);
+			modelo.addAttribute("actor", actor);
+			modelo.put("error", e.getMessage());
 			return "redirect:/actor" ;
 		}
 		
@@ -80,14 +78,8 @@ public class ActorControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
-		try {
 			actorServicio.eliminar(id);
 			return "redirect:/actor";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "redirect:/actor";
-		}
-
 	}
 
 }

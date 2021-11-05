@@ -49,7 +49,7 @@ public class TicketControlador {
 		try {
 			modelo.addAttribute("registrar", "Registrar Ticket");
 			modelo.addAttribute("ticket", servicioTicket.crearTicketVac());
-			modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
+			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
 			return "vistas/admin/ticket";
 		} catch (Exception e) {
@@ -81,7 +81,7 @@ public class TicketControlador {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
 			modelo.addAttribute("ticket", servicioTicket.buscarxId(id));
-			modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
+			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
 			return "vistas/admin/ticket";
 		} catch (Exception e) {

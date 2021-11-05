@@ -79,7 +79,7 @@ public class DirectorControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
-			directorServicio.eliminarPorId(id);
+			directorServicio.eliminar(id);
 			return "redirect:/director";
 	}
 

@@ -45,7 +45,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	
 	@Override
 	@Transactional
-	public void eliminarPorId(Long id) {
+	public void eliminar(Long id) {
 		System.err.println(id);
 		
 		repTic.deleteById(id);

@@ -24,7 +24,7 @@ import com.cinyema.app.repositorios.PeliculaRepositorio;
 
 
 @Service
-public class PeliculaServicio {
+public class PeliculaServicio implements ServicioBase<Pelicula>{
 
 	@Autowired
 	private PeliculaRepositorio repositorioPelicula;
@@ -110,8 +110,9 @@ public class PeliculaServicio {
 		}
 	}	
 	
+	@Override
 	@Transactional(readOnly = true)
-	public List<Pelicula> listarPeliculas() {	
+	public List<Pelicula> listar() {	
 		return repositorioPelicula.findAll();
 	}
 	
@@ -133,7 +134,7 @@ public class PeliculaServicio {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Optional<Pelicula> buscarPeliculaPorId(Long idPelicula) {
+	public Optional<Pelicula> obtenerPeliculaPorId(Long idPelicula) {
 		return repositorioPelicula.findById(idPelicula);
 	}	
 	
@@ -174,8 +175,9 @@ public class PeliculaServicio {
 		repositorioPelicula.delete(pelicula);
 	}
 	
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminarPeliculaPorId(Long idPelicula) throws Exception {
+	public void eliminarPorId(Long idPelicula) throws Exception {
 		repositorioPelicula.deleteById(idPelicula);
 	}
 	
@@ -234,6 +236,24 @@ public class PeliculaServicio {
 			throw new Exception("Actores de Película inválido");
 		}
 		
+	}
+
+	@Override
+	public Pelicula registrar(Pelicula entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pelicula editar(Pelicula entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pelicula obtenerPorId(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

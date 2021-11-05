@@ -1,0 +1,48 @@
+<div th:fragment="_registrarUsuario(usuario,error,registrar)">
+	<section class="container">
+		<div class="row vh-50 justify-content-center align-items-center">
+			<div class="col-auto">
+
+				<h1 class="text-center" th:text="${registrar}"></h1>
+
+				<div th:if="${error}!=null" class="card text-white bg-danger mb-3"
+					style="max-width: 23rem;">
+					<div class="card-body">
+						<h5 class="card-title">Error</h5>
+						<p class="card-text" th:text="${error}"></p>
+					</div>
+				</div>
+
+				<form th:object="${usuario}" action="/usuario/registrar"
+					method="POST">
+					<div class="form-group">
+						<label>Nombre</label> <input type="text" class="form-control"
+							th:field="*{nombre}" placeholder="Nombre Completo">
+					</div>
+					<div class="form-group">
+						<label>Correo Electrónico</label> <input type="email"
+							class="form-control" th:field="*{mail}"
+							placeholder="Correo Electrónico">
+					</div>
+					<div class="form-group">
+						<label>Fecha de Nacimiento</label> <input type="date"
+							class="form-control" th:field="*{fechaNacimiento}"
+							placeholder="Fecha de Nacimiento">
+					</div>
+					<div class="form-group">
+						<label>Nombre de Usuario</label> <input type="text"
+							class="form-control" th:field="*{nombreDeUsuario}"
+							placeholder="Nombre de Usuario">
+					</div>
+					<div class="form-group">
+						<label>Contraseña</label> <input type="password"
+							class="form-control" th:field="${contrasenia}"
+							placeholder="Contraseña">
+					</div>
+					<button type="submit" class="btn btn-primary">Registrarse</button>
+				</form>
+
+			</div>
+		</div>
+	</section>
+</div>

@@ -64,7 +64,7 @@ public class ActorServicio implements ServicioBase<Actor> {
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminarPorId(Long id) throws Exception {
+	public void eliminar(Long id) throws Exception {
 		actorRepositorio.deleteById(id);
 		
 	}

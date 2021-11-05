@@ -137,7 +137,7 @@ public class PeliculaControlador {
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long idPelicula) {
 		try {
-			servicioPelicula.eliminarPorId(idPelicula);
+			servicioPelicula.eliminar(idPelicula);
 			return "redirect:/pelicula";
 		} catch (Exception e) {
 			e.printStackTrace();

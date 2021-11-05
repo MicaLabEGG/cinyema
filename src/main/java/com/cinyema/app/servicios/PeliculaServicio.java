@@ -96,7 +96,7 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminarPorId(Long idPelicula) throws Exception {
+	public void eliminar(Long idPelicula) throws Exception {
 		repositorioPelicula.deleteById(idPelicula);
 	}
 
@@ -154,6 +154,24 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 			throw new Exception("Actores de película inválido");
 		}
 
+	}
+
+	@Override
+	public Pelicula registrar(Pelicula entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pelicula editar(Pelicula entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pelicula obtenerPorId(Long id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

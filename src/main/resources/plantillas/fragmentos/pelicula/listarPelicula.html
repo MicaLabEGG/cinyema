@@ -1,7 +1,7 @@
-<div th:fragment="_listarPelicula(peliculas)">
+<div th:fragment="_listarPelicula(peliculas,listar)">
     <section class="container m-5">
         <!-- clase de bootstrap -->
-        <h1 class="text-center">Listar Pelicula </h1>
+        <h1 class="text-center" th:text="${listar}"></h1>
         <table class="table table-dark">
             <thead>
                 <tr>
@@ -37,12 +37,15 @@
                     <td th:text="${pelicula.subtitulo}"></td>
                     <td th:text="${pelicula.duracion}"></td>
                     <td th:text="${pelicula.alta}"></td>
-
                     <td>
-                        <a th:href="@{/pelicula/editar/__${pelicula.idPelicula}__}"class="btn btn-primary" role="button" aria-pressed="true">Modificar</a>
+                        <a th:if="${pelicula.alta}" th:href="@{/pelicula/baja/__${pelicula.idPelicula}__}"><i class="fa fa-circle" style="color:rgb(77, 144, 57);"></i></a>
+					    <a th:unless="${pelicula.alta}" th:href="@{/pelicula/alta/__${pelicula.idPelicula}__}"><i class="fa fa-circle" style="color:rgb(231, 41, 41);"></i></a>
                     </td>
                     <td>
-                        <a th:href="@{/pelicula/eliminar/__${pelicula.idPelicula}__}"class="btn btn-danger" role="button" aria-pressed="true">Eliminar</a>
+                        <a th:href="@{/pelicula/editar/__${pelicula.idPelicula}__}"><i class="far fa-edit"></i></a>
+                    </td>
+                    <td>
+                        <a th:href="@{/pelicula/eliminar/__${pelicula.idPelicula}__}"><i class="far fa-trash-alt"></a>
                     </td>
                 </tr>
 

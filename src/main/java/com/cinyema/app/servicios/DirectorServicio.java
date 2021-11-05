@@ -1,14 +1,11 @@
 package com.cinyema.app.servicios;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.cinyema.app.entidades.Director;
-import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.repositorios.DirectorRepositorio;
 
 @Service
@@ -45,10 +42,7 @@ public class DirectorServicio {
 
 	public Director obtenerDirectorPorNombre(String nombre) {
 		Director director = directorRepositorio.buscarDirectorPorNombre(nombre);
-		if (director == null) {
-			director = directorRepositorio.save(new Director(nombre));
-		}
-		return director;
+		return director = (director == null) ? directorRepositorio.save(new Director(nombre)) : director;
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

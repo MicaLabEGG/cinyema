@@ -53,7 +53,7 @@ public class DirectorServicio implements ServicioBase<Director> {
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminarPorId(Long idDirector) {
+	public void eliminar(Long idDirector) {
 		directorRepositorio.deleteById(idDirector);
 	}
 

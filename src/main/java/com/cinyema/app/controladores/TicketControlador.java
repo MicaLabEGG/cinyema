@@ -111,7 +111,7 @@ public class TicketControlador {
 	@GetMapping("/eliminar/{id}")
 	public String eliminarrTicket(@PathVariable Long idTicket) {
 		try {
-			servicioTicket.eliminarPorId(idTicket);
+			servicioTicket.eliminar(idTicket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();

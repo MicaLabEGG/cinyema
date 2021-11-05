@@ -10,7 +10,7 @@
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
 		<div th:if="${listar}!= null">
 			<div
-				th:replace="fragmentos/listarPelicula :: _listarPelicula(peliculas=${peliculas})"></div>
+				th:replace="fragmentos/listarPelicula :: _listarPelicula(peliculas=${peliculas},listar=${listar})"></div>
 		</div>
 		<div th:if="${registro}!= null">
 			<div
@@ -19,7 +19,7 @@
 		</div>
 		<div th:if="${editar}!= null">
 			<div
-				th:replace="fragmentos/editarPelicula :: _registroPelicula(editar=${editar},error=${error},directores=${directores},actores=${actores})">
+				th:replace="fragmentos/editarPelicula :: _editarPelicula(editar=${editar},error=${error},directores=${directores},actores=${actores},pelicula=${pelicula})">
 			</div>
 		</div>
 	</div>

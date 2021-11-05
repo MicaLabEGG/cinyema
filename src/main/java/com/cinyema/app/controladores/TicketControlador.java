@@ -64,7 +64,7 @@ public class TicketControlador {
 	@PostMapping("/registrar")
 	public String registrar(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.crear(ticket);
+			servicioTicket.registrar(ticket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();

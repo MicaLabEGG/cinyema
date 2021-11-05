@@ -10,11 +10,12 @@ import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.repositorios.ActorRepositorio;
 
 @Service
-public class ActorServicio {
+public class ActorServicio implements ServicioBase<Actor> {
 
 	@Autowired
 	private ActorRepositorio actorRepositorio;
 
+	@Override
 	@Transactional
 	public Actor registrar(Actor actor) throws Exception {
 		validar(actor);
@@ -26,19 +27,22 @@ public class ActorServicio {
 		return new Actor();
 	}
 
+	@Override
 	@Transactional
 	public Actor editar(Actor actor) throws Exception {
 		validar(actor);
 		return actorRepositorio.save(actor);
 	}
 
+	@Override
 	@Transactional
 	public List<Actor> listar() {
 		return actorRepositorio.findAll();
 	}
 
+	@Override
 	@Transactional
-	public Actor obtenerActorPorId(Long id) throws Exception {
+	public Actor obtenerPorId(Long id) throws Exception {
 		Optional<Actor> result = actorRepositorio.findById(id);
 		if (result.isEmpty()) {
 			throw new Exception("No se encontró");
@@ -47,6 +51,7 @@ public class ActorServicio {
 			return actor;
 		}
 	}
+	
 
 	@Transactional
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
@@ -59,10 +64,12 @@ public class ActorServicio {
 			return actor;
 		}
 	}
-
+	
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminar(Long idActor) {
-		actorRepositorio.deleteById(idActor);
+	public void eliminarPorId(Long id) throws Exception {
+		actorRepositorio.deleteById(id);
+		
 	}
 
 	public void validar(Actor actor) throws Exception {
@@ -74,4 +81,5 @@ public class ActorServicio {
 		}
 
 	}
+
 }

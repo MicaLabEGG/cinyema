@@ -37,7 +37,7 @@ public class PeliculaControlador {
 	@GetMapping("")
 	public String listar(ModelMap modelo) {
 		modelo.addAttribute("listar", "Lista de Peliculas");
-		modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
+		modelo.addAttribute("peliculas", servicioPelicula.listar());
 		modelo.addAttribute("actores", servicioActor.listar());
 		return "vistas/pelicula";
 	}
@@ -86,9 +86,9 @@ public class PeliculaControlador {
 	public String editar(ModelMap modelo, @PathVariable Long idPelicula) {
 		try {
 			modelo.addAttribute("editar", "Editar Peliculas");
-			modelo.addAttribute("titulo", servicioPelicula.buscarPeliculaPorId(idPelicula).get().getTitulo());
-			modelo.addAttribute("anio", servicioPelicula.buscarPeliculaPorId(idPelicula).get().getAnio());
-			modelo.addAttribute("descripcion", servicioPelicula.buscarPeliculaPorId(idPelicula).get().getDescripcion());
+			modelo.addAttribute("titulo", servicioPelicula.obtenerPeliculaPorId(idPelicula).get().getTitulo());
+			modelo.addAttribute("anio", servicioPelicula.obtenerPeliculaPorId(idPelicula).get().getAnio());
+			modelo.addAttribute("descripcion", servicioPelicula.obtenerPeliculaPorId(idPelicula).get().getDescripcion());
 			return "vistas/pelicula";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,7 +145,7 @@ public class PeliculaControlador {
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long idPelicula) {
 		try {
-			servicioPelicula.eliminarPeliculaPorId(idPelicula);
+			servicioPelicula.eliminarPorId(idPelicula);
 			return "redirect:/pelicula";
 		} catch (Exception e) {
 			e.printStackTrace();

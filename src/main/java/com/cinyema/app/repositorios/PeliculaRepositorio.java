@@ -12,17 +12,17 @@ import com.cinyema.app.enumeraciones.Genero;
 @Repository
 public interface PeliculaRepositorio extends JpaRepository<Pelicula,Long>{
 	
-	@Query("SELECT p FROM pelicula p WHERE p.alta = :true")
+	@Query("SELECT p FROM Pelicula p WHERE p.alta = :true")
 	public List<Pelicula> buscarPeliculasActivas();
 	
-	@Query("SELECT p FROM pelicula p WHERE p.titulo LIKE %:titulo%")
+	@Query("SELECT p FROM Pelicula p WHERE p.titulo LIKE %:titulo%")
 	public List<Pelicula> buscarPeliculaPorTitulo(@Param("titulo") String titulo);
 	
-	@Query("SELECT p FROM pelicula p WHERE p.titulo LIKE :titulo")
+	@Query("SELECT p FROM Pelicula p WHERE p.titulo LIKE :titulo")
 	public Pelicula validarTituloPelicula(@Param("titulo") String titulo);
 	
-	@Query("SELECT p FROM pelicula p WHERE p.genero = :genero")
-	public List<Pelicula> buscarPeliculaPorGenero(@Param("genero") Genero genero);
+	//@Query("SELECT p FROM pelicula p WHERE p.genero = :genero")
+	//public List<Pelicula> buscarPeliculaPorGenero(@Param("genero") Genero genero);
 	
 	
 }

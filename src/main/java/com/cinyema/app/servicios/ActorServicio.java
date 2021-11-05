@@ -47,8 +47,7 @@ public class ActorServicio implements ServicioBase<Actor> {
 		if (result.isEmpty()) {
 			throw new Exception("No se encontró");
 		} else {
-			Actor actor = result.get();
-			return actor;
+			return result.get();
 		}
 	}
 	
@@ -56,12 +55,10 @@ public class ActorServicio implements ServicioBase<Actor> {
 	@Transactional
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
 		Optional<Actor> result = actorRepositorio.buscarPorNombre(nombreCompleto);
-
 		if (result.isEmpty()) {
 			throw new Exception("No se encontró");
 		} else {
-			Actor actor = result.get();
-			return actor;
+			return result.get();
 		}
 	}
 	

@@ -18,10 +18,10 @@
 					<td th:text="${actor.nombreCompleto}"></td>
 					<td th:text="${actor.pais}"></td>
 					<td>
-						<a th:href="@{/actor/editar/__${actor.idActor}__}"class="far fa-edit" role="button" aria-pressed="true"></a>
+						<a th:href="@{/actor/editar/__${actor.idActor}__}"><i class="far fa-edit"></i></a>
 					</td>
 					<td>
-						<a th:href="@{/actor/eliminar/__${actor.idActor}__}" role="button" aria-pressed="true"><i class="far fa-trash-alt"></i></a>
+						<a th:href="@{/actor/eliminar/__${actor.idActor}__}"><i class="far fa-trash-alt"></i></a>
 					</td>
 				</tr>
 

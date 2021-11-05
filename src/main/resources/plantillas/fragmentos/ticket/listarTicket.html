@@ -24,10 +24,10 @@
                     <td th:text="${ticket.lugar}"></td>
                     <td th:text="${ticket.precio}"></td>
                     <td>
-                        <a th:href="@{/ticket/editar/__${ticket.idTicket}__}"class="btn btn-primary" role="button" aria-pressed="true">Modificar</a>
+                        <a th:href="@{/ticket/editar/__${ticket.idTicket}__}"><i class="far fa-edit"></i></a>
                     </td>
                     <td>
-                        <a th:href="@{/ticket/eliminar/__${ticket.idTicket}__}"class="btn btn-danger" role="button" aria-pressed="true">Eliminar</a>
+                        <a th:href="@{/ticket/eliminar/__${ticket.idTicket}__}"><i class="far fa-trash-alt"></a>
                     </td>
                 </tr>
 

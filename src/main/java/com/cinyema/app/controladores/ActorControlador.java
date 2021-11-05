@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.servicios.ActorServicio;
 
@@ -41,7 +43,7 @@ public class ActorControlador {
 	public String registrarActor(ModelMap modelo, Actor actor)
 			throws Exception {
 		try {
-			actorServicio.registrarVacio(actor);
+			actorServicio.registrar(actor);
 			return "redirect:/actor";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,15 +68,14 @@ public class ActorControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable Long id, @RequestParam String nombreCompleto,
-			@RequestParam Pais pais) throws Exception {
+	public String editar(ModelMap modelo, Actor actor) throws Exception {
 		try {
-			actorServicio.modificarActor(id, nombreCompleto, pais);
+			actorServicio.modificarActor(actor);
 			return "redirect:/actor";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("error", "Error al ingresar datos");
-			return "redirect:/actor";
+			return "redirect:/actor" ;
 		}
 		
 	}

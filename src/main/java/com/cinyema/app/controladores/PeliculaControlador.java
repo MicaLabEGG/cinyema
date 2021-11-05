@@ -38,7 +38,7 @@ public class PeliculaControlador {
 	public String listar(ModelMap modelo) {
 		modelo.addAttribute("listar", "Lista de Peliculas");
 		modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
-		modelo.addAttribute("actores", servicioActor.buscarActores());
+		modelo.addAttribute("actores", servicioActor.listar());
 		return "vistas/pelicula";
 	}
 
@@ -61,8 +61,8 @@ public class PeliculaControlador {
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
 		modelo.addAttribute("registro", "Registro de Peliculas");
-		modelo.addAttribute("directores", servicioDirector.listarDirectores());
-		modelo.addAttribute("actores", servicioActor.buscarActores());
+		modelo.addAttribute("directores", servicioDirector.listar());
+		modelo.addAttribute("actores", servicioActor.listar());
 		modelo.addAttribute("pelicula", new Pelicula());
 		return "vistas/pelicula";
 	}

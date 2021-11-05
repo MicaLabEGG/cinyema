@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface ServicioBase<E> {
 	List<E> listar() throws Exception;
-	E crear(E entity) throws Exception;
-	E modificar(E entity,Long id) throws Exception;
-	E buscarPorId(Long id) throws Exception;
+	E registrar(E entity) throws Exception;
+	E editar(E entity) throws Exception;
+	E obtenerPorId(Long id) throws Exception;
 	void eliminarPorId(Long id) throws Exception;
 
 }

@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.servicios.UsuarioServicio;
 
@@ -32,31 +31,27 @@ public class MainControlador {
 		if (nombreDeUsuario != null) {
 			modelo.addAttribute("nombreDeUsuario", nombreDeUsuario);
 		}
-		return "visitante/vistas/login";
+		return "vistas/login";
 	}
 
 	@GetMapping("/registrar")
-	public String guardar(ModelMap modelo) {
-		modelo.addAttribute("registrar", "Registrar usuarios");
-		return "visitante/vistas/registroUsuario";
+	public String registrar(ModelMap modelo) {
+		modelo.addAttribute("registrar", "Registrar Usuario");
+		return "vistas/registroUsuario";
 	}
 
 	@PostMapping("/registrar")
-	public String guardarUsuario(ModelMap modelo, @RequestParam("nombre") String nombre,
-			@RequestParam("mail") String mail, @RequestParam("nombreDeUsuario") String nombreDeUsuario,
-			@RequestParam("contrasenia") String contrasenia, @RequestParam("fechaNacimiento") String fechaNacimiento)
-			throws Exception {
-
+	public String registrar(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam("mail") String mail,
+			@RequestParam("nombreDeUsuario") String nombreDeUsuario, @RequestParam("contrasenia") String contrasenia,
+			@RequestParam("fechaNacimiento") String fechaNacimiento) throws Exception {
 		try {
-			Usuario usuario = usuarioServicio.registroUsuario(nombre, mail, nombreDeUsuario, contrasenia,
-					fechaNacimiento);
-			modelo.put("usuario", usuario);
+			modelo.put("usuario",
+					usuarioServicio.registroUsuario(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento));
 			return "redirect:/usuario";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Error al ingresar los datos del usuario");
-			modelo.addAttribute("registrar", "Registrar usuarios");
-			return "admin/vistas/usuario";
+			e.printStackTrace();
+			modelo.put("error", "Error al ingresar los datos");
+			return "vistas/usuario";
 		}
 	}
 }

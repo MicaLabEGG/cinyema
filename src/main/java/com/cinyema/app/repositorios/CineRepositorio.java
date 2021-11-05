@@ -10,7 +10,7 @@ import com.cinyema.app.entidades.Cine;
 @Repository
 public interface CineRepositorio extends JpaRepository<Cine, Long>{
 	
-	@Query("SELECT c FROM Cine c WHERE c.nombre = :nombre")
+	@Query("SELECT c FROM cines c WHERE c.nombre = :nombre")
 	public List<Cine> buscarCinePorNombre(@Param("nombre") String nombre);
 	
 

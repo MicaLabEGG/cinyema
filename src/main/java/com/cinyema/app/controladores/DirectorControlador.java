@@ -1,7 +1,5 @@
 package com.cinyema.app.controladores;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,101 +15,75 @@ import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.servicios.DirectorServicio;
 
 @Controller
-//para saber si inicio sesion(esta logueado) no tiene que ver con Roles - PreAhutorize
 @PreAuthorize("isAuthenticated()")
 @RequestMapping("/director")
 public class DirectorControlador {
 
 	@Autowired
-	DirectorServicio directorServicio;
-
+	private DirectorServicio directorServicio;
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
-	public String mostrarDirectores(ModelMap modelo) throws Exception {
-
-		try {
-			List<Director> listaDirector = directorServicio.listarDirectores();
-			modelo.addAttribute("listar", "Lista Directores");
-			modelo.addAttribute("directores", listaDirector);
-			
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return "admin/vistas/director";
-		} 
-			return "admin/vistas/director";
-		
-
+	public String listar(ModelMap modelo) throws Exception {
+		modelo.addAttribute("listar", "Lista Directores");
+		modelo.addAttribute("directores", directorServicio.listar());
+		return "vistas/director";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/registrar")
 	public String guardar(ModelMap modelo) {
 		modelo.addAttribute("registrar", "Registrar Director");
-		return "admin/vistas/director";
+		modelo.addAttribute(directorServicio.registrarVacio());
+		return "vistas/director";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/registrar")
-	public String guardarDirector(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam Pais pais)
+	public String registrar(ModelMap modelo, Director director)
 			throws Exception {
-
 		try {
-			Director director = directorServicio.crearDirector(nombre, pais);
-			modelo.put("director", director);
-			modelo.put("exito", "Ingreso exitoso");
+			modelo.addAttribute("registrar", "Registrar Director");
+			modelo.addAttribute("director", directorServicio.registrar(director));
 			return "redirect:/director";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Error al ingresar los datos del director");
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Director");
+			modelo.put("error", "Error al ingresar datos");
+			modelo.put("director", directorServicio.registrar(director));
 			return "redirect:/director";
-		} 
+		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
-	public String modificar(@PathVariable Long id, ModelMap modelo) {
-
-		try {
-			Director director = directorServicio.obtenerDirectorPorId(id);
+	public String editar(ModelMap modelo, @PathVariable Long id) {
 			modelo.addAttribute("editar", "Editar Directores");
-			modelo.addAttribute("director", director);
-			return "admin/vistas/director";
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Falta algun dato");
-			return "modificar_director";
-		} 
-
+			modelo.addAttribute("director", directorServicio.obtenerDirectorPorId(id));
+			return "vistas/director";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/editar/{id}")
-	public String modificarDirector(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre, @RequestParam Pais pais) throws Exception {
-
+	public String editar(ModelMap modelo, Director director) throws Exception {
 		try {
-			directorServicio.modificarDirector(id, nombre, pais);
-			modelo.put("exito", "Modificacion exitosa");
+			directorServicio.editar(director);
 			return "redirect:/director";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Falta algun dato al ingresar un Director");
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Directores");
+			modelo.put("error", "Error al ingresar datos");
+			directorServicio.editar(director);
 			return "redirect:/director";
-		} 
+		}
 
 	}
-	
+
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
-		try {
-			directorServicio.eliminarDirector(id);
-			return "redirect:/director";		
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return "redirect:/director";	
-		}
-		
+			directorServicio.eliminar(id);
+			return "redirect:/director";
 	}
 
 }

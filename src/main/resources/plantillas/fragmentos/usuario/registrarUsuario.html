@@ -1,9 +1,9 @@
-<div th:fragment="_registrarUsuario(usuario,error)">
+<div th:fragment="_registrarUsuario(usuario,error,registrar)">
 	<section class="container">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
 
-				<h1 class="text-center">Registrar Usuario</h1>
+				<h1 class="text-center" th:text="${registrar}"></h1>
 
 				<div th:if="${error}!=null" class="card text-white bg-danger mb-3"
 					style="max-width: 23rem;">
@@ -20,7 +20,7 @@
 							th:field="*{nombre}" placeholder="Nombre Completo">
 					</div>
 					<div class="form-group">
-						<label>Correo Electrónico</label> <input type="text"
+						<label>Correo Electrónico</label> <input type="email"
 							class="form-control" th:field="*{mail}"
 							placeholder="Correo Electrónico">
 					</div>

@@ -9,19 +9,19 @@
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
 		<div th:if="${listar}!= null">
 			<div
-				th:replace="fragmentos/usuario/listarUsuario.html :: _listarUsuario(usuarios=${usuario})">
+				th:replace="fragmentos/usuario/listarUsuario.html :: _listarUsuario(usuarios=${usuario},listar=${listar})">
 			</div>
 		</div>
 
 		<div th:if="${registrar}!= null">
 			<div
-				th:replace="fragmentos/usuario/registrarUsuario.html :: _registrarUsuario(usuario=${usuario}, error=${error})">
+				th:replace="fragmentos/usuario/registrarUsuario.html :: _registrarUsuario(usuario=${usuario}, error=${error},registrar=${registrar})">
 			</div>
 		</div>
 
 		<div th:if="${editar}!= null">
 			<div
-				th:replace="fragmentos/usuario/editarUsuario.html :: _editarUsuario(usuario=${usuario}, error=${error})">
+				th:replace="fragmentos/usuario/editarUsuario.html :: _editarUsuario(usuario=${usuario}, error=${error},editar=${editar})">
 			</div>
 		</div>
 		<script th:replace="fragmentos/head :: _scriptBoostrap"></script>

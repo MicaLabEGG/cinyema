@@ -38,24 +38,24 @@ public class CineControlador {
 		return "admin/vistas/cine";
 	}
 	
-//	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-//	@PostMapping("/buscarCine")
-//	public String listarCinePorNombre(ModelMap modelo, @RequestParam String nombre) throws Exception {
-//
-//		try {
-//			List<Cine> cines = cineServicio.listarCinePorNombre(nombre);
-//			modelo.addAttribute("cines", cines);
-//
-//			return "/cine/cine";
-//
-//		} catch (Exception e) {
-//			modelo.put("ErrorBuscar", e.getMessage());
-//
-//			modelo.put("nombre", nombre);
-//
-//			return "/cine/cine";
-//		}
-//	}
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@PostMapping("/buscarCine")
+	public String listarCinePorNombre(ModelMap modelo, @RequestParam String nombre) throws Exception {
+
+		try {
+			List<Cine> cines = cineServicio.listarCinePorNombre(nombre);
+			modelo.addAttribute("cines", cines);
+
+			return "/cine/cine";
+
+		} catch (Exception e) {
+			modelo.put("ErrorBuscar", e.getMessage());
+
+			modelo.put("nombre", nombre);
+
+			return "/cine/cine";
+		}
+	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/agregarCine")

@@ -78,14 +78,8 @@ public class ActorControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
-		try {
 			actorServicio.eliminar(id);
 			return "redirect:/actor";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "redirect:/actor";
-		}
-
 	}
 
 }

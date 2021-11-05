@@ -12,11 +12,12 @@ import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.repositorios.DirectorRepositorio;
 
 @Service
-public class DirectorServicio {
+public class DirectorServicio implements ServicioBase<Director> {
 
 	@Autowired
 	private DirectorRepositorio directorRepositorio;
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director registrar(Director director) throws Exception {
 		validar(director);
@@ -28,21 +29,26 @@ public class DirectorServicio {
 		return new Director();
 	}
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director editar(Director director) throws Exception {
 		validar(director);
 		return directorRepositorio.save(director);
 	}
 
+	@Override
 	@Transactional(readOnly = true)
 	public List<Director> listar() {
 		return directorRepositorio.findAll();
 	}
 	
-	public Director obtenerDirectorPorId(Long idDirector) {
+	@Override
+	@Transactional
+	public Director obtenerPorId(Long idDirector) {
 		return directorRepositorio.getById(idDirector);
 	}
 
+	@Transactional
 	public Director obtenerDirectorPorNombre(String nombre) {
 		Director director = directorRepositorio.buscarDirectorPorNombre(nombre);
 		if (director == null) {
@@ -51,8 +57,9 @@ public class DirectorServicio {
 		return director;
 	}
 	
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminar(Long idDirector) {
+	public void eliminarPorId(Long idDirector) {
 		directorRepositorio.deleteById(idDirector);
 	}
 

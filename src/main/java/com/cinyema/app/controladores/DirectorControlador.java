@@ -59,7 +59,7 @@ public class DirectorControlador {
 	@GetMapping("/editar/{id}")
 	public String editar(ModelMap modelo, @PathVariable Long id) {
 			modelo.addAttribute("editar", "Editar Directores");
-			modelo.addAttribute("director", directorServicio.obtenerDirectorPorId(id));
+			modelo.addAttribute("director", directorServicio.obtenerPorId(id));
 			return "vistas/director";
 	}
 
@@ -82,7 +82,7 @@ public class DirectorControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
-			directorServicio.eliminar(id);
+			directorServicio.eliminarPorId(id);
 			return "redirect:/director";
 	}
 

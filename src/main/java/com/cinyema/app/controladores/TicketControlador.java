@@ -80,7 +80,7 @@ public class TicketControlador {
 	public String editar(ModelMap modelo,@PathVariable long id) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.buscarPorId(id));
+			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(id));
 			modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
 			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
 			return "vistas/admin/ticket";
@@ -95,7 +95,7 @@ public class TicketControlador {
 	@PostMapping("editar/{id}")
 	public String editar(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.modificarTicket(ticket);
+			servicioTicket.editar(ticket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();

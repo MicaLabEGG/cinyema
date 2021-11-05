@@ -1,15 +1,12 @@
 package com.cinyema.app.servicios;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Ticket;
-import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.repositorios.TicketRepositorio;
 
 @Service
@@ -24,7 +21,7 @@ public class TicketServicio {
 		//String fecha1 = ticket.getFecha();
 		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(ticket.getFecha());
 		
-		validar(ticket.getPelicula(), ticket.getUsuario(), ticket.getFecha(), ticket.getLugar(), ticket.getPrecio());
+		validar(ticket);
 		
 		//Ticket tic = new Ticket();
 		
@@ -51,21 +48,21 @@ public class TicketServicio {
 	}
 	
 	@Transactional
-	public void modificarTicket(Long id, Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
+	public void modificarTicket(Ticket ticket) throws Exception {
 		
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
+		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
 		
-		validar(pel, usu, fecha, lugar, precio);
+		validar(ticket);
 		
-		Ticket tic = buscarxId(id);
+//		Ticket tic = buscarxId(id);
+//		
+//		tic.setPelicula(pel);
+//		tic.setUsuario(usu);
+//		tic.setFecha(fecha);
+//		tic.setLugar(lugar);
+//		tic.setPrecio(precio);
 		
-		tic.setPelicula(pel);
-		tic.setUsuario(usu);
-		tic.setFecha(fecha);
-		tic.setLugar(lugar);
-		tic.setPrecio(precio);
-		
-		repTic.save(tic);
+		repTic.save(ticket);
 	}
 	
 	@Transactional
@@ -86,24 +83,24 @@ public class TicketServicio {
 	    }
 	}
 	
-	private void validar(Pelicula pel, Usuario usu, Date fecha, String lugar, Double precio) throws Error {
+	private void validar(Ticket ticket) throws Error {
 
-        if (pel == null ) {
+        if (ticket.getPelicula() == null ) {
             throw new Error("No se encuentra a que película pertenece el ticket");
         }
-        if (usu == null ) {
+        if (ticket.getUsuario() == null ) {
             throw new Error("No se encuentra a que usuario pertenece el ticket");
         }
 
-        if (fecha == null ) {
+        if (ticket.getFecha() == null ) {
             throw new Error("Debe indicar la fecha");
         }
 
-        if (lugar == null || lugar.trim().isEmpty()) {
+        if (ticket.getLugar() == null || ticket.getLugar().trim().isBlank()) {
             throw new Error("Debe ingresar el lugar");
         }
 
-        if (precio == null ) {
+        if (ticket.getPrecio() == null ) {
             throw new Error("El campo 'precio' no puede estar vacío");
         }
 

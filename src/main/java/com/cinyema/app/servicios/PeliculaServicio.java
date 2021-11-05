@@ -26,6 +26,11 @@ public class PeliculaServicio {
 		pelicula.setAlta(true);
 		repositorioPelicula.save(pelicula);
 	}
+	
+	@Transactional
+	public Pelicula registrarVacio() {
+		return new Pelicula();
+	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void editar(Pelicula pelicula, MultipartFile archivo) throws Exception {

@@ -55,16 +55,16 @@ public class CineServicio {
 		return cineRepositorio.findAll();
 	}
 	
-	@Transactional
-	public List<Cine> listarCinePorNombre(String nombre) throws Exception {
-        List<Cine> cines = cineRepositorio.buscarCinePorNombre(nombre);
-		
-		if(!cines.isEmpty()) {
-			return cines;
-		}else {
-			throw new Exception("*No se encontró el nombre del Cine");
-		}	
-	}
+//	@Transactional
+//	public List<Cine> listarCinePorNombre(String nombre) throws Exception {
+//        List<Cine> cines = cineRepositorio.buscarCinePorNombre(nombre);
+//		
+//		if(!cines.isEmpty()) {
+//			return cines;
+//		}else {
+//			throw new Exception("*No se encontró el nombre del Cine");
+//		}	
+//	}
 	
 	@Transactional
 	public Optional<Cine> buscarCinePorId(Long idCine) {

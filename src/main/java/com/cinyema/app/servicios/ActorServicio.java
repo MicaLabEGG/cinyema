@@ -6,83 +6,77 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.cinyema.app.entidades.Actor;
-import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.repositorios.ActorRepositorio;
 
 @Service
-public class ActorServicio {
-	
+public class ActorServicio implements ServicioBase<Actor> {
+
 	@Autowired
 	private ActorRepositorio actorRepositorio;
-	
+
+	@Override
 	@Transactional
-	public Actor registrarActor(String nombreCompleto, Pais pais) throws Exception{
-		
-		validar(nombreCompleto, pais);
-		
-		Actor actor = new Actor();
-		actor.setNombreCompleto(nombreCompleto);
-		actor.setPais(pais);
+	public Actor registrar(Actor actor) throws Exception {
+		validar(actor);
 		return actorRepositorio.save(actor);
-		
 	}
-	
+
 	@Transactional
-	public Actor modificarActor(Long id, String nombreCompleto, Pais pais) throws Exception {
-		    
-		    validar(nombreCompleto, pais);
-		    
-		    Actor actor = obtenerActor(id);
-			actor.setNombreCompleto(nombreCompleto);
-			actor.setPais(pais);
-	        return actorRepositorio.save(actor);
+	public Actor registrarVacio() {
+		return new Actor();
 	}
-	
+
+	@Override
 	@Transactional
-	public List<Actor> buscarActores() {
+	public Actor editar(Actor actor) throws Exception {
+		validar(actor);
+		return actorRepositorio.save(actor);
+	}
+
+	@Override
+	@Transactional
+	public List<Actor> listar() {
 		return actorRepositorio.findAll();
 	}
-	
+
+	@Override
 	@Transactional
-	public Actor obtenerActor(Long id) throws Exception{
+	public Actor obtenerPorId(Long id) throws Exception {
 		Optional<Actor> result = actorRepositorio.findById(id);
-	       
-	    if(result.isEmpty()) {
-	    	throw new Exception("No se encontro");
-	    }else {
-		Actor actor = result.get();
-		return actor;
-	    }
+		if (result.isEmpty()) {
+			throw new Exception("No se encontró");
+		} else {
+			return result.get();
+		}
 	}
 	
+
 	@Transactional
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
 		Optional<Actor> result = actorRepositorio.buscarPorNombre(nombreCompleto);
-	       
-	    if(result.isEmpty()) {
-	    	throw new Exception("No se encontro");
-	    }else {
-		Actor actor  = result.get();
-		return actor;
-	    }
-    }
-	
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminarDirector(Long idActor) {
-		actorRepositorio.deleteById(idActor);
+		if (result.isEmpty()) {
+			throw new Exception("No se encontró");
+		} else {
+			return result.get();
+		}
 	}
 	
-	public void validar(String nombreCompleto, Pais pais) throws Exception {
-
-		if (nombreCompleto == null || nombreCompleto.isEmpty() || nombreCompleto.contains("  ")) {
-			throw new Exception();
-		}
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void eliminarPorId(Long id) throws Exception {
+		actorRepositorio.deleteById(id);
 		
-		if (pais == null ){
-			throw new Exception();
+	}
+
+	public void validar(Actor actor) throws Exception {
+		if (actor.getNombreCompleto() == null || actor.getNombreCompleto().isBlank()) {
+			throw new Exception("Nombre completo inválido");
+		}
+		if (actor.getPais() == null) {
+			throw new Exception("País inválido");
 		}
 
-    }
+	}
+
 }

@@ -1,71 +1,68 @@
 package com.cinyema.app.servicios;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.cinyema.app.entidades.Director;
-import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.repositorios.DirectorRepositorio;
 
 @Service
-public class DirectorServicio {
+public class DirectorServicio implements ServicioBase<Director> {
 
 	@Autowired
-	DirectorRepositorio directorRepositorio;
+	private DirectorRepositorio directorRepositorio;
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Director crearDirector(String nombre, Pais pais) throws Exception {
-		validar(nombre, pais);
-		Director director = obtenerDirectorPorNombre(nombre);
-		director.setNombre(nombre);
-		director.setPais(pais);
+	public Director registrar(Director director) throws Exception {
+		validar(director);
 		return directorRepositorio.save(director);
 	}
 
+	@Transactional
+	public Director registrarVacio() {
+		return new Director();
+	}
+
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Director modificarDirector(Long idDirector, String nombre, Pais pais) {
-		Director director = directorRepositorio.getById(idDirector);
-		director.setNombre(nombre);
-		director.setPais(pais);
-		return director;
+	public Director editar(Director director) throws Exception {
+		validar(director);
+		return directorRepositorio.save(director);
 	}
 
-	public Director obtenerDirectorPorId(Long idDirector) {
-		Director director = directorRepositorio.getById(idDirector);
-		return director;
-
-	}
-
+	@Override
 	@Transactional(readOnly = true)
-	public List<Director> listarDirectores() {
+	public List<Director> listar() {
 		return directorRepositorio.findAll();
 	}
+	
+	@Override
+	@Transactional
+	public Director obtenerPorId(Long idDirector) {
+		return directorRepositorio.getById(idDirector);
+	}
 
+	@Transactional
+	public Director obtenerDirectorPorNombre(String nombre) {
+		Director director = directorRepositorio.buscarDirectorPorNombre(nombre);
+		return director = (director == null) ? directorRepositorio.save(new Director(nombre)) : director;
+	}
+	
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminarDirector(Long idDirector) {
+	public void eliminarPorId(Long idDirector) {
 		directorRepositorio.deleteById(idDirector);
 	}
 
-	public Director obtenerDirectorPorNombre(String nombre) {
-		Director director = directorRepositorio.buscarDirectorPorNombre(nombre);
-		if (director == null) {
-			director = directorRepositorio.save(new Director(nombre));
+	public void validar(Director director) throws Exception {
+		if (director.getNombre().isEmpty() || director.getNombre().isBlank()) {
+			throw new Exception("Nombre completo inválido");
 		}
-		return director;
-	}
-
-	public void validar(String nombre, Pais pais) throws Exception {
-
-		if (nombre.isEmpty() || nombre == null || nombre.contains("   ")) {
-			throw new Exception("Error: Nombre de Director invalido");
-		}
-
-		if (pais == null) {
-			throw new Exception("Error: Pais de Director invalido");
+		if (director.getPais() == null) {
+			throw new Exception("País inválido");
 		}
 
 	}

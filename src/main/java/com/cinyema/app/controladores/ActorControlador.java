@@ -1,6 +1,5 @@
 package com.cinyema.app.controladores;
 
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -10,12 +9,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.servicios.ActorServicio;
 
 @Controller
-//para saber si inicio sesion(esta logueado) no tiene que ver con Roles - PreAhutorize
 @PreAuthorize("isAuthenticated()")
 @RequestMapping("/actor")
 public class ActorControlador {
@@ -26,23 +23,16 @@ public class ActorControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
 	public String lista(ModelMap modelo) {
-		try {
-			List<Actor> todosActores = actorServicio.buscarActores();
-			modelo.addAttribute("listar", "Lista Actores");
-			modelo.addAttribute("actores", todosActores);
-			return "admin/vistas/actor";
-		} catch (Exception e) {
-			e.getMessage();
-			return "admin/vistas/actor";
-		}
-
+		modelo.addAttribute("listar", "Lista Actores");
+		modelo.addAttribute("actores", actorServicio.buscarActores());
+		return "vistas/actor";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/registrar")
-	public String ingreso(ModelMap modelo) {
+	public String registrar(ModelMap modelo) {
 		modelo.addAttribute("registrar", "Registrar Actor");
-		return "admin/vistas/actor";
+		return "vistas/actor";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
@@ -50,42 +40,39 @@ public class ActorControlador {
 	public String registrarActor(ModelMap modelo, @RequestParam String nombreCompleto, @RequestParam Pais pais)
 			throws Exception {
 		try {
-			Actor actor = actorServicio.registrarActor(nombreCompleto, pais);
-			modelo.put("actor", actor);
+			modelo.put("actor", actorServicio.registrarActor(nombreCompleto, pais));
 			return "redirect:/actor";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Falta algun dato o no puede ingresar un Actor con igual nombre a otro");
+			e.printStackTrace();
+			modelo.put("error", "Error al ingresar datos");
 			return "redirect:/actor";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
-	public String modificarActor(ModelMap modelo, @PathVariable Long id) throws Exception {
+	public String editar(ModelMap modelo, @PathVariable Long id) throws Exception {
 		try {
-			Actor actor = actorServicio.obtenerActor(id);
 			modelo.addAttribute("editar", "Editar Actor");
-			modelo.addAttribute("actor", actor);
-			return "admin/vistas/actor";
+			modelo.addAttribute("actor", actorServicio.obtenerActor(id));
+			return "vistas/actor";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Falta algun dato");
-			return "admin/vistas/actor";
+			e.printStackTrace();
+			modelo.put("error", "Error al ingresar datos");
+			return "vistas/actor";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/editar/{id}")
-	public String modificar(ModelMap modelo, @PathVariable Long id, @RequestParam String nombreCompleto,
+	public String editar(ModelMap modelo, @PathVariable Long id, @RequestParam String nombreCompleto,
 			@RequestParam Pais pais) throws Exception {
 		try {
 			actorServicio.modificarActor(id, nombreCompleto, pais);
 			return "redirect:/actor";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
 			e.printStackTrace();
-			modelo.addAttribute("error", e.getMessage());
+			modelo.addAttribute("error", "Error al ingresar datos");
 		}
 		return "redirect:/actor";
 	}
@@ -97,7 +84,7 @@ public class ActorControlador {
 			actorServicio.eliminarDirector(id);
 			return "redirect:/actor";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return "redirect:/actor";
 		}
 

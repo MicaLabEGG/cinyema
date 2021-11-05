@@ -35,7 +35,7 @@ public class TicketControlador {
 	public String listar(ModelMap modelo) {
 		try {
 			modelo.addAttribute("listar", "Lista Tickets");
-			modelo.addAttribute("tickets", servicioTicket.listarTicket());
+			modelo.addAttribute("tickets", servicioTicket.listar());
 			return "vistas/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -64,7 +64,7 @@ public class TicketControlador {
 	@PostMapping("/registrar")
 	public String registrar(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.crear(ticket);
+			servicioTicket.registrar(ticket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,7 +80,7 @@ public class TicketControlador {
 	public String editar(ModelMap modelo,@PathVariable long id) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.buscarxId(id));
+			modelo.addAttribute("ticket", servicioTicket.buscarPorId(id));
 			modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
 			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
 			return "vistas/admin/ticket";

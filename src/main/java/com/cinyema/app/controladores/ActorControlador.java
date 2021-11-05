@@ -57,7 +57,7 @@ public class ActorControlador {
 	@GetMapping("/editar/{id}")
 	public String editar(ModelMap modelo, @PathVariable Long idActor) throws Exception {
 			modelo.addAttribute("editar", "Editar Actor");
-			modelo.addAttribute("actor", actorServicio.obtenerActorPorId(idActor));
+			modelo.addAttribute("actor", actorServicio.obtenerPorId(idActor));
 			return "vistas/actor";
 	}
 
@@ -81,7 +81,7 @@ public class ActorControlador {
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
 		try {
-			actorServicio.eliminar(id);
+			actorServicio.eliminarPorId(id);
 			return "redirect:/actor";
 		} catch (Exception e) {
 			e.printStackTrace();

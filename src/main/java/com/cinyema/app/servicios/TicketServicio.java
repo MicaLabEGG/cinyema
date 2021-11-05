@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.repositorios.TicketRepositorio;
 
@@ -16,7 +18,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	
 	@Override
 	@Transactional
-	public Ticket crear(Ticket ticket) throws Exception {
+	public Ticket registrar(Ticket ticket) throws Exception {
 		
 		//String fecha1 = ticket.getFecha();
 		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(ticket.getFecha());
@@ -48,19 +50,10 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		
 		repTic.deleteById(id);
 	}
-	
-	//no lo usa//
-	
+
 	@Override
-	public Ticket modificar(Ticket entity, Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	//usa este//
 	@Transactional
-	public void modificarTicket(Ticket ticket) throws Exception {
+	public Ticket editar(Ticket ticket) throws Exception {
 		
 		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
 		
@@ -74,7 +67,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 //		tic.setLugar(lugar);
 //		tic.setPrecio(precio);
 		
-		repTic.save(ticket);
+		return repTic.save(ticket);
 	}
 	
 	@Override
@@ -86,7 +79,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	
 	@Override
 	@Transactional
-	public Ticket buscarPorId(Long id) throws Exception {
+	public Ticket obtenerPorId(Long id) throws Exception {
 		Optional<Ticket> result = repTic.findById(id);
 	       
 	    if(result.isEmpty()) {

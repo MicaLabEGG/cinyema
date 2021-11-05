@@ -1,28 +1,31 @@
-<div th:fragment="_editarActor(actor,error)">
+<div th:fragment="_editarActor(actor,error,editar)">
 	<section class="container">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
-				<h1 class="text-center">Editar Actor</h1>
+				<h1 class="text-center" th:text="${editar}"></h1>
 
-				<div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
+				<div th:if="${error}!=null" class="card text-white bg-danger mb-3"
+					style="max-width: 23rem;">
 					<div class="card-body">
 						<h5 class="card-title">Error</h5>
 						<p class="card-text" th:text="${error}"></p>
 					</div>
 				</div>
 
-				<form th:action="@{/actor/editar/__${actor.idActor}__}" method="POST">
+				<form th:object="${actor}"
+					th:action="@{/actor/editar/__${actor.idActor}__}" method="POST">
 
 					<div class="form-group">
-						<label class="form-label">Nombre</label>
-						<input type="text" class="form-control" name="nombreCompleto" th:value="${nombreCompleto}"
-							required></input>
+						<label class="form-label">Nombre</label> <input type="text"
+							class="form-control" th:field="*{nombreCompleto}"
+							th:value="*{nombreCompleto}" required></input>
 					</div>
 
 					<div class="form-group">
-						<label class="form-label">Pais</label>
-						<select class="form-select" name="pais" required>
-							<option th:each="pais : ${T(com.cinyema.app.enumeraciones.Pais).values()}"
+						<label class="form-label">Pais</label> <select class="form-select"
+							th:field="*{pais}" required>
+							<option
+								th:each="pais : ${T(com.cinyema.app.enumeraciones.Pais).values()}"
 								th:value="${pais}" th:text="${pais}"></option>
 						</select>
 					</div>

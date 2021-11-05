@@ -1,7 +1,7 @@
-<div th:fragment="_listarActor(actores)">
+<div th:fragment="_listarActor(actores,listar)">
 	<section class="container m-5">
 		<!-- clase de bootstrap -->
-		<h1 class="text-center">Listar Actores</h1>
+		<h1 class="text-center" th:text="${listar}"></h1>
 		<table class="table table-dark">
 			<thead>
 				<tr>
@@ -18,10 +18,10 @@
 					<td th:text="${actor.nombreCompleto}"></td>
 					<td th:text="${actor.pais}"></td>
 					<td>
-						<a th:href="@{/actor/editar/__${actor.idActor}__}"class="btn btn-primary" role="button" aria-pressed="true">Modificar</a>
+						<a th:href="@{/actor/editar/__${actor.idActor}__}"class="far fa-edit" role="button" aria-pressed="true"></a>
 					</td>
 					<td>
-						<a th:href="@{/actor/eliminar/__${actor.idActor}__}"class="btn btn-danger" role="button" aria-pressed="true">Eliminar</a>
+						<a th:href="@{/actor/eliminar/__${actor.idActor}__}" role="button" aria-pressed="true"><i class="far fa-trash-alt"></i></a>
 					</td>
 				</tr>
 

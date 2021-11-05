@@ -40,7 +40,7 @@ public class TicketControlador {
 	public String listaTicket(ModelMap modelo) {
 
 		try {
-			List<Ticket> listTickets = servicioTicket.listarTicket();
+			List<Ticket> listTickets = servicioTicket.listar();
 			modelo.addAttribute("listar", "Lista de Tickets");
 			modelo.addAttribute("tickets", listTickets);
 			return "admin/vistas/ticket";
@@ -70,7 +70,7 @@ public class TicketControlador {
 	@PostMapping("/registrar")
 	public String registrarTicket(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.crearTicket(ticket);
+			servicioTicket.crear(ticket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -103,7 +103,7 @@ public class TicketControlador {
 			@RequestParam Pelicula pelicula, @RequestParam Usuario usuario, @RequestParam String fecha,
 			@RequestParam String lugar, @RequestParam Double precio) throws Exception {
 		try {
-			servicioTicket.modificarTicket(id, pelicula, usuario, fecha, lugar, precio);
+			servicioTicket.modificar1(id, pelicula, usuario, fecha, lugar, precio);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
@@ -119,7 +119,7 @@ public class TicketControlador {
 	@GetMapping("/eliminar/{id}")
 	public String eliminarrTicket(@PathVariable Long idTicket) {
 		try {
-			servicioTicket.eliminarTicket(idTicket);
+			servicioTicket.eliminarPorId(idTicket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

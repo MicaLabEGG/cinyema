@@ -13,7 +13,7 @@
 		</div>
 		<div th:if="${param.logout}"
 			class="alert-success alert-dimissible fade show mt-3" role="alert">
-			<span>Has cerrado sesión con exito</span>
+			<span>Has cerrado sesiï¿½n con exito</span>
 		</div>
 		 <form action="/logincheck" method="POST">
 			<div class="form-group">
@@ -26,12 +26,12 @@
 					class="form-control" name="contrasenia" placeholder="Password">
 			</div>
 			<p>
-				¿Nuevo en Cinyema? <a th:href="@{/registrar}">Crear cuenta</a>
+				ï¿½Nuevo en Cinyema? <a th:href="@{/registrar}">Crear cuenta</a>
 			</p>
 			<button type="submit" class="btn btn-dark">Entrar</button>
 		</form>
 	</div>
-	<script th:replace="visitante/fragmentos/head :: _scriptBoostrap"></script>
+	<script th:replace=fragmentos/head :: "_scriptBoostrap"></script>
 </body>
 
 </html>

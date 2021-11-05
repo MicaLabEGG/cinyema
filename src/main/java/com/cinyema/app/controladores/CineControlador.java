@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cinyema.app.entidades.Cine;
 import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.servicios.CineServicio;
+import com.cinyema.app.servicios.SalaServicio;
 
 @Controller
 @RequestMapping("/cine")
@@ -22,16 +23,16 @@ public class CineControlador {
 	@Autowired
 	private CineServicio cineServicio;
 	
-	//@Autowired
-	//private SalaServicio salaServicio;
+	@Autowired
+	private SalaServicio salaServicio;
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
 	public String listarCines(ModelMap modelo) {
 		List<Cine> cines = cineServicio.listar();
 		modelo.addAttribute("cines", cines);
-		//List<Sala> salas = salaServicio.listarSalas();
-		//modelo.addAttribute("salas", salas);
+		List<Sala> salas = salaServicio.listarSalas();
+		modelo.addAttribute("salas", salas);
 		modelo.addAttribute("listar", "Lista de Cines");
 
 		return "admin/vistas/cine";
@@ -59,9 +60,9 @@ public class CineControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/agregarCine")
 	public String agregarCine(ModelMap modelo) {
-		//List<Sala> salas = salaServicio.listarSalas();
+		List<Sala> salas = salaServicio.listarSalas();
 		Cine cine = new Cine();
-		//modelo.addAttribute("salas", salas);
+		modelo.addAttribute("salas", salas);
 		modelo.addAttribute("registro", "Registro de Cines");
 		modelo.addAttribute("cine", cine);
 
@@ -92,8 +93,8 @@ public class CineControlador {
 	public String modificarPelicula(ModelMap modelo, @PathVariable Long idCine) {
 
 		Optional<Cine> cine = cineServicio.buscarCinePorId(idCine);
-		//@SuppressWarnings("unused")
-		//List<Sala> salas = salaServicio.listarSalas();
+		@SuppressWarnings("unused")
+		List<Sala> salas = salaServicio.listarSalas();
 
 		modelo.addAttribute("nombre", cine.get().getNombre());
 		modelo.addAttribute("direccion", cine.get().getDireccion());

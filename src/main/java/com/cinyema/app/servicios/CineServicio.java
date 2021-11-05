@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cinyema.app.entidades.Cine;
 import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.repositorios.CineRepositorio;
+import com.cinyema.app.repositorios.SalaRepositorio;
 
 @Service
 public class CineServicio {
@@ -16,8 +17,8 @@ public class CineServicio {
 	@Autowired
 	private CineRepositorio cineRepositorio;
 	
-	//@Autowired
-	//private SalaRepositorio salaRepositorio;
+	@Autowired
+	private SalaRepositorio salaRepositorio;
 	
 	@Transactional
 	public Cine crear(Cine cine) throws Exception{

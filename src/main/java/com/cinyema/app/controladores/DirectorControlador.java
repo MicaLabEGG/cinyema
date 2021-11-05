@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.cinyema.app.entidades.Director;
-import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.servicios.DirectorServicio;
 
 @Controller
@@ -32,7 +29,7 @@ public class DirectorControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/registrar")
-	public String guardar(ModelMap modelo) {
+	public String registrar(ModelMap modelo) {
 		modelo.addAttribute("registrar", "Registrar Director");
 		modelo.addAttribute(directorServicio.registrarVacio());
 		return "vistas/director";
@@ -49,8 +46,8 @@ public class DirectorControlador {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("registrar", "Registrar Director");
-			modelo.put("error", "Error al ingresar datos");
-			modelo.put("director", directorServicio.registrar(director));
+			modelo.put("error", e.getMessage());
+			modelo.put("director", director);
 			return "redirect:/director";
 		}
 	}
@@ -72,7 +69,7 @@ public class DirectorControlador {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Directores");
-			modelo.put("error", "Error al ingresar datos");
+			modelo.put("error", e.getMessage());
 			directorServicio.editar(director);
 			return "redirect:/director";
 		}

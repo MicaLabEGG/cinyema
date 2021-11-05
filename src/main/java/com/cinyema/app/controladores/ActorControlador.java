@@ -32,15 +32,16 @@ public class ActorControlador {
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
 		modelo.addAttribute("registrar", "Registrar Actor");
+		modelo.addAttribute(actorServicio.registrarVacio());
 		return "vistas/actor";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/registrar")
-	public String registrarActor(ModelMap modelo, @RequestParam String nombreCompleto, @RequestParam Pais pais)
+	public String registrarActor(ModelMap modelo, Actor actor)
 			throws Exception {
 		try {
-			modelo.put("actor", actorServicio.registrarActor(nombreCompleto, pais));
+			actorServicio.registrarVacio(actor);
 			return "redirect:/actor";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -51,10 +52,10 @@ public class ActorControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable Long id) throws Exception {
+	public String editar(ModelMap modelo) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Actor");
-			modelo.addAttribute("actor", actorServicio.obtenerActor(id));
+			modelo.addAttribute("actor", actorServicio.registrarVacio();
 			return "vistas/actor";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -73,8 +74,9 @@ public class ActorControlador {
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("error", "Error al ingresar datos");
+			return "redirect:/actor";
 		}
-		return "redirect:/actor";
+		
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")

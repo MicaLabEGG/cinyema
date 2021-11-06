@@ -25,12 +25,12 @@ public class ActorControlador {
 		try {
 		     modelo.addAttribute("listar", "Lista Actores");
 		     modelo.addAttribute("actores", actorServicio.listar());
-		     return "vistas/actor";
+		     return "vistas/admin/actor";
 		}catch (Exception e) {
              e.printStackTrace();
              modelo.addAttribute("listar", "Lista Actores");
              modelo.put("error", e.getMessage());
- 			 return "redirect:/actor";
+             return "vistas/admin/actor";
 		}
 	}
 
@@ -40,12 +40,12 @@ public class ActorControlador {
 		try {
 		     modelo.addAttribute("registrar", "Registrar Actor");
 		     modelo.addAttribute(actorServicio.registrarVacio());
-		     return "vistas/actor";
+		     return "vistas/admin/actor";
 		}catch (Exception e) {
 			 e.printStackTrace();
 			 modelo.addAttribute("registrar", "Registrar Actor");
 			 modelo.put("error", e.getMessage());
-			 return "redirect:/actor";
+			 return "vistas/admin/actor";
 		}
 	}
 
@@ -71,12 +71,12 @@ public class ActorControlador {
 		try {	
 		    modelo.addAttribute("editar", "Editar Actor");
 			modelo.addAttribute("actor", actorServicio.obtenerActorPorId(idActor));
-			return "vistas/actor";
+			return "vistas/admin/actor";
 		}catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Actor");
 			modelo.put("error", e.getMessage());
-			return "redirect:/actor" ;
+			return "vistas/admin/actor";
 		}
 	}
 

@@ -10,16 +10,16 @@
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
 		<div th:if="${listar}!= null">
 			<div
-				th:replace="fragmentos/listarPelicula :: _listarPelicula(peliculas=${peliculas},listar=${listar})"></div>
+				th:replace="fragmentos/pelicula/listarPelicula :: _listarPelicula(peliculas=${peliculas},listar=${listar})"></div>
 		</div>
-		<div th:if="${registro}!= null">
+		<div th:if="${registrar}!= null">
 			<div
-				th:replace="fragmentos/registroPelicula :: _registroPelicula(registro=${registro},error=${error},directores=${directores},actores=${actores},pelicula=${pelicula})">
+				th:replace="fragmentos/pelicula/registroPelicula :: _registroPelicula(registro=${registro},error=${error},directores=${directores},actores=${actores},pelicula=${pelicula})">
 			</div>
 		</div>
 		<div th:if="${editar}!= null">
 			<div
-				th:replace="fragmentos/editarPelicula :: _editarPelicula(editar=${editar},error=${error},directores=${directores},actores=${actores},pelicula=${pelicula})">
+				th:replace="fragmentos/pelicula/editarPelicula :: _editarPelicula(editar=${editar},error=${error},directores=${directores},actores=${actores},pelicula=${pelicula})">
 			</div>
 		</div>
 	</div>

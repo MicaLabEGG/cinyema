@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Ticket;
-import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.TicketServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
@@ -50,7 +47,7 @@ public class TicketControlador {
 			modelo.addAttribute("registrar", "Registrar Ticket");
 			modelo.addAttribute("ticket", servicioTicket.crearTicketVac());
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
-			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
+			modelo.addAttribute("usuarios", servicioUsuario.listar());
 			return "vistas/admin/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -77,12 +74,12 @@ public class TicketControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
-	public String editar(ModelMap modelo,@PathVariable long id) throws Exception {
+	public String editar(ModelMap modelo, @PathVariable long id) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
 			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(id));
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
-			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
+			modelo.addAttribute("usuarios", servicioUsuario.listar());
 			return "vistas/admin/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -39,9 +39,15 @@ public class UsuarioControlador {
 
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
-		modelo.addAttribute("registrar", "Registrar usuarios");
-		modelo.addAttribute("usuario", usuarioServicio.registrarVacio());
-		return "vistas/usuario";
+		try {
+		    modelo.addAttribute("registrar", "Registrar usuarios");
+		    modelo.addAttribute("usuario", usuarioServicio.registrarVacio());
+	     	return "vistas/usuario";
+		}catch (Exception e) {
+			e.printStackTrace();
+			modelo.put("error", e.getMessage());
+			return "vistas/usuario";
+		}
 	}
 
 	@PostMapping("/registrar")

@@ -30,7 +30,7 @@ public class UsuarioServicio implements UserDetailsService {
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario registrar(Usuario usuario) throws Exception {
 		validar(usuario);
 		validarMayoriaEdad(usuario);
@@ -44,7 +44,7 @@ public class UsuarioServicio implements UserDetailsService {
 		return new Usuario();
 	}
 
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario editar(Usuario usuario) throws Exception {
 		validar(usuario);
 		validarMayoriaEdad(usuario);
@@ -53,12 +53,12 @@ public class UsuarioServicio implements UserDetailsService {
 		return usuarioRepositorio.save(usuario);
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Usuario> listar() {
 		return usuarioRepositorio.findAll();
 	}
 
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario obtenerUsuarioPorId(Long id) throws Exception {
 		Optional<Usuario> result = usuarioRepositorio.findById(id);
 		if (result.isEmpty()) {
@@ -69,7 +69,7 @@ public class UsuarioServicio implements UserDetailsService {
 		}
 	}
 
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario obtenerUsuarioPorNombre(String nombreDeUsuario) throws Exception {
 		Usuario result = usuarioRepositorio.buscarPorNombreDeUsuario(nombreDeUsuario);
 		if (result == null) {
@@ -112,6 +112,7 @@ public class UsuarioServicio implements UserDetailsService {
 	}
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public UserDetails loadUserByUsername(String nombreDeUsuario) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepositorio.buscarPorNombreDeUsuario(nombreDeUsuario);
 		User user = null;

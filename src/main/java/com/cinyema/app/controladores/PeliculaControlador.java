@@ -32,19 +32,33 @@ public class PeliculaControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
 	public String listar(ModelMap modelo) {
-		modelo.addAttribute("listar", "Lista de Películas");
-		modelo.addAttribute("peliculas", servicioPelicula.listar());
-		return "vistas/admin/pelicula";
+		try {
+		    modelo.addAttribute("listar", "Lista de Películas");
+		    modelo.addAttribute("peliculas", servicioPelicula.listar());
+		    return "vistas/admin/pelicula";
+		}catch (Exception e) {
+			e.printStackTrace();
+            modelo.addAttribute("listar", "Lista de Peliculas");
+            modelo.put("error", e.getMessage());
+			return "redirect:/pelicula";
+		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
-		modelo.addAttribute("registrar", "Registrar Películas");
-		modelo.addAttribute("pelicula", servicioPelicula.registrarVacio());
-		modelo.addAttribute("actores", servicioActor.listar());
-		modelo.addAttribute("directores", servicioDirector.listar());
-		return "vistas/admin/pelicula";
+		try {
+		    modelo.addAttribute("registrar", "Registrar Películas");
+		    modelo.addAttribute("pelicula", servicioPelicula.registrarVacio());
+		    modelo.addAttribute("actores", servicioActor.listar());
+		    modelo.addAttribute("directores", servicioDirector.listar());
+		    return "vistas/admin/pelicula";
+		}catch(Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Peliculas");
+			modelo.put("error", e.getMessage());
+			return "redirect:/pelicula";
+		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
@@ -66,11 +80,18 @@ public class PeliculaControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
 	public String editar(ModelMap modelo, @PathVariable Long idPelicula) {
-		modelo.addAttribute("editar", "Editar Películas");
-		modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
-		modelo.addAttribute("actores", servicioActor.listar());
-		modelo.addAttribute("directores", servicioDirector.listar());
-		return "vistas/admin/pelicula";
+		try {
+		    modelo.addAttribute("editar", "Editar Películas");
+		    modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
+		    modelo.addAttribute("actores", servicioActor.listar());
+		    modelo.addAttribute("directores", servicioDirector.listar());
+		    return "vistas/admin/pelicula";
+		}catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Peliculas");
+			modelo.put("error", e.getMessage());
+			return "redirect:/pelicula" ;
+		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")

@@ -90,7 +90,7 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminar(Pelicula pelicula) {
+	public void eliminarPorEntidad(Pelicula pelicula) {
 		repositorioPelicula.delete(pelicula);
 	}
 	

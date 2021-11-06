@@ -22,17 +22,31 @@ public class DirectorControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
 	public String listar(ModelMap modelo) throws Exception {
-		modelo.addAttribute("listar", "Lista Directores");
-		modelo.addAttribute("directores", directorServicio.listar());
-		return "vistas/director";
+		try {
+		    modelo.addAttribute("listar", "Lista Directores");
+		    modelo.addAttribute("directores", directorServicio.listar());
+		    return "vistas/director";
+		}catch(Exception e) {
+			e.printStackTrace();
+            modelo.addAttribute("listar", "Lista Directores");
+            modelo.put("error", e.getMessage());
+			return "redirect:/director";
+		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
-		modelo.addAttribute("registrar", "Registrar Director");
-		modelo.addAttribute(directorServicio.registrarVacio());
-		return "vistas/director";
+		try {
+		    modelo.addAttribute("registrar", "Registrar Director");
+		    modelo.addAttribute(directorServicio.registrarVacio());
+		    return "vistas/director";
+		}catch(Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Director");
+			modelo.put("error", e.getMessage());
+			return "redirect:/director";
+		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
@@ -55,9 +69,16 @@ public class DirectorControlador {
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
 	public String editar(ModelMap modelo, @PathVariable Long id) {
+		try {
 			modelo.addAttribute("editar", "Editar Directores");
 			modelo.addAttribute("director", directorServicio.obtenerPorId(id));
 			return "vistas/director";
+		}catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Director");
+			modelo.put("error", e.getMessage());
+			return "redirect:/director" ;
+		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
@@ -78,9 +99,15 @@ public class DirectorControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable Long id) {
+	public String eliminar(ModelMap modelo, @PathVariable Long id) {
+		try {
 			directorServicio.eliminar(id);
 			return "redirect:/director";
+		}catch (Exception e) {
+			e.printStackTrace();
+			modelo.put("error", e.getMessage());
+			return "redirect:/director";
+		}
 	}
 
 }

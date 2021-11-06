@@ -42,7 +42,7 @@ public class ActorServicio implements ServicioBase<Actor> {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Actor obtenerActorPorId(Long id) throws Exception {
+	public Actor obtenerPorId(Long id) throws Exception {
 		Optional<Actor> result = actorRepositorio.findById(id);
 		if (result.isEmpty()) {
 			throw new Exception("No se encontró");

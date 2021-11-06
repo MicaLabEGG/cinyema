@@ -70,7 +70,7 @@ public class ActorControlador {
 	public String editar(ModelMap modelo, @PathVariable Long idActor) throws Exception {
 		try {	
 		    modelo.addAttribute("editar", "Editar Actor");
-			modelo.addAttribute("actor", actorServicio.obtenerActorPorId(idActor));
+			modelo.addAttribute("actor", actorServicio.obtenerPorId(idActor));
 			return "vistas/actor";
 		}catch (Exception e) {
 			e.printStackTrace();

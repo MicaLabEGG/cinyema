@@ -25,11 +25,12 @@ import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.repositorios.UsuarioRepositorio;
 
 @Service
-public class UsuarioServicio implements UserDetailsService {
+public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario> {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario registrar(Usuario usuario) throws Exception {
 		validar(usuario);
@@ -44,6 +45,7 @@ public class UsuarioServicio implements UserDetailsService {
 		return new Usuario();
 	}
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario editar(Usuario usuario) throws Exception {
 		validar(usuario);
@@ -53,13 +55,15 @@ public class UsuarioServicio implements UserDetailsService {
 		return usuarioRepositorio.save(usuario);
 	}
 
+	@Override
 	@Transactional(readOnly = true)
 	public List<Usuario> listar() {
 		return usuarioRepositorio.findAll();
 	}
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Usuario obtenerUsuarioPorId(Long id) throws Exception {
+	public Usuario obtenerPorId(Long id) throws Exception {
 		Optional<Usuario> result = usuarioRepositorio.findById(id);
 		if (result.isEmpty()) {
 			throw new Exception("No se encontró");
@@ -79,6 +83,7 @@ public class UsuarioServicio implements UserDetailsService {
 		}
 	}
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminar(Long idUsuario) {
 		usuarioRepositorio.deleteById(idUsuario);

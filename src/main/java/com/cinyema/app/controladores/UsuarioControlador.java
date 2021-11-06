@@ -69,12 +69,12 @@ public class UsuarioControlador {
 	public String editar(ModelMap modelo, @PathVariable Long id) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar usuarios");
-			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(id));
+			modelo.addAttribute("usuario", usuarioServicio.obtenerPorId(id));
 			return "vistas/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Usuario");
-			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(id));
+			modelo.addAttribute("usuario", usuarioServicio.obtenerPorId(id));
 			modelo.put("error", e.getMessage());
 			return "vistas/usuario";
 		}

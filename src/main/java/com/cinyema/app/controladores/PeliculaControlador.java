@@ -42,15 +42,13 @@ public class PeliculaControlador {
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
 		modelo.addAttribute("registrar", "Registrar Películas");
-		modelo.addAttribute("directores", servicioDirector.listar());
-		modelo.addAttribute("actores", servicioActor.listar());
 		modelo.addAttribute("pelicula", servicioPelicula.registrarVacio());
 		return "vistas/admin/pelicula";
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/registrar")
-	public String registrar(ModelMap modelo, Pelicula pelicula, @RequestParam MultipartFile archivo) throws Exception {
+	public String registrar(ModelMap modelo, Pelicula pelicula, MultipartFile archivo) throws Exception {
 		try {
 			servicioPelicula.registrar(pelicula, archivo);
 			return "redirect:/pelicula";

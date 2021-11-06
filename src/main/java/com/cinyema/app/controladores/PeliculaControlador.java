@@ -34,7 +34,6 @@ public class PeliculaControlador {
 	public String listar(ModelMap modelo) {
 		modelo.addAttribute("listar", "Lista de Películas");
 		modelo.addAttribute("peliculas", servicioPelicula.listar());
-		modelo.addAttribute("actores", servicioActor.listar());
 		return "vistas/admin/pelicula";
 	}
 
@@ -43,6 +42,8 @@ public class PeliculaControlador {
 	public String registrar(ModelMap modelo) {
 		modelo.addAttribute("registrar", "Registrar Películas");
 		modelo.addAttribute("pelicula", servicioPelicula.registrarVacio());
+		modelo.addAttribute("actores", servicioActor.listar());
+		modelo.addAttribute("directores", servicioDirector.listar());
 		return "vistas/admin/pelicula";
 	}
 
@@ -67,6 +68,8 @@ public class PeliculaControlador {
 	public String editar(ModelMap modelo, @PathVariable Long idPelicula) {
 		modelo.addAttribute("editar", "Editar Películas");
 		modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
+		modelo.addAttribute("actores", servicioActor.listar());
+		modelo.addAttribute("directores", servicioDirector.listar());
 		return "vistas/admin/pelicula";
 	}
 

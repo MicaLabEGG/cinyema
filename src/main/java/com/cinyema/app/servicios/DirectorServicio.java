@@ -40,12 +40,12 @@ public class DirectorServicio implements ServicioBase<Director> {
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director obtenerPorId(Long idDirector) {
 		return directorRepositorio.getById(idDirector);
 	}
 
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director obtenerDirectorPorNombre(String nombre) {
 		Director director = directorRepositorio.buscarDirectorPorNombre(nombre);
 		return director = (director == null) ? directorRepositorio.save(new Director(nombre)) : director;

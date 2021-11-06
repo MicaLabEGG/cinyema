@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.servicios.UsuarioServicio;
 
 @Controller
@@ -23,7 +24,7 @@ public class UsuarioControlador {
 	public String listar(ModelMap modelo) throws Exception {
 		try {
 			modelo.addAttribute("listar", "Lista Usuarios");
-			modelo.addAttribute("usuario", usuarioServicio.buscarUsuarios());
+			modelo.addAttribute("usuario", usuarioServicio.listar());
 			return "vistas/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -33,29 +34,32 @@ public class UsuarioControlador {
 
 	@GetMapping("/login")
 	public String login(ModelMap modelo, @RequestParam(required = false) String error) {
-		if (error != null) {
-			modelo.put("Error", "Error al ingresar datos");
-		}
-		return "/login";
+		return (error != null) ? (String) modelo.put("Error", "Error al ingresar datos") : "/login";
 	}
 
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
-		modelo.addAttribute("registrar", "Registrar usuarios");
-		return "vistas/usuario";
+		try {
+		    modelo.addAttribute("registrar", "Registrar usuarios");
+		    modelo.addAttribute("usuario", usuarioServicio.registrarVacio());
+	     	return "vistas/usuario";
+		}catch (Exception e) {
+			e.printStackTrace();
+			modelo.put("error", e.getMessage());
+			return "vistas/usuario";
+		}
 	}
 
 	@PostMapping("/registrar")
-	public String registrar(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam("mail") String mail,
-			@RequestParam("nombreDeUsuario") String nombreDeUsuario, @RequestParam("contrasenia") String contrasenia,
-			@RequestParam("fechaNacimiento") String fechaNacimiento) throws Exception {
+	public String registrar(ModelMap modelo, Usuario usuario) throws Exception {
 		try {
-			modelo.put("usuario",
-					usuarioServicio.registroUsuario(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento));
+			modelo.put("usuario", usuarioServicio.registrar(usuario));
 			return "redirect:/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelo.put("Error", "Error al ingresar datos");
+			modelo.addAttribute("registrar", "Registrar Usuario");
+			modelo.addAttribute("usuario", usuario);
+			modelo.put("error", e.getMessage());
 			return "vistas/usuario";
 		}
 	}
@@ -65,11 +69,13 @@ public class UsuarioControlador {
 	public String editar(ModelMap modelo, @PathVariable Long id) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar usuarios");
-			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuario(id));
+			modelo.addAttribute("usuario", usuarioServicio.obtenerPorId(id));
 			return "vistas/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelo.put("error", "Error al ingresar datos");
+			modelo.addAttribute("editar", "Editar Usuario");
+			modelo.addAttribute("usuario", usuarioServicio.obtenerPorId(id));
+			modelo.put("error", e.getMessage());
 			return "vistas/usuario";
 		}
 
@@ -77,15 +83,15 @@ public class UsuarioControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre, @RequestParam String mail,
-			@RequestParam String nombreDeUsuario, @RequestParam String contrasenia,
-			@RequestParam String fechaNacimiento) throws Exception {
+	public String editar(ModelMap modelo, Usuario usuario) throws Exception {
 		try {
-			usuarioServicio.modificarUsuario(id, nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
+			usuarioServicio.editar(usuario);
 			return "redirect:/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelo.put("error", "Error al ingresar datos");
+			modelo.addAttribute("editar", "Editar Usuario");
+			modelo.addAttribute("usuario", usuario);
+			modelo.put("error", e.getMessage());
 			return "redirect:/usuario";
 		}
 	}
@@ -94,7 +100,7 @@ public class UsuarioControlador {
 	@GetMapping("/eliminar/{id}")
 	public String eliminar(@PathVariable Long id) {
 		try {
-			usuarioServicio.eliminarUsuario(id);
+			usuarioServicio.eliminar(id);
 			return "redirect:/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();

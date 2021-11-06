@@ -16,7 +16,7 @@ public class ActorServicio implements ServicioBase<Actor> {
 	private ActorRepositorio actorRepositorio;
 
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor registrar(Actor actor) throws Exception {
 		validar(actor);
 		return actorRepositorio.save(actor);
@@ -28,20 +28,20 @@ public class ActorServicio implements ServicioBase<Actor> {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor editar(Actor actor) throws Exception {
 		validar(actor);
 		return actorRepositorio.save(actor);
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Actor> listar() {
 		return actorRepositorio.findAll();
 	}
 
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor obtenerPorId(Long id) throws Exception {
 		Optional<Actor> result = actorRepositorio.findById(id);
 		if (result.isEmpty()) {
@@ -52,7 +52,7 @@ public class ActorServicio implements ServicioBase<Actor> {
 	}
 	
 
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
 		Optional<Actor> result = actorRepositorio.buscarPorNombre(nombreCompleto);
 		if (result.isEmpty()) {

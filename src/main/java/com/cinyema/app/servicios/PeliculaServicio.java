@@ -90,12 +90,12 @@ public class PeliculaServicio {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminar(Pelicula pelicula) {
+	public void eliminarPorEntidad(Pelicula pelicula) {
 		repositorioPelicula.delete(pelicula);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminarPeliculaPorId(Long idPelicula) throws Exception {
+	public void eliminar(Long idPelicula) throws Exception {
 		repositorioPelicula.deleteById(idPelicula);
 	}
 

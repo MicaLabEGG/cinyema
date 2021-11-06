@@ -3,9 +3,11 @@ package com.cinyema.app.servicios;
 
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.repositorios.TicketRepositorio;
 
@@ -15,7 +17,7 @@ public class TicketServicio {
 	@Autowired
 	private TicketRepositorio repTic;
 	
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void crearTicket(Ticket ticket) throws Exception {
 		
 		//String fecha1 = ticket.getFecha();
@@ -41,13 +43,13 @@ public class TicketServicio {
 		return t;
 	}
 	
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminarTicket(Long id) {
 		
 		repTic.deleteById(id);
 	}
 	
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void modificarTicket(Ticket ticket) throws Exception {
 		
 		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
@@ -65,13 +67,13 @@ public class TicketServicio {
 		repTic.save(ticket);
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Ticket> listarTicket() {
 		List<Ticket> listaTickets = repTic.findAll();
 		return listaTickets;
 	}
 	
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket buscarxId(Long id)throws Exception {
 		Optional<Ticket> result = repTic.findById(id);
 	       

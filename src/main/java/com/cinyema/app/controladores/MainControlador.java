@@ -36,22 +36,32 @@ public class MainControlador {
 
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
-		modelo.addAttribute("registrar", "Registrar Usuario");
-		return "vistas/registroUsuario";
+		try {
+			modelo.addAttribute("registrar", "Registrar Usuario");
+			modelo.addAttribute(usuarioServicio.registrarVacio());
+			return "vistas/registro";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Usuario");
+			modelo.addAttribute(usuarioServicio.registrarVacio());
+			modelo.put("error", e.getMessage());
+			return "vistas/registro";
+		}
+		
+		
 	}
 
 	@PostMapping("/registrar")
-	public String registrar(ModelMap modelo, @RequestParam("nombre") String nombre, @RequestParam("mail") String mail,
-			@RequestParam("nombreDeUsuario") String nombreDeUsuario, @RequestParam("contrasenia") String contrasenia,
-			@RequestParam("fechaNacimiento") String fechaNacimiento) throws Exception {
+	public String registrar(ModelMap modelo, Usuario usuario) throws Exception {
 		try {
-			modelo.put("usuario",
-					usuarioServicio.registroUsuario(nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento));
-			return "redirect:/usuario";
+			usuarioServicio.registrar(usuario);
+			return "redirect:/registro";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelo.put("error", "Error al ingresar los datos");
-			return "vistas/usuario";
+			modelo.addAttribute("registrar", "Registrar Usuario");
+			modelo.addAttribute("usuario", usuario);
+			modelo.put("error", e.getMessage());
+			return "redirect:/registro";
 		}
 	}
 }

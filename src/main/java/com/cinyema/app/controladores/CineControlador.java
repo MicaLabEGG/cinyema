@@ -28,45 +28,47 @@ public class CineControlador {
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
-	public String listarCines(ModelMap modelo) {
-		List<Cine> cines = cineServicio.listar();
-		modelo.addAttribute("cines", cines);
-		List<Sala> salas = salaServicio.listarSalas();
-		modelo.addAttribute("salas", salas);
-		modelo.addAttribute("listar", "Lista de Cines");
+	public String listar(ModelMap modelo) {
+		try {
+			modelo.addAttribute("listar", "Lista de Cines");
+		    modelo.addAttribute("cines", cineServicio.listar());
+		    return "vistas/admin/cine";
+		}catch (Exception e) {
+			e.printStackTrace();
+            modelo.addAttribute("listar", "Lista de Cines");
+            modelo.put("error", e.getMessage());
+			return "redirect:/cine";
+		}
 
-		return "admin/vistas/cine";
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/buscarCine")
 	public String listarCinePorNombre(ModelMap modelo, @RequestParam String nombre) throws Exception {
-
 		try {
-			List<Cine> cines = cineServicio.listarCinePorNombre(nombre);
-			modelo.addAttribute("cines", cines);
-
+			modelo.addAttribute("cines", cineServicio.listarCinePorNombre(nombre));
 			return "/cine/cine";
-
 		} catch (Exception e) {
 			modelo.put("ErrorBuscar", e.getMessage());
-
 			modelo.put("nombre", nombre);
-
 			return "/cine/cine";
 		}
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/agregarCine")
-	public String agregarCine(ModelMap modelo) {
-		List<Sala> salas = salaServicio.listarSalas();
-		Cine cine = new Cine();
-		modelo.addAttribute("salas", salas);
-		modelo.addAttribute("registro", "Registro de Cines");
-		modelo.addAttribute("cine", cine);
-
-		return "admin/vistas/cine";
+	@GetMapping("/registrar")
+	public String registrar(ModelMap modelo) {
+		try {
+			modelo.addAttribute("registrar", "Registrar Cines");
+			modelo.addAttribute("cine", cineServicio.registrarVacio());
+		    modelo.addAttribute("salas", salaServicio.listarSalas());
+            return "vistas/admin/cine";
+		}catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Cines");
+			modelo.put("error", e.getMessage());
+			return "redirect:/cine";
+		}
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")

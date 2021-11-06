@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.cinyema.app.entidades.Cine;
+import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.repositorios.CineRepositorio;
 import com.cinyema.app.repositorios.SalaRepositorio;
 
@@ -24,6 +25,11 @@ public class CineServicio {
 		validar(cine);
 		
 		return cineRepositorio.save(cine);
+	}
+	
+	@Transactional
+	public Cine registrarVacio() {
+		return new Cine();
 	}
 	
 	//Arme el modificar segun la nueva manera, que recibe el cine completo, por la vista con th:object para hacer los cambios.

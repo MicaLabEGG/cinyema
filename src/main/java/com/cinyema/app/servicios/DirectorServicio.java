@@ -36,10 +36,12 @@ public class DirectorServicio {
 		return directorRepositorio.findAll();
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director obtenerDirectorPorId(Long idDirector) {
 		return directorRepositorio.getById(idDirector);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director obtenerDirectorPorNombre(String nombre) {
 		Director director = directorRepositorio.buscarDirectorPorNombre(nombre);
 		return director = (director == null) ? directorRepositorio.save(new Director(nombre)) : director;

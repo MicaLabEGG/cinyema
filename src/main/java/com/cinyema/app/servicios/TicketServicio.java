@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.repositorios.TicketRepositorio;
 
@@ -17,7 +17,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	private TicketRepositorio repTic;
 	
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket registrar(Ticket ticket) throws Exception {
 		
 		//String fecha1 = ticket.getFecha();
@@ -44,15 +44,13 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminar(Long id) {
-		System.err.println(id);
 		
 		repTic.deleteById(id);
 	}
-
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket editar(Ticket ticket) throws Exception {
 		
 		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
@@ -71,14 +69,14 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Ticket> listar() throws Exception {
 		List<Ticket> listaTickets = repTic.findAll();
 		return listaTickets;
 	}
 	
 	@Override
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket obtenerPorId(Long id) throws Exception {
 		Optional<Ticket> result = repTic.findById(id);
 	       

@@ -32,8 +32,8 @@ public class TicketControlador {
 	public String listar(ModelMap modelo) {
 		try {
 			modelo.addAttribute("listar", "Lista Tickets");
-			modelo.addAttribute("tickets", servicioTicket.listarTicket());
-			return "vistas/ticket";
+			modelo.addAttribute("tickets", servicioTicket.listar());
+			return "vistas/admin/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "vistas/admin/ticket";
@@ -45,7 +45,7 @@ public class TicketControlador {
 	public String registrar(ModelMap modelo) {
 		try {
 			modelo.addAttribute("registrar", "Registrar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.crearTicketVac());
+			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.listar());
 			return "vistas/admin/ticket";
@@ -61,29 +61,31 @@ public class TicketControlador {
 	@PostMapping("/registrar")
 	public String registrar(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.crearTicket(ticket);
+			servicioTicket.registrar(ticket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("registrar", "Registrar Ticket");
 			modelo.addAttribute("ticket", ticket);
 			modelo.put("error", e.getMessage());
-			return "vistas/admin/ticket";
+			return "redirect:/ticket";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable long id) throws Exception {
+	public String editar(ModelMap modelo, @PathVariable long idTicket) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.buscarxId(id));
+			modelo.addAttribute("ticket", servicioTicket.obtenerTicketPorId(idTicket));
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.listar());
 			return "vistas/admin/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
+			modelo.addAttribute("editar", "Editar Ticket");
+			modelo.addAttribute("ticket", servicioTicket.obtenerTicketPorId(idTicket));
 			return "vistas/admin/ticket";
 		}
 	}
@@ -92,23 +94,23 @@ public class TicketControlador {
 	@PostMapping("editar/{id}")
 	public String editar(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.modificarTicket(ticket);
+			servicioTicket.editar(ticket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Ticket");
 			modelo.addAttribute("ticket", ticket);
 			modelo.put("error", e.getMessage());
-			return "vistas/admin/ticket";
+			return "redirect:/ticket";
 		}
 
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
-	public String eliminarrTicket(@PathVariable Long idTicket) {
+	public String eliminar(@PathVariable Long idTicket) {
 		try {
-			servicioTicket.eliminarTicket(idTicket);
+			servicioTicket.eliminar(idTicket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();

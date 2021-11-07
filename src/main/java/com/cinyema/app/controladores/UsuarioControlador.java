@@ -25,10 +25,10 @@ public class UsuarioControlador {
 		try {
 			modelo.addAttribute("listar", "Lista Usuarios");
 			modelo.addAttribute("usuario", usuarioServicio.listar());
-			return "vistas/usuario";
+			return "vistas/admin/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "vistas/usuario";
+			return "vistas/admin/usuario";
 		}
 	}
 
@@ -42,11 +42,11 @@ public class UsuarioControlador {
 		try {
 		    modelo.addAttribute("registrar", "Registrar usuarios");
 		    modelo.addAttribute("usuario", usuarioServicio.registrarVacio());
-	     	return "vistas/usuario";
+		    return "vistas/admin/usuario";
 		}catch (Exception e) {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
-			return "vistas/usuario";
+			return "vistas/admin/usuario";
 		}
 	}
 
@@ -60,7 +60,7 @@ public class UsuarioControlador {
 			modelo.addAttribute("registrar", "Registrar Usuario");
 			modelo.addAttribute("usuario", usuario);
 			modelo.put("error", e.getMessage());
-			return "vistas/usuario";
+			return "redirect:/usuario";
 		}
 	}
 
@@ -70,13 +70,13 @@ public class UsuarioControlador {
 		try {
 			modelo.addAttribute("editar", "Editar usuarios");
 			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(id));
-			return "vistas/usuario";
+			return "vistas/admin/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Usuario");
 			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(id));
 			modelo.put("error", e.getMessage());
-			return "vistas/usuario";
+			return "vistas/admin/usuario";
 		}
 
 	}

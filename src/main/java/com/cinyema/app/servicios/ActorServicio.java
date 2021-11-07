@@ -56,6 +56,11 @@ public class ActorServicio {
 			return result.get();
 		}
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Long obtenerCantidadActores() throws Exception {
+		return actorRepositorio.buscarCantidadActores();
+	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminar(Long idActor) {

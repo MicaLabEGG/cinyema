@@ -9,19 +9,19 @@
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
 		<div th:if="${listar}!= null">
 			<div
-				th:replace="fragmentos/director/listarDirector.html :: _listarDirector(directores=${directores}, listar={listar})">
+				th:replace="fragmentos/director/listarDirector :: _listarDirector(directores=${directores}, listar=${listar})">
 			</div>
 		</div>
 
 		<div th:if="${registrar}!= null">
 			<div
-				th:replace="fragmentos/director/registrarDirector.html :: _registrarDirector(director=${director}, error=${error}, registrar=${registrar})">
+				th:replace="fragmentos/director/registrarDirector :: _registrarDirector(director=${director}, error=${error}, registrar=${registrar})">
 			</div>
 		</div>
 
 		<div th:if="${editar}!= null">
 			<div
-				th:replace="fragmentos/director/editarDirector.html :: _editarDirector(director=${director}, error=${error}, editar=${editar})">
+				th:replace="fragmentos/director/editarDirector :: _editarDirector(director=${director}, error=${error}, editar=${editar})">
 			</div>
 		</div>
 	</div>

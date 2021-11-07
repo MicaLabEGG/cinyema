@@ -87,6 +87,10 @@ public class CineServicio implements ServicioBase<Cine>{
 		if (cine.getTelefono() == null || cine.getTelefono().isEmpty() || cine.getNombre().contains("  ")) {
 			throw new Exception("*Telefono de cine es inválido");
 		}
+		if (cine.getPrecio() == null ){
+			throw new Exception("*Precio de cine es inválido");
+		}
+		
 	}	
 
 }

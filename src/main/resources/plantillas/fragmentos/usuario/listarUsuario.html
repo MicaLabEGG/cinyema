@@ -29,8 +29,8 @@
 					<td th:text="${usuario.fechaNacimiento}"></td>
 					<td th:text="${usuario.nombreDeUsuario}"></td>
 					<td>
-						<a th:if="${usuario.alta}" th:href="@{/usuario/baja/__${usuario.idPelicula}__}"><i class="fa fa-circle" style="color:rgb(77, 144, 57);"></i></a>
-						<a th:unless="${usuario.alta}" th:href="@{/usuario/alta/__${usuario.idPelicula}__}"><i class="fa fa-circle" style="color:rgb(231, 41, 41);"></i></a>
+						<a th:if="${usuario.alta}" th:href="@{/usuario/baja/__${usuario.idUsuario}__}"><i class="fa fa-circle" style="color:rgb(77, 144, 57);"></i></a>
+						<a th:unless="${usuario.alta}" th:href="@{/usuario/alta/__${usuario.idUsuario}__}"><i class="fa fa-circle" style="color:rgb(231, 41, 41);"></i></a>
 					</td>
 					<td>
 						<a th:href="@{/usuario/editar/__${usuario.idUsuario}__}"><i class="far fa-edit"></i></a>

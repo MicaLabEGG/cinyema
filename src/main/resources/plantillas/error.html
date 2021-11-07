@@ -8,16 +8,17 @@
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 
 	<main class="container">
-		<div "row mt-5class=">
+		<div class="row">
 			<div class="col">
 			<div class="display-1 text-center mt-5" th:text="${codigo}"></div>
 		</div>
 		</div>
-		<div "row mt-5class=">
+		<div class="row">
 			<div class="col">
 			<div class="display-1 text-center mt-5" th:text="${mensaje}"></div>
 		</div>
 		</div>
+		<img th:src="@{/img/error/} + ${codigo} + '.jpg'"></main>
 	</main>
 	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>

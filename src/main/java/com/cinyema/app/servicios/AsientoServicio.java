@@ -4,10 +4,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.cinyema.app.entidades.Asiento;
 import com.cinyema.app.repositorios.AsientoRepositorio;
 
+@Service
 public class AsientoServicio {
 	
 	@Autowired

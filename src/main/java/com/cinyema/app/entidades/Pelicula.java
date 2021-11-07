@@ -46,6 +46,9 @@ public class Pelicula {
 	@JoinTable(name = "peliculaActor", joinColumns = @JoinColumn(name = "idPelicula"), inverseJoinColumns = @JoinColumn(name = "idActor"))
 	private List<Actor> actores;
 
+	public Pelicula() {
+	}
+
 	public Pelicula(Long idPelicula, String titulo, String anio, String descripcion, String duracion, Genero genero,
 			Pais pais, Idioma idioma, Subtitulo subtitulo, String imagen, Boolean alta, Director director,
 			List<Actor> actores) {

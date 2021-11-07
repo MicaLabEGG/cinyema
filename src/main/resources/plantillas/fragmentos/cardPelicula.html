@@ -1,45 +1,63 @@
-<div th:fragment="_cardPelicula(peliculas)" class="row row-cols-1 row-cols-md-3 g-4">
-    <div th:each="pelicula : ${peliculas}" class="col">
-        <div class="card h-100">
-            <img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="card-img-top" alt="...">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${pelicula.titulo}"></h5>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Genero: <b th:text="${pelicula.genero}"></b></li>
-                    <li class="list-group-item">Duracion: <b th:text="${pelicula.duracion}"></b></li>
-                </ul>
+<div th:fragment="_cardPelicula(peliculas)">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div th:each="pelicula : ${peliculas}" class="col">
+            <div class="card h-100">
+                <img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="card-img-top" alt="...">
                 <div class="card-body">
-                    <a th:href="@{/pelicula/__${pelicula.idPelicula}__}" class="btn btn-primary">Ver mas</a>
-                    <a sec:authorize="isAuthenticated()" th:href="@{/pelicula/__${pelicula.idPelicula}__}"
-                        class="btn btn-success">Comprar</a>
+                    <h5 class="card-title" th:text="${pelicula.titulo}"></h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Genero: <b th:text="${pelicula.genero}"></b></li>
+                        <li class="list-group-item">Duracion: <b th:text="${pelicula.duracion}"></b></li>
+                    </ul>
+                    <div class="card-body">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalPelicula">Ver
+                            mas</button>
+                        <a sec:authorize="isAuthenticated()" th:href="@{/ticket/__${pelicula.idPelicula}__}"
+                            class="btn btn-success">Comprar</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<div th:fragment="_cardPeliculaDetalle(pelicula)" class="card mb-3" style="max-width: 800px;">
-    <div class="row g-0">
-        <div class="col-md-4">
-            <img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid rounded-start" alt="...">
-        </div>
-        <div class="col-md-8">
-            <div class="card-body">
-                <h5 class="card-title" th:text="${pelicula.titulo}"></h5>
-                <p class="card-text" th:text="${pelicula.descripcion}"></p>
-                <p class="card-text">Director: <small th:text="${pelicula.director.nombre}"></small></p>
-                <p class="card-text">Actores: <small th:each="actor : ${pelicula.actores}" th:text ="${actor.nombreCompleto}+', '"></small></p>
-                <ul class="list-group list-group-horizontal">
-                    <li class="list-group-item">Genero: <small th:text="${pelicula.genero}"></small></li>
-                    <li class="list-group-item">Duracion: <small th:text="${pelicula.duracion}"></small></li>
-                    <li class="list-group-item">Año: <small th:text="${pelicula.anio}"></small></li>
-                    <li class="list-group-item">Pais: <small th:text="${pelicula.pais}"></small></li>
-                    <li class="list-group-item">Idioma: <small th:text="${pelicula.idioma}"></small></li>
-                    <li class="list-group-item">Subtitulo: <small th:text="${pelicula.subtitulo}"></small></li>
-                </ul>
-                <div class="card-body">
-                    <a th:href="@{/}" class="btn btn-primary">Volver</a>
-                    <a sec:authorize="isAuthenticated()" th:href="@{/pelicula/__${pelicula.idPelicula}__}" class="btn btn-success">Comprar</a>
+    <div class="modal fade" id="modalPelicula" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="card mb-3" style="max-width: 800px;">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}"
+                                class="img-fluid rounded-start" alt="...">
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${pelicula.titulo}"></h5>
+                                <p class="card-text" th:text="${pelicula.descripcion}"></p>
+                                <p class="card-text">Director: <small th:text="${pelicula.director.nombre}"></small></p>
+                                <p class="card-text">Actores: <small th:each="actor : ${pelicula.actores}"
+                                        th:text="${actor.nombreCompleto}+', '"></small></p>
+                                <ul class="list-group list-group-horizontal">
+                                    <li class="list-group-item">Genero: <small th:text="${pelicula.genero}"></small>
+                                    </li>
+                                    <li class="list-group-item">Duracion: <small th:text="${pelicula.duracion}"></small>
+                                    </li>
+                                    <li class="list-group-item">Año: <small th:text="${pelicula.anio}"></small></li>
+                                    <li class="list-group-item">Pais: <small th:text="${pelicula.pais}"></small></li>
+                                    <li class="list-group-item">Idioma: <small th:text="${pelicula.idioma}"></small>
+                                    </li>
+                                    <li class="list-group-item">Subtitulo: <small
+                                            th:text="${pelicula.subtitulo}"></small>
+                                    </li>
+                                </ul>
+                                <div class="card-body">
+                                    <a th:href="@{/}" class="btn btn-primary">Volver</a>
+                                    <a sec:authorize="isAuthenticated()"
+                                        th:href="@{/pelicula/__${pelicula.idPelicula}__}"
+                                        class="btn btn-success">Comprar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

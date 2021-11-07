@@ -20,7 +20,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket registrar(Ticket ticket) throws Exception {
 		validar(ticket);
-		repositorioTicket.save(ticket);
+		return repositorioTicket.save(ticket);
 	}
 	
 	@Transactional
@@ -37,7 +37,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket editar(Ticket ticket) throws Exception {
 		validar(ticket);
-		repositorioTicket.save(ticket);
+		return repositorioTicket.save(ticket);
 	}
 	
 	@Override

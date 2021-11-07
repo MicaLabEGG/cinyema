@@ -60,12 +60,13 @@ public class ActorServicio implements ServicioBase<Actor> {
 			return result.get();
 		}
 	}
-	@Override
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Long obtenerCantidadActores() throws Exception {
 		return actorRepositorio.buscarCantidadActores();
 	}
-
+    
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminar(Long id) throws Exception {
 		actorRepositorio.deleteById(id);

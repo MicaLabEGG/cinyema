@@ -18,7 +18,7 @@
 
 		<div th:if="${editar}!= null">
 			<div
-				th:replace="fragmentos/editarTicket :: _editarTicket(error=${error},ticket=${ticket},peliculas=${peliculas},usuarios=${usuarios},editar=${editar})">
+				th:replace="fragmentos/ticket/editarTicket :: _editarTicket(error=${error},ticket=${ticket},peliculas=${peliculas},usuarios=${usuarios},editar=${editar})">
 			</div>
 		</div>
 	</div>

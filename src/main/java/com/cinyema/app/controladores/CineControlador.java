@@ -61,7 +61,7 @@ public class CineControlador {
 		try {
 			modelo.addAttribute("registrar", "Registrar Cine");
 			modelo.addAttribute("cine", cineServicio.registrarVacio());
-		    modelo.addAttribute("salas", salaServicio.listarSalas());
+		    modelo.addAttribute("salas", salaServicio.listar());
             return "vistas/admin/cine";
 		}catch (Exception e) {
 			e.printStackTrace();

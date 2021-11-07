@@ -12,17 +12,14 @@ import lombok.Data;
 @Table(name = "asiento")
 public class Asiento {
 	
-
 	@Id
 	private Long idAsiento = randomId();
-	
 	private String numeroDeAsiento;
 	private Boolean libre;
 	
 	@ManyToOne
 	private Sala sala;
 	
-
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
 		Long id = (long) uuid.hashCode();

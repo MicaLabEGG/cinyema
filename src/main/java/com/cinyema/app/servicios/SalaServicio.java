@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cinyema.app.entidades.Sala;
+import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.repositorios.SalaRepositorio;
 
 @Service
@@ -22,6 +23,11 @@ public class SalaServicio implements ServicioBase<Sala>{
 	public Sala registrar(Sala sala) throws Exception {
 		validar(sala);
 		return salaRepositorio.save(sala);
+	}
+	
+	@Transactional
+	public Sala registrarVacio() {
+		return new Sala();
 	}
 
 	@Override

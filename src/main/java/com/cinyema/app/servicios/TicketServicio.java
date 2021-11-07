@@ -15,68 +15,39 @@ import com.cinyema.app.repositorios.TicketRepositorio;
 public class TicketServicio {
 	
 	@Autowired
-	private TicketRepositorio repTic;
+	private TicketRepositorio repositorioTicket;
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void crearTicket(Ticket ticket) throws Exception {
-		
-		//String fecha1 = ticket.getFecha();
-		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(ticket.getFecha());
-		
+	public void registrar(Ticket ticket) throws Exception {
 		validar(ticket);
-		
-		//Ticket tic = new Ticket();
-		
-		//tic.setPelicula(pel);
-		//tic.setUsuario(usu);
-		//tic.setFecha(fecha);
-		//tic.setLugar(lugar);
-		//tic.setPrecio(precio);
-		
-		repTic.save(ticket);
+		repositorioTicket.save(ticket);
 	}
 	
 	@Transactional
-	public Ticket crearTicketVac() {
-		Ticket t = new Ticket();
-		
-		return t;
+	public Ticket registrarVacio() {
+		return new Ticket();
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminarTicket(Long id) {
-		
-		repTic.deleteById(id);
+	public void eliminar(Long id) {
+		repositorioTicket.deleteById(id);
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void modificarTicket(Ticket ticket) throws Exception {
-		
-		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
-		
+	public void editar(Ticket ticket) throws Exception {
 		validar(ticket);
-		
-//		Ticket tic = buscarxId(id);
-//		
-//		tic.setPelicula(pel);
-//		tic.setUsuario(usu);
-//		tic.setFecha(fecha);
-//		tic.setLugar(lugar);
-//		tic.setPrecio(precio);
-		
-		repTic.save(ticket);
+		repositorioTicket.save(ticket);
 	}
 	
 	@Transactional(readOnly = true)
-	public List<Ticket> listarTicket() {
-		List<Ticket> listaTickets = repTic.findAll();
+	public List<Ticket> listar() {
+		List<Ticket> listaTickets = repositorioTicket.findAll();
 		return listaTickets;
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Ticket buscarxId(Long id)throws Exception {
-		Optional<Ticket> result = repTic.findById(id);
-	       
+	public Ticket obtenerTicketPorId(Long id)throws Exception {
+		Optional<Ticket> result = repositorioTicket.findById(id);
 	    if(result.isEmpty()) {
 	    	throw new Exception("No se encontro");
 	    }else {
@@ -105,7 +76,6 @@ public class TicketServicio {
         if (ticket.getPrecio() == null ) {
             throw new Error("El campo 'precio' no puede estar vacío");
         }
-
         
     }		
 }

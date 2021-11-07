@@ -77,7 +77,7 @@ public class TicketControlador {
 	public String editar(ModelMap modelo, @PathVariable long idTicket) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(id));
+			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.listar());
 			return "vistas/admin/ticket";
@@ -85,7 +85,7 @@ public class TicketControlador {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
 			modelo.addAttribute("editar", "Editar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.obtenerTicketPorId(idTicket));
+			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
 			return "vistas/admin/ticket";
 		}
 	}

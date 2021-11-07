@@ -1,9 +1,7 @@
 package com.cinyema.app.entidades;
 
-
 import java.util.List;
 import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,9 +13,6 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-
 import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.enumeraciones.Idioma;
 import com.cinyema.app.enumeraciones.Pais;
@@ -26,9 +21,7 @@ import com.cinyema.app.enumeraciones.Subtitulo;
 @Entity
 @Table(name = "pelicula")
 public class Pelicula {
-	
-	
-	
+
 	@Id
 	private Long idPelicula = randomId();
 	private String titulo;
@@ -50,18 +43,12 @@ public class Pelicula {
 	@OneToOne
 	private Director director;
 	@ManyToMany
-	@JoinTable(
-			  name = "peliculaActor", 
-			  joinColumns = @JoinColumn(name = "idPelicula"), 
-			  inverseJoinColumns = @JoinColumn(name = "idActor"))
+	@JoinTable(name = "peliculaActor", joinColumns = @JoinColumn(name = "idPelicula"), inverseJoinColumns = @JoinColumn(name = "idActor"))
 	private List<Actor> actores;
-	
-	public Pelicula() {
-		
-	}
-	
+
 	public Pelicula(Long idPelicula, String titulo, String anio, String descripcion, String duracion, Genero genero,
-			Pais pais, Idioma idioma, Subtitulo subtitulo, String imagen, Boolean alta, Director director, List<Actor> actores) {
+			Pais pais, Idioma idioma, Subtitulo subtitulo, String imagen, Boolean alta, Director director,
+			List<Actor> actores) {
 		super();
 		this.idPelicula = idPelicula;
 		this.titulo = titulo;
@@ -77,7 +64,7 @@ public class Pelicula {
 		this.director = director;
 		this.actores = actores;
 	}
-	
+
 	public Long getIdPelicula() {
 		return idPelicula;
 	}
@@ -185,7 +172,7 @@ public class Pelicula {
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
 		Long id = (long) uuid.hashCode();
-		id = id<0 ? -id:id;
+		id = id < 0 ? -id : id;
 		return id;
 	}
 

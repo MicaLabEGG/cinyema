@@ -25,12 +25,12 @@ public class DirectorControlador {
 		try {
 		    modelo.addAttribute("listar", "Lista Directores");
 		    modelo.addAttribute("directores", directorServicio.listar());
-		    return "vistas/director";
+		    return "vistas/admin/director";
 		}catch(Exception e) {
 			e.printStackTrace();
             modelo.addAttribute("listar", "Lista Directores");
             modelo.put("error", e.getMessage());
-			return "redirect:/director";
+            return "vistas/admin/director";
 		}
 	}
 
@@ -40,12 +40,12 @@ public class DirectorControlador {
 		try {
 		    modelo.addAttribute("registrar", "Registrar Director");
 		    modelo.addAttribute(directorServicio.registrarVacio());
-		    return "vistas/director";
+		    return "vistas/admin/director";
 		}catch(Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("registrar", "Registrar Director");
 			modelo.put("error", e.getMessage());
-			return "redirect:/director";
+			return "vistas/admin/director";
 		}
 	}
 
@@ -72,12 +72,12 @@ public class DirectorControlador {
 		try {
 			modelo.addAttribute("editar", "Editar Directores");
 			modelo.addAttribute("director", directorServicio.obtenerDirectorPorId(id));
-			return "vistas/director";
+			return "vistas/admin/director";
 		}catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Director");
 			modelo.put("error", e.getMessage());
-			return "redirect:/director" ;
+			return "vistas/admin/director";
 		}
 	}
 

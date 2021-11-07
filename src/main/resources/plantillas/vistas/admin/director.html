@@ -9,7 +9,7 @@
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
 		<div th:if="${listar}!= null">
 			<div
-				th:replace="fragmentos/director/listarDirector :: _listarDirector(directores=${directores}, listar={listar})">
+				th:replace="fragmentos/director/listarDirector :: _listarDirector(directores=${directores}, listar=${listar})">
 			</div>
 		</div>
 

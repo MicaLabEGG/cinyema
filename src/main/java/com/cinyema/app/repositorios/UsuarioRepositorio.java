@@ -1,13 +1,13 @@
 package com.cinyema.app.repositorios;
 
 
-
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.entidades.Usuario;
 
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Long>{

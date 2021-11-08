@@ -1,9 +1,5 @@
 package com.cinyema.app.controladores;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -12,16 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Ticket;
-import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.TicketServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
 
 @Controller
-//para saber si inicio sesion(esta logueado) no tiene que ver con Roles - PreAhutorize
 @PreAuthorize("isAuthenticated()")
 @RequestMapping("/ticket")
 public class TicketControlador {
@@ -37,79 +29,78 @@ public class TicketControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
-	public String listaTicket(ModelMap modelo) {
-
+	public String listar(ModelMap modelo) {
 		try {
-			List<Ticket> listTickets = servicioTicket.listarTicket();
-			modelo.addAttribute("listar", "Lista de Tickets");
-			modelo.addAttribute("tickets", listTickets);
-			return "admin/vistas/ticket";
+			modelo.addAttribute("listar", "Lista Tickets");
+			modelo.addAttribute("tickets", servicioTicket.listar());
+			return "vistas/admin/ticket";
 		} catch (Exception e) {
-			e.getMessage();
-			return "admin/vistas/ticket";
+			e.printStackTrace();
+			return "vistas/admin/ticket";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/registrar")
-	public String registrarTicket(ModelMap modelo) {
+	public String registrar(ModelMap modelo) {
 		try {
 			modelo.addAttribute("registrar", "Registrar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.crearTicketVac());
-			modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
-			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
-			return "admin/vistas/ticket";
+			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
+			modelo.addAttribute("peliculas", servicioPelicula.listar());
+			modelo.addAttribute("usuarios", servicioUsuario.listar());
+			return "vistas/admin/ticket";
 		} catch (Exception e) {
+			e.printStackTrace();
 			modelo.put("error", e.getMessage());
-			return "admin/vistas/ticket";
+			return "vistas/admin/ticket";
 		}
 
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/registrar")
-	public String registrarTicket(ModelMap modelo, Ticket ticket) throws Exception {
+	public String registrar(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.crearTicket(ticket);
+			servicioTicket.registrar(ticket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Falta algun dato");
+			e.printStackTrace();
 			modelo.addAttribute("registrar", "Registrar Ticket");
-			modelo.addAttribute(ticket);
+			modelo.addAttribute("ticket", ticket);
+			modelo.put("error", e.getMessage());
 			return "redirect:/ticket";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
-	public String modificarTicket(ModelMap modelo) throws Exception {
+	public String editar(ModelMap modelo, @PathVariable long idTicket) throws Exception {
 		try {
-			modelo.addAttribute("registrar", "Registrar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.crearTicketVac());
-			modelo.addAttribute("peliculas", servicioPelicula.listarPeliculas());
-			modelo.addAttribute("usuarios", servicioUsuario.buscarUsuarios());
-			return "admin/vistas/ticket";
+			modelo.addAttribute("editar", "Editar Ticket");
+			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
+			modelo.addAttribute("peliculas", servicioPelicula.listar());
+			modelo.addAttribute("usuarios", servicioUsuario.listar());
+			return "vistas/admin/ticket";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			modelo.put("error", e.getMessage());
-			return "admin/vistas/ticket";
+			modelo.addAttribute("editar", "Editar Ticket");
+			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
+			return "vistas/admin/ticket";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("editar/{id}")
-	public String modificarTicket(ModelMap modelo, Ticket ticket, @PathVariable Long id,
-			@RequestParam Pelicula pelicula, @RequestParam Usuario usuario, @RequestParam String fecha,
-			@RequestParam String lugar, @RequestParam Double precio) throws Exception {
+	public String editar(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.modificarTicket(id, pelicula, usuario, fecha, lugar, precio);
+			servicioTicket.editar(ticket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Falta algun dato");
-			modelo.addAttribute("registrar", "Registrar Ticketr");
-			modelo.addAttribute(ticket);
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Ticket");
+			modelo.addAttribute("ticket", ticket);
+			modelo.put("error", e.getMessage());
 			return "redirect:/ticket";
 		}
 
@@ -117,12 +108,12 @@ public class TicketControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
-	public String eliminarrTicket(@PathVariable Long idTicket) {
+	public String eliminar(@PathVariable Long idTicket) {
 		try {
-			servicioTicket.eliminarTicket(idTicket);
+			servicioTicket.eliminar(idTicket);
 			return "redirect:/ticket";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
 			return "redirect:/ticket";
 		}
 	}

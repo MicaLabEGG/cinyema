@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:insert="fragmentos/head :: _head"></head>
+
+<body>
+	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
+
+	<div class="container-fluid" >
+		<div class="row">
+			<div class="col-sm-12 d-flex justify-content-center">
+				<h1>Panel administrador</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid" >
+		<div class="row">
+			<div class="col-sm-6 d-flex justify-content-center">
+				<h2>Pelicula</h2>
+                <p>Total: <b th:text="${peliculaTotal}"></b></p>
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" th:attr="style='width: '+${peliculaAlta}+'%'" th:attr="aria-valuenow=${peliculaAlta}" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-danger" role="progressbar" th:attr="style='width: '+${peliculaBaja}+'%'" th:attr="aria-valuenow=${peliculaBaja}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <a th:href="@{/pelicula}" class="btn btn-primary"></a>
+			</div>
+			<div class="col-sm-6 d-flex justify-content-center">
+				<h2>Usuario</h2>
+                <p>Total: <b th:text="${usuarioTotal}"></b></p>
+                <div class="progress">
+                    <div class="progress-bar bg-success" role="progressbar" th:attr="style='width: '+${usuarioAlta}+'%'" th:attr="aria-valuenow=${usuarioAlta}" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-danger" role="progressbar" th:attr="style='width: '+${usuarioBaja}+'%'" th:attr="aria-valuenow=${usuarioBaja}" aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <a th:href="@{/usuario}" class="btn btn-primary"></a>
+			</div>
+		</div>
+        <div class="row">
+            <div class="col-sm-4 justify-content-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cantidad Ticket</h5>
+                        <p><b th:text="${ticketTotal}"></b></p>
+                        <a th:href="@{/ticket}" class="btn btn-primary"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 justify-content-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cantidad Director</h5>
+                        <p><b th:text="${ticketTotal}"></b></p>
+                        <a th:href="@{/director}" class="btn btn-primary"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 justify-content-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cantidad Actor</h5>
+                        <p><b th:text="${ticketTotal}"></b></p>
+                        <a th:href="@{/actor}" class="btn btn-primary"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+
+	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
+</body>
+
+</html>

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.cinyema.app.entidades.Usuario;
+import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
 
 @Controller
@@ -17,9 +17,13 @@ public class MainControlador {
 
 	@Autowired
 	private UsuarioServicio usuarioServicio;
+	
+	@Autowired
+	private PeliculaServicio peliculaServicio;
 
 	@GetMapping()
-	public String index() {
+	public String index(ModelMap modelo) {
+		modelo.addAttribute("peliculas", peliculaServicio.listar());
 		return "index";
 	}
 
@@ -32,31 +36,37 @@ public class MainControlador {
 		if (nombreDeUsuario != null) {
 			modelo.addAttribute("nombreDeUsuario", nombreDeUsuario);
 		}
-		return "visitante/vistas/login";
+		return "vistas/login";
 	}
 
 	@GetMapping("/registrar")
-	public String guardar(ModelMap modelo) {
-		modelo.addAttribute("registrar", "Registrar usuarios");
-		return "visitante/vistas/registroUsuario";
+	public String registrar(ModelMap modelo) {
+		try {
+			modelo.addAttribute("registrar", "Registrar Usuario");
+			modelo.addAttribute(usuarioServicio.registrarVacio());
+			return "vistas/registro";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Usuario");
+			modelo.addAttribute(usuarioServicio.registrarVacio());
+			modelo.put("error", e.getMessage());
+			return "vistas/registro";
+		}
+		
+		
 	}
 
 	@PostMapping("/registrar")
-	public String guardarUsuario(ModelMap modelo, @RequestParam("nombre") String nombre,
-			@RequestParam("mail") String mail, @RequestParam("nombreDeUsuario") String nombreDeUsuario,
-			@RequestParam("contrasenia") String contrasenia, @RequestParam("fechaNacimiento") String fechaNacimiento)
-			throws Exception {
-
+	public String registrar(ModelMap modelo, Usuario usuario) throws Exception {
 		try {
-			Usuario usuario = usuarioServicio.registroUsuario(nombre, mail, nombreDeUsuario, contrasenia,
-					fechaNacimiento);
-			modelo.put("usuario", usuario);
-			return "redirect:/usuario";
+			usuarioServicio.registrar(usuario);
+			return "redirect:/registro";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Error al ingresar los datos del usuario");
-			modelo.addAttribute("registrar", "Registrar usuarios");
-			return "admin/vistas/usuario";
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Usuario");
+			modelo.addAttribute("usuario", usuario);
+			modelo.put("error", e.getMessage());
+			return "redirect:/registro";
 		}
 	}
 }

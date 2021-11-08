@@ -13,4 +13,7 @@ public interface ActorRepositorio extends JpaRepository<Actor, Long>{
 	@Query("SELECT a FROM Actor a where a.nombreCompleto = :nombreCompleto")
 	public Optional<Actor> buscarPorNombre(@Param("nombreCompleto") String nombreCompleto);
 	
+	@Query("SELECT COUNT(a) FROM Actor a")
+	public Long buscarCantidadActores();
+	
 }

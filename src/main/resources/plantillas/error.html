@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<head th:replace="fragmentos/head :: _head"></head>
+
+<body>
+	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
+
+	<div class="container">
+		<img th:src="@{/img/error/} + ${codigo} + '.jpg'" class="img-fluid mx-auto d-block"></main>
+	</div>
+	
+	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
+</body>
+
+</html>

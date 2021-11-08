@@ -55,6 +55,16 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 		return asientoRepositorio.getById(idAsiento);
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void ocuparAsiento(Asiento asiento) {
+		asiento.setLibre(false);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void liberarAsiento(Asiento asiento) {
+		asiento.setLibre(true);
+	}
+	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminar(Long idAsiento) throws Exception {

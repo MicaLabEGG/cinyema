@@ -82,7 +82,7 @@ public class PeliculaControlador {
 	public String editar(ModelMap modelo, @PathVariable Long idPelicula) {
 		try {
 		    modelo.addAttribute("editar", "Editar Películas");
-		    modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
+		    modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
 		    modelo.addAttribute("actores", servicioActor.listar());
 		    modelo.addAttribute("directores", servicioDirector.listar());
 		    return "vistas/admin/pelicula";

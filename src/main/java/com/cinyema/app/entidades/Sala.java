@@ -19,10 +19,8 @@ public class Sala {
 
 	@Id
 	private Long idSala = randomId();
-
 	@OneToOne
 	private Pelicula pelicula;
-
 	@OneToMany
 	@JoinColumn(name = "idAsiento")
 	private List<Asiento> asientos;

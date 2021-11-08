@@ -13,7 +13,7 @@ import com.cinyema.app.entidades.Sala;
 @Repository
 public interface SalaRepositorio extends JpaRepository<Sala, Long> {
 	
-	//@Query("SELECT s FROM sala s WHERE s.pelicula = :pelicula")
-	//public List<Sala> buscarSalaPorPelicula(@Param("pelicula") Pelicula pelicula);
+	@Query("SELECT s FROM Sala s WHERE s.pelicula.titulo = :titulo")
+	public Sala buscarSalaPorPelicula(@Param("titulo") String titulo);
 
 }

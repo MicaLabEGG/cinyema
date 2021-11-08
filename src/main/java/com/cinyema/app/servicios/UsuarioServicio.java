@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import com.cinyema.app.entidades.Usuario;
+import com.cinyema.app.enumeraciones.Rol;
 import com.cinyema.app.repositorios.UsuarioRepositorio;
 
 @Service
@@ -35,6 +36,8 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 	public Usuario registrar(Usuario usuario) throws Exception {
 		validar(usuario);
 		validarMayoriaEdad(usuario);
+		usuario.setAlta(true);
+		usuario.setRol(Rol.USUARIO);
 		BCryptPasswordEncoder encriptada = new BCryptPasswordEncoder();
 		usuario.setContrasenia(encriptada.encode(usuario.getContrasenia()));
 		return usuarioRepositorio.save(usuario);
@@ -110,9 +113,9 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 			throw new Exception("Contraseña inválida");
 		}
 
-		if (usuario.getFechaNacimiento() == null || usuario.getFechaNacimiento().after(hoy)) {
-			throw new Exception("Fecha de nacimiento inválida");
-		}
+//		if (usuario.getFechaNacimiento() == null || usuario.getFechaNacimiento().after(hoy)) {
+//			throw new Exception("Fecha de nacimiento inválida");
+//		}
 
 	}
 
@@ -139,7 +142,7 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 
 	public Boolean validarMayoriaEdad(Usuario usuario) {
 		DateTimeFormatter farmateo = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate fechaDeNacimiento = LocalDate.parse(usuario.getFechaNacimiento().toString(), farmateo);
+		LocalDate fechaDeNacimiento = LocalDate.parse(usuario.getFechaNacimiento(), farmateo);
 		Period edad = Period.between(fechaDeNacimiento, LocalDate.now());
 		if (edad.getYears() < 18) {
 			return false;

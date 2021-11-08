@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "cines")
 public class Cine {
@@ -23,8 +24,9 @@ public class Cine {
 	private String direccion;
 	private String mail;
 	private String telefono;
+	private Double precio;
 
-	public Cine(Long idCine, List<Sala> salas, String nombre, String direccion, String mail, String telefono) {
+	public Cine(Long idCine, List<Sala> salas, String nombre, String direccion, String mail, String telefono, Double precio) {
 		super();
 		this.idCine = idCine;
 		this.salas = salas;
@@ -32,6 +34,7 @@ public class Cine {
 		this.direccion = direccion;
 		this.mail = mail;
 		this.telefono = telefono;
+		this.precio = precio;
 	}
 
 	public Cine() {
@@ -87,6 +90,15 @@ public class Cine {
 		this.telefono = telefono;
 	}
 
+	
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
+	}
+
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
 		Long id = (long) uuid.hashCode();
@@ -97,7 +109,7 @@ public class Cine {
 	@Override
 	public String toString() {
 		return "Cine [idCine=" + idCine + ", salas=" + salas + ", nombre=" + nombre + ", direccion=" + direccion
-				+ ", mail=" + mail + ", telefono=" + telefono + "]";
+				+ ", mail=" + mail + ", telefono=" + telefono + ", precio=" + precio + "]";
 	}
 	
 }

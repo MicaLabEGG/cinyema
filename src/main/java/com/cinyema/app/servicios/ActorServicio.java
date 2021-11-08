@@ -51,7 +51,6 @@ public class ActorServicio implements ServicioBase<Actor> {
 		}
 	}
 	
-
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
 		Optional<Actor> result = actorRepositorio.buscarPorNombre(nombreCompleto);
@@ -62,6 +61,11 @@ public class ActorServicio implements ServicioBase<Actor> {
 		}
 	}
 	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Long obtenerCantidadActores() throws Exception {
+		return actorRepositorio.buscarCantidadActores();
+	}
+    
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminar(Long id) throws Exception {

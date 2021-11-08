@@ -33,7 +33,7 @@ public class TicketControlador {
 		try {
 			modelo.addAttribute("listar", "Lista Tickets");
 			modelo.addAttribute("tickets", servicioTicket.listar());
-			return "vistas/ticket";
+			return "vistas/admin/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "vistas/admin/ticket";
@@ -45,7 +45,7 @@ public class TicketControlador {
 	public String registrar(ModelMap modelo) {
 		try {
 			modelo.addAttribute("registrar", "Registrar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.crearTicketVac());
+			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.listar());
 			return "vistas/admin/ticket";
@@ -68,22 +68,24 @@ public class TicketControlador {
 			modelo.addAttribute("registrar", "Registrar Ticket");
 			modelo.addAttribute("ticket", ticket);
 			modelo.put("error", e.getMessage());
-			return "vistas/admin/ticket";
+			return "redirect:/ticket";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable long id) throws Exception {
+	public String editar(ModelMap modelo, @PathVariable long idTicket) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(id));
+			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.listar());
 			return "vistas/admin/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
+			modelo.addAttribute("editar", "Editar Ticket");
+			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
 			return "vistas/admin/ticket";
 		}
 	}
@@ -99,14 +101,14 @@ public class TicketControlador {
 			modelo.addAttribute("editar", "Editar Ticket");
 			modelo.addAttribute("ticket", ticket);
 			modelo.put("error", e.getMessage());
-			return "vistas/admin/ticket";
+			return "redirect:/ticket";
 		}
 
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")
-	public String eliminarrTicket(@PathVariable Long idTicket) {
+	public String eliminar(@PathVariable Long idTicket) {
 		try {
 			servicioTicket.eliminar(idTicket);
 			return "redirect:/ticket";

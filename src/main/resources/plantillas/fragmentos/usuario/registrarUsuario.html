@@ -13,7 +13,7 @@
 					</div>
 				</div>
 
-				<form th:object="${usuario}" action="/usuario/registrar"
+				<form th:object="${usuario}" action="/registrar"
 					method="POST">
 					<div class="form-group">
 						<label>Nombre</label> <input type="text" class="form-control"
@@ -36,7 +36,7 @@
 					</div>
 					<div class="form-group">
 						<label>Contraseña</label> <input type="password"
-							class="form-control" th:field="${contrasenia}"
+							class="form-control" th:field="*{contrasenia}"
 							placeholder="Contraseña">
 					</div>
 					<button type="submit" class="btn btn-primary">Registrarse</button>

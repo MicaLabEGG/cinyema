@@ -37,7 +37,7 @@ public class CineControlador {
 			e.printStackTrace();
             modelo.addAttribute("listar", "Lista de Cines");
             modelo.put("error", e.getMessage());
-			return "redirect:/cine";
+			return "vistas/admin/actor";
 		}
 
 	}
@@ -59,83 +59,74 @@ public class CineControlador {
 	@GetMapping("/registrar")
 	public String registrar(ModelMap modelo) {
 		try {
-			modelo.addAttribute("registrar", "Registrar Cines");
+			modelo.addAttribute("registrar", "Registrar Cine");
 			modelo.addAttribute("cine", cineServicio.registrarVacio());
-		    modelo.addAttribute("salas", salaServicio.listarSalas());
+		    modelo.addAttribute("salas", salaServicio.listar());
             return "vistas/admin/cine";
 		}catch (Exception e) {
 			e.printStackTrace();
-			modelo.addAttribute("registrar", "Registrar Cines");
+			modelo.addAttribute("registrar", "Registrar Cine");
+			modelo.put("error", e.getMessage());
+			return "vistas/admin/cine";
+		}
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@PostMapping("/registrar")
+	public String registrar(ModelMap modelo, Cine cine) throws Exception {
+		try {
+			cineServicio.registrar(cine);
+			return "redirect:/cine";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Cine");
+			modelo.addAttribute("cine", cine);
+			modelo.put("error", e.getMessage());
+			return "redirect:/actor";
+		}
+
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/editar/{id}")
+	public String editar(ModelMap modelo, @PathVariable Long idCine) throws Exception {
+        try {
+        	modelo.addAttribute("editar", "Editar Cine");
+ 			modelo.addAttribute("cine", cineServicio.obtenerPorId(idCine));
+ 			return "vistas/admin/cine";
+ 		}catch (Exception e) {
+ 			e.printStackTrace();
+ 			modelo.addAttribute("editar", "Editar Cine");
+ 			modelo.put("error", e.getMessage());
+ 			return "vistas/admin/cine";
+ 		}
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@PostMapping("/editar/{id}")
+	public String editar(ModelMap modelo, Cine cine ) throws Exception {
+		try {
+			cineServicio.editar(cine);
+			return "redirect:/cine";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Cine");
+			modelo.addAttribute("cine", cine);
+			modelo.put("error", e.getMessage());
+			return "redirect:/cine" ;
+		}
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/eliminar/{id}")
+	public String eliminar(ModelMap modelo, @PathVariable Long idCine) {
+		try {
+			cineServicio.eliminar(idCine);
+			return "redirect:/cine";
+		}catch (Exception e) {
+			e.printStackTrace();
 			modelo.put("error", e.getMessage());
 			return "redirect:/cine";
 		}
 	}
-	
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/agregarCine")
-	public String guardarCine(ModelMap modelo, Cine cine) throws Exception {
-		try {
-			cineServicio.crear(cine);
-			
-			return "redirect:/cine";
-
-		} catch (Exception e) {
-			modelo.put("error", e.getMessage());
-			// devolvemos los valores ingresados al formulario
-			modelo.addAttribute(cine);
-			modelo.addAttribute("registro", "Registro de Cines");
-
-			return "admin/vistas/cine";
-		}
-
-	}
-	
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/modificarCine/{id}")
-	public String modificarPelicula(ModelMap modelo, @PathVariable Long idCine) {
-
-		Optional<Cine> cine = cineServicio.buscarCinePorId(idCine);
-		@SuppressWarnings("unused")
-		List<Sala> salas = salaServicio.listarSalas();
-
-		modelo.addAttribute("nombre", cine.get().getNombre());
-		modelo.addAttribute("direccion", cine.get().getDireccion());
-		modelo.addAttribute("telefono", cine.get().getTelefono());
-
-		return "/cine/editarCine";
-	}
-	
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/modificarCine")
-	public String modificarCine(ModelMap modelo, Cine cine ) throws Exception {
-
-		try {
-			cineServicio.modificar(cine);
-
-			return "redirect:/cine";
-
-		} catch (Exception e) {
-			modelo.put("Error", e.getMessage());
-			// devolvemos los valores ingresados al formulario
-
-			return "/pelicula/editarCine";
-		}
-	}
-	
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/eliminarCine/{id}")
-	public String eliminarCinePorId(@PathVariable Long idCine) {
-
-		try {
-			cineServicio.eliminarCinePorId(idCine);
-
-			return "redirect:/cine";
-
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return "redirect:/cine";
-		}
-
-	}
-
 }

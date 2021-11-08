@@ -59,10 +59,11 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 			throw new Exception("No se encontró el título de la película");
 		}
 	}
-
+    
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Optional<Pelicula> obtenerPeliculaPorId(Long idPelicula) {
-		return repositorioPelicula.findById(idPelicula);
+	public Pelicula obtenerPorId(Long idPelicula) {
+		return repositorioPelicula.getById(idPelicula);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
@@ -164,12 +165,6 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 
 	@Override
 	public Pelicula editar(Pelicula entity) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Pelicula obtenerPorId(Long id) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -49,7 +49,7 @@ public class SalaControlador {
 		    modelo.addAttribute("registrar", "Registrar Salas");
 		    modelo.addAttribute("salas", salaServicio.registrarVacio());
 		    modelo.addAttribute("peliculas", peliculaServicio.listar());
-		    modelo.addAttribute("asientos", asientoServicio.listarAsiento());
+		    modelo.addAttribute("asientos", asientoServicio.listar());
 		    return "vistas/admin/sala";
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -82,7 +82,7 @@ public class SalaControlador {
 		    modelo.addAttribute("editar", "Editar Salas");
 		    modelo.addAttribute("sala", salaServicio.obtenerPorId(idSala));
 		    modelo.addAttribute("peliculas", peliculaServicio.listar());
-		    modelo.addAttribute("asientos", asientoServicio.listarAsiento());
+		    modelo.addAttribute("asientos", asientoServicio.listar());
 		    return "vistas/admin/sala";
 		}catch (Exception e) {
 			e.printStackTrace();

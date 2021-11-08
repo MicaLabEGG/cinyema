@@ -2,36 +2,40 @@ package com.cinyema.app.servicios;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import com.cinyema.app.entidades.Asiento;
 import com.cinyema.app.repositorios.AsientoRepositorio;
 
 @Service
-public class AsientoServicio {
+public class AsientoServicio implements ServicioBase<Asiento> {
 	
 	@Autowired
-	AsientoRepositorio AsientoRep;
+	private AsientoRepositorio asientoRepositorio;
 	
-	public void crearAsiento(Asiento asiento) throws Exception {
-		
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Asiento registrar(Asiento asiento) throws Exception {
 		validar(asiento);
-		
-		AsientoRep.save(asiento);
+		return asientoRepositorio.save(asiento);
 	}
 	
-	public void modificarAsiento(Asiento asiento) throws Exception{
+	@Transactional
+	public Asiento registrarVacio() {
+		return new Asiento();
+	}
 	
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Asiento editar(Asiento asiento) throws Exception{
 		validar(asiento);
-		
-		Optional<Asiento> respuesta = AsientoRep.findById(asiento.getIdAsiento());
-		
+		Optional<Asiento> respuesta = asientoRepositorio.findById(asiento.getIdAsiento());
 		if(respuesta.isPresent()) {
 			Asiento asiento2 = respuesta.get();
 			if(asiento.getIdAsiento().equals(asiento2.getIdAsiento())) {
-				AsientoRep.save(asiento2);
+				return asientoRepositorio.save(asiento2);
 			}else {
 				throw new Exception("No se puede realizar la modificación");
 			}
@@ -40,21 +44,24 @@ public class AsientoServicio {
 		}	
 	}
 	
-	public List<Asiento> listarAsiento(){
-		return AsientoRep.findAll();
+	@Override
+	@Transactional(readOnly = true)
+	public List<Asiento> listar(){
+		return asientoRepositorio.findAll();
 	}
 	
-	public void darBaja(Asiento asiento) {
-		asiento.setLibre(false);
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Asiento obtenerPorId(Long idAsiento) {
+		return asientoRepositorio.getById(idAsiento);
 	}
 	
-	public void darAlta(Asiento asiento) {
-		asiento.setLibre(true);
+	@Override
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void eliminar(Long idAsiento) throws Exception {
+		asientoRepositorio.deleteById(idAsiento);
 	}
-
 	
 	public void validar(Asiento asiento) throws Exception {
-
 		if (asiento.getSala() == null) {
 			throw new Exception("*El asiento no pertenece a ninguna sala");
 		}

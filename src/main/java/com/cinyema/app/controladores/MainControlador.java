@@ -1,5 +1,8 @@
 package com.cinyema.app.controladores;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -7,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
@@ -60,13 +64,13 @@ public class MainControlador {
 	public String registrar(ModelMap modelo, Usuario usuario) throws Exception {
 		try {
 			usuarioServicio.registrar(usuario);
-			return "redirect:/registro";
+			return "redirect:/login";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("registrar", "Registrar Usuario");
 			modelo.addAttribute("usuario", usuario);
 			modelo.put("error", e.getMessage());
-			return "redirect:/registro";
+			return "vistas/registro";
 		}
 	}
 }

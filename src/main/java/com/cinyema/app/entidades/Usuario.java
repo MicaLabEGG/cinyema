@@ -1,6 +1,5 @@
 package com.cinyema.app.entidades;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,8 +10,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.cinyema.app.enumeraciones.Rol;
 
 @Entity
@@ -27,9 +27,9 @@ public class Usuario {
 	private String nombreDeUsuario;
 	private String contrasenia;
 	private Boolean alta;
-	
-	@Temporal(TemporalType.DATE)
-	private Date fechaNacimiento;
+		
+	@DateTimeFormat(pattern="dd-MM-yyyy")
+	private String fechaNacimiento;
 	
 	@Enumerated(EnumType.STRING)
 	private Rol rol;
@@ -102,11 +102,11 @@ public class Usuario {
 		this.alta = alta;
 	}
 
-	public Date getFechaNacimiento() {
+	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(Date fechaNacimiento) {
+	public void setFechaNacimiento(String fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 

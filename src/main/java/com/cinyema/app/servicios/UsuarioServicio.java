@@ -35,7 +35,7 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario registrar(Usuario usuario) throws Exception {
 		validar(usuario);
-		validarMayoriaEdad(usuario);
+//		validarMayoriaEdad(usuario);
 		usuario.setAlta(true);
 		usuario.setRol(Rol.USUARIO);
 		BCryptPasswordEncoder encriptada = new BCryptPasswordEncoder();
@@ -52,7 +52,7 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario editar(Usuario usuario) throws Exception {
 		validar(usuario);
-		validarMayoriaEdad(usuario);
+//		validarMayoriaEdad(usuario);
 		BCryptPasswordEncoder encriptada = new BCryptPasswordEncoder();
 		usuario.setContrasenia(encriptada.encode(usuario.getContrasenia()));
 		return usuarioRepositorio.save(usuario);
@@ -140,14 +140,14 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 		return user;
 	}
 
-	public Boolean validarMayoriaEdad(Usuario usuario) {
-		DateTimeFormatter farmateo = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate fechaDeNacimiento = LocalDate.parse(usuario.getFechaNacimiento(), farmateo);
-		Period edad = Period.between(fechaDeNacimiento, LocalDate.now());
-		if (edad.getYears() < 18) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+//	public Boolean validarMayoriaEdad(Usuario usuario) {
+//		DateTimeFormatter farmateo = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+//		LocalDate fechaDeNacimiento = LocalDate.parse(usuario.getFechaNacimiento(), farmateo);
+//		Period edad = Period.between(fechaDeNacimiento, LocalDate.now());
+//		if (edad.getYears() < 18) {
+//			return false;
+//		} else {
+//			return true;
+//		}
+//	}
 }

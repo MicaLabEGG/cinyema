@@ -20,4 +20,13 @@ public interface PeliculaRepositorio extends JpaRepository<Pelicula,Long>{
 	@Query("SELECT p FROM Pelicula p WHERE p.titulo LIKE :titulo")
 	public Pelicula validarTituloPelicula(@Param("titulo") String titulo);
 	
+	@Query(value = "SELECT COUNT(p) FROM Pelicula p WHERE p.alta = true")
+	public long cantidadAlta();
+	
+	@Query(value = "SELECT COUNT(p) FROM Pelicula p WHERE p.alta = false")
+	public long cantidadBaja();
+
+	@Query(value = "SELECT COUNT(p) FROM Pelicula p")
+	public long cantidadTotal();
+	
 }

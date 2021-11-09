@@ -61,8 +61,8 @@ public class PeliculaServicio {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Optional<Pelicula> obtenerPeliculaPorId(Long idPelicula) {
-		return repositorioPelicula.findById(idPelicula);
+	public Pelicula obtenerPeliculaPorId(Long idPelicula) {
+		return repositorioPelicula.getById(idPelicula);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

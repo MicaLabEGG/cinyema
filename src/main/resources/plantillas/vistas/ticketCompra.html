@@ -56,13 +56,15 @@
 
 			<!-- TERCER COLUMNA: TICKET -->
 			<div class="col-2">
-				<form th:object="${pelicula}" action="/" method="POST">
-					
-
-
-
-
-
+				<p th:text="${usuario.nombreDeUsuario}"></p>
+				<p>Montevideo 1920</p>
+				<p th:text="${pelicula.titulo}"></p>
+				<form th:object="${ticket}" th:action="@{/ticket/compra}" method="POST">	
+					<p th:text="*{precio}"></p>
+					<div class="form-group">
+						<label>Fecha</label> 
+						<input type="date" class="form-control" th:field="*{fecha}" placeholder="Fecha de Nacimiento">
+					</div>
 					<div class="form-row text-center">
 						<button type="submit" class="btn btn-dark m-3">Comprar</button>
 					</div>

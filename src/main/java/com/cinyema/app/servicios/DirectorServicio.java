@@ -51,6 +51,10 @@ public class DirectorServicio {
 	public void eliminar(Long idDirector) {
 		directorRepositorio.deleteById(idDirector);
 	}
+	
+	public Long totalDirector() throws Exception{
+		return directorRepositorio.count();
+	}
 
 	public void validar(Director director) throws Exception {
 		if (director.getNombre().isEmpty() || director.getNombre().isBlank()) {

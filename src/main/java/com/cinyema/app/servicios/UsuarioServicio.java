@@ -86,6 +86,19 @@ public class UsuarioServicio implements UserDetailsService {
 	public void eliminar(Long idUsuario) {
 		usuarioRepositorio.deleteById(idUsuario);
 	}
+	
+	public long totalUsuario() throws Exception {
+		return usuarioRepositorio.count();
+	}
+	
+	public int totalAlta() throws Exception {
+		double total = usuarioRepositorio.totalAlta() * 100 / totalUsuario();
+		return (int) Math.round(total);
+	}
+	
+	public int totalBaja() throws Exception {
+		return 100 - totalAlta();
+	}
 
 	public void validar(Usuario usuario) throws Exception {
 		Date hoy = new Date();

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Ticket;
+import com.cinyema.app.repositorios.PeliculaRepositorio;
 import com.cinyema.app.repositorios.TicketRepositorio;
 
 @Service
@@ -16,6 +18,9 @@ public class TicketServicio {
 	
 	@Autowired
 	private TicketRepositorio repositorioTicket;
+	
+	@Autowired
+	private PeliculaRepositorio repositorioPelicula;
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void registrar(Ticket ticket) throws Exception {
@@ -54,6 +59,28 @@ public class TicketServicio {
 		Ticket ticket = result.get();
 		return ticket;
 	    }
+	}
+	
+	public List<Ticket> listarTicketxPelicula(Pelicula pelicula) throws Exception{
+		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
+		if(result.isEmpty()) {
+			throw new Exception("No se encontró la película");
+		}else {
+			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
+			
+			return listaTickets;
+		}		
+	}
+	
+	public String contarTicketxPelicula(Pelicula pelicula) throws Exception{
+		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
+		if(result.isEmpty()) {
+			throw new Exception("No se encontró la película");
+		}else {
+			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
+			String numeroTickets = Integer.toString(listaTickets.size());
+			return numeroTickets;
+		}
 	}
 	
 	private void validar(Ticket ticket) throws Error {

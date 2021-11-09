@@ -11,7 +11,7 @@ import com.cinyema.app.entidades.Ticket;
 
 public interface TicketRepositorio extends JpaRepository<Ticket, Long> {
 
-	@Query("SELECT t FROM Ticket t WHERE t.pelicula_id_pelicula = :idPelicula")
+	@Query("SELECT t FROM Ticket t WHERE t.pelicula.idPelicula = :idPelicula")
 	public List<Ticket> listarTicketsxPelicula(@Param("idPelicula") Long idPelicula);
 	
 	

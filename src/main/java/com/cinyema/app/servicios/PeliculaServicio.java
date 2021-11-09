@@ -37,6 +37,7 @@ public class PeliculaServicio {
 		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
 		validar(pelicula, archivo, fileName);
 		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
+		pelicula.setAlta(true);
 		repositorioPelicula.save(pelicula);
 	}
 

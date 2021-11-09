@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -42,7 +44,7 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 		usuario.setContrasenia(encriptada.encode(usuario.getContrasenia()));
 		return usuarioRepositorio.save(usuario);
 	}
-	
+
 	@Transactional
 	public Usuario registrarVacio() {
 		return new Usuario();
@@ -92,10 +94,37 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 		usuarioRepositorio.deleteById(idUsuario);
 	}
 
+	@Transactional(readOnly = true)
+	public List<Usuario> usuariosActivos() {
+
+		return usuarioRepositorio.buscarUsuarioActivos();
+	}
+
+	@Transactional(readOnly = true)
+	public List<Usuario> usuariosInactivos() {
+
+		return usuarioRepositorio.buscarUsuarioInactivos();
+	}
+
+	public Integer cantidadDeUsuario() {
+
+		return usuarioRepositorio.cantidadUsuario();
+	}
+
+	public Double porcentajeUsuariosActivos() {
+
+		return (double) (usuarioRepositorio.cantidadUsuario() / usuarioRepositorio.buscarUsuarioActivos().size());
+	}
+
+	public Double porcentajeUsuariosInactivos() {
+
+		return (double) (usuarioRepositorio.cantidadUsuario() / usuarioRepositorio.buscarUsuarioInactivos().size());
+	}
+
 	public void validar(Usuario usuario) throws Exception {
 		Date hoy = new Date();
 
-		if (usuario.getNombre() == null || usuario.getNombre().isBlank()) {
+		if (usuario.getNombre() == null || StringUtils.isBlank(usuario.getNombre())) {
 			throw new Exception("Nombre de usuario inválido");
 		}
 
@@ -104,7 +133,7 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 			throw new Error("E-mail de usuario inválido");
 		}
 
-		if (usuario.getNombreDeUsuario() == null || usuario.getNombreDeUsuario().isBlank()) {
+		if (usuario.getNombreDeUsuario() == null || StringUtils.isBlank(usuario.getNombreDeUsuario())) {
 			throw new Exception("Nombre de usuario inválido");
 		}
 

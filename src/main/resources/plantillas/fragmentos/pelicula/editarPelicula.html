@@ -69,10 +69,10 @@
                         <input type="text" class="form-control" th:field="*{duracion}" th:value="${duracion}" required></input>
                     </div>
                     <!--Prueba traer la imagen en el input -->
-                    <img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-thumbnail" alt="...">
+                    <img th:src="${'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-thumbnail" alt="...">
                     <div class="form-group">
                         <label for="formFile" class="form-label">Imagen</label>
-                        <input type="file" class="form-control"  name="archivo" th:value="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}"></input>
+                        <input type="file" class="form-control"  name="archivo" th:value="${'data:imagen/jpeg;base64,'+{pelicula.imagen}}"></input>
                     </div>
 
                     <button class="btn btn-primary" type="submit">Guardar</button>

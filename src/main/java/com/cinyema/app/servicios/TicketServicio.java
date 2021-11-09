@@ -22,6 +22,21 @@ public class TicketServicio {
 	@Autowired
 	private PeliculaRepositorio repositorioPelicula;
 	
+	// metodo hecho para compra de tiket
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void setearFechaParaComprar(Long id, String fecha) throws Exception {
+		try {
+			Ticket ticket = this.obtenerTicketPorId(id);
+			ticket.setFecha(fecha);
+			repositorioTicket.save(ticket);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println("ERROR AL SETEAR LA FECHA, ESTOY EN EL SERVICIO!");
+		}
+		
+	}
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void registrar(Ticket ticket) throws Exception {
 		validar(ticket);

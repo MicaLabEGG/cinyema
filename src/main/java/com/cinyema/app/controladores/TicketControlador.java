@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.TicketServicio;
@@ -126,33 +128,35 @@ public class TicketControlador {
 	@GetMapping("/compra/{idPelicula}")
 	public String compra(ModelMap modelo, Authentication autenticacion, @PathVariable Long idPelicula) throws Exception {
 		try {
-			
-			modelo.addAttribute("compra", "Compra Ticket");
+			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
-			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
+			//modelo.addAttribute("ticket", servicioTicket.registrarVacio());
+			Ticket ticket = new Ticket(servicioPelicula.obtenerPeliculaPorId(idPelicula), servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()), null, "Montevideo 1950", 600.0);
+			modelo.addAttribute("ticket", ticket);
 			return "vistas/ticketCompra";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
-			modelo.addAttribute("compra", "Compra Ticket");
-			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
+			//modelo.addAttribute("compra", "Compra Ticket");
+			//modelo.addAttribute("ticket", servicioTicket.registrarVacio());
 			return "vistas/ticketCompra";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/compra")
-	public String compra(ModelMap modelo, Ticket ticket) throws Exception {
+	@PostMapping("/compra/{idPelicula}")
+	public String compra(ModelMap modelo, @RequestParam String fecha, @RequestParam Long idTicket) throws Exception {
 		try {
-			servicioTicket.registrar(ticket);
-			return "redirect:/index";
+			servicioTicket.setearFechaParaComprar(idTicket, fecha);
+			//servicioTicket.registrar(ticket);
+			return "vistas/index";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelo.addAttribute("compra", "Compra Ticket");
-			modelo.addAttribute("ticket", ticket);
+			//modelo.addAttribute("compra", "Compra Ticket");
+			//modelo.addAttribute("ticket", ticket);
 			modelo.put("error", e.getMessage());
-			return "redirect:/index";
+			return "vistas/index";
 		}
 
 	}

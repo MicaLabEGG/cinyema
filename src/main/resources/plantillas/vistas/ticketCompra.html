@@ -22,7 +22,7 @@
 			</div>
 
 			<!-- SEGUNDA COLUMNA: PELICULA -->
-			<div class="col-6">
+			<div class="col-5">
 				<nav>
 					<div class="nav nav-tabs" id="nav-tab" role="tablist">
 						<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
@@ -41,6 +41,7 @@
 						<p th:text="*{descripcion}"></p>
 					</div>
 					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+
 						<p th:text="*{titulo}"></p>
 						<p th:text="*{anio}"></p>
 						<p th:text="*{duracion}"></p>
@@ -55,28 +56,41 @@
 			</div>
 
 			<!-- TERCER COLUMNA: TICKET -->
-			<div class="col-2">
-				<p th:text="${usuario.nombreDeUsuario}"></p>
-				<p>Montevideo 1920</p>
-				<p th:text="${pelicula.titulo}"></p>
-				<form th:object="${ticket}" th:action="@{/ticket/compra}" method="POST">	
-					<p th:text="*{precio}"></p>
-					<div class="form-group">
-						<label>Fecha</label> 
-						<input type="date" class="form-control" th:field="*{fecha}" placeholder="Fecha de Nacimiento">
+
+			<div class="col-3">
+				<div class="card">
+					<div class="card-body">
+						<h5 class="card-title text-center">Boleto</h5>
+						<!--<h6 class="card-subtitle mb-2 text-muted text-center">CINYEMA</h6>-->
+						<form th:object="${ticket}" th:action="@{/ticket/compra}" method="POST">
+							<div>
+								<p><strong>Pelicula: </strong><small th:text="${ticket.pelicula.titulo}"></small></p>
+							</div>
+							<div>
+								<p><strong>Usuario: </strong><small th:text="${ticket.usuario.nombreDeUsuario}"></small>
+								</p>
+							</div>
+							<div>
+								<p><strong>Lugar: </strong><small th:text="${ticket.lugar}"></small></p>
+							</div>
+							<div>
+								<p><strong>Precio: </strong><small th:text="${ticket.precio}"></small></p>
+							</div>
+							<div class="form-group">
+								<label class="form-label"><strong>Fecha:</strong></label>
+								<input type="date" class="form-control" th:field="*{fecha}" th:value="${fecha}"
+									required></input>
+							</div>
+							<div class="form-row text-center">
+								<button type="submit" class="btn btn-dark m-3">Comprar</button>
+							</div>
+						</form>
+
 					</div>
-					<div class="form-row text-center">
-						<button type="submit" class="btn btn-dark m-3">Comprar</button>
-					</div>
-				</form>
+				</div>
 			</div>
 
-		</div>
-	</div>
-
-
-
-	<script th:replace=fragmentos/head :: "_scriptBoostrap"></script>
+			<script th:replace=fragmentos/head :: "_scriptBoostrap"></script>
 </body>
 
 </html>

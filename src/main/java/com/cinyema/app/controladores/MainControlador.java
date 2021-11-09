@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cinyema.app.entidades.Usuario;
+import com.cinyema.app.servicios.ActorServicio;
+import com.cinyema.app.servicios.DirectorServicio;
 import com.cinyema.app.servicios.PeliculaServicio;
+import com.cinyema.app.servicios.TicketServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
 
 @Controller
@@ -24,6 +28,15 @@ public class MainControlador {
 	
 	@Autowired
 	private PeliculaServicio peliculaServicio;
+	
+	@Autowired
+	private DirectorServicio directorServicio;
+	
+	@Autowired
+	private ActorServicio actorServicio;
+	
+	@Autowired
+	private TicketServicio ticketServicio;
 
 	@GetMapping()
 	public String index(ModelMap modelo) {
@@ -71,6 +84,26 @@ public class MainControlador {
 			modelo.addAttribute("usuario", usuario);
 			modelo.put("error", e.getMessage());
 			return "vistas/registro";
+		}
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/admin")
+	public String adminPanel(ModelMap modelo) throws Exception {
+		try {
+			modelo.put("peliculaTotal", peliculaServicio.cantidadPeliculaTotal());
+			modelo.put("peliculaAlta", peliculaServicio.cantidadPeliculaAlta());
+			modelo.put("peliculaBaja", peliculaServicio.cantidadPeliculaBaja());
+			modelo.put("usuarioTotal", usuarioServicio.totalUsuario());
+			modelo.put("usuarioAlta", usuarioServicio.totalAlta());
+			modelo.put("usuarioBaja", usuarioServicio.totalBaja());
+			modelo.put("ticketTotal", ticketServicio.totalTicket());
+			modelo.put("directorTotal", directorServicio.totalDirector());
+			modelo.put("actorTotal", actorServicio.obtenerCantidadActores());
+			return "vistas/admin/panelAdmin";
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+			return "redirect:/admin";
 		}
 	}
 }

@@ -110,7 +110,7 @@ public class PeliculaControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/alta/{id}")
+	@GetMapping("/alta/{idPelicula}")
 	public String alta(@PathVariable Long idPelicula) {
 		try {
 			servicioPelicula.alta(idPelicula);
@@ -122,7 +122,7 @@ public class PeliculaControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/baja/{id}")
+	@GetMapping("/baja/{idPelicula}")
 	public String baja(@PathVariable Long idPelicula) {
 		try {
 			servicioPelicula.baja(idPelicula);

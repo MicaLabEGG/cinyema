@@ -1,5 +1,6 @@
 package com.cinyema.app.servicios;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -7,8 +8,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -25,24 +31,63 @@ import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.enumeraciones.Rol;
 import com.cinyema.app.repositorios.UsuarioRepositorio;
 
+import net.bytebuddy.utility.RandomString;
+
 @Service
 public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario> {
 
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
+	
+	@Autowired
+	private JavaMailSender mailSender;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario registrar(Usuario usuario) throws Exception {
 		validar(usuario);
 //		validarMayoriaEdad(usuario);
-		usuario.setAlta(true);
+		usuario.setAlta(false);
 		usuario.setRol(Rol.USUARIO);
 		BCryptPasswordEncoder encriptada = new BCryptPasswordEncoder();
 		usuario.setContrasenia(encriptada.encode(usuario.getContrasenia()));
+		
+		String codigoRandom = RandomString.make(64);
+		usuario.setCodigoVerificacion(codigoRandom);
+		
 		return usuarioRepositorio.save(usuario);
 	}
 	
+	public void enviarMailVerificacion(Usuario usuario, String siteURL) throws UnsupportedEncodingException, MessagingException{
+		String tema = "[VERIFICAR CUENTA DE CINYEMA]";
+		String remitente = "Equipo de Cinyema";
+		String contenido = "<p>Querido "+usuario.getNombre()+"</p>";
+		contenido += "<p>Por favor, haga click en el siguiente enlace para verificar su registro a Cinyema:</p>";
+		String verificarURL = siteURL + "/verify?code=" + usuario.getCodigoVerificacion();
+		contenido += "<h3><a href=\"" + verificarURL + "\">VERIFICAR CUENTA ✔</a></h3>";
+		contenido += "<p>Gracias! <br>Equipo de Cinyema</p>";
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		
+		helper.setFrom("cinyema@gmail.com", remitente);
+		helper.setTo(usuario.getMail());
+		helper.setSubject(tema);
+		helper.setText(contenido, true);
+		
+		mailSender.send(message);
+	}
+	
+	public boolean validarCodigo(String codigoVerificacion) {
+		Usuario usuario = usuarioRepositorio.buscarPorCodigoVerificacion(codigoVerificacion);
+		if (usuario.getAlta()) {
+			return false;
+		}else {
+			usuario.setAlta(true);
+			usuarioRepositorio.save(usuario);
+			return true;
+		}
+	}
+
 	@Transactional
 	public Usuario registrarVacio() {
 		return new Usuario();
@@ -116,6 +161,7 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 //		if (usuario.getFechaNacimiento() == null || usuario.getFechaNacimiento().after(hoy)) {
 //			throw new Exception("Fecha de nacimiento inválida");
 //		}
+		
 
 	}
 
@@ -124,7 +170,7 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 	public UserDetails loadUserByUsername(String nombreDeUsuario) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepositorio.buscarPorNombreDeUsuario(nombreDeUsuario);
 		User user = null;
-		if (usuario != null) {
+		if (usuario != null && usuario.getAlta() == true) {
 			List<GrantedAuthority> permisos = new ArrayList<>();
 			GrantedAuthority permiso = new SimpleGrantedAuthority("ROLE_" + usuario.getRol().toString());
 			permisos.add(permiso);
@@ -135,7 +181,7 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 			session.setAttribute("usuariosession", usuario);
 			user = new User(nombreDeUsuario, usuario.getContrasenia(), permisos);
 		} else {
-			throw new UsernameNotFoundException("El ususario no se encontro");
+			throw new UsernameNotFoundException("El usuario no se encontró");
 		}
 		return user;
 	}

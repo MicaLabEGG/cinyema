@@ -3,7 +3,10 @@ package com.cinyema.app.controladores;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cinyema.app.Utility;
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
@@ -56,15 +60,15 @@ public class MainControlador {
 			modelo.put("error", e.getMessage());
 			return "vistas/registro";
 		}
-		
-		
 	}
 
 	@PostMapping("/registrar")
-	public String registrar(ModelMap modelo, Usuario usuario) throws Exception {
+	public String registrar(ModelMap modelo, Usuario usuario, HttpServletRequest request) throws Exception {
 		try {
 			usuarioServicio.registrar(usuario);
-			return "redirect:/login";
+			String siteURL = Utility.getSiteURL(request);
+			usuarioServicio.enviarMailVerificacion(usuario, siteURL);
+			return "vistas/verificarMail";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("registrar", "Registrar Usuario");
@@ -72,5 +76,14 @@ public class MainControlador {
 			modelo.put("error", e.getMessage());
 			return "vistas/registro";
 		}
+	}
+	
+	@GetMapping("/verify")
+	public String verificarCuenta(ModelMap modelo, @Param("code") String code) {		
+	    if (usuarioServicio.validarCodigo(code)) {
+	    	return "vistas/verificacionRealizada";
+	    } else {
+	    	return "vistas/verificacionFallida";
+	    }	
 	}
 }

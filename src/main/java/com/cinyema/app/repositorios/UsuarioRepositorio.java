@@ -4,6 +4,7 @@ package com.cinyema.app.repositorios;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -17,5 +18,8 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Long>{
 	
 	@Query("SELECT a FROM Usuario a WHERE a.mail = :mail")
 	public Usuario buscarPorEmail(@Param("mail") String mail);
+	
+	@Query("SELECT a FROM Usuario a WHERE a.codigoVerificacion = :codigoVerificacion")
+	public Usuario buscarPorCodigoVerificacion(String codigoVerificacion);
 	
 }

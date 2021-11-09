@@ -2,6 +2,7 @@ package com.cinyema.app.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -73,8 +74,8 @@ public class TicketControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable long idTicket) throws Exception {
+	@GetMapping("/editar/{idTicket}")
+	public String editar(ModelMap modelo, @PathVariable Long idTicket) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
 			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
@@ -91,7 +92,7 @@ public class TicketControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("editar/{id}")
+	@PostMapping("editar/{idTicket}")
 	public String editar(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
 			servicioTicket.editar(ticket);
@@ -107,7 +108,7 @@ public class TicketControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/eliminar/{id}")
+	@GetMapping("/eliminar/{idTicket}")
 	public String eliminar(@PathVariable Long idTicket) {
 		try {
 			servicioTicket.eliminar(idTicket);
@@ -116,5 +117,43 @@ public class TicketControlador {
 			e.printStackTrace();
 			return "redirect:/ticket";
 		}
+	}
+	
+	
+	//----- COMPRA TICKET 
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/compra/{idPelicula}")
+	public String compra(ModelMap modelo, Authentication autenticacion, @PathVariable Long idPelicula) throws Exception {
+		try {
+			
+			modelo.addAttribute("compra", "Compra Ticket");
+			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
+			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
+			return "vistas/ticketCompra";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.put("error", e.getMessage());
+			modelo.addAttribute("compra", "Compra Ticket");
+			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
+			return "vistas/ticketCompra";
+		}
+	}
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@PostMapping("/compra")
+	public String compra(ModelMap modelo, Ticket ticket) throws Exception {
+		try {
+			servicioTicket.registrar(ticket);
+			return "redirect:/index";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("compra", "Compra Ticket");
+			modelo.addAttribute("ticket", ticket);
+			modelo.put("error", e.getMessage());
+			return "redirect:/index";
+		}
+
 	}
 }

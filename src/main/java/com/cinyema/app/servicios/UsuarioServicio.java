@@ -106,16 +106,19 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 		return usuarioRepositorio.buscarUsuarioInactivos();
 	}
 
+	@Transactional(readOnly = true)
 	public Integer cantidadDeUsuario() {
 
 		return usuarioRepositorio.cantidadUsuario();
 	}
 
+	@Transactional(readOnly = true)
 	public Double porcentajeUsuariosActivos() {
 
 		return (double) (usuarioRepositorio.cantidadUsuario() / usuarioRepositorio.buscarUsuarioActivos().size());
 	}
 
+	@Transactional(readOnly = true)
 	public Double porcentajeUsuariosInactivos() {
 
 		return (double) (usuarioRepositorio.cantidadUsuario() / usuarioRepositorio.buscarUsuarioInactivos().size());

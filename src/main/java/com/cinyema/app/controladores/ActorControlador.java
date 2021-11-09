@@ -66,7 +66,7 @@ public class ActorControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/editar/{id}")
+	@GetMapping("/editar/{idActor}")
 	public String editar(ModelMap modelo, @PathVariable Long idActor) throws Exception {
 		try {	
 		    modelo.addAttribute("editar", "Editar Actor");
@@ -81,7 +81,7 @@ public class ActorControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/editar/{id}")
+	@PostMapping("/editar/{idActor}")
 	public String editar(ModelMap modelo, Actor actor) throws Exception {
 		try {
 			actorServicio.editar(actor);
@@ -97,10 +97,10 @@ public class ActorControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/eliminar/{id}")
-	public String eliminar(ModelMap modelo, @PathVariable Long id) {
+	@GetMapping("/eliminar/{idActor}")
+	public String eliminar(ModelMap modelo, @PathVariable Long idActor) {
 		try {
-			actorServicio.eliminar(id);
+			actorServicio.eliminar(idActor);
 			return "redirect:/actor";
 		}catch (Exception e) {
 			e.printStackTrace();

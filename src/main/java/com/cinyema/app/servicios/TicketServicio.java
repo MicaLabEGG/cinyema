@@ -1,6 +1,9 @@
 package com.cinyema.app.servicios;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +23,12 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket registrar(Ticket ticket) throws Exception {
 		validar(ticket);
-		return repositorioTicket.save(ticket);
+		if(validarFechaCompra(ticket) == true) {
+			return repositorioTicket.save(ticket);
+		}else {
+			System.out.println("No se puede crear");
+			return null;
+		}
 	}
 	
 	@Transactional
@@ -57,6 +65,18 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		Ticket ticket = result.get();
 		return ticket;
 	    }
+	}
+	
+	public Boolean validarFechaCompra(Ticket ticket) throws Exception{
+		Date d1 = new Date();  
+		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String date = sdf.format(d1);
+		Date date1 = sdf.parse(date);
+		if(date1.before(ticket.getFecha())) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	private void validar(Ticket ticket) throws Error {

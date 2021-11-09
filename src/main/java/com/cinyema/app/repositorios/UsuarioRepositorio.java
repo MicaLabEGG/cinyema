@@ -25,4 +25,8 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
 	@Query("SELECT count(a) FROM Usuario a")
 	public Integer cantidadUsuario();
 
+	
+	@Query("SELECT COUNT(a) FROM Usuario a WHERE a.alta = true")
+	public Long totalAlta();
+	
 }

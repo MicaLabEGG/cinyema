@@ -37,6 +37,7 @@ public class PeliculaServicio {
 		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
 		validar(pelicula, archivo, fileName);
 		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
+		pelicula.setAlta(true);
 		repositorioPelicula.save(pelicula);
 	}
 
@@ -98,7 +99,21 @@ public class PeliculaServicio {
 	public void eliminar(Long idPelicula) throws Exception {
 		repositorioPelicula.deleteById(idPelicula);
 	}
-
+	
+	public long cantidadPeliculaTotal() {
+		return repositorioPelicula.cantidadTotal();
+	}
+	
+	public int cantidadPeliculaAlta() {
+		double alta = repositorioPelicula.cantidadAlta() * 100 / repositorioPelicula.cantidadTotal();
+		return (int) Math.round(alta);
+	}
+	
+	public int cantidadPeliculaBaja() {
+		int baja = 100 - cantidadPeliculaAlta();
+		return baja;
+	}
+	
 	public void validar(Pelicula pelicula, MultipartFile archivo, String filename) throws Exception {
 
 		if (pelicula.getTitulo() == null || pelicula.getTitulo().isBlank()) {

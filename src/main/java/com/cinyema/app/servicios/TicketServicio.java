@@ -26,13 +26,12 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Ticket registrar(Ticket ticket) throws Exception {
+	public Ticket registrar(Ticket ticket) throws Error, Exception {
 		validar(ticket);
 		if(validarFechaCompra(ticket) == true) {
 			return repositorioTicket.save(ticket);
 		}else {
-			System.out.println("No se puede crear");
-			return null;
+			throw new Error("No puede comprar un ticket con fecha anterior al dia de hoy");
 		}
 	}
 	
@@ -84,6 +83,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		}
 	}
 	
+	
 	public List<Ticket> listarTicketxPelicula(Pelicula pelicula) throws Exception{
 		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
 		if(result.isEmpty()) {
@@ -94,6 +94,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 			return listaTickets;
 		}		
 	}
+	
 	
 	public String contarTicketxPelicula(Pelicula pelicula) throws Exception{
 		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());

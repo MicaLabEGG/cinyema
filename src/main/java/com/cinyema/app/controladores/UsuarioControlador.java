@@ -65,16 +65,16 @@ public class UsuarioControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable Long id) throws Exception {
+	@GetMapping("/editar/{idUsuario}")
+	public String editar(ModelMap modelo, @PathVariable Long idUsuario) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar usuarios");
-			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(id));
+			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(idUsuario));
 			return "vistas/admin/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Usuario");
-			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(id));
+			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(idUsuario));
 			modelo.put("error", e.getMessage());
 			return "vistas/admin/usuario";
 		}
@@ -82,7 +82,7 @@ public class UsuarioControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/editar/{id}")
+	@PostMapping("/editar/{idUsuario}")
 	public String editar(ModelMap modelo, Usuario usuario) throws Exception {
 		try {
 			usuarioServicio.editar(usuario);
@@ -95,12 +95,36 @@ public class UsuarioControlador {
 			return "redirect:/usuario";
 		}
 	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/baja/{idUsuario}")
+	public String darBaja(@PathVariable Long idUsuario) {
+		try {
+		     usuarioServicio.darBaja(idUsuario);
+		     return "redirect:/usuario";
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+		    return "redirect:/usuario"; 
+	    }
+    }
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/alta/{idUsuario}")
+	public String darAlta(@PathVariable Long idUsuario) {
+		try {
+		     usuarioServicio.darAlta(idUsuario);
+		     return "redirect:/usuario";
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+		    return "redirect:/usuario"; 
+	    }
+    }
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable Long id) {
+	@GetMapping("/eliminar/{idUsuario}")
+	public String eliminar(@PathVariable Long idUsuario) {
 		try {
-			usuarioServicio.eliminar(id);
+			usuarioServicio.eliminar(idUsuario);
 			return "redirect:/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();

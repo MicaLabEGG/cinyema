@@ -18,4 +18,7 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Long>{
 	@Query("SELECT a FROM Usuario a WHERE a.mail = :mail")
 	public Usuario buscarPorEmail(@Param("mail") String mail);
 	
+	@Query("SELECT COUNT(a) FROM Usuario a WHERE a.alta = true")
+	public Long totalAlta();
+	
 }

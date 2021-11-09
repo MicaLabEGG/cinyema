@@ -74,8 +74,8 @@ public class TicketControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable long idTicket) throws Exception {
+	@GetMapping("/editar/{idTicket}")
+	public String editar(ModelMap modelo, @PathVariable Long idTicket) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
 			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
@@ -92,7 +92,7 @@ public class TicketControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("editar/{id}")
+	@PostMapping("editar/{idTicket}")
 	public String editar(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
 			servicioTicket.editar(ticket);
@@ -108,7 +108,7 @@ public class TicketControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/eliminar/{id}")
+	@GetMapping("/eliminar/{idTicket}")
 	public String eliminar(@PathVariable Long idTicket) {
 		try {
 			servicioTicket.eliminar(idTicket);

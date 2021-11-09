@@ -55,6 +55,8 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 	public Usuario editar(Usuario usuario) throws Exception {
 		validar(usuario);
 //		validarMayoriaEdad(usuario);
+		usuario.setAlta(true);
+		usuario.setRol(Rol.USUARIO);
 		BCryptPasswordEncoder encriptada = new BCryptPasswordEncoder();
 		usuario.setContrasenia(encriptada.encode(usuario.getContrasenia()));
 		return usuarioRepositorio.save(usuario);
@@ -86,6 +88,20 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 		} else {
 			return result;
 		}
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Usuario darBaja(Long idUsuario) {
+		Usuario usuario = usuarioRepositorio.getById(idUsuario);
+		usuario.setAlta(false);
+		return usuario;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Usuario darAlta(Long idUsuario) {
+		Usuario usuario = usuarioRepositorio.getById(idUsuario);
+		usuario.setAlta(true);
+		return usuario;
 	}
 
 	@Override

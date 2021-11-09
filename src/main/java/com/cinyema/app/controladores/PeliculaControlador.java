@@ -78,8 +78,8 @@ public class PeliculaControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable Long idPelicula) {
+	@GetMapping("/editar/{idPelicula}")
+	public String editar(ModelMap modelo, @PathVariable Long idPelicula) throws Exception {
 		try {
 		    modelo.addAttribute("editar", "Editar Películas");
 		    modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
@@ -90,12 +90,12 @@ public class PeliculaControlador {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Peliculas");
 			modelo.put("error", e.getMessage());
-			return "redirect:/pelicula" ;
+			return "vistas/admin/pelicula";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/editar")
+	@PostMapping("/editar/{idPelicula}")
 	public String editar(ModelMap modelo, Pelicula pelicula, MultipartFile archivo) throws Exception {
 		try {
 			servicioPelicula.editar(pelicula, archivo);
@@ -152,7 +152,7 @@ public class PeliculaControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/eliminar/{id}")
+	@GetMapping("/eliminar/{idPelicula}")
 	public String eliminar(@PathVariable Long idPelicula) {
 		try {
 			servicioPelicula.eliminar(idPelicula);

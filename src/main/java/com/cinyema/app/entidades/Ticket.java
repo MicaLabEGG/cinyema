@@ -1,14 +1,11 @@
 package com.cinyema.app.entidades;
 
-import java.util.Date;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,9 +19,8 @@ public class Ticket {
 	@ManyToOne
 	@JoinColumn(name = "FK_TICKUSER", nullable = false, updatable = false)
 	private Usuario usuario;
-	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date fecha;
+	private String fecha;
 	private String lugar;
 	private Double precio;
 	
@@ -52,11 +48,11 @@ public class Ticket {
 		this.usuario = usuario;
 	}
 	
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 	
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	
@@ -76,7 +72,7 @@ public class Ticket {
 		this.precio = precio;
 	}
 	
-	public Ticket(Long idTicket, Pelicula pelicula, Usuario usuario, Date fecha, String lugar, Double precio) {
+	public Ticket(Long idTicket, Pelicula pelicula, Usuario usuario, String fecha, String lugar, Double precio) {
 		super();
 		this.idTicket = idTicket;
 		this.pelicula = pelicula;

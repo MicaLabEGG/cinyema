@@ -1,7 +1,6 @@
 package com.cinyema.app.controladores;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,7 +31,7 @@ public class ErroresControlador implements ErrorController{
 				mensajeError = "El recurso solicitado no se ha encontrado";
 				break;
 			case 500:
-				mensajeError = "El servidor no pudo realizar la petición con exito";
+				mensajeError = "El servidor no pudo realizar la petición con éxito";
 				break;
 			default:
 		}

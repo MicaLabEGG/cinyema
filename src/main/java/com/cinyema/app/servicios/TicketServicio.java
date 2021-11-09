@@ -1,83 +1,58 @@
 package com.cinyema.app.servicios;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Ticket;
-import com.cinyema.app.entidades.Usuario;
+import com.cinyema.app.repositorios.PeliculaRepositorio;
 import com.cinyema.app.repositorios.TicketRepositorio;
 
 @Service
 public class TicketServicio {
 	
 	@Autowired
-	private TicketRepositorio repTic;
+	private TicketRepositorio repositorioTicket;
 	
-	@Transactional
-	public void crearTicket(Ticket ticket) throws Exception {
-		
-		//String fecha1 = ticket.getFecha();
-		//Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(ticket.getFecha());
-		
-		validar(ticket.getPelicula(), ticket.getUsuario(), ticket.getFecha(), ticket.getLugar(), ticket.getPrecio());
-		
-		//Ticket tic = new Ticket();
-		
-		//tic.setPelicula(pel);
-		//tic.setUsuario(usu);
-		//tic.setFecha(fecha);
-		//tic.setLugar(lugar);
-		//tic.setPrecio(precio);
-		
-		repTic.save(ticket);
+	@Autowired
+	private PeliculaRepositorio repositorioPelicula;
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void registrar(Ticket ticket) throws Exception {
+		validar(ticket);
+		repositorioTicket.save(ticket);
 	}
 	
 	@Transactional
-	public Ticket crearTicketVac() {
-		Ticket t = new Ticket();
-		
-		return t;
+	public Ticket registrarVacio() {
+		return new Ticket();
 	}
 	
-	@Transactional
-	public void eliminarTicket(Long id) {
-		
-		repTic.deleteById(id);
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void eliminar(Long id) {
+		repositorioTicket.deleteById(id);
 	}
 	
-	@Transactional
-	public void modificarTicket(Long id, Pelicula pel, Usuario usu, String fecha1, String lugar, Double precio) throws Exception {
-		
-		Date fecha = new SimpleDateFormat("yyyy-MM-dd").parse(fecha1);
-		
-		validar(pel, usu, fecha, lugar, precio);
-		
-		Ticket tic = buscarxId(id);
-		
-		tic.setPelicula(pel);
-		tic.setUsuario(usu);
-		tic.setFecha(fecha);
-		tic.setLugar(lugar);
-		tic.setPrecio(precio);
-		
-		repTic.save(tic);
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public void editar(Ticket ticket) throws Exception {
+		validar(ticket);
+		repositorioTicket.save(ticket);
 	}
 	
-	@Transactional
-	public List<Ticket> listarTicket() {
-		List<Ticket> listaTickets = repTic.findAll();
+	@Transactional(readOnly = true)
+	public List<Ticket> listar() {
+		List<Ticket> listaTickets = repositorioTicket.findAll();
 		return listaTickets;
 	}
 	
-	@Transactional
-	public Ticket buscarxId(Long id)throws Exception {
-		Optional<Ticket> result = repTic.findById(id);
-	       
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Ticket obtenerTicketPorId(Long id)throws Exception {
+		Optional<Ticket> result = repositorioTicket.findById(id);
 	    if(result.isEmpty()) {
 	    	throw new Exception("No se encontro");
 	    }else {
@@ -86,27 +61,52 @@ public class TicketServicio {
 	    }
 	}
 	
-	private void validar(Pelicula pel, Usuario usu, Date fecha, String lugar, Double precio) throws Error {
+	public List<Ticket> listarTicketxPelicula(Pelicula pelicula) throws Exception{
+		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
+		if(result.isEmpty()) {
+			throw new Exception("No se encontró la película");
+		}else {
+			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
+			
+			return listaTickets;
+		}		
+	}
+	
+	public String contarTicketxPelicula(Pelicula pelicula) throws Exception{
+		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
+		if(result.isEmpty()) {
+			throw new Exception("No se encontró la película");
+		}else {
+			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
+			String numeroTickets = Integer.toString(listaTickets.size());
+			return numeroTickets;
+		}
+	}
+	
+	public Long totalTicket() throws Exception{
+		return repositorioTicket.count();
+	}
+	
+	private void validar(Ticket ticket) throws Error {
 
-        if (pel == null ) {
+        if (ticket.getPelicula() == null ) {
             throw new Error("No se encuentra a que película pertenece el ticket");
         }
-        if (usu == null ) {
+        if (ticket.getUsuario() == null ) {
             throw new Error("No se encuentra a que usuario pertenece el ticket");
         }
 
-        if (fecha == null ) {
+        if (ticket.getFecha() == null ) {
             throw new Error("Debe indicar la fecha");
         }
 
-        if (lugar == null || lugar.trim().isEmpty()) {
+        if (ticket.getLugar() == null || ticket.getLugar().trim().isBlank()) {
             throw new Error("Debe ingresar el lugar");
         }
 
-        if (precio == null ) {
+        if (ticket.getPrecio() == null ) {
             throw new Error("El campo 'precio' no puede estar vacío");
         }
-
         
     }		
 }

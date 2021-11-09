@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="error/fragmentos/head :: _head">
-
-</head>
+<head th:replace="fragmentos/head :: _head"></head>
 
 <body>
-	<nav th:insert="error/fragmentos/nav :: _cabezeraAdmin"></nav>
+	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 
-
-
-	<h1 class="text-center" th:text="${codigo}"></h1>
-
-	<h2 class="text-center" th:text="${mensaje}"></h2>
-
-
+	<div class="container">
+		<img th:src="@{/img/error/} + ${codigo} + '.jpg'" class="img-fluid mx-auto d-block"></main>
+	</div>
+	
+	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>
 
 </html>

@@ -1,0 +1,49 @@
+<div th:fragment="_registrarTicket(error,ticket,peliculas,usuarios,registrar)">
+	<section class="container">
+		<div class="row vh-100 justify-content-center align-items-center">
+			<div class="col-auto">
+				<h1 class="text-center" th:text="${registrar}"></h1>
+				<div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
+					<div class="card-body">
+						<h5 class="card-title">Error</h5>
+						<p class="card-text" th:text="${error}"></p>
+					</div>
+				</div>
+				<form th:object="${ticket}" th:action="@{/ticket/registrar}" method="POST">
+					<div class="form-group">
+						<label class="form-label">Pelicula</label>
+						<select class="form-select" th:field="*{pelicula}" required>
+							<option th:each="pelicula : ${peliculas}" th:value="${pelicula.idPelicula}"
+								th:text="${pelicula.titulo}"></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Usuario</label>
+						<select multiple class="form-select" th:field="*{usuario}" required>
+							<option th:each="usuario : ${usuarios}" th:value="${{usuario}}"
+								th:text="${usuario.nombreDeUsuario}"></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Fecha</label>
+						<input type="date" class="form-control" th:field="*{fecha}" th:value="${fecha}"
+							required></input>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Lugar</label>
+						<input type="text" class="form-control" th:field="*{lugar}" th:value="${lugar}"
+							required></input>
+					</div>
+					<div class="form-group">
+						<label class="form-label">Precio</label>
+						<input type="number" class="form-control" th:field="*{precio}" th:value="${precio}"
+							required></input>
+					</div>
+
+					<button class="btn btn-primary" type="submit">Guardar</button>
+
+				</form>
+			</div>
+		</div>
+	</section>
+</div>

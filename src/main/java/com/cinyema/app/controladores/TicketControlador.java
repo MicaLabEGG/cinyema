@@ -129,7 +129,7 @@ public class TicketControlador {
 			
 			modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
-			modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
+			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
 			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
 			return "vistas/ticketCompra";
 		} catch (Exception e) {

@@ -38,7 +38,7 @@ public class DirectorServicio implements ServicioBase<Director> {
 	public List<Director> listar() {
 		return directorRepositorio.findAll();
 	}
-	
+
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director obtenerPorId(Long idDirector) {
@@ -50,13 +50,14 @@ public class DirectorServicio implements ServicioBase<Director> {
 		Director director = directorRepositorio.buscarDirectorPorNombre(nombre);
 		return director = (director == null) ? directorRepositorio.save(new Director(nombre)) : director;
 	}
-	
+
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminar(Long idDirector) {
 		directorRepositorio.deleteById(idDirector);
 	}
-	
+
+	@Transactional(readOnly = true)
 	public Long cantidadDirectores() {
 		return directorRepositorio.count();
 	}

@@ -76,7 +76,8 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String date = sdf.format(d1);
 		Date date1 = sdf.parse(date);
-		if(date1.before(ticket.getFecha())) {
+		Date date2 = sdf.parse(ticket.getFecha());
+		if(date1.before(date2)) {
 			return true;
 		}else {
 			return false;

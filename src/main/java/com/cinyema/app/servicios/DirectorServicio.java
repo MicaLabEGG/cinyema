@@ -56,6 +56,10 @@ public class DirectorServicio implements ServicioBase<Director> {
 	public void eliminar(Long idDirector) {
 		directorRepositorio.deleteById(idDirector);
 	}
+	
+	public Long totalDirector() throws Exception{
+		return directorRepositorio.count();
+	}
 
 	@Transactional(readOnly = true)
 	public Long cantidadDirectores() {

@@ -131,32 +131,32 @@ public class TicketControlador {
 			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
-			//modelo.addAttribute("ticket", servicioTicket.registrarVacio());
-			Ticket ticket = new Ticket(servicioPelicula.obtenerPeliculaPorId(idPelicula), servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()), null, "Montevideo 1950", 600.0);
+			Ticket ticket = servicioTicket.registrarVacio();
+			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+			ticket.setPelicula(servicioPelicula.obtenerPeliculaPorId(idPelicula));
 			modelo.addAttribute("ticket", ticket);
 			return "vistas/ticketCompra";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
 			//modelo.addAttribute("compra", "Compra Ticket");
-			//modelo.addAttribute("ticket", servicioTicket.registrarVacio());
+			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
 			return "vistas/ticketCompra";
 		}
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/compra/{idPelicula}")
-	public String compra(ModelMap modelo, @RequestParam String fecha, @RequestParam Long idTicket) throws Exception {
+	@PostMapping("/compra/{idTicket}")
+	public String compra(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
-			servicioTicket.setearFechaParaComprar(idTicket, fecha);
-			//servicioTicket.registrar(ticket);
-			return "vistas/index";
+			servicioTicket.registrar(ticket);
+			return "redirect:/";
 		} catch (Exception e) {
 			e.printStackTrace();
 			//modelo.addAttribute("compra", "Compra Ticket");
-			//modelo.addAttribute("ticket", ticket);
+			modelo.addAttribute("ticket", ticket);
 			modelo.put("error", e.getMessage());
-			return "vistas/index";
+			return "vistas/ticketCompra";
 		}
 
 	}

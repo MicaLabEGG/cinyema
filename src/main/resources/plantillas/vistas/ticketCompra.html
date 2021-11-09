@@ -42,15 +42,18 @@
 					</div>
 					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-						<p th:text="*{titulo}"></p>
-						<p th:text="*{anio}"></p>
-						<p th:text="*{duracion}"></p>
-						<p th:text="*{genero}"></p>
-						<p th:text="*{pais}"></p>
-						<p th:text="*{idioma}"></p>
-						<p th:text="*{subtitulo}"></p>
-						<p th:text="*{genero}"></p>
-						<p>Dirección</p>
+						<p>TITULO:<strong th:text="*{titulo}"></strong></p>
+						<p>AÑO:<strong th:text="*{anio}"></strong></p>
+						<p>DURACIÓN:<strong th:text="*{duracion}"></strong></p>
+						<p>GENERO:<strong th:text="*{genero}"></strong></p>
+						<p>PAIS:<strong th:text="*{pais}"></strong></p>
+						<p>IDIOMA:<strong th:text="*{idioma}"></strong></p>
+						<p>SUBTITULO:<strong th:text="*{subtitulo}"></strong></p>
+						<p>GENERO:<strong th:text="*{genero}"></strong></p>
+						<p>ACTORES:<strong><small th:each="actor : ${pelicula.actores}"
+									th:text="${actor.nombreCompleto}"></small></strong></p>
+						<p>DIRECTOR:<strong><small th:each="director : ${pelicula.director}"
+									th:text="${director.nombre}"></small></strong></p>
 					</div>
 				</div>
 			</div>
@@ -58,34 +61,42 @@
 			<!-- TERCER COLUMNA: TICKET -->
 
 			<div class="col-3">
-				<div class="card">
+				<div class="card mt-4">
 					<div class="card-body">
-						<h5 class="card-title text-center">Boleto</h5>
-						<!--<h6 class="card-subtitle mb-2 text-muted text-center">CINYEMA</h6>-->
-						<form th:object="${ticket}" th:action="@{/ticket/compra}" method="POST">
-							<div>
-								<p><strong>Pelicula: </strong><small th:text="${ticket.pelicula.titulo}"></small></p>
-							</div>
-							<div>
-								<p><strong>Usuario: </strong><small th:text="${ticket.usuario.nombreDeUsuario}"></small>
-								</p>
-							</div>
-							<div>
-								<p><strong>Lugar: </strong><small th:text="${ticket.lugar}"></small></p>
-							</div>
-							<div>
-								<p><strong>Precio: </strong><small th:text="${ticket.precio}"></small></p>
-							</div>
-							<div class="form-group">
-								<label class="form-label"><strong>Fecha:</strong></label>
-								<input type="date" class="form-control" th:field="*{fecha}" th:value="${fecha}"
-									required></input>
-							</div>
-							<div class="form-row text-center">
-								<button type="submit" class="btn btn-dark m-3">Comprar</button>
-							</div>
-						</form>
+						<div class="container">
+							<h5 class="card-title text-center m-2">Boleto</h5>
 
+							<form th:object="${ticket}" th:action="@{/ticket/compra/__${ticket.idTicket}__}" method="POST">
+								<div class="form-group">
+									<label class="form-label"><strong>Usuario:</strong></label>
+									<input type="text" class="form-control" th:field="*{usuario}" th:placeholder="${ticket.usuario.nombreDeUsuario}" th:value="${usuario}" 
+										readonly required></input>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><strong>Pelicula:</strong></label>
+									<input type="text" class="form-control" th:field="*{pelicula}" th:placeholder="${ticket.pelicula.titulo}" th:value="${pelicula}"
+										readonly required></input>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><strong>Lugar:</strong></label>
+									<input type="text" class="form-control" th:field="*{lugar}" th:value="*{lugar}"
+										required></input>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><strong>Precio:</strong></label>
+									<input type="text" class="form-control" th:field="*{precio}" th:value="*{precio}"
+										required></input>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><strong>Fecha:</strong></label>
+									<input type="date" class="form-control" th:field="*{fecha}" th:value="*{fecha}"
+										required></input>
+								</div>
+								<div class="form-row text-center">
+									<button type="submit" class="btn btn-dark m-3">Comprar</button>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -94,6 +105,38 @@
 </body>
 
 </html>
+
+<!--
+	<form th:object="${ticket}" th:action="@{/ticket/compra/__${ticket.idTicket}__}"
+								method="POST">
+								<div class="form-group">
+
+									<p><strong>Usuario: </strong><small th:value="${usuario}" th:field="*{usuario}"
+											th:text="${ticket.usuario.nombreDeUsuario}"></small>
+									<p><strong>Pelicula: </strong><small th:value="${pelicula}" th:field="*{pelicula}"
+											th:text="${ticket.pelicula.titulo}"></small>
+
+									<div class="form-group">
+										<label class="form-label"><strong>Lugar:</strong></label>
+										<input type="text" class="form-control" th:field="*{lugar}" th:value="*{lugar}"
+											required></input>
+									</div>
+									<div class="form-group">
+										<label class="form-label"><strong>Precio:</strong></label>
+										<input type="text" class="form-control" th:field="*{precio}"
+											th:value="*{precio}" required></input>
+									</div>
+									<div class="form-group">
+										<label class="form-label"><strong>Fecha:</strong></label>
+										<input type="date" class="form-control" th:field="*{fecha}" th:value="*{fecha}"
+											required></input>
+									</div>
+									<div class="form-row text-center">
+										<button type="submit" class="btn btn-dark m-3">Comprar</button>
+									</div>
+								</div>
+							</form>
+							-->
 
 
 <!-- <div class="row vh-50 justify-content-center align-items-center m-5 "> -->

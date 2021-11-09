@@ -95,9 +95,9 @@ public class MainControlador {
 			modelo.put("usuarioTotal", 100);
 			modelo.put("usuarioAlta", 60);
 			modelo.put("usuarioBaja", 40);
-			modelo.put("ticketTotal", 100);
+			modelo.put("ticketTotal", ticketServicio.totalTicket());
 			modelo.put("directorTotal", 200);
-			modelo.put("actorTotal", 50);
+			modelo.put("actorTotal", actorServicio.obtenerCantidadActores());
 			return "vistas/admin/panelAdmin";
 		} catch (Exception e) {
 			System.err.println(e.getMessage());

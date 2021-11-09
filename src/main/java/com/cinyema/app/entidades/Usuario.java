@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -27,6 +28,8 @@ public class Usuario {
 	private String nombreDeUsuario;
 	private String contrasenia;
 	private Boolean alta;
+	@Column(updatable = false)
+	private String codigoVerificacion;
 		
 	@DateTimeFormat(pattern="dd-MM-yyyy")
 	private String fechaNacimiento;
@@ -40,8 +43,8 @@ public class Usuario {
 	public Usuario() {
 	}
 
-	public Usuario(long idUsuario, String nombre, String mail, String nombreDeUsuario, String contrasenia, Boolean alta,
-			Rol rol) {
+	public Usuario(Long idUsuario, String nombre, String mail, String nombreDeUsuario, String contrasenia, Boolean alta,
+			String codigoVerificacion, String fechaNacimiento, Rol rol, List<Ticket> ticket) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
@@ -49,11 +52,13 @@ public class Usuario {
 		this.nombreDeUsuario = nombreDeUsuario;
 		this.contrasenia = contrasenia;
 		this.alta = alta;
+		this.codigoVerificacion = codigoVerificacion;
+		this.fechaNacimiento = fechaNacimiento;
 		this.rol = rol;
+		this.ticket = ticket;
 	}
 
-	
-	
+
 	public Long getIdUsuario() {
 		return idUsuario;
 	}
@@ -102,6 +107,14 @@ public class Usuario {
 		this.alta = alta;
 	}
 
+	public String getCodigoVerificacion() {
+		return codigoVerificacion;
+	}
+
+	public void setCodigoVerificacion(String codigoVerificacion) {
+		this.codigoVerificacion = codigoVerificacion;
+	}
+
 	public String getFechaNacimiento() {
 		return fechaNacimiento;
 	}
@@ -136,8 +149,9 @@ public class Usuario {
 	@Override
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", mail=" + mail + ", nombreDeUsuario="
-				+ nombreDeUsuario + ", contrasenia=" + contrasenia + ", alta=" + alta + ", fechaNacimiento="
-				+ fechaNacimiento + ", rol=" + rol + ", ticket=" + ticket + "]";
+				+ nombreDeUsuario + ", contrasenia=" + contrasenia + ", alta=" + alta + ", codigoVerificacion="
+				+ codigoVerificacion + ", fechaNacimiento=" + fechaNacimiento + ", rol=" + rol + ", ticket=" + ticket
+				+ "]";
 	}
 
 }

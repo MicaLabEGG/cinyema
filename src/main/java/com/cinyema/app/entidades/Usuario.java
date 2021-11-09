@@ -22,7 +22,6 @@ public class Usuario {
 	@Id
 	private Long idUsuario = randomId();
 	
-	private String prueba;
 	private String nombre;
 	private String mail;
 	private String nombreDeUsuario;

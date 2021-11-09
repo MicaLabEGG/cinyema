@@ -51,6 +51,8 @@ public class UsuarioServicio implements UserDetailsService {
 	public Usuario editar(Usuario usuario) throws Exception {
 		validar(usuario);
 //		validarMayoriaEdad(usuario);
+		usuario.setAlta(true);
+		usuario.setRol(Rol.USUARIO);
 		BCryptPasswordEncoder encriptada = new BCryptPasswordEncoder();
 		usuario.setContrasenia(encriptada.encode(usuario.getContrasenia()));
 		return usuarioRepositorio.save(usuario);

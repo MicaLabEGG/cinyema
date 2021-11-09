@@ -6,37 +6,78 @@
 <body>
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 
-	<div class="w-100 p-3" style="background-color: #eee;">
-		<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="card-img-top" alt="...">
+	<!-- ERROR -->
+	<div th:if="${error} != null" class="alert-danger alert-dimissible fade show mt-3" role="alert">
+		<span th:text="${error}"></span>
 	</div>
 
-	<div class="row vh-50 justify-content-center align-items-center m-5">
-		<div class="col-auto">
-			<h1 class="text-center" th:text="${comprar}"></h1>
-			<div th:if="${error}" class="alert-danger alert-dimissible fade show mt-3" role="alert">
-				<span th:text="${error}"></span>
-			</div>
-			<form action="/" method="POST">
-				<div class="form-group">
-					<label type="text" class="form-label" th:field="*{pelicula.idPelicula}"></label>
-					<p>poner fecha</p>
-					<p>poner lugar</p>
-					<p>poner lugar</p>
-				</div>
-				<div class="form-group">
-					<label class="form-label">Password</label> <input type="password" class="form-control"
-						name="contrasenia" placeholder="Password">
-				</div>
+	<!-- GRID -->
+	<div class="container-fluid">
+		<div class="row mt-3">
 
-				<div class="form-row text-center">
-					<button type="submit" class="btn btn-dark m-3">Comprar</button>
+			<!-- PRIMER COLUMNA: FOTO -->
+			<div class="col-4">
+				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid rounded mx-auto d-block"
+					alt="...">
+			</div>
+
+			<!-- SEGUNDA COLUMNA: PELICULA -->
+			<div class="col-6">
+				<nav>
+					<div class="nav nav-tabs" id="nav-tab" role="tablist">
+						<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+							data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+							aria-selected="true">
+							Sinopsis
+						</button>
+						<button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+							type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+							Datos
+						</button>
+					</div>
+				</nav>
+				<div th:object="${pelicula}" class="tab-content" id="nav-tabContent">
+					<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+						<p th:text="*{descripcion}"></p>
+					</div>
+					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+						<p th:text="*{titulo}"></p>
+						<p th:text="*{anio}"></p>
+						<p th:text="*{duracion}"></p>
+						<p th:text="*{genero}"></p>
+						<p th:text="*{pais}"></p>
+						<p th:text="*{idioma}"></p>
+						<p th:text="*{subtitulo}"></p>
+						<p th:text="*{genero}"></p>
+						<p>Dirección</p>
+					</div>
 				</div>
-			</form>
+			</div>
+
+			<!-- TERCER COLUMNA: TICKET -->
+			<div class="col-2">
+				<form th:object="${pelicula}" action="/" method="POST">
+					
+
+
+
+
+
+					<div class="form-row text-center">
+						<button type="submit" class="btn btn-dark m-3">Comprar</button>
+					</div>
+				</form>
+			</div>
 
 		</div>
 	</div>
+
+
 
 	<script th:replace=fragmentos/head :: "_scriptBoostrap"></script>
 </body>
 
 </html>
+
+
+<!-- <div class="row vh-50 justify-content-center align-items-center m-5 "> -->

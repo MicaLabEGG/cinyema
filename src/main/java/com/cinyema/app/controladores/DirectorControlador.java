@@ -67,11 +67,11 @@ public class DirectorControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/editar/{id}")
-	public String editar(ModelMap modelo, @PathVariable Long id) {
+	@GetMapping("/editar/{idDirector}")
+	public String editar(ModelMap modelo, @PathVariable Long idDirector) {
 		try {
 			modelo.addAttribute("editar", "Editar Directores");
-			modelo.addAttribute("director", directorServicio.obtenerPorId(id));
+			modelo.addAttribute("director", directorServicio.obtenerPorId(idDirector));
 			return "vistas/admin/director";
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +82,7 @@ public class DirectorControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/editar/{id}")
+	@PostMapping("/editar/{idDirector}")
 	public String editar(ModelMap modelo, Director director) throws Exception {
 		try {
 			directorServicio.editar(director);

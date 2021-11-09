@@ -56,6 +56,10 @@ public class DirectorServicio implements ServicioBase<Director> {
 	public void eliminar(Long idDirector) {
 		directorRepositorio.deleteById(idDirector);
 	}
+	
+	public Long cantidadDirectores() {
+		return directorRepositorio.count();
+	}
 
 	public void validar(Director director) throws Exception {
 		if (director.getNombre().isEmpty() || director.getNombre().isBlank()) {

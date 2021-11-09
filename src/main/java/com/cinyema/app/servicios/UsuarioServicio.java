@@ -81,6 +81,20 @@ public class UsuarioServicio implements UserDetailsService {
 			return result;
 		}
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Usuario darBaja(Long idUsuario) {
+		Usuario usuario = usuarioRepositorio.getById(idUsuario);
+		usuario.setAlta(false);
+		return usuario;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Usuario darAlta(Long idUsuario) {
+		Usuario usuario = usuarioRepositorio.getById(idUsuario);
+		usuario.setAlta(true);
+		return usuario;
+	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminar(Long idUsuario) {

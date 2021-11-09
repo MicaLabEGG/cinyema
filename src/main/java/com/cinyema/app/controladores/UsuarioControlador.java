@@ -95,6 +95,30 @@ public class UsuarioControlador {
 			return "redirect:/usuario";
 		}
 	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/baja/{idUsuario}")
+	public String darBaja(@PathVariable Long idUsuario) {
+		try {
+		     usuarioServicio.darBaja(idUsuario);
+		     return "redirect:/usuario";
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+		    return "redirect:/usuario"; 
+	    }
+    }
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/alta/{idUsuario}")
+	public String darAlta(@PathVariable Long idUsuario) {
+		try {
+		     usuarioServicio.darAlta(idUsuario);
+		     return "redirect:/usuario";
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+		    return "redirect:/usuario"; 
+	    }
+    }
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{idUsuario}")

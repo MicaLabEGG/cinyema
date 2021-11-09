@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -86,15 +87,16 @@ public class MainControlador {
 		}
 	}
 	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/admin")
 	public String adminPanel(ModelMap modelo) throws Exception {
 		try {
 			modelo.put("peliculaTotal", peliculaServicio.cantidadPeliculaTotal());
 			modelo.put("peliculaAlta", peliculaServicio.cantidadPeliculaAlta());
 			modelo.put("peliculaBaja", peliculaServicio.cantidadPeliculaBaja());
-			modelo.put("usuarioTotal", 100);
-			modelo.put("usuarioAlta", 60);
-			modelo.put("usuarioBaja", 40);
+			modelo.put("usuarioTotal", usuarioServicio.totalUsuario());
+			modelo.put("usuarioAlta", usuarioServicio.totalAlta());
+			modelo.put("usuarioBaja", usuarioServicio.totalBaja());
 			modelo.put("ticketTotal", ticketServicio.totalTicket());
 			modelo.put("directorTotal", directorServicio.totalDirector());
 			modelo.put("actorTotal", actorServicio.obtenerCantidadActores());

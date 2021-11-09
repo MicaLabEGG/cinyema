@@ -93,6 +93,19 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 	public void eliminar(Long idUsuario) {
 		usuarioRepositorio.deleteById(idUsuario);
 	}
+	
+	public long totalUsuario() throws Exception {
+		return usuarioRepositorio.count();
+	}
+	
+	public int totalAlta() throws Exception {
+		double total = usuarioRepositorio.totalAlta() * 100 / totalUsuario();
+		return (int) Math.round(total);
+	}
+	
+	public int totalBaja() throws Exception {
+		return 100 - totalAlta();
+	}
 
 	@Transactional(readOnly = true)
 	public List<Usuario> usuariosActivos() {

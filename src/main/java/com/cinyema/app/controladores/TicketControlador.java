@@ -142,7 +142,7 @@ public class TicketControlador {
 	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("compra/{usuario}/{pelicula}")
+	@PostMapping("/compra")
 	public String compra(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
 			servicioTicket.registrar(ticket);

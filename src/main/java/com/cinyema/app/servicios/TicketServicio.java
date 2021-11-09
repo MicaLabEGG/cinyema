@@ -107,6 +107,10 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		}
 	}
 	
+	public Long totalTicket() throws Exception{
+		return repositorioTicket.count();
+	}
+	
 	private void validar(Ticket ticket) throws Error {
 
         if (ticket.getPelicula() == null ) {

@@ -6,11 +6,11 @@
 <body>
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 
-	<h1>Panel Usuario</h1>
+	<h1 class="text-center">Panel Usuario</h1>
 
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-ms-4">
+        <div class="row justify-content-center">
+            <div class="col-sm-3">
                 <div class="card">
                     <div class="card-body text-center">
                         <h2 class="card-title" th:text="${usuario.nombreDeUsuario}"></h2>
@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-ms-8">
+            <div class="col-sm-7">
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title text-center">Lista de Tickets</h2>

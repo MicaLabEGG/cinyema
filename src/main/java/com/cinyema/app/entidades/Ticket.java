@@ -1,14 +1,13 @@
 package com.cinyema.app.entidades;
 
-import java.util.Date;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Ticket {
@@ -20,15 +19,25 @@ public class Ticket {
 	@ManyToOne
 	@JoinColumn(name = "FK_TICKUSER", nullable = false, updatable = false)
 	private Usuario usuario;
-	@Temporal(TemporalType.DATE)
-	private Date fecha;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private String fecha;
 	private String lugar;
-	private Double precio;
+	private double precio;
 	
 	public Long getIdTicket() {
 		return idTicket;
 	}
 	
+	//constructor para hacer la compra de ticket
+	public Ticket( Pelicula pelicula, Usuario usuario, String fecha, String lugar, double precio) {
+		super();
+		this.pelicula = pelicula;
+		this.usuario = usuario;
+		this.fecha = fecha;
+		this.lugar = lugar;
+		this.precio = precio;
+	}
+
 	public void setIdTicket(Long idTicket) {
 		this.idTicket = idTicket;
 	}
@@ -49,11 +58,11 @@ public class Ticket {
 		this.usuario = usuario;
 	}
 	
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 	
-	public void setFecha(Date fecha) {
+	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
 	
@@ -70,16 +79,6 @@ public class Ticket {
 	}
 	
 	public void setPrecio(Double precio) {
-		this.precio = precio;
-	}
-	
-	public Ticket(Long idTicket, Pelicula pelicula, Usuario usuario, Date fecha, String lugar, Double precio) {
-		super();
-		this.idTicket = idTicket;
-		this.pelicula = pelicula;
-		this.usuario = usuario;
-		this.fecha = fecha;
-		this.lugar = lugar;
 		this.precio = precio;
 	}
 	

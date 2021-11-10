@@ -1,6 +1,7 @@
 package com.cinyema.app.seguridad;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -17,6 +18,7 @@ import com.cinyema.app.servicios.UsuarioServicio;
 public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 
 	@Autowired
+	@Qualifier("usuarioServicio")
 	private UsuarioServicio usuarioServicio;
 	
 	
@@ -43,7 +45,7 @@ public class ConfiguracionSeguridad extends WebSecurityConfigurerAdapter{
 												.permitAll()
 								.and().logout()
 												.logoutUrl("/logout")
-												.logoutSuccessUrl("/")
+												.logoutSuccessUrl("/login?logout")
 												.permitAll()
 								.and()
 								.csrf()

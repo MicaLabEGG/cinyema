@@ -1,9 +1,7 @@
 package com.cinyema.app.controladores;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.cinyema.app.entidades.Usuario;
-import com.cinyema.app.enumeraciones.Rol;
 import com.cinyema.app.servicios.UsuarioServicio;
 
 @Controller
@@ -21,105 +17,117 @@ import com.cinyema.app.servicios.UsuarioServicio;
 public class UsuarioControlador {
 
 	@Autowired
-	UsuarioServicio usuarioServicio;
+	private UsuarioServicio usuarioServicio;
 
-	@SuppressWarnings("finally")
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
-	public String mostrarUsuarios(ModelMap modelo) throws Exception {
-
+	public String listar(ModelMap modelo) throws Exception {
 		try {
-			List<Usuario> listaUsuario = usuarioServicio.buscarUsuarios();
-			modelo.addAttribute("listar", "Listar usuarios");
-			modelo.addAttribute("usuario", listaUsuario);
-			return "admin/vistas/usuario";
+			modelo.addAttribute("listar", "Lista Usuarios");
+			modelo.addAttribute("usuario", usuarioServicio.listar());
+			return "vistas/admin/usuario";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			return "admin/vistas/usuario";
-		} finally {
-			return "admin/vistas/usuario";
+			e.printStackTrace();
+			return "vistas/admin/usuario";
 		}
 	}
-	
-	// required = false porque puede no venir el dato (en caso de login exitoso)
+
 	@GetMapping("/login")
-	public String login(ModelMap modelo, @RequestParam(required = false) String error) {		
-		
-		if (error != null) {
-			modelo.put("Error", "*Los datos son incorrectos");
-		}
-		
-		return "/login";
+	public String login(ModelMap modelo, @RequestParam(required = false) String error) {
+		return (error != null) ? (String) modelo.put("Error", "Error al ingresar datos") : "/login";
 	}
 
 	@GetMapping("/registrar")
-	public String guardar(ModelMap modelo) {
-		modelo.addAttribute("registrar", "Registrar usuarios");
-		return "admin/vistas/usuario";
+	public String registrar(ModelMap modelo) {
+		try {
+		    modelo.addAttribute("registrar", "Registrar usuarios");
+		    modelo.addAttribute("usuario", usuarioServicio.registrarVacio());
+		    return "vistas/admin/usuario";
+		}catch (Exception e) {
+			e.printStackTrace();
+			modelo.put("error", e.getMessage());
+			return "vistas/admin/usuario";
+		}
 	}
 
-	@SuppressWarnings("finally")
 	@PostMapping("/registrar")
-	public String guardarUsuario(ModelMap modelo, @RequestParam("nombre") String nombre,
-			@RequestParam("mail") String mail, @RequestParam("nombreDeUsuario") String nombreDeUsuario,
-			@RequestParam("contrasenia") String contrasenia, @RequestParam("fechaNacimiento") String fechaNacimiento)
-			throws Exception {
-
+	public String registrar(ModelMap modelo, Usuario usuario) throws Exception {
 		try {
-			Usuario usuario = usuarioServicio.registroUsuario(nombre, mail, nombreDeUsuario, contrasenia,
-					fechaNacimiento);
-			modelo.put("usuario", usuario);
+			modelo.put("usuario", usuarioServicio.registrar(usuario));
 			return "redirect:/usuario";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Error al ingresar los datos del usuario");
-			modelo.addAttribute("registrar", "Registrar usuarios");
-			return "admin/vistas/usuario";
-		} 
-	}
-
-	@SuppressWarnings("finally")
-	@GetMapping("/editar/{id}")
-	public String modificar(ModelMap modelo, @PathVariable Long id) throws Exception {
-		try {
-			Usuario usuario = usuarioServicio.obtenerUsuario(id);
-			modelo.addAttribute("editar", "Editar usuarios");
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Usuario");
 			modelo.addAttribute("usuario", usuario);
-			return "admin/vistas/usuario";
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Falta algun dato");
-			return "admin/vistas/usuario";
-		} finally {
-			return "admin/vistas/usuario";
-		}
-	}
-
-	@SuppressWarnings("finally")
-	@PostMapping("/editar/{id}")
-	public String modificarUsuario(ModelMap modelo, @PathVariable Long id, @RequestParam String nombre,
-			@RequestParam String mail, @RequestParam String nombreDeUsuario, @RequestParam String contrasenia,
-			@RequestParam String fechaNacimiento) throws Exception {
-
-		try {
-			usuarioServicio.modificarUsuario(id, nombre, mail, nombreDeUsuario, contrasenia, fechaNacimiento);
-			modelo.put("exito", "Modificacion exitosa");
-			return "redirect:/usuario";
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			modelo.put("error", "Falta algun dato al ingresar usuario");
-			return "admin/vistas/usuario";
-		} finally {
+			modelo.put("error", e.getMessage());
 			return "redirect:/usuario";
 		}
 	}
 
-	@GetMapping("/eliminar/{id}")
-	public String eliminar(@PathVariable Long id) {
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/editar/{idUsuario}")
+	public String editar(ModelMap modelo, @PathVariable Long idUsuario) throws Exception {
 		try {
-			usuarioServicio.eliminarUsuario(id);
+			modelo.addAttribute("editar", "Editar usuarios");
+			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(idUsuario));
+			return "vistas/admin/usuario";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Usuario");
+			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(idUsuario));
+			modelo.put("error", e.getMessage());
+			return "vistas/admin/usuario";
+		}
+
+	}
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@PostMapping("/editar/{idUsuario}")
+	public String editar(ModelMap modelo, Usuario usuario) throws Exception {
+		try {
+			usuarioServicio.editar(usuario);
 			return "redirect:/usuario";
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Usuario");
+			modelo.addAttribute("usuario", usuario);
+			modelo.put("error", e.getMessage());
+			return "redirect:/usuario";
+		}
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/baja/{idUsuario}")
+	public String darBaja(@PathVariable Long idUsuario) {
+		try {
+		     usuarioServicio.darBaja(idUsuario);
+		     return "redirect:/usuario";
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+		    return "redirect:/usuario"; 
+	    }
+    }
+	
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/alta/{idUsuario}")
+	public String darAlta(@PathVariable Long idUsuario) {
+		try {
+		     usuarioServicio.darAlta(idUsuario);
+		     return "redirect:/usuario";
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+		    return "redirect:/usuario"; 
+	    }
+    }
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/eliminar/{idUsuario}")
+	public String eliminar(@PathVariable Long idUsuario) {
+		try {
+			usuarioServicio.eliminar(idUsuario);
+			return "redirect:/usuario";
+		} catch (Exception e) {
+			e.printStackTrace();
 			return "redirect:/usuario";
 		}
 

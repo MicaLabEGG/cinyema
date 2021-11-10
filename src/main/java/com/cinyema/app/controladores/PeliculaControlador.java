@@ -1,9 +1,7 @@
 package com.cinyema.app.controladores;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,176 +10,159 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.cinyema.app.entidades.Actor;
-import com.cinyema.app.entidades.Director;
-import com.cinyema.app.entidades.Imagen;
 import com.cinyema.app.entidades.Pelicula;
-import com.cinyema.app.enumeraciones.Genero;
-import com.cinyema.app.enumeraciones.Idioma;
-import com.cinyema.app.enumeraciones.Pais;
-import com.cinyema.app.enumeraciones.Subtitulo;
 import com.cinyema.app.servicios.ActorServicio;
 import com.cinyema.app.servicios.DirectorServicio;
 import com.cinyema.app.servicios.PeliculaServicio;
 
-
-
 @Controller
+@PreAuthorize("isAuthenticated()")
 @RequestMapping("/pelicula")
 public class PeliculaControlador {
-	
+
 	@Autowired
 	private PeliculaServicio servicioPelicula;
-	
+
 	@Autowired
 	private DirectorServicio servicioDirector;
-	
+
 	@Autowired
 	private ActorServicio servicioActor;
-	
-	
-	
-	@GetMapping("")
-	public String listarPeliculas(ModelMap modelo) {
-		List<Pelicula> peliculas = servicioPelicula.listarPeliculas();
-		modelo.addAttribute("peliculas", peliculas);
-		modelo.addAttribute("listar", "Lista de Peliculas");
-		
-		return "admin/vistas/pelicula";
-	}
-	
-	
-	@PostMapping("/buscarPelicula")
-	public String listarPeliculasPorTitulo(ModelMap modelo, @RequestParam String titulo) throws Exception{
-		
-		try {
-			List<Pelicula> peliculas =  servicioPelicula.buscarPeliculaPorTitulo(titulo);
-			modelo.addAttribute("peliculas", peliculas);
-			
-			return "/pelicula/pelicula";
-			
-		} catch (Exception e) {
-			modelo.put("ErrorBuscar", e.getMessage());
 
-		    modelo.put("titulo", titulo);
-			
-		    return "/pelicula/pelicula";
-		}		
-	}	
-	
-	@GetMapping("/agregarPelicula")
-	public String agregarPelicula(ModelMap modelo) {
-		List<Director> directores = servicioDirector.listarDirectores();
-		List<Actor> actores = servicioActor.buscarActores();
-		Pelicula pelicula = new Pelicula();
-		modelo.addAttribute("directores",directores);
-		modelo.addAttribute("actores",actores);
-		modelo.addAttribute("registro", "Registro de Peliculas");
-		modelo.addAttribute("pelicula", pelicula);
-		
-		return "admin/vistas/pelicula";
-	}
-	
-	@PostMapping("/agregarPelicula") 
-	public String guardarPelicula(ModelMap modelo,Pelicula pelicula , MultipartFile archivo) throws Exception{
-		
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("")
+	public String listar(ModelMap modelo) {
 		try {
-			servicioPelicula.crearPelicula(pelicula, archivo);
-			
-			return "redirect:/pelicula";	
-			
-		} catch (Exception e) {
-			modelo.put("error", e.getMessage());
-			// devolvemos los valores ingresados al formulario
-			modelo.addAttribute(pelicula);
-			modelo.addAttribute("registro", "Registro de Peliculas");
-			
-			return "admin/vistas/pelicula";
-		}
-			
-	}
-	
-	@GetMapping("/modificarPelicula/{id}")
-	public String modificarPelicula(ModelMap modelo, @PathVariable Long idPelicula) {
-		
-		Optional<Pelicula> pelicula = servicioPelicula.buscarPeliculaPorId(idPelicula);		
-		@SuppressWarnings("unused")
-		List<Director> directores = servicioDirector.listarDirectores();
-		@SuppressWarnings("unused")
-		List<Actor> actores = servicioActor.buscarActores();
-		
-		modelo.addAttribute("titulo", pelicula.get().getTitulo());
-		modelo.addAttribute("anio", pelicula.get().getAnio());
-		modelo.addAttribute("descripcion", pelicula.get().getDescripcion());
-		
-				
-		return "/pelicula/formModificarPelicula";
-	}
-	
-	@PostMapping("/modificarPelicula") 
-	public String editarPelicula(ModelMap modelo, @RequestParam Long idPelicula, @RequestParam String titulo, @RequestParam String anio, @RequestParam String descripcion, @RequestParam String duracion, @RequestParam Genero genero, @RequestParam Pais pais, @RequestParam Idioma idioma, @RequestParam Subtitulo subtitulo, @RequestParam Long idDirector, @RequestParam Long idActor, MultipartFile archivo) throws Exception{
-		
-		try {
-			servicioPelicula.modificarPelicula(idPelicula, titulo, anio, descripcion, duracion, genero, pais, idioma, subtitulo, idDirector, idActor, archivo);
-			
+		    modelo.addAttribute("listar", "Lista de Películas");
+		    modelo.addAttribute("peliculas", servicioPelicula.listar());
+		    return "vistas/admin/pelicula";
+		}catch (Exception e) {
+			e.printStackTrace();
+            modelo.addAttribute("listar", "Lista de Peliculas");
+            modelo.put("error", e.getMessage());
 			return "redirect:/pelicula";
-			
-		} catch (Exception e) {
-			modelo.put("Error", e.getMessage());
-			// devolvemos los valores ingresados al formulario
-			modelo.put("titulo", titulo);
-			modelo.put("anio", anio);
-			modelo.put("descripcion", descripcion);
-			
-			return "/pelicula/formModificarPelicula";
 		}
 	}
-	
-	@GetMapping("/altaPelicula/{id}")
-	public String altaPelicula(@PathVariable Long idPelicula) {
-		
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/registrar")
+	public String registrar(ModelMap modelo) {
 		try {
-			servicioPelicula.peliculaAlta(idPelicula);
-			
-			return "redirect:/pelicula";	
-			
-		} catch (Exception e) {
-			
-			return "redirect:/pelicula";	
+		    modelo.addAttribute("registrar", "Registrar Películas");
+		    modelo.addAttribute("pelicula", servicioPelicula.registrarVacio());
+		    modelo.addAttribute("actores", servicioActor.listar());
+		    modelo.addAttribute("directores", servicioDirector.listar());
+		    return "vistas/admin/pelicula";
+		}catch(Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Peliculas");
+			modelo.put("error", e.getMessage());
+			return "redirect:/pelicula";
 		}
 	}
-	
-	@GetMapping("/bajaPelicula/{id}")
-	public String bajaPelicula(@PathVariable Long idPelicula) {
-				
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@PostMapping("/registrar")
+	public String registrar(ModelMap modelo, Pelicula pelicula, MultipartFile archivo) throws Exception {
 		try {
-			servicioPelicula.peliculaBaja(idPelicula);
-			
-			return "redirect:/pelicula";	
-			
+			servicioPelicula.registrar(pelicula, archivo);
+			return "redirect:/pelicula";
 		} catch (Exception e) {
-			
-			return "redirect:/pelicula";	
+			e.printStackTrace();
+			modelo.addAttribute("registrar", "Registrar Película");
+			modelo.addAttribute("pelicula", pelicula);
+			modelo.put("error", e.getMessage());
+			return "redirect:/pelicula";
 		}
-				
+
 	}
-	
-	@GetMapping("/eliminarPeliculaPorId/{id}")
-	public String eliminarPeliculaPorId(@PathVariable Long idPelicula) {
-				
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/editar/{idPelicula}")
+	public String editar(ModelMap modelo, @PathVariable Long idPelicula) throws Exception {
 		try {
-			servicioPelicula.eliminarPeliculaPorId(idPelicula);
-			
-			return "redirect:/pelicula";		
-			
-		} catch (Exception e) {
-			
-			return "redirect:/pelicula";	
+		    modelo.addAttribute("editar", "Editar Películas");
+		    modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
+		    modelo.addAttribute("actores", servicioActor.listar());
+		    modelo.addAttribute("directores", servicioDirector.listar());
+		    return "vistas/admin/pelicula";
+		}catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Peliculas");
+			modelo.put("error", e.getMessage());
+			return "vistas/admin/pelicula";
 		}
-		
 	}
-	
-	
-	
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@PostMapping("/editar/{idPelicula}")
+	public String editar(ModelMap modelo, Pelicula pelicula, MultipartFile archivo) throws Exception {
+		try {
+			servicioPelicula.editar(pelicula, archivo);
+			return "redirect:/pelicula";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Película");
+			modelo.addAttribute("pelicula", pelicula);
+			modelo.put("error", e.getMessage());
+			return "redirect:/pelicula";
+		}
+	}
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/alta/{idPelicula}")
+	public String alta(@PathVariable Long idPelicula) {
+		try {
+			servicioPelicula.alta(idPelicula);
+			return "redirect:/pelicula";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/pelicula";
+		}
+	}
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/baja/{idPelicula}")
+	public String baja(@PathVariable Long idPelicula) {
+		try {
+			servicioPelicula.baja(idPelicula);
+			return "redirect:/pelicula";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/pelicula";
+		}
+
+	}
+
+	// Buscador de peliculas por título: futuro filtro
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@PostMapping("/buscarPeliculaPorTitulo")
+	public String buscarPeliculaPorTitulo(ModelMap modelo, @RequestParam String titulo) throws Exception {
+		try {
+			modelo.addAttribute("buscador", "Buscador de películas por Título");
+			modelo.addAttribute("peliculas", servicioPelicula.obtenerPeliculaPorTitulo(titulo));
+			return "vistas/admin/pelicula";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.addAttribute("editar", "Editar Película");
+			modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorTitulo(titulo));
+			modelo.put("error", e.getMessage());
+			return "vistas/admin/pelicula";
+		}
+	}
+
+	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+	@GetMapping("/eliminar/{idPelicula}")
+	public String eliminar(@PathVariable Long idPelicula) {
+		try {
+			servicioPelicula.eliminar(idPelicula);
+			return "redirect:/pelicula";
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.err.println(e.getMessage());
+			return "redirect:/pelicula";
+		}
+
+	}
+
 }

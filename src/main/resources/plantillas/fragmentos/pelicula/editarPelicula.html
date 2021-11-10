@@ -72,7 +72,7 @@
                     <img th:src="${'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-thumbnail" alt="...">
                     <div class="form-group">
                         <label for="formFile" class="form-label">Imagen</label>
-                        <input type="file" class="form-control"  name="archivo" th:value="${'data:imagen/jpeg;base64,'+{pelicula.imagen}}"></input>
+                        <input type="file" class="form-control"  name="archivo"></input>
                     </div>
 
                     <button class="btn btn-primary" type="submit">Guardar</button>

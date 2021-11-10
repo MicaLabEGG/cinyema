@@ -99,6 +99,7 @@ public class MainControlador {
 	    } else {
 	    	return "vistas/verificacionFallida";
 	    }	
+	}    
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/admin")

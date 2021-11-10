@@ -133,7 +133,7 @@ public class TicketControlador {
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
 			Ticket ticket = servicioTicket.registrarVacio();
 			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
-			ticket.setPelicula(servicioPelicula.obtenerPeliculaPorId(idPelicula));
+			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
 			modelo.addAttribute("ticket", ticket);
 			return "vistas/ticketCompra";
 		} catch (Exception e) {

@@ -112,7 +112,10 @@ public class MainControlador {
 	@GetMapping("/panelUsuario")
 	public String panelUsuario(ModelMap modelo, Authentication user) {
 		try {
-			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorNombre(user.getName()));
+			Usuario usuario = usuarioServicio.obtenerUsuarioPorNombre(user.getName());
+			Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(usuario.getFechaNacimiento());
+			modelo.put("fechaNacimiento", fechaNacimiento);
+			modelo.addAttribute("usuario", usuario);
 			return "vistas/usuario/panelUsuario";
 		} catch (Exception e) {
 			modelo.addAttribute("error", "No se encontro el usuario");

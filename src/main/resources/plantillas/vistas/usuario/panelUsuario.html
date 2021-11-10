@@ -16,7 +16,7 @@
                         <h2 class="card-title" th:text="${usuario.nombreDeUsuario}"></h2>
                         <p><b>Mail: </b><small th:text="${usuario.mail}"></small></p>
                         <p><b>Nombre:</b><small th:text="${usuario.nombre}"></small></p>
-                        <p><b>Fecha: </b><small th:text="${usuario.fechaNacimiento}"></small></p>
+                        <p><b>Fecha: </b><small th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small></p>
                     </div>
                 </div>
             </div>

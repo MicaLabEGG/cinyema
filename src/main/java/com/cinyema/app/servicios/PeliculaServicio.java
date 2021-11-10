@@ -20,6 +20,11 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void registrar(Pelicula pelicula, MultipartFile archivo) throws Exception {
+		
+		if (repositorioPelicula.validarTituloPelicula(pelicula.getTitulo()) != null) {
+			throw new Exception("Ya existe una película con el mismo título");
+		}
+		
 		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
 		validar(pelicula, archivo, fileName);
 		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
@@ -120,10 +125,6 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 
 		if (pelicula.getTitulo() == null || pelicula.getTitulo().isBlank()) {
 			throw new Exception("Nombre de película inválido");
-		}
-
-		if (repositorioPelicula.validarTituloPelicula(pelicula.getTitulo()) != null) {
-			throw new Exception("Ya existe una película con el mismo título");
 		}
 
 		if (pelicula.getAnio() == null || pelicula.getAnio().isBlank()) {

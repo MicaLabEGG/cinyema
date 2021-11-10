@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -118,6 +119,21 @@ public class MainControlador {
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 			return "redirect:/admin";
+		}
+	}
+	
+	@PreAuthorize("hasAnyRole('ROLE_USUARIO')")
+	@GetMapping("/panelUsuario")
+	public String panelUsuario(ModelMap modelo, Authentication user) {
+		try {
+			Usuario usuario = usuarioServicio.obtenerUsuarioPorNombre(user.getName());
+			Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(usuario.getFechaNacimiento());
+			modelo.put("fechaNacimiento", fechaNacimiento);
+			modelo.addAttribute("usuario", usuario);
+			return "vistas/usuario/panelUsuario";
+		} catch (Exception e) {
+			modelo.addAttribute("error", "No se encontro el usuario");
+			return "redirect:/";
 		}
 	}
 }

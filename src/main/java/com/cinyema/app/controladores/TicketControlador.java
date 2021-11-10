@@ -124,7 +124,6 @@ public class TicketControlador {
 	
 	//----- COMPRA TICKET 
 	
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/compra/{idPelicula}")
 	public String compra(ModelMap modelo, Authentication autenticacion, @PathVariable Long idPelicula) throws Exception {
 		try {
@@ -145,7 +144,6 @@ public class TicketControlador {
 		}
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/compra/{idTicket}")
 	public String compra(ModelMap modelo, Ticket ticket) throws Exception {
 		try {

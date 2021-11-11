@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.cinyema.app.entidades.Asiento;
 import com.cinyema.app.entidades.Pelicula;
+import com.cinyema.app.entidades.Ticket;
 
 @Repository
 public interface AsientoRepositorio extends JpaRepository<Asiento, Long>{
@@ -17,8 +18,9 @@ public interface AsientoRepositorio extends JpaRepository<Asiento, Long>{
 	public Asiento buscarPorNumeroDeAsiento(@Param("numeroDeAsiento") Integer numeroDeAsiento);
 	
 	@Query("SELECT a FROM Asiento a WHERE a.libre = :true")
-	public List<Pelicula> listarAsientosLibres();
+	public List<Asiento> listarAsientosLibres();
 	
 	@Query("SELECT a FROM Asiento a WHERE a.libre = :false")
-	public List<Pelicula> listarAsientosOcupados();
+	public List<Asiento> listarAsientosOcupados();
+	
 }

@@ -45,7 +45,7 @@ public class MainControlador {
 
 	@GetMapping()
 	public String index(ModelMap modelo) {
-		modelo.addAttribute("peliculas", peliculaServicio.listar());
+		modelo.addAttribute("peliculas", peliculaServicio.listarPeliculasActivas());
 		return "index";
 	}
 

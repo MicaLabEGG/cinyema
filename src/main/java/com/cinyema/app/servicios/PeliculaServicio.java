@@ -19,15 +19,15 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 	private PeliculaRepositorio repositorioPelicula;
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void registrar(Pelicula pelicula, MultipartFile archivo) throws Exception {
+	public void registrar(Pelicula pelicula, MultipartFile archivo, String archivoVideo) throws Exception {
 		
 		if (repositorioPelicula.validarTituloPelicula(pelicula.getTitulo()) != null) {
 			throw new Exception("Ya existe una película con el mismo título");
 		}
-		
 		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
-		validar(pelicula, archivo, fileName);
+		validar(pelicula, archivo, archivoVideo, fileName);
 		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
+		pelicula.setTrailer(archivoVideo);
 		pelicula.setAlta(true);
 		repositorioPelicula.save(pelicula);
 	}
@@ -38,10 +38,11 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void editar(Pelicula pelicula, MultipartFile archivo) throws Exception {
+	public void editar(Pelicula pelicula, MultipartFile archivo, String archivoVideo) throws Exception {
 		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
-		validar(pelicula, archivo, fileName);
+		validar(pelicula, archivo, archivoVideo, fileName);
 		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
+		pelicula.setTrailer(archivoVideo);
 		pelicula.setAlta(true);
 		repositorioPelicula.save(pelicula);
 	}
@@ -121,7 +122,7 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 		return baja;
 	}
 	
-	public void validar(Pelicula pelicula, MultipartFile archivo, String filename) throws Exception {
+	public void validar(Pelicula pelicula, MultipartFile archivo, String archivoVideo ,String filename) throws Exception {
 
 		if (pelicula.getTitulo() == null || pelicula.getTitulo().isBlank()) {
 			throw new Exception("Nombre de película inválido");
@@ -158,10 +159,15 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 		if (archivo == null) {
 			throw new Exception("Imagen de película inválido");
 		}
+		
+		if (archivoVideo == null) {
+			throw new Exception("Trailer de película inválido");
+		}
 
 		if (filename.contains("..")) {
 			throw new Exception("Archivo inválido");
 		}
+		
 
 		if (pelicula.getDirector() == null || pelicula.getDirector().getNombre().isEmpty()) {
 			throw new Exception("Director de película inválido");

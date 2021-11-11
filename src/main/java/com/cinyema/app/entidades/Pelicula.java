@@ -13,11 +13,16 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.cinyema.app.enumeraciones.Calificacion;
 import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.enumeraciones.Idioma;
 import com.cinyema.app.enumeraciones.Pais;
 import com.cinyema.app.enumeraciones.Subtitulo;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "pelicula")
 public class Pelicula {
@@ -45,13 +50,16 @@ public class Pelicula {
 	@ManyToMany
 	@JoinTable(name = "peliculaActor", joinColumns = @JoinColumn(name = "idPelicula"), inverseJoinColumns = @JoinColumn(name = "idActor"))
 	private List<Actor> actores;
+	private Calificacion calificacion;
+	private Double voto;
+	private String trailer;
 
 	public Pelicula() {
 	}
 
 	public Pelicula(Long idPelicula, String titulo, String anio, String descripcion, String duracion, Genero genero,
 			Pais pais, Idioma idioma, Subtitulo subtitulo, String imagen, Boolean alta, Director director,
-			List<Actor> actores) {
+			List<Actor> actores, Calificacion calificacion, Double voto, String trailer) {
 		super();
 		this.idPelicula = idPelicula;
 		this.titulo = titulo;
@@ -66,110 +74,9 @@ public class Pelicula {
 		this.alta = alta;
 		this.director = director;
 		this.actores = actores;
-	}
-
-	public Long getIdPelicula() {
-		return idPelicula;
-	}
-
-	public void setIdPelicula(Long idPelicula) {
-		this.idPelicula = idPelicula;
-	}
-
-	public String getTitulo() {
-		return titulo;
-	}
-
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
-
-	public String getAnio() {
-		return anio;
-	}
-
-	public void setAnio(String anio) {
-		this.anio = anio;
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public String getDuracion() {
-		return duracion;
-	}
-
-	public void setDuracion(String duracion) {
-		this.duracion = duracion;
-	}
-
-	public Genero getGenero() {
-		return genero;
-	}
-
-	public void setGenero(Genero genero) {
-		this.genero = genero;
-	}
-
-	public Pais getPais() {
-		return pais;
-	}
-
-	public void setPais(Pais pais) {
-		this.pais = pais;
-	}
-
-	public Idioma getIdioma() {
-		return idioma;
-	}
-
-	public void setIdioma(Idioma idioma) {
-		this.idioma = idioma;
-	}
-
-	public Subtitulo getSubtitulo() {
-		return subtitulo;
-	}
-
-	public void setSubtitulo(Subtitulo subtitulo) {
-		this.subtitulo = subtitulo;
-	}
-
-	public String getImagen() {
-		return imagen;
-	}
-
-	public void setImagen(String imagen) {
-		this.imagen = imagen;
-	}
-
-	public Boolean getAlta() {
-		return alta;
-	}
-
-	public void setAlta(Boolean alta) {
-		this.alta = alta;
-	}
-
-	public Director getDirector() {
-		return director;
-	}
-
-	public void setDirector(Director director) {
-		this.director = director;
-	}
-
-	public List<Actor> getActores() {
-		return actores;
-	}
-
-	public void setActores(List<Actor> actores) {
-		this.actores = actores;
+		this.calificacion = calificacion;
+		this.voto = voto;
+		this.trailer = trailer;
 	}
 
 	public Long randomId() {

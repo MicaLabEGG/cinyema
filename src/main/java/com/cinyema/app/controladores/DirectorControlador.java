@@ -71,7 +71,7 @@ public class DirectorControlador {
 	public String editar(ModelMap modelo, @PathVariable Long idDirector) {
 		try {
 			modelo.addAttribute("editar", "Editar Directores");
-			modelo.addAttribute("director", directorServicio.obtenerDirectorPorId(idDirector));
+			modelo.addAttribute("director", directorServicio.obtenerPorId(idDirector));
 			return "vistas/admin/director";
 		}catch (Exception e) {
 			e.printStackTrace();

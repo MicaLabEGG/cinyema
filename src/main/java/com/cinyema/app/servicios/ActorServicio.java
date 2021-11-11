@@ -11,11 +11,12 @@ import com.cinyema.app.entidades.Actor;
 import com.cinyema.app.repositorios.ActorRepositorio;
 
 @Service
-public class ActorServicio {
+public class ActorServicio implements ServicioBase<Actor> {
 
 	@Autowired
 	private ActorRepositorio actorRepositorio;
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor registrar(Actor actor) throws Exception {
 		validar(actor);
@@ -27,19 +28,22 @@ public class ActorServicio {
 		return new Actor();
 	}
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor editar(Actor actor) throws Exception {
 		validar(actor);
 		return actorRepositorio.save(actor);
 	}
 
+	@Override
 	@Transactional(readOnly = true)
 	public List<Actor> listar() {
 		return actorRepositorio.findAll();
 	}
 
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Actor obtenerActorPorId(Long id) throws Exception {
+	public Actor obtenerPorId(Long id) throws Exception {
 		Optional<Actor> result = actorRepositorio.findById(id);
 		if (result.isEmpty()) {
 			throw new Exception("No se encontró");
@@ -47,7 +51,7 @@ public class ActorServicio {
 			return result.get();
 		}
 	}
-
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
 		Optional<Actor> result = actorRepositorio.buscarPorNombre(nombreCompleto);
@@ -62,10 +66,12 @@ public class ActorServicio {
 	public Long obtenerCantidadActores() throws Exception {
 		return actorRepositorio.buscarCantidadActores();
 	}
-
+    
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void eliminar(Long idActor) {
-		actorRepositorio.deleteById(idActor);
+	public void eliminar(Long id) throws Exception {
+		actorRepositorio.deleteById(id);
+		
 	}
 
 	public void validar(Actor actor) throws Exception {
@@ -77,4 +83,5 @@ public class ActorServicio {
 		}
 
 	}
+
 }

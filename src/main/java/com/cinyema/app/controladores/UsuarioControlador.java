@@ -1,5 +1,7 @@
 package com.cinyema.app.controladores;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.cinyema.app.Utility;
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.servicios.UsuarioServicio;
 
@@ -49,7 +53,7 @@ public class UsuarioControlador {
 			return "vistas/admin/usuario";
 		}
 	}
-
+	
 	@PostMapping("/registrar")
 	public String registrar(ModelMap modelo, Usuario usuario) throws Exception {
 		try {
@@ -69,12 +73,12 @@ public class UsuarioControlador {
 	public String editar(ModelMap modelo, @PathVariable Long idUsuario) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar usuarios");
-			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(idUsuario));
+			modelo.addAttribute("usuario", usuarioServicio.obtenerPorId(idUsuario));
 			return "vistas/admin/usuario";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.addAttribute("editar", "Editar Usuario");
-			modelo.addAttribute("usuario", usuarioServicio.obtenerUsuarioPorId(idUsuario));
+			modelo.addAttribute("usuario", usuarioServicio.obtenerPorId(idUsuario));
 			modelo.put("error", e.getMessage());
 			return "vistas/admin/usuario";
 		}

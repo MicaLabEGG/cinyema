@@ -63,9 +63,9 @@ public class PeliculaControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/registrar")
-	public String registrar(ModelMap modelo, Pelicula pelicula, MultipartFile archivo) throws Exception {
+	public String registrar(ModelMap modelo, Pelicula pelicula, MultipartFile archivo, String archivoVideo) throws Exception {
 		try {
-			servicioPelicula.registrar(pelicula, archivo);
+			servicioPelicula.registrar(pelicula, archivo, archivoVideo);
 			return "redirect:/pelicula";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,7 +82,7 @@ public class PeliculaControlador {
 	public String editar(ModelMap modelo, @PathVariable Long idPelicula) throws Exception {
 		try {
 		    modelo.addAttribute("editar", "Editar Películas");
-		    modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
+		    modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
 		    modelo.addAttribute("actores", servicioActor.listar());
 		    modelo.addAttribute("directores", servicioDirector.listar());
 		    return "vistas/admin/pelicula";
@@ -96,9 +96,9 @@ public class PeliculaControlador {
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@PostMapping("/editar/{idPelicula}")
-	public String editar(ModelMap modelo, Pelicula pelicula, MultipartFile archivo) throws Exception {
+	public String editar(ModelMap modelo, Pelicula pelicula, MultipartFile archivo, String archivoVideo) throws Exception {
 		try {
-			servicioPelicula.editar(pelicula, archivo);
+			servicioPelicula.editar(pelicula, archivo, archivoVideo);
 			return "redirect:/pelicula";
 		} catch (Exception e) {
 			e.printStackTrace();

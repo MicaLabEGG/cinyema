@@ -117,7 +117,7 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Usuario obtenerPorId(Long id) throws Exception {
 		Optional<Usuario> result = usuarioRepositorio.findById(id);
-		if (result.isEmpty()) {
+		if (!result.isPresent()) {
 			throw new Exception("No se encontró");
 		} else {
 			Usuario usuario = result.get();

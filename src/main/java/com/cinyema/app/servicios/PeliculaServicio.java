@@ -124,19 +124,19 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 	
 	public void validar(Pelicula pelicula, MultipartFile archivo, String archivoVideo ,String filename) throws Exception {
 
-		if (pelicula.getTitulo() == null || pelicula.getTitulo().isBlank()) {
+		if (pelicula.getTitulo() == null || pelicula.getTitulo().isEmpty() ) {
 			throw new Exception("Nombre de película inválido");
 		}
 
-		if (pelicula.getAnio() == null || pelicula.getAnio().isBlank()) {
+		if (pelicula.getAnio() == null || pelicula.getAnio().isEmpty()) {
 			throw new Exception("Año de película inválido");
 		}
 
-		if (pelicula.getDescripcion() == null || pelicula.getDescripcion().isBlank()) {
+		if (pelicula.getDescripcion() == null || pelicula.getDescripcion().isEmpty()) {
 			throw new Exception("Descripción de película inválido");
 		}
 
-		if (pelicula.getDuracion() == null || pelicula.getDuracion().isBlank()) {
+		if (pelicula.getDuracion() == null || pelicula.getDuracion().isEmpty()) {
 			throw new Exception("Duración de película inválido");
 		}
 

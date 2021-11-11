@@ -3,6 +3,7 @@ package com.cinyema.app.entidades;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -24,6 +25,8 @@ public class Sala {
 	@OneToMany
 	@JoinColumn(name = "idAsiento")
 	private List<Asiento> asientos;
+	
+	private Integer cantidadAsientos;
 
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

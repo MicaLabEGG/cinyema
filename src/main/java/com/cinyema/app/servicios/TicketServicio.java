@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -63,7 +65,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket obtenerPorId(Long id) throws Exception {
 		Optional<Ticket> result = repositorioTicket.findById(id);
-	    if(result.isEmpty()) {
+	    if(!result.isPresent()) {
 	    	throw new Exception("No se encontro");
 	    }else {
 		Ticket ticket = result.get();
@@ -87,7 +89,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	
 	public List<Ticket> listarTicketxPelicula(Pelicula pelicula) throws Exception{
 		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
-		if(result.isEmpty()) {
+		if(!result.isPresent()) {
 			throw new Exception("No se encontró la película");
 		}else {
 			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
@@ -99,7 +101,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	
 	public String contarTicketxPelicula(Pelicula pelicula) throws Exception{
 		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
-		if(result.isEmpty()) {
+		if(!result.isPresent()) {
 			throw new Exception("No se encontró la película");
 		}else {
 			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
@@ -125,7 +127,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
             throw new Error("Debe indicar la fecha");
         }
 
-        if (ticket.getLugar() == null || ticket.getLugar().trim().isBlank()) {
+        if (ticket.getLugar() == null || StringUtils.isBlank (ticket.getLugar().trim())) {
             throw new Error("Debe ingresar el lugar");
         }
 

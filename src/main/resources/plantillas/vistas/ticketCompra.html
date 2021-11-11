@@ -17,6 +17,7 @@
 
 			<!-- PRIMER COLUMNA: FOTO -->
 			<div class="col-4">
+			    <p>Ver Trailer: </p><p><strong th:text="*{pelicula.trailer}"></strong></p>
 				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid rounded mx-auto d-block"
 					alt="...">
 			</div>

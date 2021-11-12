@@ -22,10 +22,7 @@ public class DirectorServicio implements ServicioBase<Director> {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Director registrar(Director director) throws Exception {
-		
-		salaServicio.registrar2();
 		validar(director);
-		
 		return directorRepositorio.save(director);
 	}
 

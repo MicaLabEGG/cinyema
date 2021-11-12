@@ -17,12 +17,13 @@
 
 			<!-- PRIMER COLUMNA: FOTO -->
 			<div class="col-4">
+			    <p>Ver Trailer: </p><p><strong th:text="*{pelicula.trailer}"></strong></p>
 				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid rounded mx-auto d-block"
 					alt="...">
 			</div>
 
 			<!-- SEGUNDA COLUMNA: PELICULA -->
-			<div class="col-6">
+			<div class="col-5">
 				<nav>
 					<div class="nav nav-tabs" id="nav-tab" role="tablist">
 						<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
@@ -41,45 +42,105 @@
 						<p th:text="*{descripcion}"></p>
 					</div>
 					<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-						<p th:text="*{titulo}"></p>
-						<p th:text="*{anio}"></p>
-						<p th:text="*{duracion}"></p>
-						<p th:text="*{genero}"></p>
-						<p th:text="*{pais}"></p>
-						<p th:text="*{idioma}"></p>
-						<p th:text="*{subtitulo}"></p>
-						<p th:text="*{genero}"></p>
-						<p>Dirección</p>
+
+						<p>TITULO:<strong th:text="*{titulo}"></strong></p>
+						<p>AÑO:<strong th:text="*{anio}"></strong></p>
+						<p>DURACIÓN:<strong th:text="*{duracion}"></strong></p>
+						<p>GENERO:<strong th:text="*{genero}"></strong></p>
+						<p>PAIS:<strong th:text="*{pais}"></strong></p>
+						<p>IDIOMA:<strong th:text="*{idioma}"></strong></p>
+						<p>SUBTITULO:<strong th:text="*{subtitulo}"></strong></p>
+						<p>GENERO:<strong th:text="*{genero}"></strong></p>
+						<p>ACTORES:<strong><small th:each="actor : ${pelicula.actores}"
+									th:text="${actor.nombreCompleto}"></small></strong></p>
+						<p>DIRECTOR:<strong><small th:each="director : ${pelicula.director}"
+									th:text="${director.nombre}"></small></strong></p>
 					</div>
 				</div>
 			</div>
 
 			<!-- TERCER COLUMNA: TICKET -->
-			<div class="col-2">
-				<p th:text="${usuario.nombreDeUsuario}"></p>
-				<p>Montevideo 1920</p>
-				<p th:text="${pelicula.titulo}"></p>
-				<form th:object="${ticket}" th:action="@{/ticket/compra}" method="POST">	
-					<p th:text="*{precio}"></p>
-					<div class="form-group">
-						<label>Fecha</label> 
-						<input type="date" class="form-control" th:field="*{fecha}" placeholder="Fecha de Nacimiento">
+
+			<div class="col-3">
+				<div class="card mt-4">
+					<div class="card-body">
+						<div class="container">
+							<h5 class="card-title text-center m-2">Boleto</h5>
+
+							<form th:object="${ticket}" th:action="@{/ticket/compra/__${ticket.idTicket}__}" method="POST">
+								<div class="form-group" hidden>
+									<label class="form-label"><strong>Usuario:</strong></label>
+									<input type="text" class="form-control" th:field="*{usuario}" th:placeholder="${ticket.usuario.nombreDeUsuario}" th:value="${usuario}" 
+										readonly required></input>
+								</div>
+								<div class="form-group" hidden>
+									<label class="form-label"><strong>Pelicula:</strong></label>
+									<input type="text" class="form-control" th:field="*{pelicula}" th:placeholder="${ticket.pelicula.titulo}" th:value="${pelicula}"
+										readonly required></input>
+								</div>
+								<p>Pelicula: <b th:text="${pelicula.titulo}"></b></p>
+								<p>Usuario: <b th:text="${usuario.nombreDeUsuario}"></b></p>
+								<div class="form-group">
+									<label class="form-label"><strong>Lugar:</strong></label>
+									<input type="text" class="form-control" th:field="*{lugar}" th:value="*{lugar}"
+										required></input>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><strong>Precio:</strong></label>
+									<input type="text" class="form-control" th:field="*{precio}" th:value="*{precio}"
+										required></input>
+								</div>
+								<div class="form-group">
+									<label class="form-label"><strong>Fecha:</strong></label>
+									<p>Recuerda comprar tu boleto con un dia de anticipacion</p>
+									<input type="date" class="form-control" th:field="*{fecha}" th:value="*{fecha}"
+										required></input>
+								</div>
+								<div class="form-row text-center">
+									<button type="submit" class="btn btn-dark m-3">Comprar</button>
+								</div>
+							</form>
+						</div>
 					</div>
-					<div class="form-row text-center">
-						<button type="submit" class="btn btn-dark m-3">Comprar</button>
-					</div>
-				</form>
+				</div>
 			</div>
 
-		</div>
-	</div>
-
-
-
-	<script th:replace=fragmentos/head :: "_scriptBoostrap"></script>
+			<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>
 
 </html>
+
+<!--
+	<form th:object="${ticket}" th:action="@{/ticket/compra/__${ticket.idTicket}__}"
+								method="POST">
+								<div class="form-group">
+
+									<p><strong>Usuario: </strong><small th:value="${usuario}" th:field="*{usuario}"
+											th:text="${ticket.usuario.nombreDeUsuario}"></small>
+									<p><strong>Pelicula: </strong><small th:value="${pelicula}" th:field="*{pelicula}"
+											th:text="${ticket.pelicula.titulo}"></small>
+
+									<div class="form-group">
+										<label class="form-label"><strong>Lugar:</strong></label>
+										<input type="text" class="form-control" th:field="*{lugar}" th:value="*{lugar}"
+											required></input>
+									</div>
+									<div class="form-group">
+										<label class="form-label"><strong>Precio:</strong></label>
+										<input type="text" class="form-control" th:field="*{precio}"
+											th:value="*{precio}" required></input>
+									</div>
+									<div class="form-group">
+										<label class="form-label"><strong>Fecha:</strong></label>
+										<input type="date" class="form-control" th:field="*{fecha}" th:value="*{fecha}"
+											required></input>
+									</div>
+									<div class="form-row text-center">
+										<button type="submit" class="btn btn-dark m-3">Comprar</button>
+									</div>
+								</div>
+							</form>
+							-->
 
 
 <!-- <div class="row vh-50 justify-content-center align-items-center m-5 "> -->

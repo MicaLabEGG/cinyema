@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.TicketServicio;
@@ -78,7 +80,7 @@ public class TicketControlador {
 	public String editar(ModelMap modelo, @PathVariable Long idTicket) throws Exception {
 		try {
 			modelo.addAttribute("editar", "Editar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.obtenerTicketPorId(idTicket));
+			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.listar());
 			return "vistas/admin/ticket";
@@ -86,7 +88,7 @@ public class TicketControlador {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
 			modelo.addAttribute("editar", "Editar Ticket");
-			modelo.addAttribute("ticket", servicioTicket.obtenerTicketPorId(idTicket));
+			modelo.addAttribute("ticket", servicioTicket.obtenerPorId(idTicket));
 			return "vistas/admin/ticket";
 		}
 	}
@@ -122,37 +124,37 @@ public class TicketControlador {
 	
 	//----- COMPRA TICKET 
 	
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/compra/{idPelicula}")
 	public String compra(ModelMap modelo, Authentication autenticacion, @PathVariable Long idPelicula) throws Exception {
 		try {
-			
-			modelo.addAttribute("compra", "Compra Ticket");
+			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
-			modelo.addAttribute("pelicula", servicioPelicula.obtenerPeliculaPorId(idPelicula));
-			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
+			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
+			Ticket ticket = servicioTicket.registrarVacio();
+			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
+			modelo.addAttribute("ticket", ticket);
 			return "vistas/ticketCompra";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
-			modelo.addAttribute("compra", "Compra Ticket");
+			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
 			return "vistas/ticketCompra";
 		}
 	}
 
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/compra")
+	@PostMapping("/compra/{idTicket}")
 	public String compra(ModelMap modelo, Ticket ticket) throws Exception {
 		try {
 			servicioTicket.registrar(ticket);
-			return "redirect:/index";
+			return "redirect:/";
 		} catch (Exception e) {
 			e.printStackTrace();
-			modelo.addAttribute("compra", "Compra Ticket");
+			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("ticket", ticket);
 			modelo.put("error", e.getMessage());
-			return "redirect:/index";
+			return "vistas/ticketCompra";
 		}
 
 	}

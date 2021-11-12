@@ -22,12 +22,24 @@ public class Ticket {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String fecha;
 	private String lugar;
-	private Double precio;
+	private double precio;
+	@OneToOne
+	private Asiento asiento;
 	
 	public Long getIdTicket() {
 		return idTicket;
 	}
 	
+	//constructor para hacer la compra de ticket
+	public Ticket( Pelicula pelicula, Usuario usuario, String fecha, String lugar, double precio) {
+		super();
+		this.pelicula = pelicula;
+		this.usuario = usuario;
+		this.fecha = fecha;
+		this.lugar = lugar;
+		this.precio = precio;
+	}
+
 	public void setIdTicket(Long idTicket) {
 		this.idTicket = idTicket;
 	}
@@ -69,16 +81,6 @@ public class Ticket {
 	}
 	
 	public void setPrecio(Double precio) {
-		this.precio = precio;
-	}
-	
-	public Ticket(Long idTicket, Pelicula pelicula, Usuario usuario, String fecha, String lugar, Double precio) {
-		super();
-		this.idTicket = idTicket;
-		this.pelicula = pelicula;
-		this.usuario = usuario;
-		this.fecha = fecha;
-		this.lugar = lugar;
 		this.precio = precio;
 	}
 	

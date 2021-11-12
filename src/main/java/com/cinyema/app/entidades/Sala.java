@@ -27,13 +27,11 @@ public class Sala {
 	private List<Asiento> asientos;
 	
 	private Integer cantidadAsientos;
-<<<<<<< HEAD
+
 	private String nombreSala;
 	
 	@OneToMany
 	private Horario horario;
-=======
->>>>>>> developer
 
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

@@ -18,16 +18,16 @@ public interface UsuarioRepositorio extends JpaRepository<Usuario, Long> {
 	public Usuario buscarPorEmail(@Param("mail") String mail);
 
 	@Query("SELECT a FROM Usuario a WHERE a.alta = :true")
-	public List<Usuario> buscarUsuarioActivos(@Param("alta") Boolean alta);
+	public List<Usuario> buscarUsuarioActivos();
 
 	@Query("SELECT a FROM Usuario a WHERE a.alta = :false")
-	public List<Usuario> buscarUsuarioInactivos(@Param("alta") Boolean alta);
+	public List<Usuario> buscarUsuarioInactivos();
 
 	@Query("SELECT count(a) FROM Usuario a")
 	public Integer cantidadUsuario();
 
 	@Query("SELECT COUNT(a) FROM Usuario a WHERE a.alta = true")
-	public Long totalAlta(@Param("alta") Boolean alta);
+	public Long totalAlta();
 	
 	@Query("SELECT a FROM Usuario a WHERE a.codigoVerificacion = :codigoVerificacion")
 	public Usuario buscarPorCodigoVerificacion(String codigoVerificacion);

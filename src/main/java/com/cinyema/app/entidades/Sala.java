@@ -25,8 +25,8 @@ public class Sala {
 	@OneToMany
 	@JoinColumn(name = "idAsiento")
 	private List<Asiento> asientos;
-	
 	private Integer cantidadAsientos;
+	private String nombreSala;
 
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

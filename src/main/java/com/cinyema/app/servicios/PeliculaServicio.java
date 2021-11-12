@@ -13,21 +13,21 @@ import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.repositorios.PeliculaRepositorio;
 
 @Service
-public class PeliculaServicio {
+public class PeliculaServicio implements ServicioBase<Pelicula>{
 
 	@Autowired
 	private PeliculaRepositorio repositorioPelicula;
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void registrar(Pelicula pelicula, MultipartFile archivo) throws Exception {
+	public void registrar(Pelicula pelicula, MultipartFile archivo, String archivoVideo) throws Exception {
 		
 		if (repositorioPelicula.validarTituloPelicula(pelicula.getTitulo()) != null) {
 			throw new Exception("Ya existe una película con el mismo título");
 		}
-		
 		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
-		validar(pelicula, archivo, fileName);
+		validar(pelicula, archivo, archivoVideo, fileName);
 		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
+		pelicula.setTrailer(archivoVideo);
 		pelicula.setAlta(true);
 		repositorioPelicula.save(pelicula);
 	}
@@ -38,10 +38,11 @@ public class PeliculaServicio {
 	}
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void editar(Pelicula pelicula, MultipartFile archivo) throws Exception {
+	public void editar(Pelicula pelicula, MultipartFile archivo, String archivoVideo) throws Exception {
 		String fileName = StringUtils.cleanPath(archivo.getOriginalFilename());
-		validar(pelicula, archivo, fileName);
+		validar(pelicula, archivo, archivoVideo, fileName);
 		pelicula.setImagen(Base64.getEncoder().encodeToString(archivo.getBytes()));
+		pelicula.setTrailer(archivoVideo);
 		pelicula.setAlta(true);
 		repositorioPelicula.save(pelicula);
 	}
@@ -65,9 +66,10 @@ public class PeliculaServicio {
 			throw new Exception("No se encontró el título de la película");
 		}
 	}
-
+    
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Pelicula obtenerPeliculaPorId(Long idPelicula) {
+	public Pelicula obtenerPorId(Long idPelicula) {
 		return repositorioPelicula.getById(idPelicula);
 	}
 
@@ -99,7 +101,8 @@ public class PeliculaServicio {
 	public void eliminarPorEntidad(Pelicula pelicula) {
 		repositorioPelicula.delete(pelicula);
 	}
-
+	
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminar(Long idPelicula) throws Exception {
 		repositorioPelicula.deleteById(idPelicula);
@@ -119,21 +122,21 @@ public class PeliculaServicio {
 		return baja;
 	}
 	
-	public void validar(Pelicula pelicula, MultipartFile archivo, String filename) throws Exception {
+	public void validar(Pelicula pelicula, MultipartFile archivo, String archivoVideo ,String filename) throws Exception {
 
-		if (pelicula.getTitulo() == null || pelicula.getTitulo().isBlank()) {
+		if (pelicula.getTitulo() == null || pelicula.getTitulo().isEmpty() ) {
 			throw new Exception("Nombre de película inválido");
 		}
 
-		if (pelicula.getAnio() == null || pelicula.getAnio().isBlank()) {
+		if (pelicula.getAnio() == null || pelicula.getAnio().isEmpty()) {
 			throw new Exception("Año de película inválido");
 		}
 
-		if (pelicula.getDescripcion() == null || pelicula.getDescripcion().isBlank()) {
+		if (pelicula.getDescripcion() == null || pelicula.getDescripcion().isEmpty()) {
 			throw new Exception("Descripción de película inválido");
 		}
 
-		if (pelicula.getDuracion() == null || pelicula.getDuracion().isBlank()) {
+		if (pelicula.getDuracion() == null || pelicula.getDuracion().isEmpty()) {
 			throw new Exception("Duración de película inválido");
 		}
 
@@ -156,10 +159,15 @@ public class PeliculaServicio {
 		if (archivo == null) {
 			throw new Exception("Imagen de película inválido");
 		}
+		
+		if (archivoVideo == null) {
+			throw new Exception("Trailer de película inválido");
+		}
 
 		if (filename.contains("..")) {
 			throw new Exception("Archivo inválido");
 		}
+		
 
 		if (pelicula.getDirector() == null || pelicula.getDirector().getNombre().isEmpty()) {
 			throw new Exception("Director de película inválido");
@@ -169,6 +177,18 @@ public class PeliculaServicio {
 			throw new Exception("Actores de película inválido");
 		}
 
+	}
+
+	@Override
+	public Pelicula registrar(Pelicula entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Pelicula editar(Pelicula entity) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

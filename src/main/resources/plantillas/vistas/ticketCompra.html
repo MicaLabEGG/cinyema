@@ -17,6 +17,7 @@
 
 			<!-- PRIMER COLUMNA: FOTO -->
 			<div class="col-4">
+			    <p>Ver Trailer: </p><p><strong th:text="*{pelicula.trailer}"></strong></p>
 				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid rounded mx-auto d-block"
 					alt="...">
 			</div>
@@ -91,6 +92,7 @@
 								</div>
 								<div class="form-group">
 									<label class="form-label"><strong>Fecha:</strong></label>
+									<p>Recuerda comprar tu boleto con un dia de anticipacion</p>
 									<input type="date" class="form-control" th:field="*{fecha}" th:value="*{fecha}"
 										required></input>
 								</div>

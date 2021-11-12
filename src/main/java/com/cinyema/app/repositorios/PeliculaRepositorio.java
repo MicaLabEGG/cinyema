@@ -7,11 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.cinyema.app.entidades.Pelicula;
+import com.cinyema.app.enumeraciones.Genero;
 
 @Repository
 public interface PeliculaRepositorio extends JpaRepository<Pelicula,Long>{
 	
-	@Query("SELECT p FROM Pelicula p WHERE p.alta = :true")
+	@Query("SELECT p FROM Pelicula p WHERE p.alta = true")
 	public List<Pelicula> buscarPeliculasActivas();
 	
 	@Query("SELECT p FROM Pelicula p WHERE p.titulo LIKE %:titulo%")

@@ -3,6 +3,7 @@ package com.cinyema.app.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -45,7 +46,7 @@ public class ActorServicio implements ServicioBase<Actor> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor obtenerPorId(Long id) throws Exception {
 		Optional<Actor> result = actorRepositorio.findById(id);
-		if (result.isEmpty()) {
+		if (!result.isPresent()) {
 			throw new Exception("No se encontró");
 		} else {
 			return result.get();
@@ -55,7 +56,7 @@ public class ActorServicio implements ServicioBase<Actor> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor obtenerActorPorNombre(String nombreCompleto) throws Exception {
 		Optional<Actor> result = actorRepositorio.buscarPorNombre(nombreCompleto);
-		if (result.isEmpty()) {
+		if (!result.isPresent()) {
 			throw new Exception("No se encontró");
 		} else {
 			return result.get();
@@ -75,7 +76,7 @@ public class ActorServicio implements ServicioBase<Actor> {
 	}
 
 	public void validar(Actor actor) throws Exception {
-		if (actor.getNombreCompleto() == null || actor.getNombreCompleto().isBlank()) {
+		if (actor.getNombreCompleto() == null || StringUtils.isBlank (actor.getNombreCompleto())) {
 			throw new Exception("Nombre completo inválido");
 		}
 		if (actor.getPais() == null) {

@@ -71,10 +71,7 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 		asientoRepositorio.deleteById(idAsiento);
 	}
 	
-	public void validar(Asiento asiento) throws Exception {
-		if (asiento.getSala() == null) {
-			throw new Exception("*El asiento no pertenece a ninguna sala");
-		}
+	public void validar(Asiento asiento) throws Exception {		
 		
 		if (asiento.getNumeroDeAsiento() == null || asiento.getNumeroDeAsiento().isEmpty() || asiento.getNumeroDeAsiento().contains("  ")) {
 			throw new Exception("*El número de asiento es inválido");

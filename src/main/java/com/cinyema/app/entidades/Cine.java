@@ -8,7 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "cines")
 public class Cine {

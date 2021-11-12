@@ -25,11 +25,15 @@ public class Sala {
 	@OneToMany
 	@JoinColumn(name = "idAsiento")
 	private List<Asiento> asientos;
+	
 	private Integer cantidadAsientos;
+<<<<<<< HEAD
 	private String nombreSala;
 	
 	@OneToMany
 	private Horario horario;
+=======
+>>>>>>> developer
 
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

@@ -8,6 +8,7 @@
                     <th scope="col">Id</th>
                     <th scope="col">Cantidad asientos</th>
                     <th scope="col">Pelicula</th>
+                    <th scope="col">Nombre Sala</th>
                     
                 </tr>
             </thead>
@@ -16,6 +17,7 @@
                     <th scope="row" th:text="${sala.idSala}"></th>
                     <td th:text="${sala.cantidadAsientos}"></td>
                     <td th:text="${sala.pelicula.titulo}"></td>
+                    <td th:text="${sala.nombreSala}"></th>
                 </tr>
 
             </tbody>

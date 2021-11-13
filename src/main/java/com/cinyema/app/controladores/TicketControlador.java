@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cinyema.app.entidades.Ticket;
+import com.cinyema.app.servicios.AsientoServicio;
 import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.TicketServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
@@ -29,6 +30,10 @@ public class TicketControlador {
 
 	@Autowired
 	private UsuarioServicio servicioUsuario;
+	
+	@Autowired
+	private AsientoServicio servicioAsiento;
+	
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
@@ -51,6 +56,7 @@ public class TicketControlador {
 			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.listar());
+			modelo.addAttribute("asientos", servicioAsiento.listar());
 			return "vistas/admin/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();

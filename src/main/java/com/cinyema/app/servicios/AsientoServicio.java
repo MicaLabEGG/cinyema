@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.cinyema.app.entidades.Asiento;
+import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.repositorios.AsientoRepositorio;
 
 @Service
@@ -56,13 +57,28 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void ocuparAsiento(Asiento asiento) {
-		asiento.setLibre(false);
+	public Asiento ocuparAsiento(Long id) throws Exception {
+		Optional<Asiento> asiento = asientoRepositorio.findById(id);
+		if (asiento.isPresent()) {
+			Asiento asientoPresente = asiento.get();
+			asientoPresente.setLibre(false);
+			return asientoRepositorio.save(asientoPresente);
+		} else {
+			throw new Exception("No se encontro el asiento solicitado");
+		}
 	}
+
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public void liberarAsiento(Asiento asiento) {
-		asiento.setLibre(true);
+	public Asiento liberarAsiento(Long id) throws Exception {
+		Optional<Asiento> asiento = asientoRepositorio.findById(id);
+		if (asiento.isPresent()) {
+			Asiento asientoPresente = asiento.get();
+			asientoPresente.setLibre(true);
+			return asientoRepositorio.save(asientoPresente);
+		} else {
+			throw new Exception("No se encontró el asiento solicitado");
+		}
 	}
 	
 	@Override
@@ -71,10 +87,7 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 		asientoRepositorio.deleteById(idAsiento);
 	}
 	
-	public void validar(Asiento asiento) throws Exception {
-		if (asiento.getSala() == null) {
-			throw new Exception("*El asiento no pertenece a ninguna sala");
-		}
+	public void validar(Asiento asiento) throws Exception {		
 		
 		if (asiento.getNumeroDeAsiento() == null || asiento.getNumeroDeAsiento().isEmpty() || asiento.getNumeroDeAsiento().contains("  ")) {
 			throw new Exception("*El número de asiento es inválido");

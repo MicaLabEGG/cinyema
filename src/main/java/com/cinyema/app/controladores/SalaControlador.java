@@ -47,9 +47,9 @@ public class SalaControlador {
 	public String registrar(ModelMap modelo) {
 		try {
 		    modelo.addAttribute("registrar", "Registrar Salas");
-		    modelo.addAttribute("salas", salaServicio.registrarVacio());
+		    modelo.addAttribute("sala", salaServicio.registrarVacio());
 		    modelo.addAttribute("peliculas", peliculaServicio.listar());
-		    modelo.addAttribute("asientos", asientoServicio.listar());
+//		    modelo.addAttribute("asientos", asientoServicio.listar());
 		    return "vistas/admin/sala";
 		}catch(Exception e) {
 			e.printStackTrace();

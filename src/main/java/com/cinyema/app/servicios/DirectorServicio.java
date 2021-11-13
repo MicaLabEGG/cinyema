@@ -1,6 +1,8 @@
 package com.cinyema.app.servicios;
 
 import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -13,6 +15,9 @@ public class DirectorServicio implements ServicioBase<Director> {
 
 	@Autowired
 	private DirectorRepositorio directorRepositorio;
+	
+	@Autowired
+	SalaServicio salaServicio;
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
@@ -67,7 +72,7 @@ public class DirectorServicio implements ServicioBase<Director> {
 	}
 
 	public void validar(Director director) throws Exception {
-		if (director.getNombre().isEmpty() || director.getNombre().isBlank()) {
+		if (director.getNombre().isEmpty() || StringUtils.isBlank (director.getNombre()) ) {
 			throw new Exception("Nombre completo inválido");
 		}
 		if (director.getPais() == null) {

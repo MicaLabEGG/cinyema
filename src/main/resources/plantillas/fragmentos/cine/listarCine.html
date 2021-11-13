@@ -12,18 +12,25 @@
                     <th scope="col">Mail</th>
                     <th scope="col">Telefono</th>
                     <th scope="col">Precio</th>
-                    
+                    <th scope="col">Modificar</th>
+                    <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody th:each="cine : ${cines}">
                 <tr>
                     <th scope="row" th:text="${cine.idCine}"></th>
                     <td th:text="${cine.nombre}"></td>
-                    <td><p th:each="sala : ${cine.salas}" th:text ="${sala.nombreSala}"></p></td>
-                    <td th:text="${cine.direccion}"></th>
-                    <td th:text="${cine.mail}"></th>
-                    <td th:text="${cine.telefono}"></th>
-                    <td th:text="${cine.precio}"></th>
+                    <td><p th:each="sala : ${cine.salas}" th:text ="${cine.nombre}"></p></td>
+                    <td th:text="${cine.direccion}"></td>
+                    <td th:text="${cine.mail}"></td>
+                    <td th:text="${cine.telefono}"></td>
+                    <td th:text="${cine.precio}"></td>
+                    <td>
+                        <a th:href="@{/cine/editar/__${cine.idCine}__}"><i class="far fa-edit"></i></a>
+                    </td>
+                    <td>
+                        <a th:href="@{/cine/eliminar/__${cine.idCine}__}"><i class="far fa-trash-alt"></i></a>
+                    </td>
                 </tr>
 
             </tbody>

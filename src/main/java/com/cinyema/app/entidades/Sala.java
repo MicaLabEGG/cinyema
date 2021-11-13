@@ -30,8 +30,8 @@ public class Sala {
 
 	private String nombreSala;
 	
-	@OneToMany
-	private Horario horario;
+	//@OneToMany
+	//private Horario horario;
 
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

@@ -22,8 +22,8 @@ public class Sala {
 	private Long idSala = randomId();
 	@OneToOne
 	private Pelicula pelicula;
-	@OneToMany
-	@JoinColumn(name = "idAsiento")
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "sa_fid", referencedColumnName = "idSala" )
 	private List<Asiento> asientos;
 	
 	private Integer cantidadAsientos;

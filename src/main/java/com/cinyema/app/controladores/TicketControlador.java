@@ -1,5 +1,7 @@
 package com.cinyema.app.controladores;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cinyema.app.Utility;
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.servicios.AsientoServicio;
 import com.cinyema.app.servicios.PeliculaServicio;
@@ -151,9 +154,11 @@ public class TicketControlador {
 	}
 
 	@PostMapping("/compra/{idTicket}")
-	public String compra(ModelMap modelo, Ticket ticket) throws Exception {
+	public String compra(ModelMap modelo, Ticket ticket, HttpServletRequest request) throws Exception {
 		try {
 			servicioTicket.registrar(ticket);
+			String siteURL = Utility.getSiteURL(request);
+			servicioTicket.enviarMailCompra(ticket, siteURL);		
 			return "redirect:/";
 		} catch (Exception e) {
 			e.printStackTrace();

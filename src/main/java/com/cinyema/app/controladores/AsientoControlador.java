@@ -110,16 +110,16 @@ public class AsientoControlador {
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/baja")
-	public String ocuparAsiento(Asiento asiento) {
-		asientoServicio.ocuparAsiento(asiento);
+	@GetMapping("/baja/{idAsiento}")
+	public String ocuparAsiento(@PathVariable Long idAsiento) throws Exception {
+		asientoServicio.ocuparAsiento(idAsiento);
 		return "redirect:/asiento";
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/alta")
-	public String liberarAsiento(Asiento asiento) {
-		asientoServicio.liberarAsiento(asiento);
+	@GetMapping("/alta/{idAsiento}")
+	public String liberarAsiento(@PathVariable Long idAsiento) throws Exception {
+		asientoServicio.liberarAsiento(idAsiento);
 		return "redirect:/asiento";
 	}
 	

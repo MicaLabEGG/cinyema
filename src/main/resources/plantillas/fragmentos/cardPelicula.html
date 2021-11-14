@@ -1,15 +1,18 @@
 <div th:fragment="_cardPelicula(peliculas)">
+
 	<div class="row row-cols-md-3">
 		<div th:each="pelicula : ${peliculas}" class="col">
 			<div class="card h-50">
 				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="card-img-top" alt="...">
+
 				<div class="card-body">
 					<h5 class="card-title" th:text="${pelicula.titulo}"></h5>
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">Genero: <b th:text="${pelicula.genero}"></b></li>
 						<li class="list-group-item">Duracion: <b th:text="${pelicula.duracion}"></b></li>
 					</ul>
-					<div class="card-body">
+
+					<div class="card-body text-center">
 						<button class="btn btn-primary" data-bs-toggle="modal"
 							th:attr="data-bs-target='#modalPelicula'+${pelicula.idPelicula}">Ver
 							mas</button>
@@ -17,6 +20,7 @@
 							th:href="@{/ticket/compra/{peliculaId}(peliculaId=${pelicula.idPelicula})}"
 							class="btn btn-success">Comprar</a>
 					</div>
+					
 					<div class="modal fade" th:attr="id='modalPelicula'+${pelicula.idPelicula}" tabindex="-1"
 						aria-hidden="true">
 						<div class="modal-dialog modal-lg">

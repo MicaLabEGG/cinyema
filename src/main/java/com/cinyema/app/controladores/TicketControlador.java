@@ -1,5 +1,7 @@
 package com.cinyema.app.controladores;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.cinyema.app.Utility;
 import com.cinyema.app.entidades.Ticket;
+import com.cinyema.app.servicios.AsientoServicio;
 import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.TicketServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
@@ -29,6 +33,10 @@ public class TicketControlador {
 
 	@Autowired
 	private UsuarioServicio servicioUsuario;
+	
+	@Autowired
+	private AsientoServicio servicioAsiento;
+	
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
@@ -51,6 +59,7 @@ public class TicketControlador {
 			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
 			modelo.addAttribute("peliculas", servicioPelicula.listar());
 			modelo.addAttribute("usuarios", servicioUsuario.listar());
+			modelo.addAttribute("asientos", servicioAsiento.listar());
 			return "vistas/admin/ticket";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -145,9 +154,11 @@ public class TicketControlador {
 	}
 
 	@PostMapping("/compra/{idTicket}")
-	public String compra(ModelMap modelo, Ticket ticket) throws Exception {
+	public String compra(ModelMap modelo, Ticket ticket, HttpServletRequest request) throws Exception {
 		try {
 			servicioTicket.registrar(ticket);
+			String siteURL = Utility.getSiteURL(request);
+			servicioTicket.enviarMailCompra(ticket, siteURL);		
 			return "redirect:/";
 		} catch (Exception e) {
 			e.printStackTrace();

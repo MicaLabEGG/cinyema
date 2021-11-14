@@ -50,7 +50,6 @@
 						<p>PAIS:<strong th:text="*{pais}"></strong></p>
 						<p>IDIOMA:<strong th:text="*{idioma}"></strong></p>
 						<p>SUBTITULO:<strong th:text="*{subtitulo}"></strong></p>
-						<p>GENERO:<strong th:text="*{genero}"></strong></p>
 						<p>ACTORES:<strong><small th:each="actor : ${pelicula.actores}"
 									th:text="${actor.nombreCompleto}"></small></strong></p>
 						<p>DIRECTOR:<strong><small th:each="director : ${pelicula.director}"
@@ -104,8 +103,10 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
 
-			<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
+	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>
 
 </html>

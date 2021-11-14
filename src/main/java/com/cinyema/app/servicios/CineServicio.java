@@ -58,7 +58,7 @@ public class CineServicio implements ServicioBase<Cine>{
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Cine obtenerPorId(Long idCine) throws Exception {
 		Optional<Cine> result = cineRepositorio.findById(idCine);
-		if (result.isEmpty()) {
+		if (!result.isPresent()) {
 			throw new Exception("No se encontró");
 		} else {
 			return result.get();

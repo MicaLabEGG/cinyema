@@ -13,7 +13,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
-@Data
 @Entity
 public class Ticket {
 
@@ -37,7 +36,7 @@ public class Ticket {
 	}
 	
 	//constructor para hacer la compra de ticket
-	public Ticket( Pelicula pelicula, Usuario usuario, String fecha, String lugar, double precio, Asiento asiento) {
+	public Ticket( Pelicula pelicula, Usuario usuario, String fecha, String lugar, Double precio, Asiento asiento) {
 		super();
 		this.pelicula = pelicula;
 		this.usuario = usuario;
@@ -51,6 +50,63 @@ public class Ticket {
 		super();
 	}
 	
+	public Pelicula getPelicula() {
+		return pelicula;
+	}
+
+	public void setPelicula(Pelicula pelicula) {
+		this.pelicula = pelicula;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(String fecha) {
+		this.fecha = fecha;
+	}
+
+	public String getLugar() {
+		return lugar;
+	}
+
+	public void setLugar(String lugar) {
+		this.lugar = lugar;
+	}
+
+	public Double getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(Double precio) {
+		this.precio = precio;
+	}
+
+	public Asiento getAsiento() {
+		return asiento;
+	}
+
+	public void setAsiento(Asiento asiento) {
+		this.asiento = asiento;
+	}
+
+	public void setIdTicket(Long idTicket) {
+		this.idTicket = idTicket;
+	}
+
+	@Override
+	public String toString() {
+		return "Ticket [idTicket=" + idTicket + ", fecha=" + fecha + ", lugar=" + lugar + ", precio=" + precio + "]";
+	}
+
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
 		Long id = (long) uuid.hashCode();

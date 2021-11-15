@@ -10,6 +10,7 @@
                     <th scope="col">Usuario</th>
                     <th scope="col">Fecha</th>
                     <th scope="col">Lugar</th>
+                    <th scope="col">Asiento</th>
                     <th scope="col">Precio</th>
                     <th scope="col">Modificar</th>
                     <th scope="col">Eliminar</th>
@@ -22,6 +23,7 @@
                     <td th:text="${ticket.usuario.nombreDeUsuario}"></td>
                     <td th:text="${ticket.fecha}"></td>
                     <td th:text="${ticket.lugar}"></td>
+                    <td th:text="${ticket.asiento.numeroDeAsiento}"></td>
                     <td th:text="${ticket.precio}"></td>
                     <td>
                         <a th:href="@{/ticket/editar/__${ticket.idTicket}__}"><i class="far fa-edit"></i></a>

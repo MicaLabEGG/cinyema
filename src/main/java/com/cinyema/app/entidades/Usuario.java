@@ -150,8 +150,7 @@ public class Usuario {
 	public String toString() {
 		return "Usuario [idUsuario=" + idUsuario + ", nombre=" + nombre + ", mail=" + mail + ", nombreDeUsuario="
 				+ nombreDeUsuario + ", contrasenia=" + contrasenia + ", alta=" + alta + ", codigoVerificacion="
-				+ codigoVerificacion + ", fechaNacimiento=" + fechaNacimiento + ", rol=" + rol + ", ticket=" + ticket
-				+ "]";
+				+ codigoVerificacion + ", fechaNacimiento=" + fechaNacimiento + ", rol=" + rol + "]";
 	}
 
 }

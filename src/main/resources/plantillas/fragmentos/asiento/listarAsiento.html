@@ -9,7 +9,7 @@
 				<tr>
 					<th scope="col">Id Asiento</th>
 					<th scope="col">Numero de Asiento</th>
-					<th scope="col">Nombre de Usuario</th>
+<!-- 					<th scope="col">Nombre de Usuario</th> -->
 					<th scope="col">Estado</th>
 					<th scope="col">Modificar</th>
 					<th scope="col">Eliminar</th>
@@ -19,7 +19,7 @@
 				<tr>
 					<th scope="row" th:text="${asiento.idAsiento}"></th>
 					<td th:text="${asiento.numeroDeAsiento}"></td>
-					<td th:text="${asiento.ticket.usuario.nombre}"></td>
+<!-- 					<td th:text="${asiento.ticket.usuario.nombre}"></td> -->
 					<td>
 						<a th:if="${asiento.libre}" th:href="@{/asiento/baja/__${asiento.idAsiento}__}"><i class="fa fa-circle" style="color:rgb(77, 144, 57);"></i></a>
 						<a th:unless="${asiento.libre}" th:href="@{/asiento/alta/__${asiento.idAsiento}__}"><i class="fa fa-circle" style="color:rgb(231, 41, 41);"></i></a>

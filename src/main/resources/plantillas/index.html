@@ -67,6 +67,7 @@
 	</section>
 	
 	<div th:insert="fragmentos/cardPelicula :: _cardPelicula(peliculas=${peliculas})"></div>
+  <div th:insert="fragmentos/cardPelicula :: _cardPeliculaModal(peliculas=${peliculas})"></div>
 	
 	<footer th:insert="fragmentos/footer :: _footer"></footer>
 
@@ -75,6 +76,7 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
 	<script src="js/owl.carousel.min.js"></script>
 	<script src="js/script.js"></script>
+
 </body>
 
 </html>

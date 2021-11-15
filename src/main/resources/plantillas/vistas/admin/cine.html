@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
 <head th:replace="fragmentos/head :: _head">
 </head>
+
 <body>
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
 		<div th:if="${listar}!= null">
 			<div
-				th:replace="fragmentos/ticket/listarTicket :: _listarTicket(tickets=${tickets},listar=${listar})"></div>
-		</div>
-
+				th:replace="fragmentos/cine/listarCine :: _listarCine(cines=${cines},listar=${listar})">
+		    </div>
+		</div>    
 		<div th:if="${registrar}!= null">
 			<div
-				th:replace="fragmentos/ticket/registrarTicket :: _registrarTicket(error=${error},ticket=${ticket},peliculas=${peliculas},usuarios=${usuarios}, asientos=${asientos},registrar=${registrar})"></div>
+				th:replace="fragmentos/cine/registroCine :: _registroCine(registro=${registro},error=${error},salas=${salas},cine=${cine})">
+			</div>
 		</div>
-
 		<div th:if="${editar}!= null">
 			<div
-				th:replace="fragmentos/ticket/editarTicket :: _editarTicket(error=${error},ticket=${ticket},peliculas=${peliculas},usuarios=${usuarios}, asientos=${asientos},editar=${editar})">
+				th:replace="fragmentos/cine/editarCine :: _editarCine(editar=${editar},error=${error},salas=${salas},cine=${cine})">
 			</div>
 		</div>
 	</div>
 	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>
+
 </html>

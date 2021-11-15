@@ -10,13 +10,19 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import com.cinyema.app.entidades.Pelicula;
+import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.repositorios.PeliculaRepositorio;
+import com.cinyema.app.repositorios.SalaRepositorio;
 
 @Service
 public class PeliculaServicio implements ServicioBase<Pelicula>{
 
 	@Autowired
 	private PeliculaRepositorio repositorioPelicula;
+	
+	@Autowired
+	private SalaRepositorio salaRepositorio;
+	
 
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void registrar(Pelicula pelicula, MultipartFile archivo, String archivoVideo) throws Exception {
@@ -64,6 +70,15 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 			return peliculas;
 		} else {
 			throw new Exception("No se encontró el título de la película");
+		}
+	}
+	
+	public Sala obtenerSalaPorIdPelicula(Long idPelicula) throws Exception{
+		Sala sala = salaRepositorio.buscarSalaPoridPelicula(idPelicula);
+		if (sala != null) {
+			return sala;
+		} else {
+			throw new Exception("No se encontró la sala donde esta la película");
 		}
 	}
     

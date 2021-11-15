@@ -1,12 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@600;900&display=swap');
+/*--------------------------------------------------------------
+:root - colores de la pagina
+--------------------------------------------------------------*/
+:root {
+  --fondo-html: #201F20;
+  --fondo-secciones: #040405;
+  --color-text: #6C6D70;
+  --color-amarillo: #FAED1F;
+  --color-naranja: #F37735; 
+}
+
 html {
   scroll-behavior: smooth;
 }
 body {
   margin: 0;
   width: 100%;
-  font-family: 'Noto Sans HK', sans-serif;
-  background: #fff;
+  font-family: 'Source Serif Pro', sans-serif;
+  background: var(--fondo-html) ;
 }
 
 /*--------------------------------------------------------------
@@ -17,6 +28,7 @@ body {
   transition: all 0.5s;
   z-index: 997;
   padding: 15px 0;
+  background: var(--fondo-secciones);
 }
 
 nav .logo {

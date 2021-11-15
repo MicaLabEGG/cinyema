@@ -3,13 +3,132 @@ html {
   scroll-behavior: smooth;
 }
 body {
+  margin: 0;
+  width: 100%;
   font-family: 'Noto Sans HK', sans-serif;
   background: #fff;
 }
 
-a .img-logo {
-  height: 45px;
-  margin: 0px 0px 5px 25px;
+/*--------------------------------------------------------------
+# Nav
+--------------------------------------------------------------*/
+
+.navbar{
+  transition: all 0.5s;
+  z-index: 997;
+  padding: 15px 0;
+}
+
+nav .logo {
+  font-size: 32px;
+  margin: 0px 0px 10px 0px;
+  padding: 0;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+
+nav .logo img {
+  max-height: 45px;
+}
+
+nav .logo img:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 19px 38px rgba(126, 126, 126, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+
+#login{
+	margin: 5px 0px 0px 0px;
+}
+
+#login ul li a:hover{
+	color: #ffbb38;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  margin: -0.125rem 0 0;
+}
+
+.dropdown > .dropdown-toggle:active {
+  pointer-events: none;
+}
+
+.dropdown-toggle::after {
+     display: none;
+}
+
+.icono{
+	font-size: 21px;
+	margin-right: 3px;
+}
+
+.username{
+	font-size: 20px;
+}
+
+.btnIngresar {
+  color: #fff;
+  border-radius: 4px;
+  padding: 7px 25px 8px 25px;
+  white-space: nowrap;
+  transition: 0.3s;
+  font-size: 14px;
+  display: inline-block;
+  border: 2px solid #ffc451;
+  text-decoration: none;
+}
+.btnIngresar:hover {
+  background: #ffbb38;
+  color: #343a40;
+  transform: translateY(-2px);
+}
+
+
+/*--------------------------------------------------------------
+# Formulario Login-Registro
+--------------------------------------------------------------*/
+
+#login-registro{
+	margin: 100px 0px 100px 0px;
+}
+
+/*--------------------------------------------------------------
+# Panel Usuario
+--------------------------------------------------------------*/
+
+#panelUsuario{
+	margin: 100px 0px 100px 0px;
+}
+
+/*--------------------------------------------------------------
+# Panel Admin
+--------------------------------------------------------------*/
+
+#panelAdmin{
+	margin: 100px 0px 100px 0px;
+}
+
+/*--------------------------------------------------------------
+# Ticket Compra
+--------------------------------------------------------------*/
+
+#ticketCompra{
+	margin: 100px 0px 100px 0px;
+}
+
+/*--------------------------------------------------------------
+# Menu Principal
+--------------------------------------------------------------*/
+
+#menu{
+	margin: 100px 0px 100px 0px;
 }
 
 .slider {
@@ -69,5 +188,79 @@ a .img-logo {
   background: #f44336 !important;
 }
 
+/*--------------------------------------------------------------
+# Footer
+--------------------------------------------------------------*/
+
+#footer {
+  background: black;
+  padding: 0 0 30px 0;
+  color: #fff;
+}
+
+#footer .footer-top {
+  background: #151515;
+  border-bottom: 1px solid #222222;
+  padding: 60px 0 30px 0;
+}
+
+#footer .logoY:hover{
+	border-radius: 120px;
+}
+
+#footer .lista{
+	list-style: none;
+}
+
+#footer .lista li{
+	padding: 10px 0;
+}
+
+#footer .links{
+  font-size: 18px;
+  color: #fff;
+  text-align: center;
+  transition: 0.3s;
+  text-decoration: none;
+}
+#footer .links:hover {
+  color: #ffc451;
+}
+
+#footer .efecto:hover{
+	transform: translateY(-2px);
+	box-shadow: 0 19px 38px rgba(102, 102, 102, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+}
+
+#footer .footer-top .social-links a {
+  font-size: 18px;
+  display: inline-block;
+  background: #292929;
+  color: #fff;
+  line-height: 1;
+  padding: 8px 0;
+  margin-right: 4px;
+  border-radius: 4px;
+  text-align: center;
+  width: 36px;
+  height: 36px;
+  transition: 0.3s;
+}
+#footer .footer-top .social-links a:hover {
+  background: #ffc451;
+  color: #151515;
+  text-decoration: none;
+}
+
+#footer .copyright {
+  text-align: center;
+  padding-top: 30px;
+}
+#footer .credits {
+  padding-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: #fff;
+}
 
 

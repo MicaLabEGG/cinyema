@@ -1,19 +1,26 @@
 package com.cinyema.app.servicios;
 
 
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Ticket;
+import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.repositorios.PeliculaRepositorio;
 import com.cinyema.app.repositorios.TicketRepositorio;
 
@@ -26,6 +33,9 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	@Autowired
 	private PeliculaRepositorio repositorioPelicula;
 	
+	@Autowired
+	private JavaMailSender mailSender;
+	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket registrar(Ticket ticket) throws Error, Exception {
@@ -35,6 +45,35 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		}else {
 			throw new Error("No puede comprar un ticket con fecha anterior al dia de hoy");
 		}
+	}
+	
+	public void enviarMailCompra(Ticket ticket, String siteURL) throws UnsupportedEncodingException, MessagingException{
+		String tema = "[BOLETO DE CINYEMA]";
+		String remitente = "Equipo de Cinyema";
+		String contenido = "<p>Querido "+ticket.getUsuario().getNombre()+"</p>";
+		contenido += "<p>Has comprado un boleto para el cine</p>";
+		contenido += "<p><br>Resumen de tu compra:</p>";
+		/*
+		 * ESTO VA CUANDO TERMINEMOS DE ASIGNAR LOS ASIENTOS AUTOMATICAMENTE, SINO TIRA ERROR
+		contenido += "<p>Película: "+ticket.getPelicula().getTitulo()+"</p>";
+		contenido += "<p>Fecha: "+ticket.getFecha()+"</p>";
+		contenido += "<p>Lugar: "+ticket.getLugar()+"</p>";
+		contenido += "<p>Sala: "+ticket.getAsiento().getHorario().getSala().getNombreSala()+"</p>";
+		contenido += "<p>Horario: "+ticket.getAsiento().getHorario().getHorario()+"</p>";
+		contenido += "<p>Asiento: "+ticket.getAsiento().getNumeroDeAsiento()+"</p>";
+		contenido += "<p>Precio: "+ticket.getPrecio()+"</p>";
+		*/
+		
+		contenido += "<p><br>Gracias por tu compra! Espero que disfrutes la película! <br>Equipo de Cinyema</p>";
+		MimeMessage message = mailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		
+		helper.setFrom("cinyema@gmail.com", remitente);
+		helper.setTo(ticket.getUsuario().getMail());
+		helper.setSubject(tema);
+		helper.setText(contenido, true);
+		
+		mailSender.send(message);
 	}
 	
 	@Transactional

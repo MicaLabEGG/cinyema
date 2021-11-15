@@ -20,7 +20,7 @@
                 <tr>
                     <th scope="row" th:text="${cine.idCine}"></th>
                     <td th:text="${cine.nombre}"></td>
-                    <td><p th:each="sala : ${cine.salas}" th:text ="${cine.nombre}"></p></td>
+                    <td><p th:each="sala : ${cine.salas}" th:text ="${sala.nombreSala}"></p></td>
                     <td th:text="${cine.direccion}"></td>
                     <td th:text="${cine.mail}"></td>
                     <td th:text="${cine.telefono}"></td>

@@ -13,12 +13,12 @@
 
 		<div th:if="${registrar}!= null">
 			<div
-				th:replace="fragmentos/ticket/registrarTicket :: _registrarTicket(error=${error},ticket=${ticket},peliculas=${peliculas},usuarios=${usuarios},registrar=${registrar})"></div>
+				th:replace="fragmentos/ticket/registrarTicket :: _registrarTicket(error=${error},ticket=${ticket},peliculas=${peliculas},usuarios=${usuarios}, asientos=${asientos},registrar=${registrar})"></div>
 		</div>
 
 		<div th:if="${editar}!= null">
 			<div
-				th:replace="fragmentos/ticket/editarTicket :: _editarTicket(error=${error},ticket=${ticket},peliculas=${peliculas},usuarios=${usuarios},editar=${editar})">
+				th:replace="fragmentos/ticket/editarTicket :: _editarTicket(error=${error},ticket=${ticket},peliculas=${peliculas},usuarios=${usuarios}, asientos=${asientos},editar=${editar})">
 			</div>
 		</div>
 	</div>

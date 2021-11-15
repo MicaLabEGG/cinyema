@@ -41,7 +41,7 @@ public class AsientoControlador {
 	public String registrarAsiento(ModelMap modelo) {
 		try {
 		modelo.addAttribute("registrar", "Registrar Asientos");
-	    modelo.addAttribute("salas", asientoServicio.registrarVacio());
+	    modelo.addAttribute("asientos", asientoServicio.registrarVacio());
 	    return "vistas/admin/asiento";
 		}catch(Exception e) {
 			e.printStackTrace();

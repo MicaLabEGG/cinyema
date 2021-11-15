@@ -23,6 +23,8 @@ public class Ticket {
 	private String fecha;
 	private String lugar;
 	private double precio;
+	@OneToOne
+	private Asiento asiento;
 	
 	public Long getIdTicket() {
 		return idTicket;

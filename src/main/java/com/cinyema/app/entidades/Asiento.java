@@ -3,8 +3,6 @@ package com.cinyema.app.entidades;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Data;
 
@@ -16,11 +14,7 @@ public class Asiento {
 	@Id
 	private Long idAsiento = randomId();
 	private String numeroDeAsiento;
-	private Boolean libre;
-	@ManyToOne
-	private Sala sala;
-	@OneToOne
-	private Ticket ticket;
+	private Boolean libre;	
 	
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

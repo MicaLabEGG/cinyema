@@ -41,6 +41,8 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	public Ticket registrar(Ticket ticket) throws Error, Exception {
 		validar(ticket);
 		if(validarFechaCompra(ticket) == true) {
+			System.err.println(ticket.getAsiento().toString());
+			ticket.getAsiento().setLibre(false);
 			return repositorioTicket.save(ticket);
 		}else {
 			throw new Error("No puede comprar un ticket con fecha anterior al dia de hoy");
@@ -165,9 +167,9 @@ public class TicketServicio implements ServicioBase<Ticket> {
         if (ticket.getFecha() == null ) {
             throw new Error("Debe indicar la fecha");
         }
-
-        if (ticket.getLugar() == null || StringUtils.isBlank (ticket.getLugar().trim())) {
-            throw new Error("Debe ingresar el lugar");
+        
+        if (ticket.getAsiento() == null ) {
+            throw new Error("El asiento no aparece");
         }
 
         if (ticket.getPrecio() == null ) {

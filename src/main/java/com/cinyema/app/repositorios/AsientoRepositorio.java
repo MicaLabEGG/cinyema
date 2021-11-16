@@ -17,10 +17,13 @@ public interface AsientoRepositorio extends JpaRepository<Asiento, Long>{
 	@Query("SELECT a FROM Asiento a where a.numeroDeAsiento = :numeroDeAsiento")
 	public Asiento buscarPorNumeroDeAsiento(@Param("numeroDeAsiento") Integer numeroDeAsiento);
 	
-	@Query("SELECT a FROM Asiento a WHERE a.libre = :true")
+	@Query("SELECT a FROM Asiento a WHERE a.libre = true")
 	public List<Asiento> listarAsientosLibres();
 	
-	@Query("SELECT a FROM Asiento a WHERE a.libre = :false")
+	@Query("SELECT a FROM Asiento a WHERE a.libre = false")
 	public List<Asiento> listarAsientosOcupados();
+	
+	@Query("SELECT a FROM Asiento a WHERE a.numeroDeAsiento LIKE :numeroDeAsiento%")
+	public List<Asiento> buscarAsientoPorSala(@Param("numeroDeAsiento") String numeroDeAsiento);
 	
 }

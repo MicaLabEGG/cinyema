@@ -1,33 +1,18 @@
 <div th:fragment="_cardPelicula(peliculas)">
-
 	<div class="row align-items-end">
-		<div th:each="pelicula : ${peliculas}" class="col-md-3">
-			
-			<button data-bs-toggle="modal"
-			th:attr="data-bs-target='#modalPelicula'+${pelicula.idPelicula}">
-			<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid" alt="...">
-		</button>
+		<div th:each="pelicula : ${peliculas}" class="col-md-3 img-card-caja text-center">
 
-				
-					
-						<h5  th:text="${pelicula.titulo}"></h5>
-
-						<div class=" text-center">
-							<button class="btn btn-primary" data-bs-toggle="modal"
-								th:attr="data-bs-target='#modalPelicula'+${pelicula.idPelicula}">Ver
-								mas</button>
-							<a sec:authorize="isAuthenticated()"
-								th:href="@{/ticket/compra/{peliculaId}(peliculaId=${pelicula.idPelicula})}"
-								class="btn btn-success">Comprar</a>
-						</div>
-
-
-
-	
+			<button data-bs-toggle="modal" th:attr="data-bs-target='#modalPelicula'+${pelicula.idPelicula}">
+				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid img-card-pelicula" alt="...">
+				<div class="img-card-titulo">
+					<h5 th:text="${pelicula.titulo}"></h5>
+				</div>
+			</button>
 
 		</div>
 	</div>
 </div>
+
 <div th:fragment="_cardPeliculaModal(peliculas)">
 	<div th:each="pelicula : ${peliculas}" class="modal fade" th:attr="id='modalPelicula'+${pelicula.idPelicula}"
 		tabindex="-1" aria-hidden="true">

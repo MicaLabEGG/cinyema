@@ -33,11 +33,11 @@ public class SalaServicio implements ServicioBase<Sala>{
 		
 		List<Asiento> asientos = new ArrayList<Asiento>();
 		
-		
+		String nombreSala = sala.getNombreSala();	
 		for(int i = 1; i < sala.getCantidadAsientos() + 1; i++) {
 				
 			Asiento asiento = new Asiento();
-			asiento.setNumeroDeAsiento("Butaca - " + i);
+			asiento.setNumeroDeAsiento(nombreSala+" Butaca - " + i);
 			asiento.setLibre(true);
 			asientoServicio.registrar(asiento);
 			System.out.println(i);

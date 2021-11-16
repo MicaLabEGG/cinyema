@@ -25,7 +25,6 @@ public class Ticket {
 	private Usuario usuario;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String fecha;
-	private String lugar;
 	private Double precio;
 	@OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "asiento_idAsiento", referencedColumnName = "idAsiento")	
@@ -36,12 +35,11 @@ public class Ticket {
 	}
 	
 	//constructor para hacer la compra de ticket
-	public Ticket( Pelicula pelicula, Usuario usuario, String fecha, String lugar, Double precio, Asiento asiento) {
+	public Ticket( Pelicula pelicula, Usuario usuario, String fecha, Double precio, Asiento asiento) {
 		super();
 		this.pelicula = pelicula;
 		this.usuario = usuario;
 		this.fecha = fecha;
-		this.lugar = lugar;
 		this.precio = precio;
 		this.asiento = asiento;
 	}
@@ -74,14 +72,6 @@ public class Ticket {
 		this.fecha = fecha;
 	}
 
-	public String getLugar() {
-		return lugar;
-	}
-
-	public void setLugar(String lugar) {
-		this.lugar = lugar;
-	}
-
 	public Double getPrecio() {
 		return precio;
 	}
@@ -104,7 +94,7 @@ public class Ticket {
 
 	@Override
 	public String toString() {
-		return "Ticket [idTicket=" + idTicket + ", fecha=" + fecha + ", lugar=" + lugar + ", precio=" + precio + "]";
+		return "Ticket [idTicket=" + idTicket + ", fecha=" + fecha + ", precio=" + precio + "]";
 	}
 
 	public Long randomId() {

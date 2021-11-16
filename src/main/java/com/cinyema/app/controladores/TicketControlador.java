@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cinyema.app.Utility;
+import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.servicios.AsientoServicio;
 import com.cinyema.app.servicios.PeliculaServicio;
+import com.cinyema.app.servicios.SalaServicio;
 import com.cinyema.app.servicios.TicketServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
 
@@ -36,7 +38,9 @@ public class TicketControlador {
 	
 	@Autowired
 	private AsientoServicio servicioAsiento;
-	
+
+	@Autowired
+	private SalaServicio salaServicio;
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
@@ -140,6 +144,9 @@ public class TicketControlador {
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
 			modelo.addAttribute("sala", servicioPelicula.obtenerSalaPorIdPelicula(idPelicula));
+			Sala sala = servicioPelicula.obtenerSalaPorIdPelicula(idPelicula);
+			//salaServicio.obtenerAsientosLibre(sala);
+			modelo.addAttribute("asientos", sala.getAsientos());
 			Ticket ticket = servicioTicket.registrarVacio();
 			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));

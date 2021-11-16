@@ -1,6 +1,7 @@
 package com.cinyema.app.servicios;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cinyema.app.entidades.Asiento;
 import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.entidades.Usuario;
+import com.cinyema.app.repositorios.AsientoRepositorio;
 import com.cinyema.app.repositorios.SalaRepositorio;
 
 @Service
@@ -22,8 +24,9 @@ public class SalaServicio implements ServicioBase<Sala>{
 	
 	@Autowired
 	AsientoServicio asientoServicio;
-
 	
+	@Autowired
+	AsientoRepositorio asientoRepositorio;
 
 	@Override
 	@Transactional
@@ -32,17 +35,18 @@ public class SalaServicio implements ServicioBase<Sala>{
 		
 		List<Asiento> asientos = new ArrayList<Asiento>();
 		
-		
+		String nombreSala = sala.getNombreSala();	
 		for(int i = 1; i < sala.getCantidadAsientos() + 1; i++) {
 				
 			Asiento asiento = new Asiento();
-			asiento.setNumeroDeAsiento("Butaca - " + i);
+			asiento.setNumeroDeAsiento(nombreSala+" Butaca - " + i);
 			asiento.setLibre(true);
 			asientoServicio.registrar(asiento);
 			System.out.println(i);
 			asientos.add(asiento);	
 		}
-
+		
+		Collections.sort(asientos, (o1, o2) -> o1.getNumeroDeAsiento().compareTo(o2.getNumeroDeAsiento()));
 		sala.setAsientos(asientos);
 		
 		
@@ -99,6 +103,12 @@ public class SalaServicio implements ServicioBase<Sala>{
 	public void eliminarPorEntidad(Sala sala) {
 		salaRepositorio.delete(sala);
 	}
+	
+//	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+//	public List<Asiento> obtenerAsientosLibre(Sala sala) {
+//		List<Asiento> asientos = asientoRepositorio.buscarAsientoLibresPorSalaId(sala.getIdSala());
+//		return asientos;
+//	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

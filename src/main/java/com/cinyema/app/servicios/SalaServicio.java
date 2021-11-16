@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cinyema.app.entidades.Asiento;
 import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.entidades.Usuario;
+import com.cinyema.app.repositorios.AsientoRepositorio;
 import com.cinyema.app.repositorios.SalaRepositorio;
 
 @Service
@@ -23,8 +24,9 @@ public class SalaServicio implements ServicioBase<Sala>{
 	
 	@Autowired
 	AsientoServicio asientoServicio;
-
 	
+	@Autowired
+	AsientoRepositorio asientoRepositorio;
 
 	@Override
 	@Transactional
@@ -100,6 +102,18 @@ public class SalaServicio implements ServicioBase<Sala>{
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public void eliminarPorEntidad(Sala sala) {
 		salaRepositorio.delete(sala);
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public List<Asiento> obtenerAsientosLibres(Sala sala) {
+		List<Asiento> asiLibres = new ArrayList<Asiento>();
+		List<Asiento> todos = sala.getAsientos();
+		for (Asiento asiento : todos) {
+			if(asiento.getLibre() == true) {
+				asiLibres.add(asiento);
+			}
+		}
+		return asiLibres;
 	}
 
 	@Override

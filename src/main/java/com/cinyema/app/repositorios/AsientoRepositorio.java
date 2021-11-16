@@ -23,4 +23,7 @@ public interface AsientoRepositorio extends JpaRepository<Asiento, Long>{
 	@Query("SELECT a FROM Asiento a WHERE a.libre = :false")
 	public List<Asiento> listarAsientosOcupados();
 	
+	@Query("SELECT a FROM Asiento a WHERE a.numeroDeAsiento LIKE :numeroDeAsiento%")
+	public List<Asiento> buscarAsientoPorSala(@Param("numeroDeAsiento") String numeroDeAsiento);
+	
 }

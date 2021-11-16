@@ -104,11 +104,17 @@ public class SalaServicio implements ServicioBase<Sala>{
 		salaRepositorio.delete(sala);
 	}
 	
-//	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-//	public List<Asiento> obtenerAsientosLibre(Sala sala) {
-//		List<Asiento> asientos = asientoRepositorio.buscarAsientoLibresPorSalaId(sala.getIdSala());
-//		return asientos;
-//	}
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public List<Asiento> obtenerAsientosLibres(Sala sala) {
+		List<Asiento> asiLibres = new ArrayList<Asiento>();
+		List<Asiento> todos = sala.getAsientos();
+		for (Asiento asiento : todos) {
+			if(asiento.getLibre() == true) {
+				asiLibres.add(asiento);
+			}
+		}
+		return asiLibres;
+	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

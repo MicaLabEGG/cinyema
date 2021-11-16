@@ -165,9 +165,9 @@ public class TicketServicio implements ServicioBase<Ticket> {
         if (ticket.getFecha() == null ) {
             throw new Error("Debe indicar la fecha");
         }
-
-        if (ticket.getLugar() == null || StringUtils.isBlank (ticket.getLugar().trim())) {
-            throw new Error("Debe ingresar el lugar");
+        
+        if (ticket.getAsiento() == null ) {
+            throw new Error("El asiento no aparece");
         }
 
         if (ticket.getPrecio() == null ) {

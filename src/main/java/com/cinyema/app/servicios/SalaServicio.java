@@ -1,6 +1,7 @@
 package com.cinyema.app.servicios;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,17 +33,18 @@ public class SalaServicio implements ServicioBase<Sala>{
 		
 		List<Asiento> asientos = new ArrayList<Asiento>();
 		
-		
+		String nombreSala = sala.getNombreSala();	
 		for(int i = 1; i < sala.getCantidadAsientos() + 1; i++) {
 				
 			Asiento asiento = new Asiento();
-			asiento.setNumeroDeAsiento("Butaca - " + i);
+			asiento.setNumeroDeAsiento(nombreSala+" Butaca - " + i);
 			asiento.setLibre(true);
 			asientoServicio.registrar(asiento);
 			System.out.println(i);
 			asientos.add(asiento);	
 		}
-
+		
+		Collections.sort(asientos, (o1, o2) -> o1.getNumeroDeAsiento().compareTo(o2.getNumeroDeAsiento()));
 		sala.setAsientos(asientos);
 		
 		

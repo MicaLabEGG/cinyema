@@ -215,7 +215,7 @@ nav .logo img:hover {
   outline: none;
 }
 
-.img-card-caja button .img-card-titulo h5:hover {
+.img-card-pelicula:hover ~ .img-card-titulo h5, .img-card-titulo h5:hover {
   background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
   font-weight: bold;
   -webkit-background-clip: text;

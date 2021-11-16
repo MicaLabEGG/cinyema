@@ -1,5 +1,6 @@
 package com.cinyema.app.servicios;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,9 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 	@Override
 	@Transactional(readOnly = true)
 	public List<Asiento> listar(){
-		return asientoRepositorio.findAll();
+		List<Asiento> listaAsientos = asientoRepositorio.findAll();
+		Collections.sort(listaAsientos, (o1, o2) -> o1.getNumeroDeAsiento().compareTo(o2.getNumeroDeAsiento()));
+		return listaAsientos ;
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

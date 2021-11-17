@@ -1,43 +1,44 @@
 package com.cinyema.app.entidades;
 
+import java.util.ArrayList;
 import java.util.List;
-
 import java.util.UUID;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
+
 @Data
 @Entity
-@Table(name = "sala")
-public class Sala {
-
+public class Funcion {
+	
 	@Id
-	private Long idSala = randomId();
+	private Long idFuncion = randomId();
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private String fecha;
+	private String horario;
 	@OneToOne
 	private Pelicula pelicula;
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "sa_fid", referencedColumnName = "idSala" )
-	private List<Asiento> asientos;
+	@ManyToOne
+	@JoinColumn(name = "sala_id")
+	private Sala sala;
+	@OneToMany(mappedBy = "funcion")
+	private List<Ticket> tickets;
 	
-	private Integer cantidadAsientos;
 
-	private String nombreSala;
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sala")
-	private List<Funcion> funciones;
-
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();
 		Long id = (long) uuid.hashCode();
 		id = id < 0 ? -id : id;
 		return id;
 	}
-
 }

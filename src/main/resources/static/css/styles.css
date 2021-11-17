@@ -201,6 +201,32 @@ nav .logo img:hover {
 }
 
 /*--------------------------------------------------------------
+# menu-busqueda-index
+--------------------------------------------------------------*/
+.barra-menu {
+  width: 1rem;
+  height: 100%;
+  position: absolute;
+  left: 0%;
+  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+}
+
+.barra-menu i {
+  font-size: 2rem;
+  position: absolute;
+  top:50%;
+  left:-22%;
+  z-index: -1;
+  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.check-menu:checked ~ .barra-menu {
+  left: 30%;
+}
+
+/*--------------------------------------------------------------
 # cardPelicula
 --------------------------------------------------------------*/
 .img-card-caja {

@@ -13,6 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
+@Data
 @Entity
 public class Ticket {
 
@@ -26,76 +27,11 @@ public class Ticket {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String fecha;
 	private Double precio;
-	@OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "asiento_idAsiento", referencedColumnName = "idAsiento")	
+	@ManyToOne
+	@JoinColumn(name = "FK_TICKFUNC", nullable = false, updatable = false)
+	private Funcion funcion;
+	@OneToOne
 	private Asiento asiento;
-	
-	public Long getIdTicket() {
-		return idTicket;
-	}
-	
-	//constructor para hacer la compra de ticket
-	public Ticket( Pelicula pelicula, Usuario usuario, String fecha, Double precio, Asiento asiento) {
-		super();
-		this.pelicula = pelicula;
-		this.usuario = usuario;
-		this.fecha = fecha;
-		this.precio = precio;
-		this.asiento = asiento;
-	}
-	
-	public Ticket() {
-		super();
-	}
-	
-	public Pelicula getPelicula() {
-		return pelicula;
-	}
-
-	public void setPelicula(Pelicula pelicula) {
-		this.pelicula = pelicula;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
-	public Double getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(Double precio) {
-		this.precio = precio;
-	}
-
-	public Asiento getAsiento() {
-		return asiento;
-	}
-
-	public void setAsiento(Asiento asiento) {
-		this.asiento = asiento;
-	}
-
-	public void setIdTicket(Long idTicket) {
-		this.idTicket = idTicket;
-	}
-
-	@Override
-	public String toString() {
-		return "Ticket [idTicket=" + idTicket + ", fecha=" + fecha + ", precio=" + precio + "]";
-	}
 
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

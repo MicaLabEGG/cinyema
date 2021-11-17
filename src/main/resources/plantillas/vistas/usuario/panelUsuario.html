@@ -5,54 +5,111 @@
 
 <body>
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
-	
+
 	<section id="panelUsuario">
-		<h1 class="text-center">Panel Usuario</h1>
-	
-	    <div class="container-fluid">
-	        <div class="row justify-content-center">
-	            <div class="col-sm-3">
-	                <div class="card">
-	                    <div class="card-body text-center">
-	                        <h2 class="card-title" th:text="${usuario.nombreDeUsuario}"></h2>
-	                        <p><b>Mail: </b><small th:text="${usuario.mail}"></small></p>
-	                        <p><b>Nombre:</b><small th:text="${usuario.nombre}"></small></p>
-	                        <p><b>Fecha: </b><small th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small></p>
-	                    </div>
-	                </div>
-	            </div>
-	            <div class="col-sm-7">
-	                <div class="card">
-	                    <div class="card-body">
-	                        <h2 class="card-title text-center">Lista de Tickets</h2>
-	                        <table class="table table-dark">
-	                            <thead>
-	                                <tr>
-	                                    <th scope="col">Pelicula</th>
-	                                    <th scope="col">Precio</th>
-	                                    <th scope="col">Fecha</th>
-	                                    <th scope="col">Lugar</th>
-	                                </tr>
-	                            </thead>
-	                            <tbody th:each="ticket : ${usuario.ticket}">
-	                                <tr>
-	                                    <th scope="row" th:text="${ticket.pelicula.titulo}"></th>
-	                                    <td th:text="${ticket.precio}"></td>
-	                                    <td th:text="${ticket.fecha}"></td>
-	                                    <td th:text="${ticket.lugar}"></td>
-	                                </tr>
-	                            </tbody>
-	                        </table>
-	                    </div>
-	                </div>
-	            </div>
-	        </div>
-	    </div>
-    </section>
-    
-    <footer th:insert="fragmentos/footer :: _footer"></footer>
+		<h1 class="text-center">Historial de Compras</h1>
+
+		<div class="container-fluid">
+			<div class="row justify-content-center">
+
+				<div class="col-sm-3">
+					<div class="card" id="tarjeta-datos-usuario">
+						<div class="card-body text-center">
+							<h2 class="card-title" th:text="${usuario.nombreDeUsuario}"></h2>
+							<p><b>Mail: </b><small th:text="${usuario.mail}"></small></p>
+							<p><b>Nombre: </b><small th:text="${usuario.nombre}"></small></p>
+							<p><b>Fecha: </b><small th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-sm-7">
+					<div class="card mb-3 ticket">
+						<div class="row g-0">
+							<div class="col-md-4">
+								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<h5 class="card-title">Harry Potter 1</h5>
+									<p class="card-text">
+										Showcase (Junín 498)
+										10/12/21 14:30
+										$1500
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card mb-3 ticket">
+						<div class="row g-0">
+							<div class="col-md-4">
+								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<h5 class="card-title">Harry Potter 1</h5>
+									<p class="card-text">T
+										Showcase (Junín 498)
+										10/12/21 14:30
+										$1500
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card mb-3 ticket">
+						<div class="row g-0">
+							<div class="col-md-4">
+								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
+							</div>
+							<div class="col-md-8">
+								<div class="card-body">
+									<h5 class="card-title">Harry Potter 1</h5>
+									<p class="card-text">T
+										Showcase (Junín 498)
+										10/12/21 14:30
+										$1500
+									</p>
+									<p class="card-text"><small class="text-muted">Last updated 3 mins
+											ago</small></p>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<footer th:insert="fragmentos/footer :: _footer"></footer>
 
 	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>
 
 </html>
+
+<!-- 
+	<table class="table table-dark">
+								<thead>
+									<tr>
+										<th scope="col">Cine</th>
+										<th scope="col">Pelicula</th>
+										<th scope="col">Imagen</th>
+										<th scope="col">Fecha</th>
+										<th scope="col">Horario</th>
+										<th scope="col">Asiento</th>
+										<th scope="col">Precio</th>
+									</tr>
+								</thead>
+								<tbody th:each="ticket : ${usuario.ticket}">
+									<tr>
+										<th scope="row" th:text="${ticket.pelicula.titulo}"></th>
+										<td th:text="${ticket.precio}"></td>
+										<td th:text="${ticket.fecha}"></td>
+									</tr>
+								</tbody>
+							</table>
+-->

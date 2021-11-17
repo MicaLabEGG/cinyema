@@ -19,12 +19,8 @@ public class Asiento {
 	private String numeroDeAsiento;
 	private Boolean libre;
 	
-	@ManyToOne //??
-	private Horario horario;
-	
 	@OneToOne(mappedBy = "asiento")
 	private Ticket ticket;
-	
 	
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cinyema.app.entidades.Asiento;
+import com.cinyema.app.entidades.Funcion;
 import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.repositorios.AsientoRepositorio;
+import com.cinyema.app.repositorios.FuncionRepositorio;
 import com.cinyema.app.repositorios.SalaRepositorio;
 
 @Service
@@ -27,6 +29,9 @@ public class SalaServicio implements ServicioBase<Sala>{
 	
 	@Autowired
 	AsientoRepositorio asientoRepositorio;
+	
+	@Autowired
+	FuncionRepositorio funcionRepositorio;
 
 	@Override
 	@Transactional
@@ -60,7 +65,7 @@ public class SalaServicio implements ServicioBase<Sala>{
 		List<Asiento> asientos = new ArrayList<Asiento>();
 		
 		sala.setCantidadAsientos(10);
-		sala.setPelicula(null);
+		//sala.setPelicula(null);
 		
 		for(int i = 1; i < sala.getCantidadAsientos() + 1; i++) {
 				
@@ -115,6 +120,12 @@ public class SalaServicio implements ServicioBase<Sala>{
 		}
 		return asiLibres;
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public List<Funcion> obtenerFuncionesPorSalaId(Long idSala) {
+		List<Funcion> funciones = funcionRepositorio.obtenerFuncionesPorSalaId(idSala);
+		return funciones;
+	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
@@ -133,10 +144,10 @@ public class SalaServicio implements ServicioBase<Sala>{
 		return salaRepositorio.getById(id);
 	}
 	
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Sala obtenerSalaPorTituloPelicula(String titulo) {
-		return salaRepositorio.buscarSalaPorPelicula(titulo);
-	}
+//	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+//	public Sala obtenerSalaPorTituloPelicula(String titulo) {
+//		return salaRepositorio.buscarSalaPorPelicula(titulo);
+//	}
 
 	public void validar(Sala sala) throws Exception {
 //		if (sala.getAsientos() == null) {
@@ -147,8 +158,8 @@ public class SalaServicio implements ServicioBase<Sala>{
 			throw new Exception("La cantidad de asientos es invalida");
 		}
 		
-		if (sala.getPelicula() == null) {
-			throw new Exception("La Pelicula es inexistente");
-		}
+//		if (sala.getPelicula() == null) {
+//			throw new Exception("La Pelicula es inexistente");
+//		}
 	}
 }

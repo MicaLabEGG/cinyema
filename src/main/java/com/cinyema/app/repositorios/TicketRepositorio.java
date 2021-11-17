@@ -14,5 +14,8 @@ public interface TicketRepositorio extends JpaRepository<Ticket, Long> {
 	
 	//@Query("SELECT t FROM Ticket t WHERE t.pelicula.titulo = :titulo")
 	//public List<Ticket> buscarTicketsPorNombrePelicula(@Param("titulo") String titulo);
+	
+	@Query("SELECT t.asiento.idAsiento FROM Ticket t WHERE t.funcion.idFuncion = :idFuncion")
+	public List<Long> listaAsientosOcupados(@Param("idFuncion") Long idFuncion);
 
 }

@@ -147,7 +147,7 @@ public class TicketControlador {
 			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
-			Sala sala = servicioPelicula.obtenerSalaPorIdPelicula(idPelicula);
+			Sala sala = servicioPelicula.obtenerSalaPorFuncionIdPelicula(idPelicula);
 			modelo.addAttribute("sala", sala);
 			modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala));
 			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorSalaId(sala.getIdSala()));

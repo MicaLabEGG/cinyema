@@ -1,10 +1,10 @@
-<div th:fragment="_verificacionRealizadaUsuario(usuario,error,registrar)">
+<div id="tablaAdmin" th:fragment="_verificacionRealizadaUsuario(usuario,error,registrar)">
 	<section class="container">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
-				<h2>Verificación Exitosa del Usuario</h2>
-				<h4>Felicitaciones! Su cuenta ha sido verificada</h4>
-	        	<h4><a th:href="@{/login}">Haga clic aquí para iniciar sesión</a></h4>
+				<h2 class="text-light">Verificación Exitosa del Usuario</h2>
+				<h4 class="text-light">Felicitaciones! Su cuenta ha sido verificada</h4>
+	        	<h4 class="text-light"><a th:href="@{/login}">Haga clic aquí para iniciar sesión</a></h4>
         	</div>
     	</div>
     </section>

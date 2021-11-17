@@ -17,6 +17,7 @@ import com.cinyema.app.Utility;
 import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.servicios.AsientoServicio;
+import com.cinyema.app.servicios.FuncionServicio;
 import com.cinyema.app.servicios.PeliculaServicio;
 import com.cinyema.app.servicios.SalaServicio;
 import com.cinyema.app.servicios.TicketServicio;
@@ -41,6 +42,9 @@ public class TicketControlador {
 
 	@Autowired
 	private SalaServicio salaServicio;
+	
+	@Autowired
+	private FuncionServicio funcionServicio;
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("")
@@ -146,6 +150,7 @@ public class TicketControlador {
 			Sala sala = servicioPelicula.obtenerSalaPorIdPelicula(idPelicula);
 			modelo.addAttribute("sala", sala);
 			modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala));
+			modelo.addAttribute("funciones", salaServicio.obtenerAsientosLibres(sala));
 			Ticket ticket = servicioTicket.registrarVacio();
 			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));

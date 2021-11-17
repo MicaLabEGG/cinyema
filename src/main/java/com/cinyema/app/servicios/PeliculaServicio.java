@@ -73,12 +73,12 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 		}
 	}
 	
-	public Sala obtenerSalaPorIdPelicula(Long idPelicula) throws Exception{
-		Sala sala = salaRepositorio.buscarSalaPoridPelicula(idPelicula);
+	public Sala obtenerSalaPorFuncionIdPelicula(Long idPelicula) throws Exception{
+		Sala sala = salaRepositorio.buscarSalaPorFuncionidPelicula(idPelicula);
 		if (sala != null) {
 			return sala;
 		} else {
-			throw new Exception("No se encontró la sala donde esta la película");
+			throw new Exception("No se encontró la sala donde esta la funcion que tiene la película");
 		}
 	}
     

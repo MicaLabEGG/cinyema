@@ -88,17 +88,32 @@
                                                th:value="${asiento.idAsiento}" th:text="${asiento.numeroDeAsiento}"></option>
                                    </select>
                                 </div>
+                                <div class="form-group">
+                                    <label class="form-label">Funcion dia</label>
+                                   <select class="form-select" th:field="*{funcion}" required>
+                                           <option th:each="funcion : ${funciones}" 
+                                               th:value="${funcion.idFuncion}" th:text="${funcion.fecha}"></option>
+                                   </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Funcion horario</label>
+                                   <select class="form-select">
+                                           <option th:each="funcion : ${funciones}" 
+                                               th:value="${funcion.horario}" th:text="${funcion.horario}"></option>
+                                   </select>
+                                </div>
+                                
 								<div class="form-group">
 									<label class="form-label"><strong>Precio:</strong></label>
 									<input type="text" class="form-control" th:field="*{precio}" th:value="*{precio}"
 										required></input>
 								</div>
-								<div class="form-group">
-									<label class="form-label"><strong>Fecha:</strong></label>
-									<p>Recuerda comprar tu boleto con un dia de anticipacion</p>
-									<input type="date" class="form-control" th:field="*{fecha}" th:value="*{fecha}"
-										required></input>
-								</div>
+<!-- 								<div class="form-group"> -->
+<!-- 									<label class="form-label"><strong>Fecha:</strong></label> -->
+<!-- 									<p>Recuerda comprar tu boleto con un dia de anticipacion</p> -->
+<!-- 									<input type="date" class="form-control" th:field="*{fecha}" th:value="*{fecha}" -->
+<!-- 										required></input> -->
+<!-- 								</div> -->
 								<div class="form-row text-center">
 									<button type="submit" class="btn btn-dark m-3">Comprar</button>
 								</div>

@@ -11,9 +11,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cinyema.app.entidades.Asiento;
+import com.cinyema.app.entidades.Funcion;
 import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.repositorios.AsientoRepositorio;
+import com.cinyema.app.repositorios.FuncionRepositorio;
 import com.cinyema.app.repositorios.SalaRepositorio;
 
 @Service
@@ -27,6 +29,9 @@ public class SalaServicio implements ServicioBase<Sala>{
 	
 	@Autowired
 	AsientoRepositorio asientoRepositorio;
+	
+	@Autowired
+	FuncionRepositorio funcionRepositorio;
 
 	@Override
 	@Transactional
@@ -114,6 +119,12 @@ public class SalaServicio implements ServicioBase<Sala>{
 			}
 		}
 		return asiLibres;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public List<Funcion> obtenerFuncionesPorSalaId(Long idSala) {
+		List<Funcion> funciones = funcionRepositorio.obtenerFuncionesPorSalaId(idSala);
+		return funciones;
 	}
 
 	@Override

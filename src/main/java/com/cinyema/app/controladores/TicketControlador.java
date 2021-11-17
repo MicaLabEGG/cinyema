@@ -150,7 +150,7 @@ public class TicketControlador {
 			Sala sala = servicioPelicula.obtenerSalaPorIdPelicula(idPelicula);
 			modelo.addAttribute("sala", sala);
 			modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala));
-			modelo.addAttribute("funciones", salaServicio.obtenerAsientosLibres(sala));
+			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorSalaId(sala.getIdSala()));
 			Ticket ticket = servicioTicket.registrarVacio();
 			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));

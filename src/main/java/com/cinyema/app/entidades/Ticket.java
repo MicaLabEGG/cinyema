@@ -24,8 +24,8 @@ public class Ticket {
 	@ManyToOne
 	@JoinColumn(name = "FK_TICKUSER", nullable = false, updatable = false)
 	private Usuario usuario;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private String fecha;
+	//@DateTimeFormat(pattern = "yyyy-MM-dd")
+	//private String fecha;
 	private Double precio;
 	@ManyToOne
 	@JoinColumn(name = "FK_TICKFUNC", nullable = false, updatable = false)

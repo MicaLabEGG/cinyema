@@ -54,16 +54,13 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		String contenido = "<p>Querido "+ticket.getUsuario().getNombre()+"</p>";
 		contenido += "<p>Has comprado un boleto para el cine</p>";
 		contenido += "<p><br>Resumen de tu compra:</p>";
-		/*
-		 * ESTO VA CUANDO TERMINEMOS DE ASIGNAR LOS ASIENTOS AUTOMATICAMENTE, SINO TIRA ERROR
+		
 		contenido += "<p>Película: "+ticket.getPelicula().getTitulo()+"</p>";
-		contenido += "<p>Fecha: "+ticket.getFecha()+"</p>";
-		contenido += "<p>Lugar: "+ticket.getLugar()+"</p>";
-		contenido += "<p>Sala: "+ticket.getAsiento().getHorario().getSala().getNombreSala()+"</p>";
-		contenido += "<p>Horario: "+ticket.getAsiento().getHorario().getHorario()+"</p>";
+		contenido += "<p>Fecha: "+ticket.getFuncion().getFecha()+"</p>";
+		contenido += "<p>Horario: "+ticket.getFuncion().getHorario()+"</p>";
+		contenido += "<p>Sala: "+ticket.getFuncion().getSala().getNombreSala()+"</p>";
 		contenido += "<p>Asiento: "+ticket.getAsiento().getNumeroDeAsiento()+"</p>";
 		contenido += "<p>Precio: "+ticket.getPrecio()+"</p>";
-		*/
 		
 		contenido += "<p><br>Gracias por tu compra! Espero que disfrutes la película! <br>Equipo de Cinyema</p>";
 		MimeMessage message = mailSender.createMimeMessage();

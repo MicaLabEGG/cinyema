@@ -65,7 +65,7 @@ public class SalaServicio implements ServicioBase<Sala>{
 		List<Asiento> asientos = new ArrayList<Asiento>();
 		
 		sala.setCantidadAsientos(10);
-		sala.setPelicula(null);
+		//sala.setPelicula(null);
 		
 		for(int i = 1; i < sala.getCantidadAsientos() + 1; i++) {
 				
@@ -144,10 +144,10 @@ public class SalaServicio implements ServicioBase<Sala>{
 		return salaRepositorio.getById(id);
 	}
 	
-	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public Sala obtenerSalaPorTituloPelicula(String titulo) {
-		return salaRepositorio.buscarSalaPorPelicula(titulo);
-	}
+//	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+//	public Sala obtenerSalaPorTituloPelicula(String titulo) {
+//		return salaRepositorio.buscarSalaPorPelicula(titulo);
+//	}
 
 	public void validar(Sala sala) throws Exception {
 //		if (sala.getAsientos() == null) {
@@ -158,8 +158,8 @@ public class SalaServicio implements ServicioBase<Sala>{
 			throw new Exception("La cantidad de asientos es invalida");
 		}
 		
-		if (sala.getPelicula() == null) {
-			throw new Exception("La Pelicula es inexistente");
-		}
+//		if (sala.getPelicula() == null) {
+//			throw new Exception("La Pelicula es inexistente");
+//		}
 	}
 }

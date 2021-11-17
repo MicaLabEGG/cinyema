@@ -20,8 +20,8 @@ public class Sala {
 
 	@Id
 	private Long idSala = randomId();
-	@OneToOne
-	private Pelicula pelicula;
+//	@OneToOne
+//	private Pelicula pelicula;
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "sa_fid", referencedColumnName = "idSala" )
 	private List<Asiento> asientos;

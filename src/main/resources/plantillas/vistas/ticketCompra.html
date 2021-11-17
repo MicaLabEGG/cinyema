@@ -82,13 +82,6 @@
 								<p>Usuario: <b th:text="${usuario.nombreDeUsuario}"></b></p>
 								<p>Sala: <b th:text="${sala.nombreSala}"></b></p>
 								<div class="form-group">
-                                    <label class="form-label">Asiento</label>
-                                   <select class="form-select" th:field="*{asiento}" required>
-                                           <option th:each="asiento : ${asientos}" 
-                                               th:value="${asiento.idAsiento}" th:text="${asiento.numeroDeAsiento}"></option>
-                                   </select>
-                                </div>
-                                <div class="form-group">
                                     <label class="form-label">Funcion dia</label>
                                    <select class="form-select" th:field="*{funcion}" required>
                                            <option th:each="funcion : ${funciones}" 
@@ -102,7 +95,13 @@
                                                th:value="${funcion.horario}" th:text="${funcion.horario}"></option>
                                    </select>
                                 </div>
-                                
+								<div class="form-group">
+                                    <label class="form-label">Asiento</label>
+                                   <select class="form-select" th:field="*{asiento}" required>
+                                           <option th:each="asiento : ${asientos}" 
+                                               th:value="${asiento.idAsiento}" th:text="${asiento.numeroDeAsiento}"></option>
+                                   </select>
+                                </div>
 								<div class="form-group">
 									<label class="form-label"><strong>Precio:</strong></label>
 									<input type="text" class="form-control" th:field="*{precio}" th:value="*{precio}"

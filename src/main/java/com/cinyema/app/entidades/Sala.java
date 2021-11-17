@@ -30,8 +30,8 @@ public class Sala {
 
 	private String nombreSala;
 	
-	//@OneToMany
-	//private Horario horario;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "sala")
+	private List<Funcion> funciones;
 
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

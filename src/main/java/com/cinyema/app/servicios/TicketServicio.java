@@ -40,13 +40,12 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Ticket registrar(Ticket ticket) throws Error, Exception {
 		validar(ticket);
-		if(validarFechaCompra(ticket) == true) {
-			System.err.println(ticket.getAsiento().toString());
+		//if(validarFechaCompra(ticket) == true) {
 			ticket.getAsiento().setLibre(false);
 			return repositorioTicket.save(ticket);
-		}else {
-			throw new Error("No puede comprar un ticket con fecha anterior al dia de hoy");
-		}
+		//}else {
+			//throw new Error("No puede comprar un ticket con fecha anterior al dia de hoy");
+		//}
 	}
 	
 	public void enviarMailCompra(Ticket ticket, String siteURL) throws UnsupportedEncodingException, MessagingException{
@@ -114,19 +113,18 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	    }
 	}
 	
-	public Boolean validarFechaCompra(Ticket ticket) throws Exception{
-		Date d1 = new Date();  
-		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String date = sdf.format(d1);
-		Date date1 = sdf.parse(date);
-		Date date2 = sdf.parse(ticket.getFecha());
-		if(date1.before(date2)) {
-			return true;
-		}else {
-			return false;
-		}
-	}
-	
+//	public Boolean validarFechaCompra(Ticket ticket) throws Exception{
+//		Date d1 = new Date();  
+//		DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//		String date = sdf.format(d1);
+//		Date date1 = sdf.parse(date);
+//		Date date2 = sdf.parse(ticket.getFecha());
+//		if(date1.before(date2)) {
+//			return true;
+//		}else {
+//			return false;
+//		}
+//	}
 	
 	public List<Ticket> listarTicketxPelicula(Pelicula pelicula) throws Exception{
 		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
@@ -164,9 +162,9 @@ public class TicketServicio implements ServicioBase<Ticket> {
             throw new Error("No se encuentra a que usuario pertenece el ticket");
         }
 
-        if (ticket.getFecha() == null ) {
-            throw new Error("Debe indicar la fecha");
-        }
+//        if (ticket.getFecha() == null ) {
+//            throw new Error("Debe indicar la fecha");
+//        }
         
         if (ticket.getAsiento() == null ) {
             throw new Error("El asiento no aparece");

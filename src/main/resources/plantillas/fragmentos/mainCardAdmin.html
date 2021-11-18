@@ -1,0 +1,199 @@
+<div th:fragment="_mainCardAdmin" class="mt-5 pt-3">
+	<div class="container-fluid">
+
+		<div class="row cardsAdmin">
+
+			<!-- USUARIO -->
+			<div class="col-md-4 mb-3">
+				<div class="card  h-100">
+					<div class="card-body py-5">
+						<h2>Usuario</h2>
+						<p>
+							Total: <b th:text="${usuarioTotal}"></b>
+						</p>
+						<p style="color: #198754">
+							Alta: <b
+								th:with="usuarioAltaTotal=${usuarioAlta} * ${usuarioTotal} / 100"
+								th:text="${usuarioAltaTotal}"></b>
+						</p>
+						<p style="color: #DC3545">
+							Baja: <b
+								th:with="usuarioBajaTotal=${usuarioBaja} * ${usuarioTotal} / 100"
+								th:text="${usuarioBajaTotal}"></b>
+						</p>
+						<div class="progress">
+							<div class="progress-bar bg-success" role="progressbar"
+								th:style="'width: '+${usuarioAlta}+'%'"
+								th:attr="aria-valuenow=${usuarioAlta}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+							<div class="progress-bar bg-danger" role="progressbar"
+								th:style="'width: '+${usuarioBaja}+'%'"
+								th:attr="aria-valuenow=${usuarioBaja}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- CINE -->
+			<div class="col-md-4 mb-3">
+				<div class="card h-100">
+					<div class="card-body py-5">
+						<h2>Cine</h2>
+						<p>
+							Total: <b th:text="${cineTotal}"></b>
+						</p>
+						<p style="color: #198754">
+							Alta: <b
+								th:with="peliculaAltaTotal=${peliculaAlta} * ${peliculaTotal} / 100"
+								th:text="${peliculaAltaTotal}"></b>
+						</p>
+						<p style="color: #DC3545">
+							Baja: <b
+								th:with="peliculaBajaTotal=${peliculaBaja} * ${peliculaTotal} / 100"
+								th:text="${peliculaBajaTotal}"></b>
+						</p>
+						<div class="progress">
+							<div class="progress-bar bg-success" role="progressbar"
+								th:style="'width: ' + ${peliculaAlta} + '%'"
+								th:attr="aria-valuenow=${peliculaAlta}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+							<div class="progress-bar bg-danger" role="progressbar"
+								th:style="'width: '+${peliculaBaja}+'%'"
+								th:attr="aria-valuenow=${peliculaBaja}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- TICKET -->
+			<div class="col-md-4 mb-3">
+				<div class="card  h-100">
+					<div class="card-body py-5">
+						<h2>Ticket</h2>
+						<p>
+							Total: <b th:text="${ticketTotal}"></b>
+						</p>
+						<p style="color: #198754">
+							Alta: <b
+								th:with="peliculaAltaTotal=${peliculaAlta} * ${peliculaTotal} / 100"
+								th:text="${peliculaAltaTotal}"></b>
+						</p>
+						<p style="color: #DC3545">
+							Baja: <b
+								th:with="peliculaBajaTotal=${peliculaBaja} * ${peliculaTotal} / 100"
+								th:text="${peliculaBajaTotal}"></b>
+						</p>
+						<div class="progress">
+							<div class="progress-bar bg-success" role="progressbar"
+								th:style="'width: ' + ${peliculaAlta} + '%'"
+								th:attr="aria-valuenow=${peliculaAlta}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+							<div class="progress-bar bg-danger" role="progressbar"
+								th:style="'width: '+${peliculaBaja}+'%'"
+								th:attr="aria-valuenow=${peliculaBaja}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- PELICULA -->
+			<div class="col-md-4 mb-3">
+				<div class="card h-100">
+					<div class="card-body py-5">
+						<h2>Pelicula</h2>
+						<p>
+							Total: <b th:text="${peliculaTotal}"></b>
+						</p>
+						<p style="color: #198754">
+							Alta: <b
+								th:with="peliculaAltaTotal=${peliculaAlta} * ${peliculaTotal} / 100"
+								th:text="${peliculaAltaTotal}"></b>
+						</p>
+						<p style="color: #DC3545">
+							Baja: <b
+								th:with="peliculaBajaTotal=${peliculaBaja} * ${peliculaTotal} / 100"
+								th:text="${peliculaBajaTotal}"></b>
+						</p>
+						<div class="progress">
+							<div class="progress-bar bg-success" role="progressbar"
+								th:style="'width: ' + ${peliculaAlta} + '%'"
+								th:attr="aria-valuenow=${peliculaAlta}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+							<div class="progress-bar bg-danger" role="progressbar"
+								th:style="'width: '+${peliculaBaja}+'%'"
+								th:attr="aria-valuenow=${peliculaBaja}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- DIRECTOR -->
+			<div class="col-md-4 mb-3">
+				<div class="card  h-100">
+					<div class="card-body py-5">
+						<h2>Director</h2>
+						<p>
+							Total: <b th:text="${directorTotal}"></b>
+						</p>
+						<p style="color: #198754">
+							Alta: <b
+								th:with="peliculaAltaTotal=${peliculaAlta} * ${peliculaTotal} / 100"
+								th:text="${peliculaAltaTotal}"></b>
+						</p>
+						<p style="color: #DC3545">
+							Baja: <b
+								th:with="peliculaBajaTotal=${peliculaBaja} * ${peliculaTotal} / 100"
+								th:text="${peliculaBajaTotal}"></b>
+						</p>
+						<div class="progress">
+							<div class="progress-bar bg-success" role="progressbar"
+								th:style="'width: ' + ${peliculaAlta} + '%'"
+								th:attr="aria-valuenow=${peliculaAlta}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+							<div class="progress-bar bg-danger" role="progressbar"
+								th:style="'width: '+${peliculaBaja}+'%'"
+								th:attr="aria-valuenow=${peliculaBaja}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<!-- ACTOR -->
+			<div class="col-md-4 mb-3">
+				<div class="card  h-100">
+					<div class="card-body py-5">
+						<h2>Actor</h2>
+						<p>
+							Total: <b th:text="${actorTotal}"></b>
+						</p>
+						<p style="color: #198754">
+							Alta: <b
+								th:with="peliculaAltaTotal=${peliculaAlta} * ${peliculaTotal} / 100"
+								th:text="${peliculaAltaTotal}"></b>
+						</p>
+						<p style="color: #DC3545">
+							Baja: <b
+								th:with="peliculaBajaTotal=${peliculaBaja} * ${peliculaTotal} / 100"
+								th:text="${peliculaBajaTotal}"></b>
+						</p>
+						<div class="progress">
+							<div class="progress-bar bg-success" role="progressbar"
+								th:style="'width: ' + ${peliculaAlta} + '%'"
+								th:attr="aria-valuenow=${peliculaAlta}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+							<div class="progress-bar bg-danger" role="progressbar"
+								th:style="'width: '+${peliculaBaja}+'%'"
+								th:attr="aria-valuenow=${peliculaBaja}" aria-valuemin="0"
+								aria-valuemax="100"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,9 +1,9 @@
-<div th:fragment="_registrarUsuario(usuario,error,registrar)">
+<div id="tablaAdmin" th:fragment="_registrarUsuario(usuario,error,registrar)">
 	<section id="login-registro">
 		<div class="row vh-50 justify-content-center align-items-center m-4">
 			<div class="col-auto">
 
-				<h1 class="text-center" th:text="${registrar}"></h1>
+				<h1 class="text-center text-light" th:text="${registrar}"></h1>
 
 				<div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
 					<div class="card-body">
@@ -14,23 +14,23 @@
 
 				<form th:object="${usuario}" action="/registrar" method="POST">
 					<div class="form-group">
-						<label>Nombre</label> <input type="text" class="form-control" th:field="*{nombre}"
+						<label class="text-light">Nombre</label> <input type="text" class="form-control" th:field="*{nombre}"
 							placeholder="Nombre Completo">
 					</div>
 					<div class="form-group">
-						<label>Correo Electrónico</label> <input type="email" class="form-control" th:field="*{mail}"
+						<label class="text-light">Correo Electrónico</label> <input type="email" class="form-control" th:field="*{mail}"
 							placeholder="Correo Electrónico">
 					</div>
 					<div class="form-group">
-						<label>Fecha de Nacimiento</label> <input type="date" class="form-control"
+						<label class="text-light">Fecha de Nacimiento</label> <input type="date" class="form-control"
 							th:field="*{fechaNacimiento}" placeholder="Fecha de Nacimiento">
 					</div>
 					<div class="form-group">
-						<label>Nombre de Usuario</label> <input type="text" class="form-control"
+						<label class="text-light">Nombre de Usuario</label> <input type="text" class="form-control"
 							th:field="*{nombreDeUsuario}" placeholder="Nombre de Usuario">
 					</div>
 					<div class="form-group">
-						<label>Contraseña</label> <input type="password" class="form-control" th:field="*{contrasenia}"
+						<label class="text-light">Contraseña</label> <input type="password" class="form-control" th:field="*{contrasenia}"
 							placeholder="Contraseña">
 					</div>
 					<div class="form-row text-center">

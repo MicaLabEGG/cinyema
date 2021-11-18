@@ -1,4 +1,4 @@
-<div th:fragment="_registrarSala(sala, error,registrar, peliculas)">
+<div th:fragment="_registrarSala(sala, error,registrar, funciones)">
 	<section class="container">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
@@ -18,13 +18,20 @@
 						<input type="text" class="form-control" th:field="*{nombreSala}" th:value="*{nombreSala}" required></input>
 					</div>
 					
-					<div class="form-group">
-                    	<label class="form-label">Pelicula</label>
-                    		<select class="form-select" th:field="*{pelicula}" required>
-                       			 <option th:each="pelicula : ${peliculas}" 
-        						th:value="${pelicula.idPelicula}" th:text="${pelicula.titulo}"></option>
-                    		</select>
-               		 </div>
+<!-- 					<div class="form-group"> -->
+<!--                     <label class="form-label">Funciones</label> -->
+<!--                     <select multiple class="form-select" th:field="*{funciones}" required> -->
+<!--                         <option th:each="actor : ${actores}"  -->
+<!--                           th:value="${{actor}}" th:text="${actor.nombreCompleto}"></option> -->
+<!--                     </select> -->
+<!--                     </div> -->
+<!-- 					<div class="form-group"> -->
+<!--                     	<label class="form-label">Pelicula</label> -->
+<!--                     		<select class="form-select" th:field="*{pelicula}" required> -->
+<!--                        			 <option th:each="pelicula : ${peliculas}"  -->
+<!--         						th:value="${pelicula.idPelicula}" th:text="${pelicula.titulo}"></option> -->
+<!--                     		</select> -->
+<!--                		 </div> -->
                		 
 					<div class="form-group">
 						<label class="form-label">Cantidad de asientos</label>

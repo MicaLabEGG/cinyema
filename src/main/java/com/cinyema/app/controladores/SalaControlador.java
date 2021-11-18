@@ -81,7 +81,7 @@ public class SalaControlador {
 		try {
 		    modelo.addAttribute("editar", "Editar Salas");
 		    modelo.addAttribute("sala", salaServicio.obtenerPorId(idSala));
-		    modelo.addAttribute("peliculas", peliculaServicio.listar());
+//		    modelo.addAttribute("peliculas", peliculaServicio.listar());
 		    modelo.addAttribute("asientos", asientoServicio.listar());
 		    return "vistas/admin/sala";
 		}catch (Exception e) {
@@ -107,22 +107,22 @@ public class SalaControlador {
 		}
 	}
 
-	// Buscador de Sala por título de Pelicula : futuro filtro
-	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/buscarSalaPorTituloPelicula")
-	public String buscarSalaPorTituloPelicula(ModelMap modelo, Sala sala) throws Exception {
-		try {
-			modelo.addAttribute("buscador", "Buscador de Sala por Titulo Pelicula");
-			modelo.addAttribute("cines", salaServicio.obtenerSalaPorTituloPelicula(sala.getPelicula().getTitulo()));
-			return "vistas/admin/sala";
-		} catch (Exception e) {
-			e.printStackTrace();
-			modelo.addAttribute("editar", "Editar Sala");
-			modelo.addAttribute("sala", salaServicio.obtenerSalaPorTituloPelicula(sala.getPelicula().getTitulo()));
-			modelo.put("error", e.getMessage());
-			return "vistas/admin/sala";
-		}
-	}
+//	// Buscador de Sala por título de Pelicula : futuro filtro
+//	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
+//	@PostMapping("/buscarSalaPorTituloPelicula")
+//	public String buscarSalaPorTituloPelicula(ModelMap modelo, Sala sala) throws Exception {
+//		try {
+//			modelo.addAttribute("buscador", "Buscador de Sala por Titulo Pelicula");
+//			modelo.addAttribute("cines", salaServicio.obtenerSalaPorTituloPelicula(sala.getFunciones().getPelicula().getTitulo()));
+//			return "vistas/admin/sala";
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			modelo.addAttribute("editar", "Editar Sala");
+//			modelo.addAttribute("sala", salaServicio.obtenerSalaPorTituloPelicula(sala.getPelicula().getTitulo()));
+//			modelo.put("error", e.getMessage());
+//			return "vistas/admin/sala";
+//		}
+//	}
 
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
 	@GetMapping("/eliminar/{id}")

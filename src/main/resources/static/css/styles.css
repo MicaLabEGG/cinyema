@@ -115,8 +115,36 @@ nav .logo img:hover {
 # Panel Usuario
 --------------------------------------------------------------*/
 
+#panelUsuario h1 {
+	color: var(--color-text);
+}
+
 #panelUsuario{
 	margin: 100px 0px 100px 0px;
+}
+
+#tarjeta-datos-usuario {
+	color: var(--color-text);
+	background-color:  var(--fondo-secciones);
+	border-right: 0.5rem solid transparent;
+	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+	border-image-slice: 2; 
+	padding-bottom: 100 px;
+	height: 400 px;
+}
+
+#contenedor-boletos {
+	color: var(--color-text);
+	background-color: var(--fondo-secciones);
+	
+}
+
+.ticket {
+	color: var(--fondo-html);
+	background-color: var(--color-text);
+	border-left: 0.5rem solid transparent;
+	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+	border-image-slice: 2; 
 }
 
 /*--------------------------------------------------------------

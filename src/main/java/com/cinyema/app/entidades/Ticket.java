@@ -19,14 +19,9 @@ public class Ticket {
 
 	@Id
 	private Long idTicket = randomId();
-	@OneToOne
-	private Pelicula pelicula;
 	@ManyToOne
 	@JoinColumn(name = "FK_TICKUSER", nullable = false, updatable = false)
 	private Usuario usuario;
-	//@DateTimeFormat(pattern = "yyyy-MM-dd")
-	//private String fecha;
-	private Double precio;
 	@ManyToOne
 	@JoinColumn(name = "FK_TICKFUNC", nullable = false, updatable = false)
 	private Funcion funcion;

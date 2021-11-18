@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -19,11 +20,10 @@ public class Cine {
 
 	@Id
 	private Long idCine = randomId();
-	/*
-	 * chequear la relacion
-	 */
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "cs_fid", referencedColumnName = "idCine")
+	@OneToMany
+	@JoinTable(name = "cine_salas", joinColumns = 
+             {@JoinColumn(name ="cine_FK", referencedColumnName = "idCine")},
+             inverseJoinColumns = {@JoinColumn(name = "sala_FK", referencedColumnName = "idSala")})
 	private List<Sala> salas;
 	private String nombre;
 	private String direccion;

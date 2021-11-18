@@ -16,6 +16,7 @@
 		                    <th scope="col">Pelicula</th>
 		                    <th scope="col">Usuario</th>
 		                    <th scope="col">Fecha</th>
+		                    <th scope="col">Horario</th>
 		                    <th scope="col">Asiento</th>
 		                    <th scope="col">Precio</th>
 		                    <th scope="col">Modificar</th>
@@ -25,12 +26,12 @@
 		            <tbody th:each="ticket : ${tickets}">
 	 					<tr>
 		                    <th scope="row" th:text="${ticket.idTicket}"></th>
-		                    <td th:text="${ticket.pelicula.titulo}"></td>
+		                    <td th:text="${ticket.funcion.pelicula.titulo}"></td>
 		                    <td th:text="${ticket.usuario.nombreDeUsuario}"></td>
-		                    <td th:text="${ticket.asiento.numeroDeAsiento}"></td>
 		                    <td th:text="${ticket.funcion.fecha}"></td>
 		                    <td th:text="${ticket.funcion.horario}"></td>
-		                    <td th:text="${ticket.precio}"></td>
+		                    <td th:text="${ticket.asiento.numeroDeAsiento}"></td>
+		                    <td th:text="${ticket.funcion.sala.cine.precio}"></td>
 		                    <td>
 		                        <a th:href="@{/ticket/editar/__${ticket.idTicket}__}"><i class="far fa-edit"></i></a>
 		                    </td>

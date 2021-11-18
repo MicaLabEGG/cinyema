@@ -59,7 +59,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		contenido += "<p>Fecha: "+ticket.getFuncion().getFecha()+"</p>";
 		contenido += "<p>Horario: "+ticket.getFuncion().getHorario()+"</p>";
 		contenido += "<p>Asiento: "+ticket.getAsiento().getNumeroDeAsiento()+"</p>";
-		contenido += "<p>Precio: "+ticket.getPrecio()+"</p>";
+		contenido += "<p>Precio: "+ticket.getFuncion().getSala().getCine().getPrecio()+"</p>";
 		
 		contenido += "<p><br>Gracias por tu compra! Espero que disfrutes la película! <br>Equipo de Cinyema</p>";
 		MimeMessage message = mailSender.createMimeMessage();
@@ -166,9 +166,9 @@ public class TicketServicio implements ServicioBase<Ticket> {
             throw new Error("El asiento no aparece");
         }
 
-        if (ticket.getPrecio() == null ) {
-            throw new Error("El campo 'precio' no puede estar vacío");
-        }
+//        if (ticket.getPrecio() == null ) {
+//            throw new Error("El campo 'precio' no puede estar vacío");
+//        }
         
     }		
 }

@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.cinyema.app.enumeraciones.Calificacion;
+import com.cinyema.app.enumeraciones.Formato;
 import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.enumeraciones.Idioma;
 import com.cinyema.app.enumeraciones.Pais;
@@ -41,6 +42,8 @@ public class Pelicula {
 	private Idioma idioma;
 	@Enumerated(EnumType.STRING)
 	private Subtitulo subtitulo;
+	@Enumerated(EnumType.STRING)
+	private Formato formato;
 	@Lob
 	@Column(columnDefinition = "MEDIUMBLOB")
 	private String imagen;

@@ -1,55 +1,50 @@
-<div th:fragment="_listarUsuario(usuarios,listar)">
-	<section class="container m-5">
-		<!-- clase de bootstrap -->
-		
-		<h1 class="text-center" th:text="${listar}"></h1>
-		
-		<table class="table table-dark">
-			<thead>
-				<tr>
-					<th scope="col">Id</th>
-					<th scope="col">Rol</th>
-					<th scope="col">Nombre</th>
-					<th scope="col">Email</th>
-					<th scope="col">Fecha de Nacimiento</th>
-					<th scope="col">Nombre de Usuario</th>
-					<th scope="col">Alta</th>
-					<th scope="col">Modificar</th>
-					<th scope="col">Eliminar</th>
-				</tr>
-			</thead>
-			<tbody th:each="usuario : ${usuarios}">
-				<tr>
-					<th scope="row" th:text="${usuario.idUsuario}"></th>
-					<td th:text="${usuario.rol}"></td>
-					<td th:text="${usuario.nombre}"></td>
-					<td th:text="${usuario.mail}"></td>
-					<td th:text="${usuario.fechaNacimiento}"></td>
-					<td th:text="${usuario.nombreDeUsuario}"></td>
-					<td>
-						<a th:if="${usuario.alta}" th:href="@{/usuario/baja/__${usuario.idUsuario}__}"><i class="fa fa-circle" style="color:rgb(77, 144, 57);"></i></a>
-						<a th:unless="${usuario.alta}" th:href="@{/usuario/alta/__${usuario.idUsuario}__}"><i class="fa fa-circle" style="color:rgb(231, 41, 41);"></i></a>
-					</td>
-					<td>
-						<a th:href="@{/usuario/editar/__${usuario.idUsuario}__}"><i class="far fa-edit"></i></a>
-					</td>
-					<td>
-						<a th:href="@{/usuario/eliminar/__${usuario.idUsuario}__}"><i class="far fa-trash-alt"></i></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		
-		<div class=" text-center container">
-			<div class="row justify-content-md-center">
-				<div class="col col-md-2">
-					<a th:href="@{/usuario/registrar}" class="btn btn-success my-2">Nuevo</a>
-				</div>
-				<div class="col col-md-2">
-					<a th:href="@{/}" class="btn btn-primary my-2">Volver</a>
-				</div>
-			</div>
-		</div>
-		
-	</section>
-</div>
+<div id="tablaAdmin" th:fragment="_listarUsuario(usuarios,listar)">
+<!-- DATATABLES -->
+     <div class="row">
+        <div class="col-md-9 mb-3 tamTabla">
+          <div class="card">
+            <div class="card-header">
+              <span><i class="bi bi-table me-2"></i></span>
+              <h1 class="text-center">Usuario</h1>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table id="datatablesSimple" class="table table-striped data-table">
+					<thead>
+						<tr>
+							<th scope="col">Rol</th>
+							<th scope="col">Nombre</th>
+							<th scope="col">Email</th>
+							<th scope="col">Fecha de Nacimiento</th>
+							<th scope="col">Nombre de Usuario</th>
+							<th scope="col">Alta</th>
+							<th scope="col">Modificar</th>
+							<th scope="col">Eliminar</th>
+						</tr>
+					</thead>
+					<tbody th:each="usuario : ${usuarios}">
+						<tr>
+							<td th:text="${usuario.rol}"></td>
+							<td th:text="${usuario.nombre}"></td>
+							<td th:text="${usuario.mail}"></td>
+							<td th:text="${usuario.fechaNacimiento}"></td>
+							<td th:text="${usuario.nombreDeUsuario}"></td>
+							<td>
+								<a th:if="${usuario.alta}" th:href="@{/usuario/baja/__${usuario.idUsuario}__}"><i class="fa fa-circle" style="color:rgb(77, 144, 57);"></i></a>
+								<a th:unless="${usuario.alta}" th:href="@{/usuario/alta/__${usuario.idUsuario}__}"><i class="fa fa-circle" style="color:rgb(231, 41, 41);"></i></a>
+							</td>
+							<td>
+								<a th:href="@{/usuario/editar/__${usuario.idUsuario}__}"><i class="far fa-edit"></i></a>
+							</td>
+							<td>
+								<a th:href="@{/usuario/eliminar/__${usuario.idUsuario}__}"><i class="far fa-trash-alt"></i></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>	
+</div>	     

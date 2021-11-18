@@ -19,8 +19,6 @@ public class Ticket {
 
 	@Id
 	private Long idTicket = randomId();
-	@OneToOne
-	private Pelicula pelicula;
 	@ManyToOne
 	@JoinColumn(name = "FK_TICKUSER", nullable = false, updatable = false)
 	private Usuario usuario;

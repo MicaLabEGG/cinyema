@@ -1,30 +1,41 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="fragmentos/head :: _head">
+
 </head>
 
 <body>
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
+	
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
-		<div th:if="${listar}!= null">
-			<div
-				th:replace="fragmentos/cine/listarCine :: _listarCine(cines=${cines},listar=${listar})">
-		    </div>
-		</div>    
-		<div th:if="${registrar}!= null">
-			<div
-				th:replace="fragmentos/cine/registroCine :: _registroCine(registro=${registro},error=${error},salas=${salas},cine=${cine})">
+		<div th:insert="fragmentos/sideNavAdmin :: _sideNavAdmin"></div>
+		
+		<main id="main" class="container-fluid">
+			<div th:if="${listar}!= null">
+				<div
+					th:replace="fragmentos/cine/listarCine :: _listarCine(cines=${cines},listar=${listar})">
+			    </div>
+			</div>    
+			<div th:if="${registrar}!= null">
+				<div
+					th:replace="fragmentos/cine/registroCine :: _registroCine(registro=${registro},error=${error},salas=${salas},cine=${cine})">
+				</div>
 			</div>
-		</div>
-		<div th:if="${editar}!= null">
-			<div
-				th:replace="fragmentos/cine/editarCine :: _editarCine(editar=${editar},error=${error},salas=${salas},cine=${cine})">
+			<div th:if="${editar}!= null">
+				<div
+					th:replace="fragmentos/cine/editarCine :: _editarCine(editar=${editar},error=${error},salas=${salas},cine=${cine})">
+				</div>
 			</div>
-		</div>
+		</main>
 	</div>
-	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/dataTables-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
+    <script src="/js/script.js"></script>   
 </body>
 
 </html>

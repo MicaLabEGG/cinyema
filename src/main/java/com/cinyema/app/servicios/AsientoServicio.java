@@ -10,12 +10,16 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cinyema.app.entidades.Asiento;
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.repositorios.AsientoRepositorio;
+import com.cinyema.app.repositorios.TicketRepositorio;
 
 @Service
 public class AsientoServicio implements ServicioBase<Asiento> {
 	
 	@Autowired
 	private AsientoRepositorio asientoRepositorio;
+	
+	@Autowired
+	private TicketRepositorio ticketRepositorio;
 	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
@@ -51,6 +55,19 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 	public List<Asiento> listar(){
 		List<Asiento> listaAsientos = asientoRepositorio.findAll();
 		Collections.sort(listaAsientos, (o1, o2) -> o1.getNumeroDeAsiento().compareTo(o2.getNumeroDeAsiento()));
+		long numero = 773257365;
+		List<Long> ocupados = ticketRepositorio.listaAsientosOcupados(numero);
+		for (Asiento asiento1 : listaAsientos) {
+			
+			for (long long1 : ocupados) {
+				System.err.println(asiento1.getIdAsiento());
+				System.err.println(long1);
+				
+				if (asiento1.getIdAsiento() == long1) {
+					asiento1.setLibre(false);
+				}
+			}
+		}
 		return listaAsientos ;
 	}
 	

@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="css/owl.carousel.min.css">
 	<link rel="stylesheet" type="text/css" href="css/styles.css">
 	<!--==================== UNICONS ====================-->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 
 <body>
@@ -65,10 +65,25 @@
 			</div>
 		</div>
 	</section>
-	
-	<div th:insert="fragmentos/cardPelicula :: _cardPelicula(peliculas=${peliculas})"></div>
-  <div th:insert="fragmentos/cardPelicula :: _cardPeliculaModal(peliculas=${peliculas})"></div>
-	
+	<section id="pelicula-index" class="container">
+		<div class="row">
+			<div class="col-auto">
+				<input type="checkbox" class="check-menu" id="menu-busqueda">
+				<label class="barra-menu" for="menu-busqueda">
+					
+					<i class="fas fa-arrow-right"></i>
+					
+				</label>
+			</div>
+			<div class="col-auto">
+				<div th:insert="fragmentos/cardPelicula :: _cardPelicula(peliculas=${peliculas})"></div>
+				<div th:insert="fragmentos/cardPelicula :: _cardPeliculaModal(peliculas=${peliculas})"></div>
+			</div>
+		</div>
+
+
+	</section>
+
 	<footer th:insert="fragmentos/footer :: _footer"></footer>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

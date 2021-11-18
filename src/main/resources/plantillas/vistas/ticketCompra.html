@@ -73,11 +73,11 @@
 									<input type="text" class="form-control" th:field="*{usuario}" th:placeholder="${ticket.usuario.nombreDeUsuario}" th:value="${usuario}" 
 										readonly required></input>
 								</div>
-								<div class="form-group" hidden>
+								<!--<div class="form-group" hidden>
 									<label class="form-label"><strong>Pelicula:</strong></label>
 									<input type="text" class="form-control" th:field="*{pelicula}" th:placeholder="${ticket.pelicula.titulo}" th:value="${pelicula}"
 										readonly required></input>
-								</div>
+								</div>-->
 								<p>Pelicula: <b th:text="${pelicula.titulo}"></b></p>
 								<p>Usuario: <b th:text="${usuario.nombreDeUsuario}"></b></p>
 								<p>Sala: <b th:text="${sala.nombreSala}"></b></p>

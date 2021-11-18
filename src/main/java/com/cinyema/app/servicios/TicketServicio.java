@@ -122,28 +122,28 @@ public class TicketServicio implements ServicioBase<Ticket> {
 //		}
 //	}
 	
-	public List<Ticket> listarTicketxPelicula(Pelicula pelicula) throws Exception{
-		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
-		if(!result.isPresent()) {
-			throw new Exception("No se encontró la película");
-		}else {
-			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
-			
-			return listaTickets;
-		}		
-	}
+//	public List<Ticket> listarTicketxPelicula(Pelicula pelicula) throws Exception{
+//		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
+//		if(!result.isPresent()) {
+//			throw new Exception("No se encontró la película");
+//		}else {
+//			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
+//			
+//			return listaTickets;
+//		}		
+//	}
 	
 	
-	public String contarTicketxPelicula(Pelicula pelicula) throws Exception{
-		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
-		if(!result.isPresent()) {
-			throw new Exception("No se encontró la película");
-		}else {
-			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
-			String numeroTickets = Integer.toString(listaTickets.size());
-			return numeroTickets;
-		}
-	}
+//	public String contarTicketxPelicula(Pelicula pelicula) throws Exception{
+//		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
+//		if(!result.isPresent()) {
+//			throw new Exception("No se encontró la película");
+//		}else {
+//			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
+//			String numeroTickets = Integer.toString(listaTickets.size());
+//			return numeroTickets;
+//		}
+//	}
 	
 	public Long totalTicket() throws Exception{
 		return repositorioTicket.count();
@@ -151,9 +151,9 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	
 	private void validar(Ticket ticket) throws Error {
 
-        if (ticket.getPelicula() == null ) {
-            throw new Error("No se encuentra a que película pertenece el ticket");
-        }
+//        if (ticket.getPelicula() == null ) {
+//            throw new Error("No se encuentra a que película pertenece el ticket");
+//        }
         if (ticket.getUsuario() == null ) {
             throw new Error("No se encuentra a que usuario pertenece el ticket");
         }

@@ -1,9 +1,9 @@
-<div th:fragment="_editarDirector(director,error,editar)">
+<div id="tablaAdmin" th:fragment="_editarDirector(director,error,editar)">
 	<section class="container">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
 
-				<h1 class="text-center" th:text="${editar}"></h1>
+				<h1 class="text-center text-light" th:text="${editar}"></h1>
 
 				<div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
 					<div class="card-body">
@@ -15,12 +15,12 @@
 				<form th:object="${director}" th:action="@{/director/editar/__${director.idDirector}__}" method="POST">
 
 					<div class="form-group">
-						<label class="form-label">Nombre</label> <input type="text" class="form-control"
+						<label class="form-label text-light">Nombre</label> <input type="text" class="form-control"
 							th:field="*{nombre}" th:value="*{nombre}" required></input>
 					</div>
 
 					<div class="form-group">
-						<label class="form-label">País</label> <select class="form-select" th:field="*{pais}" required>
+						<label class="form-label text-light">País</label> <select class="form-select" th:field="*{pais}" required>
 							<option th:each="pais : ${T(com.cinyema.app.enumeraciones.Pais).values()}"
 								th:value="${pais}" th:text="${pais}"></option>
 						</select>

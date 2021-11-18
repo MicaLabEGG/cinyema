@@ -106,6 +106,8 @@ public class MainControlador {
 	@GetMapping("/admin")
 	public String adminPanel(ModelMap modelo) throws Exception {
 		try {
+			modelo.addAttribute("listar", "Lista de Películas");
+		    modelo.addAttribute("peliculas", peliculaServicio.listar());
 			modelo.put("peliculaTotal", peliculaServicio.cantidadPeliculaTotal());
 			modelo.put("peliculaAlta", peliculaServicio.cantidadPeliculaAlta());
 			modelo.put("peliculaBaja", peliculaServicio.cantidadPeliculaBaja());

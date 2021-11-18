@@ -31,7 +31,7 @@
 		                    <td th:text="${ticket.funcion.fecha}"></td>
 		                    <td th:text="${ticket.funcion.horario}"></td>
 		                    <td th:text="${ticket.asiento.numeroDeAsiento}"></td>
-		                    <td th:text="${ticket.precio}"></td>
+		                    <td th:text="${ticket.funcion.sala.cine.precio}"></td>
 		                    <td>
 		                        <a th:href="@{/ticket/editar/__${ticket.idTicket}__}"><i class="far fa-edit"></i></a>
 		                    </td>

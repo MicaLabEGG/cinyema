@@ -54,16 +54,12 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		String contenido = "<p>Querido "+ticket.getUsuario().getNombre()+"</p>";
 		contenido += "<p>Has comprado un boleto para el cine</p>";
 		contenido += "<p><br>Resumen de tu compra:</p>";
-		/*
-		 * ESTO VA CUANDO TERMINEMOS DE ASIGNAR LOS ASIENTOS AUTOMATICAMENTE, SINO TIRA ERROR
-		contenido += "<p>Película: "+ticket.getPelicula().getTitulo()+"</p>";
-		contenido += "<p>Fecha: "+ticket.getFecha()+"</p>";
-		contenido += "<p>Lugar: "+ticket.getLugar()+"</p>";
-		contenido += "<p>Sala: "+ticket.getAsiento().getHorario().getSala().getNombreSala()+"</p>";
-		contenido += "<p>Horario: "+ticket.getAsiento().getHorario().getHorario()+"</p>";
+		contenido += "<p>Película: "+ticket.getFuncion().getPelicula().getTitulo()+"</p>";
+		contenido += "<p>Sala: "+ticket.getFuncion().getSala().getNombreSala()+"</p>";
+		contenido += "<p>Fecha: "+ticket.getFuncion().getFecha()+"</p>";
+		contenido += "<p>Horario: "+ticket.getFuncion().getHorario()+"</p>";
 		contenido += "<p>Asiento: "+ticket.getAsiento().getNumeroDeAsiento()+"</p>";
-		contenido += "<p>Precio: "+ticket.getPrecio()+"</p>";
-		*/
+		contenido += "<p>Precio: "+ticket.getFuncion().getSala().getCine().getPrecio()+"</p>";
 		
 		contenido += "<p><br>Gracias por tu compra! Espero que disfrutes la película! <br>Equipo de Cinyema</p>";
 		MimeMessage message = mailSender.createMimeMessage();
@@ -126,28 +122,28 @@ public class TicketServicio implements ServicioBase<Ticket> {
 //		}
 //	}
 	
-	public List<Ticket> listarTicketxPelicula(Pelicula pelicula) throws Exception{
-		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
-		if(!result.isPresent()) {
-			throw new Exception("No se encontró la película");
-		}else {
-			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
-			
-			return listaTickets;
-		}		
-	}
+//	public List<Ticket> listarTicketxPelicula(Pelicula pelicula) throws Exception{
+//		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
+//		if(!result.isPresent()) {
+//			throw new Exception("No se encontró la película");
+//		}else {
+//			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
+//			
+//			return listaTickets;
+//		}		
+//	}
 	
 	
-	public String contarTicketxPelicula(Pelicula pelicula) throws Exception{
-		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
-		if(!result.isPresent()) {
-			throw new Exception("No se encontró la película");
-		}else {
-			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
-			String numeroTickets = Integer.toString(listaTickets.size());
-			return numeroTickets;
-		}
-	}
+//	public String contarTicketxPelicula(Pelicula pelicula) throws Exception{
+//		Optional<Pelicula> result = repositorioPelicula.findById(pelicula.getIdPelicula());
+//		if(!result.isPresent()) {
+//			throw new Exception("No se encontró la película");
+//		}else {
+//			List<Ticket> listaTickets = repositorioTicket.listarTicketsxPelicula(pelicula.getIdPelicula());
+//			String numeroTickets = Integer.toString(listaTickets.size());
+//			return numeroTickets;
+//		}
+//	}
 	
 	public Long totalTicket() throws Exception{
 		return repositorioTicket.count();
@@ -155,24 +151,33 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	
 	private void validar(Ticket ticket) throws Error {
 
-        if (ticket.getPelicula() == null ) {
-            throw new Error("No se encuentra a que película pertenece el ticket");
+		if (ticket.getIdTicket()  == null ) {
+            throw new Error("No se encuentra Id del Ticket");
         }
-        if (ticket.getUsuario() == null ) {
+		
+		if (ticket.getUsuario() == null ) {
             throw new Error("No se encuentra a que usuario pertenece el ticket");
         }
+		
+		if (ticket.getFuncion() == null ) {
+            throw new Error("No se encuentra la funcion en donde pertenece el ticket");
+        }
+		
+		if (ticket.getAsiento() == null ) {
+            throw new Error("El asiento no aparece");
+        }
+		
+//        if (ticket.getPelicula() == null ) {
+//            throw new Error("No se encuentra a que película pertenece el ticket");
+//        }
 
 //        if (ticket.getFecha() == null ) {
 //            throw new Error("Debe indicar la fecha");
 //        }
         
-        if (ticket.getAsiento() == null ) {
-            throw new Error("El asiento no aparece");
-        }
-
-        if (ticket.getPrecio() == null ) {
-            throw new Error("El campo 'precio' no puede estar vacío");
-        }
+//        if (ticket.getPrecio() == null ) {
+//            throw new Error("El campo 'precio' no puede estar vacío");
+//        }
         
     }		
 }

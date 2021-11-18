@@ -1,0 +1,264 @@
+<div th:fragment="_sideNavAdmin" class="offcanvas offcanvas-start sidebar-nav" tabindex="-1" id="sidebar">
+	<div class="offcanvas-body p-0">
+		<nav class="navbar navbar-expand d-flex flex-column align-item-start navbar-dark">
+			<ul class="navbar-nav d-flex flex-column font-weight-bold mt-5 w-100 panelControl">
+				
+				<li class="nav-item w-100">
+					<div class="text-muted small fw-bold text-uppercase px-3">
+						<a class="nav-link text-light">PANEL</a>
+					</div>
+				</li>
+				<li class="nav-item w-100">
+					<a th:href="@{/admin}" class="nav-link links px-3"> 
+						<span class="me-2">
+							<i class="bi bi-speedometer2"></i>
+						</span> 
+						<span>Inicio</span>
+					</a>
+				</li>
+				
+				<li class="my-4"><hr class="dropdown-divider bg-light"/></li>
+				
+				<li class="nav-item w-100">
+					<div class="text-muted small fw-bold text-uppercase px-3">
+						<a class="nav-link text-light tituloPanel">INTERFAZ</a>
+					</div>
+				</li>
+				
+				<!-- USUARIO -->
+				<li class="nav-item dropdown w-100">
+					<a class="nav-link links pl-4 sidebar-link" id="usuario" data-bs-toggle="dropdown" aria-expanded="false"> 
+						<span class="me-2">
+							<i class="bi bi-layout-split"></i>
+						</span> 
+						<span class="spanTitulo">Usuario</span>
+						<span class="ms-auto"> 
+							<span><i class="bi bi-chevron-down"></i></span>
+						</span>
+						
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="usuario">
+						<li>
+							<a class="dropdown-item text-light pl-4 p-2" th:href="@{/usuario/registrar}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Agregar</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light pl-4 p-2" th:href="@{/usuario}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Activos</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light pl-4 p-2" th:href="@{/usuario}"> 
+								<span class="me-2">
+								<i class="bi bi-speedometer2"></i></span> 
+								<span>Todos</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				<!-- CINE -->
+				<li class="nav-item dropdown w-100">
+					<a class="nav-link links pl-4 sidebar-link" id="cine" data-bs-toggle="dropdown" aria-expanded="false"> 
+						<span class="me-2">
+							<i class="bi bi-layout-split"></i>
+						</span> 
+						<span class="spanTitulo">Cine</span>
+						<span class="ms-auto"> 
+							<span><i class="bi bi-chevron-down"></i></span>
+						</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="cine">
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/cine/registrar}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Agregar</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/cine}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Activos</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/cine}"> 
+								<span class="me-2">
+								<i class="bi bi-speedometer2"></i></span> 
+								<span>Todos</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				<!-- TICKET -->
+				<li class="nav-item dropdown w-100">
+					<a class="nav-link links pl-4 sidebar-link" id="ticket" data-bs-toggle="dropdown" aria-expanded="false"> 
+						<span class="me-2">
+							<i class="bi bi-layout-split"></i>
+						</span> 
+						<span class="spanTitulo">Ticket</span>
+						<span class="ms-auto"> 
+							<span><i class="bi bi-chevron-down"></i></span>
+						</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="ticket">
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/ticket/registrar}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Agregar</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/ticket}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Activos</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/ticket}"> 
+								<span class="me-2">
+								<i class="bi bi-speedometer2"></i></span> 
+								<span>Todos</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+
+				<!-- PELICULA -->
+				<li class="nav-item dropdown w-100">
+					<a class="nav-link links pl-4 sidebar-link" id="pelicula" data-bs-toggle="dropdown" aria-expanded="false"> 
+						<span class="me-2">
+							<i class="bi bi-layout-split"></i>
+						</span> 
+						<span class="spanTitulo">Pelicula</span>
+						<span class="ms-auto"> 
+							<span><i class="bi bi-chevron-down"></i></span>
+						</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="pelicula">
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/pelicula/registrar}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Agregar</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/pelicula}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Activos</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/pelicula}"> 
+								<span class="me-2">
+								<i class="bi bi-speedometer2"></i></span> 
+								<span>Todos</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				
+				<!-- DIRECTOR -->
+				<li class="nav-item dropdown w-100">
+					<a class="nav-link links pl-4 sidebar-link" id="director" data-bs-toggle="dropdown" aria-expanded="false"> 
+						<span class="me-2">
+							<i class="bi bi-layout-split"></i>
+						</span> 
+						<span class="spanTitulo">Director</span>
+						<span class="ms-auto"> 
+							<span><i class="bi bi-chevron-down"></i></span>
+						</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="director">
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/director/registrar}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Agregar</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/director}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Activos</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/director}"> 
+								<span class="me-2">
+								<i class="bi bi-speedometer2"></i></span> 
+								<span>Todos</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				
+				
+				<!-- ACTOR -->
+				<li class="nav-item dropdown w-100">
+					<a class="nav-link links pl-4 sidebar-link" id="actor" data-bs-toggle="dropdown" aria-expanded="false"> 
+						<span class="me-2">
+							<i class="bi bi-layout-split"></i>
+						</span> 
+						<span class="spanTitulo">Actor</span>
+						<span class="ms-auto"> 
+							<span><i class="bi bi-chevron-down"></i></span>
+						</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="actor">
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/actor/registrar}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Agregar</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/actor}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Activos</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/actor}"> 
+								<span class="me-2">
+								<i class="bi bi-speedometer2"></i></span> 
+								<span>Todos</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+	
+			</ul>
+
+		</nav>
+	</div>
+</div>

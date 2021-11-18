@@ -3,7 +3,7 @@
 		<div th:each="pelicula : ${peliculas}" class="col-md-3 img-card-caja text-center">
 
 			<button data-bs-toggle="modal" th:attr="data-bs-target='#modalPelicula'+${pelicula.idPelicula}">
-				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid img-card-pelicula" alt="...">
+				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-card-pelicula" alt="...">
 				<div class="img-card-titulo">
 					<h5 th:text="${pelicula.titulo}"></h5>
 				</div>

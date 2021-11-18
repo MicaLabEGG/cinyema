@@ -7,7 +7,9 @@
   --fondo-secciones: #040405;
   --color-text: #6C6D70;
   --color-amarillo: #FAED1F;
-  --color-naranja: #F37735; 
+  --color-naranja: #F37735;
+  --color-degrade-naranja: #f25300;
+  --color-degrade-amarillo: #fff00c;
 }
 
 html {
@@ -343,7 +345,7 @@ table {
 }
 
 .img-card-pelicula:hover ~ .img-card-titulo h5, .img-card-titulo h5:hover {
-  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+  background: linear-gradient(to bottom, var(--color-degrade-naranja), var(--color-degrade-amarillo));
   font-weight: bold;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -359,7 +361,7 @@ button .img-card-pelicula {
   position: absolute;
   top: 80%;
   width: 225px;
-  background-color: var(--fondo-secciones);
+  background-color: var(--color-naranja);
   opacity: 0.9;
 }
 

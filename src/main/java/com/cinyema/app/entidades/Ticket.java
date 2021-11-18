@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
-@Data
+
 @Entity
 public class Ticket {
 
@@ -27,6 +27,55 @@ public class Ticket {
 	private Funcion funcion;
 	@OneToOne
 	private Asiento asiento;
+
+	public Ticket(Long idTicket, Usuario usuario, Funcion funcion, Asiento asiento) {
+		super();
+		this.idTicket = idTicket;
+		this.usuario = usuario;
+		this.funcion = funcion;
+		this.asiento = asiento;
+	}
+
+	public Ticket() {
+		super();
+	}
+
+	public Long getIdTicket() {
+		return idTicket;
+	}
+
+	public void setIdTicket(Long idTicket) {
+		this.idTicket = idTicket;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public Funcion getFuncion() {
+		return funcion;
+	}
+
+	public void setFuncion(Funcion funcion) {
+		this.funcion = funcion;
+	}
+
+	public Asiento getAsiento() {
+		return asiento;
+	}
+
+	public void setAsiento(Asiento asiento) {
+		this.asiento = asiento;
+	}
+
+	@Override
+	public String toString() {
+		return "Ticket [idTicket=" + idTicket + ", usuario=" + usuario + "]";
+	}
 
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

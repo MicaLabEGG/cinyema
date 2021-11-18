@@ -151,21 +151,30 @@ public class TicketServicio implements ServicioBase<Ticket> {
 	
 	private void validar(Ticket ticket) throws Error {
 
+		if (ticket.getIdTicket()  == null ) {
+            throw new Error("No se encuentra Id del Ticket");
+        }
+		
+		if (ticket.getUsuario() == null ) {
+            throw new Error("No se encuentra a que usuario pertenece el ticket");
+        }
+		
+		if (ticket.getFuncion() == null ) {
+            throw new Error("No se encuentra la funcion en donde pertenece el ticket");
+        }
+		
+		if (ticket.getAsiento() == null ) {
+            throw new Error("El asiento no aparece");
+        }
+		
 //        if (ticket.getPelicula() == null ) {
 //            throw new Error("No se encuentra a que película pertenece el ticket");
 //        }
-        if (ticket.getUsuario() == null ) {
-            throw new Error("No se encuentra a que usuario pertenece el ticket");
-        }
 
 //        if (ticket.getFecha() == null ) {
 //            throw new Error("Debe indicar la fecha");
 //        }
         
-        if (ticket.getAsiento() == null ) {
-            throw new Error("El asiento no aparece");
-        }
-
 //        if (ticket.getPrecio() == null ) {
 //            throw new Error("El campo 'precio' no puede estar vacío");
 //        }

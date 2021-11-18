@@ -1,4 +1,4 @@
-<div th:fragment="_registrarTicket(error,ticket,peliculas,usuarios,asientos,registrar)">
+<div id="tablaAdmin" th:fragment="_registrarTicket(error,ticket,peliculas,usuarios,asientos,registrar)">
 	<section class="container">
 		<div class="row vh-100 justify-content-center align-items-center">
 			<div class="col-auto">
@@ -11,40 +11,40 @@
 				</div>
 				<form th:object="${ticket}" th:action="@{/ticket/registrar}" method="POST">
 					<div class="form-group">
-						<label class="form-label">Pelicula</label>
+						<label class="form-label text-light">Pelicula</label>
 						<select class="form-select" th:field="*{pelicula}" required>
 							<option th:each="pelicula : ${peliculas}" th:value="${pelicula.idPelicula}"
 								th:text="${pelicula.titulo}"></option>
 						</select>
 					</div>
 					<div class="form-group">
-						<label class="form-label">Usuario</label>
+						<label class="form-label text-light">Usuario</label>
 						<select multiple class="form-select" th:field="*{usuario}" required>
 							<option th:each="usuario : ${usuarios}" th:value="${{usuario}}"
 								th:text="${usuario.nombreDeUsuario}"></option>
 						</select>
 					</div>
 					<div class="form-group">
-						<label class="form-label">Fecha</label>
+						<label class="form-label text-light">Fecha</label>
 						<br>
-						<label class="form-label">Recuerde comprar su Ticket con un dia de antelacion</label>
+						<label class="form-label text-light">Recuerde comprar su Ticket con un dia de antelacion</label>
 						<input type="date" class="form-control" th:field="*{fecha}" th:value="${fecha}"
 							required></input>
 					</div>
 					<div class="form-group">
-						<label class="form-label">Lugar</label>
+						<label class="form-label text-light">Lugar</label>
 						<input type="text" class="form-control" th:field="*{lugar}" th:value="${lugar}"
 							required></input>
 					</div>
 					 <div class="form-group">
-                    <label class="form-label">Asiento</label>
+                    <label class="form-label text-light">Asiento</label>
                     <select class="form-select" th:field="*{asiento}" required>
                         <option th:each="asiento : ${asientos}" 
                               th:value="${asiento.idAsiento}" th:text="${asiento.numeroDeAsiento}"></option>
                     </select>
                 </div>
 					<div class="form-group">
-						<label class="form-label">Precio</label>
+						<label class="form-label text-light">Precio</label>
 						<input type="number" class="form-control" th:field="*{precio}" th:value="${precio}"
 							required></input>
 					</div>

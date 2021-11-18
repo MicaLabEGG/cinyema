@@ -54,7 +54,7 @@ public class TicketServicio implements ServicioBase<Ticket> {
 		String contenido = "<p>Querido "+ticket.getUsuario().getNombre()+"</p>";
 		contenido += "<p>Has comprado un boleto para el cine</p>";
 		contenido += "<p><br>Resumen de tu compra:</p>";
-		contenido += "<p>Película: "+ticket.getPelicula().getTitulo()+"</p>";
+		contenido += "<p>Película: "+ticket.getFuncion().getPelicula().getTitulo()+"</p>";
 		contenido += "<p>Sala: "+ticket.getFuncion().getSala().getNombreSala()+"</p>";
 		contenido += "<p>Fecha: "+ticket.getFuncion().getFecha()+"</p>";
 		contenido += "<p>Horario: "+ticket.getFuncion().getHorario()+"</p>";

@@ -119,13 +119,19 @@ nav .logo img:hover {
 	color: var(--color-text);
 }
 
+
 #panelUsuario{
 	margin: 100px 0px 100px 0px;
+	background-image: url(/img/skyline.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: bottom;
 }
 
 #tarjeta-datos-usuario {
-	color: var(--color-text);
-	background-color:  var(--fondo-secciones);
+	color: #fff;
+	background-color: #2b2b2b;
+	border: none;
 	border-right: 0.5rem solid transparent;
 	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
 	border-image-slice: 2; 
@@ -142,9 +148,19 @@ nav .logo img:hover {
 .ticket {
 	color: var(--fondo-html);
 	background-color: var(--color-text);
-	border-left: 0.5rem solid transparent;
+	border: none;
+	border-right: 0.5rem solid transparent;
 	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
 	border-image-slice: 2; 
+	transition: 0.5s;
+	font-size: 25px;
+	text-align: center;
+	padding: 3x;
+}
+
+.ticket:hover {
+	background-color: #aaa;
+	box-shadow: 6px 6px 2px rgba(130,130,130,0.5);
 }
 
 /*--------------------------------------------------------------
@@ -302,6 +318,32 @@ table {
 }
 
 /*--------------------------------------------------------------
+# menu-busqueda-index
+--------------------------------------------------------------*/
+.barra-menu {
+  width: 1rem;
+  height: 100%;
+  position: absolute;
+  left: 0%;
+  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+}
+
+.barra-menu i {
+  font-size: 2rem;
+  position: absolute;
+  top:50%;
+  left:-22%;
+  z-index: -1;
+  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.check-menu:checked ~ .barra-menu {
+  left: 30%;
+}
+
+/*--------------------------------------------------------------
 # cardPelicula
 --------------------------------------------------------------*/
 .img-card-caja {
@@ -316,7 +358,7 @@ table {
   outline: none;
 }
 
-.img-card-caja button .img-card-titulo h5:hover {
+.img-card-pelicula:hover ~ .img-card-titulo h5, .img-card-titulo h5:hover {
   background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
   font-weight: bold;
   -webkit-background-clip: text;

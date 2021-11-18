@@ -149,11 +149,11 @@ public class TicketControlador {
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
 			Sala sala = servicioPelicula.obtenerSalaPorFuncionIdPelicula(idPelicula);
 			modelo.addAttribute("sala", sala);
-			modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala));
 			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorSalaId(sala.getIdSala()));
+			modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala));
 			Ticket ticket = servicioTicket.registrarVacio();
 			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
-			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
+//			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
 			modelo.addAttribute("ticket", ticket);
 			return "vistas/ticketCompra";
 		} catch (Exception e) {

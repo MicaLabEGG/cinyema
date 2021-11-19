@@ -1,31 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:replace="fragmentos/head :: _head"></head>
 
 <body>
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
+	
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
-		<div th:if="${listar}!= null">
-			<div
-				th:replace="fragmentos/sala/listarSala.html :: _listarSala(salas=${salas}, listar=${listar})">
+	
+		<div th:insert="fragmentos/sideNavAdmin :: _sideNavAdmin"></div>
+	
+		<main id="main" class="container-fluid">
+			<div th:if="${listar}!= null">
+				<div
+					th:replace="fragmentos/sala/listarSala.html :: _listarSala(salas=${salas}, listar=${listar})">
+				</div>
 			</div>
-		</div>
-
-		<div th:if="${registrar}!= null">
-			<div
-				th:replace="fragmentos/sala/registrarSala.html :: _registrarSala(sala=${sala}, error=${error} , registrar=${registrar}, funciones=${funciones})">
+	
+			<div th:if="${registrar}!= null">
+				<div
+					th:replace="fragmentos/sala/registrarSala.html :: _registrarSala(sala=${sala}, error=${error} , registrar=${registrar}, funciones=${funciones})">
+				</div>
 			</div>
-		</div>
-
-		<div th:if="${editar}!= null">
-			<div
-				th:replace="fragmentos/sala/editarSala.html :: _editarSala(sala=${sala}, error=${error}, editar=${editar})">
+	
+			<div th:if="${editar}!= null">
+				<div
+					th:replace="fragmentos/sala/editarSala.html :: _editarSala(sala=${sala}, error=${error}, editar=${editar})">
+				</div>
 			</div>
-		</div>
+		</main>
+		
 	</div>
-	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/script.js"></script>   
 </body>
 
 </html>

@@ -7,32 +7,31 @@
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 
 	<section id="panelUsuario">
-		<h1 class="text-center">Historial de Compras</h1>
-
 		<div class="container-fluid">
 			<div class="row justify-content-center">
-
 				<div class="col-sm-3">
-					<div class="card" id="tarjeta-datos-usuario" style="height: 335px;">
+					<div class="card" id="tarjeta-datos-usuario">
 						<div class="card-body text-center">
 							<h2 class="card-title" th:text="${usuario.nombreDeUsuario}"></h2>
-							<p><b>Mail: </b><small th:text="${usuario.mail}"></small></p>
-							<p><b>Nombre: </b><small th:text="${usuario.nombre}"></small></p>
-							<p><b>Fecha: </b><small th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
+							<div class="linea-separadora"></div>
+							<p><i class="fas fa-envelope"></i> <small th:text="${usuario.mail}"></small></p>
+							<p><i class="fas fa-user-alt"></i> <small th:text="${usuario.nombre}"></small></p>
+							<p><i class="fas fa-calendar-minus"></i> <small th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
 							</p>
 						</div>
 					</div>
 				</div>
 
 				<div class="col-sm-7">
-					<div class="card mb-3 ticket">
+				<!--<h1 class="text-center">Historial de Compras</h1>-->
+					<div class="card mb-3 tarjeta-ticket">
 						<div class="row g-0">
 							<div class="col-md-4">
 								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h5 class="card-title">Harry Potter 1</h5>
+									<h5 class="card-title titulo">Harry Potter 1</h5>
 									<p class="card-text">
 										Showcase (Junín 498)<br>
 										10/12/21 14:30<br>
@@ -42,14 +41,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="card mb-3 ticket">
+					<div class="card mb-3 tarjeta-ticket">
 						<div class="row g-0">
 							<div class="col-md-4">
 								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h5 class="card-title">Harry Potter 1</h5>
+									<h5 class="card-title titulo">Harry Potter 1</h5>
 									<p class="card-text">
 										Showcase (Junín 498)<br>
 										10/12/21 14:30<br>
@@ -59,14 +58,14 @@
 							</div>
 						</div>
 					</div>
-					<div class="card mb-3 ticket">
+					<div class="card mb-3 tarjeta-ticket">
 						<div class="row g-0">
 							<div class="col-md-4">
 								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
 							</div>
 							<div class="col-md-8">
 								<div class="card-body">
-									<h5 class="card-title">Harry Potter 1</h5>
+									<h5 class="card-title titulo">Harry Potter 1</h5>
 									<p class="card-text">
 										Showcase (Junín 498)<br>
 										10/12/21 14:30<br>

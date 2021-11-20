@@ -27,10 +27,12 @@ body {
 --------------------------------------------------------------*/
 
 .navbar{
+  height: 85px;
   transition: all 0.5s;
   z-index: 997;
   padding: 15px 0;
   background: var(--fondo-secciones);
+ box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px;
 }
 
 nav .logo {
@@ -47,10 +49,12 @@ nav .logo img {
   max-height: 45px;
 }
 
+/*
 nav .logo img:hover {
   transform: translateY(-1px);
   box-shadow: 0 19px 38px rgba(126, 126, 126, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
+*/
 
 #login{
 	margin: 5px 0px 0px 0px;
@@ -209,27 +213,6 @@ nav .logo img:hover {
 	color: #989898;
 }
 
-
-
-/*-------------*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* PARTE DE USUARIO MANUAL (PRIMERA VERSION COMENTADA EN EL HTML POR LAS DUDAS) 
 
 #tarjeta-datos-usuario {
@@ -260,7 +243,6 @@ nav .logo img:hover {
 
 }
 */
-
 
 /*--------------------------------------------------------------
 # Panel Admin
@@ -394,7 +376,7 @@ main{
 --------------------------------------------------------------*/
 
 #menu{
-	margin: 100px 0px 100px 0px;
+	margin: 50px 0px 50px 0px;
 }
 
 .slider {
@@ -410,18 +392,22 @@ main{
   color: #fff;
 }
 .slider-card {
-  background: #fff;
   padding: 0px 0px;
-  margin: 50px 15px 90px 15px;
+  margin: 40px 30px 80px 40px;
   border-radius: 5px;
   box-shadow: 0 15px 45px -20px rgb(0 0 0 / 73%);
   transform: scale(0.9);
   opacity: 0.5;
   transition: all 0.3s;
 }
+
 .slider-card img {
   border-radius: 5px 5px 0px 0px;
+  height: 250px;
+  width: 100%;
+  background-color: none;
 }
+
 .owl-nav .owl-prev {
   position: absolute;
   top: calc(50% - 25px);
@@ -430,6 +416,7 @@ main{
   font-size: 30px !important;
   z-index: 1;
 }
+
 .owl-nav .owl-next {
   position: absolute;
   top: calc(50% - 25px);
@@ -442,16 +429,17 @@ main{
   text-align: center;
 }
 .owl-dots .owl-dot {
-  height: 10px;
-  width: 10px;
+  height: 7px;
+  width: 7px;
   border-radius: 10px;
-  background: #ccc !important;
+  background: var(--color-text2) !important;
   margin-left: 3px;
   margin-right: 3px;
   outline: none;
 }
+
 .owl-dots .owl-dot.active {
-  background: #f44336 !important;
+  background: #f4bb39 !important;
 }
 
 /*--------------------------------------------------------------

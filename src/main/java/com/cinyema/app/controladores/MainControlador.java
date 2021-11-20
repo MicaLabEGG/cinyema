@@ -19,8 +19,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cinyema.app.Utility;
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.servicios.ActorServicio;
+import com.cinyema.app.servicios.AsientoServicio;
+import com.cinyema.app.servicios.CineServicio;
 import com.cinyema.app.servicios.DirectorServicio;
+import com.cinyema.app.servicios.FuncionServicio;
 import com.cinyema.app.servicios.PeliculaServicio;
+import com.cinyema.app.servicios.SalaServicio;
 import com.cinyema.app.servicios.TicketServicio;
 import com.cinyema.app.servicios.UsuarioServicio;
 
@@ -42,7 +46,19 @@ public class MainControlador {
 	
 	@Autowired
 	private TicketServicio ticketServicio;
+	
+	@Autowired
+	private CineServicio cineServicio;
+	
+	@Autowired
+	private SalaServicio salaServicio;
 
+	@Autowired
+	private AsientoServicio asientoServicio;
+	
+	@Autowired
+	private FuncionServicio funcionServicio;
+	
 	@GetMapping()
 	public String index(ModelMap modelo) {
 		modelo.addAttribute("peliculas", peliculaServicio.listarPeliculasActivas());
@@ -117,6 +133,10 @@ public class MainControlador {
 			modelo.put("ticketTotal", ticketServicio.totalTicket());
 			modelo.put("directorTotal", directorServicio.totalDirector());
 			modelo.put("actorTotal", actorServicio.obtenerCantidadActores());
+			modelo.put("cineTotal", cineServicio.totalCine());
+			modelo.put("salaTotal", salaServicio.totalSala());
+			modelo.put("asientoTotal", asientoServicio.totalAsiento());
+			modelo.put("funcionTotal", funcionServicio.totalFuncion());
 			return "vistas/admin/panelAdmin";
 		} catch (Exception e) {
 			System.err.println(e.getMessage());

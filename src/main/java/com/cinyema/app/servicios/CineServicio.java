@@ -44,6 +44,10 @@ public class CineServicio implements ServicioBase<Cine>{
 		return cineRepositorio.findAll();
 	}
 	
+	public long totalCine() throws Exception {
+		return cineRepositorio.count();
+	}
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public List<Cine> listarCinePorNombre(String nombre) throws Exception {
         List<Cine> cines = cineRepositorio.buscarCinePorNombre(nombre);

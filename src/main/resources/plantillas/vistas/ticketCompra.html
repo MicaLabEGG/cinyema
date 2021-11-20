@@ -51,6 +51,7 @@
 							<p>PAIS:<strong th:text="*{pais}"></strong></p>
 							<p>IDIOMA:<strong th:text="*{idioma}"></strong></p>
 							<p>SUBTITULO:<strong th:text="*{subtitulo}"></strong></p>
+							<p>FORMATO:<strong th:text="*{formato}"></strong></p>
 							<p>ACTORES:<strong><small th:each="actor : ${pelicula.actores}"
 										th:text="${actor.nombreCompleto}"></small></strong></p>
 							<p>DIRECTOR:<strong><small th:each="director : ${pelicula.director}"
@@ -80,8 +81,12 @@
 								</div>-->
 								<p>Pelicula: <b th:text="${pelicula.titulo}"></b></p>
 								<p>Usuario: <b th:text="${usuario.nombreDeUsuario}"></b></p>
-								<p>Sala: <b th:text="${sala.nombreSala}"></b></p>
-								<p>Precio: <b th:text="${sala.cine.precio}"></b></p>
+								<p>Salas:<strong><small th:each="sala : ${salas}"
+										th:text="${sala.nombreSala}+', '"></small></strong></p>
+<!-- 								<p>Sala: <b th:text="${sala.nombreSala}"></b></p> -->
+								<p>Precio:<strong><small th:each="sala : ${salas}"
+										th:text="${sala.cine.precio}+', '"></small></strong></p>
+<!-- 								<p>Precio: <b th:text="${sala.cine.precio}"></b></p> -->
 								<div class="form-group">
                                     <label class="form-label">Funcion dia</label>
                                    <select class="form-select" th:field="*{funcion}" required>
@@ -112,7 +117,7 @@
 				</div>
 			</div>
 		</div>
-	
+	</div>
 	</section>
 
 	<footer th:insert="fragmentos/footer :: _footer"></footer>

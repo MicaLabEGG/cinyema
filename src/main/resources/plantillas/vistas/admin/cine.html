@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
-<head th:replace="fragmentos/head :: _head">
-
-</head>
+<head th:replace="fragmentos/head :: _head"></head>
 
 <body>
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 	
 	<div sec:authorize="hasRole('ADMINISTRADOR')">
+	
 		<div th:insert="fragmentos/sideNavAdmin :: _sideNavAdmin"></div>
 		
 		<main id="main" class="container-fluid">
@@ -32,10 +31,7 @@
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/dataTables-demo.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
-    <script src="/js/script.js"></script>   
+    <script src="/js/script.js"></script>  
 </body>
 
 </html>

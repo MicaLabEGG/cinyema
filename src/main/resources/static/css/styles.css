@@ -42,7 +42,6 @@ nav .logo {
   text-transform: uppercase;
 }
 
-
 nav .logo img {
   max-height: 45px;
 }
@@ -52,12 +51,11 @@ nav .logo img:hover {
   box-shadow: 0 19px 38px rgba(126, 126, 126, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
 
-
 #login{
 	margin: 5px 0px 0px 0px;
 }
 
-#login ul li a:hover{
+#login ul li a{
 	color: #ffbb38;
 }
 
@@ -236,19 +234,57 @@ main{
 # Tablas Panel Admin
 --------------------------------------------------------------*/
 
-.tamTabla{
-	margin: auto;
-	width: 95%;
-}
-
 #tablaAdmin{
 	margin: 200px 0px 100px 270px;
 }
 
-table {
+#tablaAdmin .tamTabla{
+	margin: auto;
+	width: 95%;
+}
+
+#tablaAdmin table {
   border-collapse: collapse;
 }
 
+#tablaAdmin .buscador{
+	width: 50%;
+	height: 41px;
+	margin: 15px 0 0px 0px;
+	border-radius: 5px;
+	border-color: black;
+	color: black;
+}
+
+#tablaAdmin .buscador:hover{
+	border-color: gray;
+}
+
+#tablaAdmin .btn_buscar{
+	margin: 0px 0 2px 0px;
+	border-color: black;
+	height: 40px;
+	width: 42px;
+}
+
+#tablaAdmin .btn_buscar:hover{
+	border-color: gray;
+}
+
+#tablaAdmin .btn_actualizar{
+	margin: 0px 0 2px 0px;
+	border-color: black;
+	height: 40px;
+	width: 42px;
+}
+
+#tablaAdmin .btn_actualizar:hover{
+	border-color: gray;
+}
+
+#tablaAdmin .errorBuscar{
+	color: red;
+}
 
 /*--------------------------------------------------------------
 # Ticket Compra

@@ -13,7 +13,7 @@ import com.cinyema.app.entidades.Ticket;
 @Repository
 public interface FuncionRepositorio extends JpaRepository<Funcion, Long>{
 	
-	@Query("SELECT f FROM Funcion f WHERE f.sala.idSala = :idSala")
-	public List<Funcion> obtenerFuncionesPorSalaId(@Param("idSala") Long idSala);
+	@Query("SELECT f FROM Funcion f WHERE f.pelicula.idPelicula = :idPelicula")
+	public List<Funcion> obtenerFuncionesPorPeliculaId(@Param("idPelicula") Long idPelicula);
 
 }

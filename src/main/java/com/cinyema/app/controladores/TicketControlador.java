@@ -1,5 +1,7 @@
 package com.cinyema.app.controladores;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -147,10 +149,12 @@ public class TicketControlador {
 			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
-			Sala sala = servicioPelicula.obtenerSalaPorFuncionIdPelicula(idPelicula);
-			modelo.addAttribute("sala", sala);
-			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorSalaId(sala.getIdSala()));
-			modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala));
+			List<Sala> salas = servicioPelicula.obtenerSalaPorFuncionIdPelicula(idPelicula);
+			modelo.addAttribute("salas", salas);
+			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorPeliculaId(idPelicula));
+			for (Sala sala1 : salas) {
+				modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala1));
+			}
 			Ticket ticket = servicioTicket.registrarVacio();
 			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 //			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));

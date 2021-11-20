@@ -9,76 +9,68 @@
 	<section id="panelUsuario">
 		<div class="container-fluid">
 			<div class="row justify-content-center">
+
 				<div class="col-sm-3">
-					<div class="card" id="tarjeta-datos-usuario">
-						<div class="card-body text-center">
-							<h2 class="card-title" th:text="${usuario.nombreDeUsuario}"></h2>
-							<div class="linea-separadora"></div>
+					<!----------------------------------------- USUSARIO -------------------------------------------->
+					<br><br><br>
+					<div class="card-usuario">
+						<img src="https://i.pinimg.com/originals/7d/a4/b2/7da4b2a2fccdc1c68e60e4a081ee512d.gif" alt="">
+						<h2 class="card-title" th:text="${usuario.nombreDeUsuario}">Full Name</h2>
+						<div class="cont">
 							<p><i class="fas fa-envelope"></i> <small th:text="${usuario.mail}"></small></p>
 							<p><i class="fas fa-user-alt"></i> <small th:text="${usuario.nombre}"></small></p>
-							<p><i class="fas fa-calendar-minus"></i> <small th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
+							<p><i class="fas fa-calendar-minus"></i> <small
+									th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
 							</p>
 						</div>
 					</div>
+
+					<!-------------------------------------------------------------------------------------------->
+
 				</div>
 
 				<div class="col-sm-7">
-				<!--<h1 class="text-center">Historial de Compras</h1>-->
-					<div class="card mb-3 tarjeta-ticket">
+
+					<!------------------------------------------ BOLETO ------------------------------------------>
+
+
+					<!-------------------------------------------------------------------------------------------->
+
+					<div class="card mb-3 container-tarjeta-ticket">
 						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
+
+							<div class="col-md-5">
+								<div class="container-imagen-boleto">
+									<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight"
+										alt="...">
+								</div>
 							</div>
-							<div class="col-md-8">
-								<div class="card-body">
-									<h5 class="card-title titulo">Harry Potter 1</h5>
-									<p class="card-text">
-										Showcase (Junín 498)<br>
-										10/12/21 14:30<br>
-										$1500
-									</p>
+
+							<div class="col-md-7">
+								<div class="body-text-ticket d-inline-flex p-2">
+									<div class="row">
+										<h5 class="body-title titulo text-center">Harry Potter 1</h5>
+										<div class="row">
+											<div class="col-6 ">
+												<p class="body-text-boleto">
+													Showcase (Junín 498)<br>
+													10/12/21 14:30<br>
+													$1500
+												</p>
+											</div>
+											<div class="col-6">
+												<p class="body-text-boleto">
+													Showcase (Junín 498)<br>
+													10/12/21 14:30<br>
+													$1500
+												</p>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="card mb-3 tarjeta-ticket">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body">
-									<h5 class="card-title titulo">Harry Potter 1</h5>
-									<p class="card-text">
-										Showcase (Junín 498)<br>
-										10/12/21 14:30<br>
-										$1500
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card mb-3 tarjeta-ticket">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body">
-									<h5 class="card-title titulo">Harry Potter 1</h5>
-									<p class="card-text">
-										Showcase (Junín 498)<br>
-										10/12/21 14:30<br>
-										$1500
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
-		</div>
 	</section>
 
 	<footer th:insert="fragmentos/footer :: _footer"></footer>
@@ -110,3 +102,26 @@
 								</tbody>
 							</table>
 -->
+
+<!--
+	
+	parte manual perfil parte izq
+	
+	<div class="card" id="tarjeta-datos-usuario">
+						<span class="fa-stack fa-lg fa-4x circulo-usuario">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fas fa-user fa-stack-1x fa-inverse circulo-logo-usuario"></i>
+						</span>
+						<div class="card-user-body text-center">
+							<h2 class="card-title" th:text="${usuario.nombreDeUsuario}"></h2>
+							<div class="card-text">
+								<p><i class="fas fa-envelope"></i> <small th:text="${usuario.mail}"></small></p>
+								<p><i class="fas fa-user-alt"></i> <small th:text="${usuario.nombre}"></small></p>
+								<p><i class="fas fa-calendar-minus"></i> <small
+										th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
+								</p>
+							</div>
+						</div>
+					</div>
+					
+					-->

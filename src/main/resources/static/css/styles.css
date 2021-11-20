@@ -124,7 +124,7 @@ nav .logo img:hover {
 	background-position: bottom;*/
 }
 
-/*---- USURIO -----*/
+/*-- card usuario --*/
 .card-usuario{
     display: flex;
     flex-direction: column;
@@ -167,10 +167,8 @@ nav .logo img:hover {
     text-align: center;
     height: 100px;
 }
-/*-------------*/
 
-
-/*-- BOLETO --*/
+/*-- card boleto --*/
 
 .container-imagen-boleto {
 	background-color: var(--fondo-secciones);
@@ -188,7 +186,6 @@ nav .logo img:hover {
 	border-image-slice: 1; 
 	transition: 0.5s;
 	text-align: center;
-	border-radius: 5px;
 	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 	margin: 20px;
 }

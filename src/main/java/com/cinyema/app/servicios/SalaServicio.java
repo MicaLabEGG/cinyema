@@ -129,6 +129,12 @@ public class SalaServicio implements ServicioBase<Sala>{
 		List<Funcion> funciones = funcionRepositorio.obtenerFuncionesPorPeliculaId(idPelicula);
 		return funciones;
 	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public List<Funcion> obtenerFuncionesPorPeliculaIdAndFecha(Long idPelicula, String fecha) {
+		List<Funcion> funciones = funcionRepositorio.obtenerFuncionesPorPeliculaAndFecha(idPelicula, fecha);
+		return funciones;
+	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

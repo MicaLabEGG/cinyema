@@ -2,6 +2,7 @@ package com.cinyema.app.controladores;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cinyema.app.Utility;
+import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.entidades.Usuario;
 import com.cinyema.app.servicios.ActorServicio;
 import com.cinyema.app.servicios.AsientoServicio;
@@ -152,6 +154,11 @@ public class MainControlador {
 			Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(usuario.getFechaNacimiento());
 			modelo.put("fechaNacimiento", fechaNacimiento);
 			modelo.addAttribute("usuario", usuario);
+			List <Ticket> tickets = usuario.getTicket();
+			for (Ticket ticket : tickets) {
+				//ticket.getFuncion().getPelicula();
+				modelo.addAttribute("pelicula", ticket.getFuncion().getPelicula());
+			}
 			return "vistas/usuario/panelUsuario";
 		} catch (Exception e) {
 			modelo.addAttribute("error", "No se encontro el usuario");

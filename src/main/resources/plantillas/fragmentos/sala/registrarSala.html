@@ -1,10 +1,8 @@
-<div id="tablaAdmin" th:fragment="_registrarSala(sala, error,registrar, funciones)">
+<div id="registros" th:fragment="_registrarSala(sala, error,registrar, funciones)">
 	<section class="container">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
 			
-				<h1 class="text-center text-light" th:text="${registrar}"></h1>
-
 				<div th:if="${error}!=null" class="card text-light bg-danger mb-3" style="max-width: 23rem;">
 					<div class="card-body">
 						<h5 class="card-title">Error</h5>
@@ -13,8 +11,12 @@
 				</div>
 
 				<form th:object="${sala}" th:action="@{/sala/registrar}" method="POST">
+					<div class="text-center titulo">
+						<h1 class="text-center text-light" th:text="${registrar}"></h1>
+					</div>
+					
 					<div class="form-group">
-						<label class="text-light">Nombre Sala</label>
+						<label class="text-light">Nombre de la Sala</label>
 						<input type="text" class="form-control" th:field="*{nombreSala}" th:value="*{nombreSala}" required></input>
 					</div>
 					
@@ -32,14 +34,16 @@
 <!--         						th:value="${pelicula.idPelicula}" th:text="${pelicula.titulo}"></option> -->
 <!--                     		</select> -->
 <!--                		 </div> -->
-               		 
+         		 
 					<div class="form-group">
-						<label class="text-light">Cantidad de asientos</label>
+						<label class="text-light">Cantidad de Asientos</label>
 						<input type="text" class="form-control" th:field="*{cantidadAsientos}" th:value="*{cantidadAsientos}" required></input>
 					</div>
-					<button class="btn btn-primary" type="submit">Guardar</button>
-				</form>
-				
+					
+					<div class="text-center boton">
+						<button class="btn btn-primary" type="submit">Guardar</button>
+					</div>				
+				</form>				
 			</div>
 		</div>
 	</section>

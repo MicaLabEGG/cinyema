@@ -174,6 +174,7 @@ public class TicketControlador {
 		try {
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
+			modelo.put("fecha", fecha);
 			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorPeliculaIdAndFecha(idPelicula, fecha));
 			return "vistas/ticketCompraHorario";
 		} catch (Exception e) {

@@ -149,23 +149,37 @@ public class TicketControlador {
 			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
-			List<Sala> salas = servicioPelicula.obtenerSalaPorFuncionIdPelicula(idPelicula);
-			modelo.addAttribute("salas", salas);
+//			List<Sala> salas = servicioPelicula.obtenerSalaPorFuncionIdPelicula(idPelicula);
+//			modelo.addAttribute("salas", salas);
 			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorPeliculaId(idPelicula));
-			for (Sala sala1 : salas) {
-				modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala1));
-			}
-			Ticket ticket = servicioTicket.registrarVacio();
-			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
-//			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
-			modelo.addAttribute("ticket", ticket);
-			return "vistas/ticketCompra";
+//			for (Sala sala1 : salas) {
+//				modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala1));
+//			}
+//			Ticket ticket = servicioTicket.registrarVacio();
+//			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+////			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
+//			modelo.addAttribute("ticket", ticket);
+			return "vistas/ticketCompraFecha";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
 			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
-			return "vistas/ticketCompra";
+			return "vistas/ticketCompraFecha";
+		}
+	}
+	
+	@GetMapping("/compra/{idPelicula}/{fecha}")
+	public String compraFecha(ModelMap modelo, Authentication autenticacion, @PathVariable Long idPelicula,@PathVariable String fecha) throws Exception {
+		try {
+			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
+			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorPeliculaIdAndFecha(idPelicula, fecha));
+			return "vistas/ticketCompraHorario";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.put("error", e.getMessage());
+			return "vistas/ticketCompraHorario";
 		}
 	}
 

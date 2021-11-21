@@ -15,5 +15,8 @@ public interface FuncionRepositorio extends JpaRepository<Funcion, Long>{
 	
 	@Query("SELECT f FROM Funcion f WHERE f.pelicula.idPelicula = :idPelicula")
 	public List<Funcion> obtenerFuncionesPorPeliculaId(@Param("idPelicula") Long idPelicula);
+	
+	@Query("SELECT f FROM Funcion f WHERE f.pelicula.idPelicula = :idPelicula AND f.fecha = :fecha")
+	public List<Funcion> obtenerFuncionesPorPeliculaAndFecha(@Param("idPelicula") Long idPelicula, @Param("fecha") String fecha);
 
 }

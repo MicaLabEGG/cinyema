@@ -6,6 +6,8 @@
   --fondo-html: #201F20;
   --fondo-secciones: #040405;
   --color-text: #6C6D70;
+  --color-text2: #989898;
+  --color-titulo: #ffffff;
   --color-amarillo: #FAED1F;
   --color-naranja: #F37735;
   --color-degrade-naranja: #f25300;
@@ -18,7 +20,7 @@ html {
 body {
   margin: 0;
   width: 100%;
-  font-family: 'Source Serif Pro', sans-serif;
+  font-family: 'Nunito', sans-serif;
   background: var(--fondo-html);
 }
 
@@ -27,10 +29,12 @@ body {
 --------------------------------------------------------------*/
 
 .navbar{
+  height: 85px;
   transition: all 0.5s;
   z-index: 997;
   padding: 15px 0;
   background: var(--fondo-secciones);
+ box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px;
 }
 
 nav .logo {
@@ -43,22 +47,22 @@ nav .logo {
   text-transform: uppercase;
 }
 
-
 nav .logo img {
   max-height: 45px;
 }
 
+/*
 nav .logo img:hover {
   transform: translateY(-1px);
   box-shadow: 0 19px 38px rgba(126, 126, 126, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
-
+*/
 
 #login{
 	margin: 5px 0px 0px 0px;
 }
 
-#login ul li a:hover{
+#login ul li a{
 	color: #ffbb38;
 }
 
@@ -106,7 +110,7 @@ nav .logo img:hover {
 
 
 /*--------------------------------------------------------------
-# Formulario Login-Registro
+# Login-Registro
 --------------------------------------------------------------*/
 
 #login-registro{
@@ -114,56 +118,165 @@ nav .logo img:hover {
 }
 
 /*--------------------------------------------------------------
+# Formularios de Registros
+--------------------------------------------------------------*/
+
+#registros{
+	margin: 150px 0px 100px 270px;
+}
+
+#registros form{
+	background-color: rgb(0, 0, 0);
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 100px;
+    border-radius: 16px;
+    padding: 35px 25px;
+    padding-bottom: 25px;
+    opacity: 0.8;
+    box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.8);
+}
+
+#registros .titulo{
+	margin: 0px 0px 20px 0px;
+}
+
+#registros .form-group{
+	margin: 0px 0px 10px 0px;
+}
+
+#registros .boton{
+	margin: 25px 0px 0px 0px;
+}
+
+/*--------------------------------------------------------------
 # Panel Usuario
 --------------------------------------------------------------*/
 
-#panelUsuario h1 {
-	color: var(--color-text);
-}
-
-
 #panelUsuario{
 	margin: 100px 0px 100px 0px;
-	background-image: url(/img/skyline.png);
+	/*background: linear-gradient(to bottom, var(--color-naranja));*/
+	/*background-image: url(/img/skyline.png);
 	background-repeat: no-repeat;
 	background-size: contain;
-	background-position: bottom;
+	background-position: bottom;*/
 }
 
-#tarjeta-datos-usuario {
-	color: #fff;
-	background-color: #2b2b2b;
-	border: none;
-	border-right: 0.5rem solid transparent;
-	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
-	border-image-slice: 2; 
-	padding-bottom: 100 px;
-	height: 400 px;
+/*-- card usuario --*/
+.card-usuario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0 0 15px 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 250px;
+    padding-bottom: 15px;
+    background-color: rgb(10, 10, 10);
 }
 
-#contenedor-boletos {
-	color: var(--color-text);
+.card-usuario img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-image: linear-gradient(60deg, var(--color-amarillo), var(--color-naranja));
+    padding: 5px;
+    margin-top: -45px;
+}
+
+.card-usuario h2{
+    margin: 10px 0;
+    color: var(--color-titulo);
+}
+
+.cont{
+    width: 90%;
+    height: 0;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.6s ease;
+    color: var(--color-text2);
+}
+
+.card-usuario:hover > .cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    height: 100px;
+}
+
+/*-- card boleto --*/
+
+.container-imagen-boleto {
 	background-color: var(--fondo-secciones);
+}
+
+.container-imagen-boleto img {
+	height: 100%;
+}
+
+.container-tarjeta-ticket {
+	background-color: #181818;
+	border: none;
+	border-right: 0.2rem solid transparent;
+	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+	border-image-slice: 1; 
+	transition: 0.5s;
+	text-align: center;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	margin: 20px;
+}
+
+.container-tarjeta-ticket:hover {
+	box-shadow: rgba(0, 0, 0, 0.24) 15px 15px 15px;
+}
+
+.body-text-ticket {
+	margin: 20px;
+}
+
+.body-text-ticket .titulo {
+	color: var(--color-titulo);
+	font-weight: bold;
+	border: var(--fondo-secciones);
 	
 }
 
-.ticket {
-	color: var(--fondo-html);
-	background-color: var(--color-text);
-	border: none;
-	border-right: 0.5rem solid transparent;
-	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
-	border-image-slice: 2; 
-	transition: 0.5s;
-	font-size: 25px;
-	text-align: center;
-	padding: 3x;
+.body-text-ticket .body-text-boleto {
+	color: #989898;
 }
 
-.ticket:hover {
-	background-color: #aaa;
-	box-shadow: 6px 6px 2px rgba(130,130,130,0.5);
+/* PARTE DE USUARIO MANUAL (PRIMERA VERSION COMENTADA EN EL HTML POR LAS DUDAS) 
+
+#tarjeta-datos-usuario {
+	color: #fff;
+	background-color: #181818;
+	border: var(--color-amarillo) 0.3px solid;
+	border-image: linear-gradient(to bottom, var(--color-amarillo), var(--fondo-secciones));
+	border-image-slice: 2; 
+	border-radius: 10px;
+	padding-bottom: 100 px;
+	margin: 30px;
 }
+
+#tarjeta-datos-usuario h2 {
+	font-weight: bold;
+}
+
+#tarjeta-datos-usuario .card-user-body {
+	margin: 0px 20px 40px 20px;
+}
+
+#tarjeta-datos-usuario .circulo-usuario {
+	margin: 30px auto 3px auto;
+}
+
+#tarjeta-datos-usuario .circulo-logo-usuario {
+ color:black;
+
+}
+*/
 
 /*--------------------------------------------------------------
 # Panel Admin
@@ -179,7 +292,7 @@ nav .logo img:hover {
   transform: none;
   visibility: visible !important;
   height: calc(100% - 97px);
-  top: 97px;
+  top: 85px;
 }
 .sidebar-link {
   display: flex;
@@ -218,11 +331,11 @@ main{
 # Cards Panel Admin
 --------------------------------------------------------------*/
 
-.cardsAdmin{
+#cardAdmin .cardsAdmin{
 	margin: 150px 0px 100px 0px;
 }
 
-.card-body:hover {
+#cardAdmin .card-body:hover {
   transform: translateY(-2px);
   box-shadow: 0 2px 10px 2px rgba(255, 255, 255, 0.8);
   cursor: pointer;
@@ -232,34 +345,95 @@ main{
 # Tablas Panel Admin
 --------------------------------------------------------------*/
 
-.tamTabla{
-	margin: auto;
-	width: 95%;
-}
-
 #tablaAdmin{
 	margin: 200px 0px 100px 270px;
 }
 
-table {
+#tablaAdmin .tamTabla{
+	margin: auto;
+	width: 95%;
+}
+
+#tablaAdmin table {
   border-collapse: collapse;
 }
 
+#tablaAdmin .buscador{
+	width: 50%;
+	height: 41px;
+	margin: 15px 0 0px 0px;
+	border-radius: 5px;
+	border-color: black;
+	color: black;
+}
+
+#tablaAdmin .buscador:hover{
+	border-color: gray;
+}
+
+#tablaAdmin .btn_buscar{
+	margin: 0px 0 2px 0px;
+	border-color: black;
+	height: 40px;
+	width: 42px;
+}
+
+#tablaAdmin .btn_buscar:hover{
+	border-color: gray;
+}
+
+#tablaAdmin .btn_actualizar{
+	margin: 0px 0 2px 0px;
+	border-color: black;
+	height: 40px;
+	width: 42px;
+}
+
+#tablaAdmin .btn_actualizar:hover{
+	border-color: gray;
+}
+
+#tablaAdmin .errorBuscar{
+	color: red;
+}
 
 /*--------------------------------------------------------------
 # Ticket Compra
 --------------------------------------------------------------*/
 
 #ticketCompra{
-	margin: 100px 0px 100px 0px;
+	margin: 150px 0px 100px 0px;
 }
+
+#ticketCompra .trailer{
+	color: white;
+	text-decoration: none;
+}
+
+#ticketCompra .trailer:hover{
+	color: #ffc451;
+}
+
+#ticketCompra .sinopsis{
+	color:white;
+}
+
+#ticketCompra .tituloBoleto{
+	color: #ffc451;
+}
+
+#ticketCompra .tituloBoleto:hover{
+	color: #ffff80;
+}
+
+
 
 /*--------------------------------------------------------------
 # Menu Principal
 --------------------------------------------------------------*/
 
 #menu{
-	margin: 100px 0px 100px 0px;
+	margin: 50px 0px 50px 0px;
 }
 
 .slider {
@@ -275,18 +449,22 @@ table {
   color: #fff;
 }
 .slider-card {
-  background: #fff;
   padding: 0px 0px;
-  margin: 50px 15px 90px 15px;
+  margin: 40px 30px 80px 40px;
   border-radius: 5px;
   box-shadow: 0 15px 45px -20px rgb(0 0 0 / 73%);
   transform: scale(0.9);
   opacity: 0.5;
   transition: all 0.3s;
 }
+
 .slider-card img {
   border-radius: 5px 5px 0px 0px;
+  height: 250px;
+  width: 100%;
+  background-color: none;
 }
+
 .owl-nav .owl-prev {
   position: absolute;
   top: calc(50% - 25px);
@@ -295,6 +473,7 @@ table {
   font-size: 30px !important;
   z-index: 1;
 }
+
 .owl-nav .owl-next {
   position: absolute;
   top: calc(50% - 25px);
@@ -307,16 +486,17 @@ table {
   text-align: center;
 }
 .owl-dots .owl-dot {
-  height: 10px;
-  width: 10px;
+  height: 7px;
+  width: 7px;
   border-radius: 10px;
-  background: #ccc !important;
+  background: var(--color-text2) !important;
   margin-left: 3px;
   margin-right: 3px;
   outline: none;
 }
+
 .owl-dots .owl-dot.active {
-  background: #f44336 !important;
+  background: #f4bb39 !important;
 }
 
 /*--------------------------------------------------------------

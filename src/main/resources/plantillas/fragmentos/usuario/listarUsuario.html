@@ -4,10 +4,17 @@
         <div class="col-md-9 mb-3 tamTabla">
           <div class="card">
             <div class="card-header">
-              <span><i class="bi bi-table me-2"></i></span>
-              <h1 class="text-center">Usuario</h1>
+              <span><i class="bi bi-table me-2"></i>Tabla de Usuarios</span>
             </div>
-            <div class="card-body">
+            <div class="col col-md-4 mt-2 ms-2 mb-3">
+				<form th:action="@{/usuario/buscarUsuario}" th:object=${usuario} method="POST" class="form">
+                  <input class="buscador" th:value="${nombre}" type="text" placeholder=" Buscar">
+                  <button class="btn btn_buscar" type="submit"><span><i class="uil uil-search"></i></span></button>
+                  <a class="btn btn-light btn_actualizar" th:href="@{/usuario}"><i class="uil uil-sync"></i></a>
+	      	  	</form>
+	      	  	<p class="errorBuscar" th:if="${ErrorBuscar != null}" th:text="${ErrorBuscar}"></p>
+			</div>
+            <div>
               <div class="table-responsive">
                 <table id="datatablesSimple" class="table table-striped data-table">
 					<thead>
@@ -40,7 +47,7 @@
 								<a th:href="@{/usuario/eliminar/__${usuario.idUsuario}__}"><i class="far fa-trash-alt"></i></a>
 							</td>
 						</tr>
-					</tbody>
+					</tbody>					    	
 				</table>
               </div>
             </div>

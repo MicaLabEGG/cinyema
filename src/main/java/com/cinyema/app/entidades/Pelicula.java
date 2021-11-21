@@ -2,6 +2,8 @@ package com.cinyema.app.entidades;
 
 import java.util.List;
 import java.util.UUID;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -56,13 +59,15 @@ public class Pelicula {
 	private Calificacion calificacion;
 	private Double voto;
 	private String trailer;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pelicula")
+	private List<Funcion>funciones;
 
 	public Pelicula() {
 	}
 
 	public Pelicula(Long idPelicula, String titulo, String anio, String descripcion, String duracion, Genero genero,
 			Pais pais, Idioma idioma, Subtitulo subtitulo, String imagen, Boolean alta, Director director,
-			List<Actor> actores, Calificacion calificacion, Double voto, String trailer) {
+			List<Actor> actores, Calificacion calificacion, Double voto, String trailer, List<Funcion>funciones) {
 		super();
 		this.idPelicula = idPelicula;
 		this.titulo = titulo;
@@ -80,6 +85,7 @@ public class Pelicula {
 		this.calificacion = calificacion;
 		this.voto = voto;
 		this.trailer = trailer;
+		this.funciones = funciones;
 	}
 
 	public Long randomId() {

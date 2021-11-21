@@ -45,6 +45,10 @@ public class FuncionServicio implements ServicioBase<Funcion>{
 		return funcionRepositorio.findAll();
 	}
 	
+	public long totalFuncion() throws Exception {
+		return funcionRepositorio.count();
+	}
+	
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Funcion obtenerPorId(Long id) throws Exception {

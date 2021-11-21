@@ -17,15 +17,16 @@
 			<div class="row mt-3">
 	
 				<!-- PRIMER COLUMNA: FOTO -->
-				<div class="col-4">
-				    <p>Ver Trailer: </p><p><strong th:text="*{pelicula.trailer}"></strong></p>
-					<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid rounded mx-auto d-block"
-						alt="...">
+				<div class="col-4 mt-4">
+				
+					<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid rounded mx-auto d-block" alt="..." width="65%">
+						
+					<a class="trailer" th:href="*{pelicula.trailer}" target="_blank"><p class="text-center mt-4"><i class="uil uil-play"></i> Ver Trailer</p></a>
 				</div>
 	
 				<!-- SEGUNDA COLUMNA: PELICULA -->
-				<div class="col-5">
-					<nav>
+				<div class="col-4">
+					<nav class="mt-4">
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
 							<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
 								data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
@@ -39,21 +40,22 @@
 						</div>
 					</nav>
 					<div th:object="${pelicula}" class="tab-content" id="nav-tabContent">
-						<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+						<div class="tab-pane fade show active text-light mt-4" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 							<p th:text="*{descripcion}"></p>
 						</div>
-						<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+						<div class="tab-pane fade text-light mt-4" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 	
-							<p>TITULO:<strong th:text="*{titulo}"></strong></p>
-							<p>AÑO:<strong th:text="*{anio}"></strong></p>
-							<p>DURACIÓN:<strong th:text="*{duracion}"></strong></p>
-							<p>GENERO:<strong th:text="*{genero}"></strong></p>
-							<p>PAIS:<strong th:text="*{pais}"></strong></p>
-							<p>IDIOMA:<strong th:text="*{idioma}"></strong></p>
-							<p>SUBTITULO:<strong th:text="*{subtitulo}"></strong></p>
-							<p>ACTORES:<strong><small th:each="actor : ${pelicula.actores}"
+							<p>Titulo: <strong th:text="*{titulo}"></strong></p>
+							<p>A�o: <strong th:text="*{anio}"></strong></p>
+							<p>Duracion: <strong th:text="*{duracion}"></strong></p>
+							<p>Genero: <strong th:text="*{genero}"></strong></p>
+							<p>Pais: <strong th:text="*{pais}"></strong></p>
+							<p>Idioma: <strong th:text="*{idioma}"></strong></p>
+							<p>Subtitulado: <strong th:text="*{subtitulo}"></strong></p>
+							<p>Formato: <strong th:text="*{formato}"></strong></p>
+							<p>Actores: <strong><small th:each="actor : ${pelicula.actores}"
 										th:text="${actor.nombreCompleto}"></small></strong></p>
-							<p>DIRECTOR:<strong><small th:each="director : ${pelicula.director}"
+							<p>Director: <strong><small th:each="director : ${pelicula.director}"
 										th:text="${director.nombre}"></small></strong></p>
 						</div>
 					</div>
@@ -63,9 +65,9 @@
 
 			<div class="col-3">
 				<div class="card mt-4">
-					<div class="card-body">
+					<div class="card-body bg-dark text-light">
 						<div class="container">
-							<h5 class="card-title text-center m-2">Boleto</h5>
+							<h2 class="card-title text-center mb-4 tituloBoleto">Boleto</h2>
 
 							<form th:object="${ticket}" th:action="@{/ticket/compra/__${ticket.idTicket}__}" method="POST">
 								<div class="form-group" hidden>
@@ -78,33 +80,43 @@
 									<input type="text" class="form-control" th:field="*{pelicula}" th:placeholder="${ticket.pelicula.titulo}" th:value="${pelicula}"
 										readonly required></input>
 								</div>-->
-								<p>Pelicula: <b th:text="${pelicula.titulo}"></b></p>
-								<p>Usuario: <b th:text="${usuario.nombreDeUsuario}"></b></p>
-								<p>Sala: <b th:text="${sala.nombreSala}"></b></p>
-								<p>Precio: <b th:text="${sala.cine.precio}"></b></p>
 								<div class="form-group">
-                                    <label class="form-label">Funcion dia</label>
+									<p>Pelicula: <b th:text="${pelicula.titulo}"></b></p>
+								</div>
+								<div class="form-group">
+									<p>Usuario: <b th:text="${usuario.nombreDeUsuario}"></b></p>
+								</div>
+								<div class="form-group">
+									<p>Salas: <strong><small th:each="sala : ${salas}" th:text="${sala.nombreSala}+', '"></small></strong></p>
+									<!-- <p>Sala: <b th:text="${sala.nombreSala}"></b></p> -->
+								</div>	
+								<div class="form-group">
+									<p>Precio: <strong><small th:each="sala : ${salas}" th:text="${sala.cine.precio}+', '"></small></strong></p>
+									<!--<p>Precio: <b th:text="${sala.cine.precio}"></b></p> -->
+								</div>
+								<div class="form-group">
+                                   <label class="form-label">Dia:</label>
                                    <select class="form-select" th:field="*{funcion}" required>
-                                           <option th:each="funcion : ${funciones}" 
-                                               th:value="${funcion.idFuncion}" th:text="${funcion.fecha}"></option>
+                                           <option th:each="funcion : ${funciones}" th:value="${funcion.idFuncion}" th:text="${funcion.fecha}"></option>
                                    </select>
                                 </div>
-                                <div class="form-group">
-                                    <label class="form-label">Funcion horario</label>
-                                   <select class="form-select">
-                                           <option th:each="funcion : ${funciones}" 
-                                               th:value="${funcion.horario}" th:text="${funcion.horario}"></option>
+                                
+                                <div class="form-group mt-2">
+                                    <label class="form-label">Horario:</label>
+                                   	<select class="form-select">
+                                           <option th:each="funcion : ${funciones}" th:value="${funcion.horario}" th:text="${funcion.horario}"></option>
                                    </select>
                                 </div>
-								<div class="form-group">
-                                    <label class="form-label">Asiento</label>
+                                
+								<div class="form-group mt-2">
+                                   <label class="form-label">Asiento:</label>
                                    <select class="form-select" th:field="*{asiento}" required>
                                            <option th:each="asiento : ${asientos}" 
                                                th:value="${asiento.idAsiento}" th:text="${asiento.numeroDeAsiento}"></option>
                                    </select>
                                 </div>
-								<div class="form-row text-center">
-									<button type="submit" class="btn btn-dark m-3">Comprar</button>
+								<div class="form-row text-center mt-4">
+									<button type="submit" class="btn btn-success m-3">Comprar</button>
 								</div>
 							</form>
 						</div>
@@ -112,7 +124,7 @@
 				</div>
 			</div>
 		</div>
-	
+	</div>
 	</section>
 
 	<footer th:insert="fragmentos/footer :: _footer"></footer>

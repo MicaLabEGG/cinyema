@@ -80,7 +80,7 @@
 								</div>
 								
 								<div>
-									<a class="btn btn-success" th:each="funcion : ${funciones}" th:href="@{/compra/__${pelicula.idPelicula}__/__${funcion.fecha}__/__${funcion.horario}__}" th:text="${funcion.horario}"></a>
+									<a class="btn btn-success" th:each="funcion : ${funciones}" th:href="@{ticket/compra/__${pelicula.idPelicula}__/__${funcion.fecha}__/__${funcion.horario}__}" th:text="${funcion.horario}"></a>
 								</div>
 						</div>
 					</div>

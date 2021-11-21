@@ -416,6 +416,15 @@ main{
 	color:white;
 }
 
+#ticketCompra .tituloBoleto{
+	color: #ffc451;
+}
+
+#ticketCompra .tituloBoleto:hover{
+	color: #ffff80;
+}
+
+
 
 /*--------------------------------------------------------------
 # Menu Principal

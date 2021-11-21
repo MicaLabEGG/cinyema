@@ -25,7 +25,7 @@
 				</div>
 	
 				<!-- SEGUNDA COLUMNA: PELICULA -->
-				<div class="col-5">
+				<div class="col-4">
 					<nav class="mt-4">
 						<div class="nav nav-tabs" id="nav-tab" role="tablist">
 							<button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
@@ -67,7 +67,7 @@
 				<div class="card mt-4">
 					<div class="card-body bg-dark text-light">
 						<div class="container">
-							<h2 class="card-title text-center mb-4">Boleto</h2>
+							<h2 class="card-title text-center mb-4 tituloBoleto">Boleto</h2>
 
 							<form th:object="${ticket}" th:action="@{/ticket/compra/__${ticket.idTicket}__}" method="POST">
 								<div class="form-group" hidden>

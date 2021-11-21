@@ -77,7 +77,7 @@
 								</div>
 								
 								<div>
-									<a class="btn btn-success" th:each="funcion : ${funciones}" th:href="@{/compra/__${pelicula.idPelicula}__/__${funcion.fecha}__}" th:text="${funcion.fecha}"></a>
+									<a class="btn btn-success" th:each="funcion : ${funciones}" th:href="@{/ticket/compra/__${pelicula.idPelicula}__/__${funcion.fecha}__}" th:text="${funcion.fecha}"></a>
 								</div>
 						</div>
 					</div>

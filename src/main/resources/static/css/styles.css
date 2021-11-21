@@ -108,11 +108,43 @@ nav .logo img:hover {
 
 
 /*--------------------------------------------------------------
-# Formulario Login-Registro
+# Login-Registro
 --------------------------------------------------------------*/
 
 #login-registro{
 	margin: 100px 0px 100px 0px;
+}
+
+/*--------------------------------------------------------------
+# Formularios de Registros
+--------------------------------------------------------------*/
+
+#registros{
+	margin: 150px 0px 100px 270px;
+}
+
+#registros form{
+	background-color: rgb(0, 0, 0);
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 100px;
+    border-radius: 16px;
+    padding: 35px 25px;
+    padding-bottom: 25px;
+    opacity: 0.8;
+    box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.8);
+}
+
+#registros .titulo{
+	margin: 0px 0px 20px 0px;
+}
+
+#registros .form-group{
+	margin: 0px 0px 10px 0px;
+}
+
+#registros .boton{
+	margin: 25px 0px 0px 0px;
 }
 
 /*--------------------------------------------------------------
@@ -258,7 +290,7 @@ nav .logo img:hover {
   transform: none;
   visibility: visible !important;
   height: calc(100% - 97px);
-  top: 97px;
+  top: 85px;
 }
 .sidebar-link {
   display: flex;
@@ -297,11 +329,11 @@ main{
 # Cards Panel Admin
 --------------------------------------------------------------*/
 
-.cardsAdmin{
+#cardAdmin .cardsAdmin{
 	margin: 150px 0px 100px 0px;
 }
 
-.card-body:hover {
+#cardAdmin .card-body:hover {
   transform: translateY(-2px);
   box-shadow: 0 2px 10px 2px rgba(255, 255, 255, 0.8);
   cursor: pointer;
@@ -368,8 +400,31 @@ main{
 --------------------------------------------------------------*/
 
 #ticketCompra{
-	margin: 100px 0px 100px 0px;
+	margin: 150px 0px 100px 0px;
 }
+
+#ticketCompra .trailer{
+	color: white;
+	text-decoration: none;
+}
+
+#ticketCompra .trailer:hover{
+	color: #ffc451;
+}
+
+#ticketCompra .sinopsis{
+	color:white;
+}
+
+#ticketCompra .tituloBoleto{
+	color: #ffc451;
+}
+
+#ticketCompra .tituloBoleto:hover{
+	color: #ffff80;
+}
+
+
 
 /*--------------------------------------------------------------
 # Menu Principal

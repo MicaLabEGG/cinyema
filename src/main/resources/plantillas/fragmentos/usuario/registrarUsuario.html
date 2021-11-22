@@ -1,43 +1,52 @@
-<div id="tablaAdmin" th:fragment="_registrarUsuario(usuario,error,registrar)">
-	<section id="login-registro">
-		<div class="row vh-50 justify-content-center align-items-center m-4">
-			<div class="col-auto">
-
-				<h1 class="text-center text-light" th:text="${registrar}"></h1>
-
-				<div th:if="${error}!=null" class="card text-light bg-danger mb-3" style="max-width: 23rem;">
-					<div class="card-body">
-						<h5 class="card-title">Error</h5>
-						<p class="card-text" th:text="${error}"></p>
-					</div>
+<div th:fragment="_registrarUsuario(usuario,error,registrar)">
+	<section id="login-registro" class="container w-75 mt-4 shadow">
+		<div class="login-registro">
+			
+			<div th:if="${error}!=null" class="card text-light bg-danger mb-3" style="max-width: 23rem;">
+				<div class="card-body">
+					<h5 class="card-title">Error</h5>
+					<p class="card-text" th:text="${error}"></p>
 				</div>
+			</div>
+				
+			<div class="row align-items-center align-items-stretch">
+					<div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 bg">
+                
+            		</div>
+					
+					<div class="col p-3 col-lg-7 col-xl-6 fondo">
+						<div class="text-center">
+		                    <img class="logoY" src="img/logoY.png" alt="" style="width:100px">
+		                </div>
+                		<h2 class="fw-bold text-center pt-4 mb-4 tituloLogin">Registro</h2>
 
-				<form th:object="${usuario}" action="/registrar" method="POST">
-					<div class="form-group">
-						<label class="text-light">Nombre</label> <input type="text" class="form-control" th:field="*{nombre}"
-							placeholder="Nombre Completo">
+						<form th:object="${usuario}" action="/registrar" method="POST">
+							<div class="my-3 grupo">
+								<label for="nombredeusuario" class="form-label text-light">Nombre de Usuario</label> 
+								<input type="text" class="form-control" id="nombredeusuario" th:field="*{nombreDeUsuario}">
+							</div>
+							<div class="my-3 grupo">
+								<label for="nombreApellido" class="form-label text-light">Nombre</label> 
+								<input type="text" class="form-control" id="nombreApellido" th:field="*{nombre}">
+							</div>
+							<div class="my-3 grupo">
+								<label class="form-label text-light">Fecha de Nacimiento</label> 
+								<input type="date" class="form-control" th:field="*{fechaNacimiento}">
+							</div>
+							<div class="my-3 grupo">
+								<label for="mail" class="form-label text-light">Correo Electrónico</label> 
+								<input type="email" class="form-control" id="mail" th:field="*{mail}">
+							</div>
+							<div class="my-3 grupo">
+								<label for="contrasenia" class="form-label text-light">Contraseña</label> 
+								<input type="password" class="form-control" id="contrasenia" th:field="*{contrasenia}">
+							</div>
+							
+							<div class="my-4 text-center">
+                        		<button type="submit" class="btnIngresar">Registrarse</button>
+                    		</div>   
+						</form>
 					</div>
-					<div class="form-group">
-						<label class="text-light">Correo Electrónico</label> <input type="email" class="form-control" th:field="*{mail}"
-							placeholder="Correo Electrónico">
-					</div>
-					<div class="form-group">
-						<label class="text-light">Fecha de Nacimiento</label> <input type="date" class="form-control"
-							th:field="*{fechaNacimiento}" placeholder="Fecha de Nacimiento">
-					</div>
-					<div class="form-group">
-						<label class="text-light">Nombre de Usuario</label> <input type="text" class="form-control"
-							th:field="*{nombreDeUsuario}" placeholder="Nombre de Usuario">
-					</div>
-					<div class="form-group">
-						<label class="text-light">Contraseña</label> <input type="password" class="form-control" th:field="*{contrasenia}"
-							placeholder="Contraseña">
-					</div>
-					<div class="form-row text-center">
-						<button type="submit" class="btn btn-dark m-3">Registrarse</button>
-					</div>
-				</form>
-
 			</div>
 		</div>
 	</section>

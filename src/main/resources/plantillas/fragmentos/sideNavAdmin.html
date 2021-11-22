@@ -102,6 +102,113 @@
 					</ul>
 				</li>
 				
+				<!-- SALA -->
+				<li class="nav-item dropdown w-100">
+					<a class="nav-link links pl-4 sidebar-link" id="sala" data-bs-toggle="dropdown" aria-expanded="false"> 
+						<span class="me-2">
+							<i class="bi bi-layout-split"></i>
+						</span> 
+						<span class="spanTitulo">Sala</span>
+						<span class="ms-auto"> 
+							<span><i class="bi bi-chevron-down"></i></span>
+						</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="sala">
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/sala/registrar}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Agregar</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/sala}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Activos</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/sala}"> 
+								<span class="me-2">
+								<i class="bi bi-speedometer2"></i></span> 
+								<span>Todos</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				<!-- ASIENTO -->
+				<li class="nav-item dropdown w-100">
+					<a class="nav-link links pl-4 sidebar-link" id="asiento" data-bs-toggle="dropdown" aria-expanded="false"> 
+						<span class="me-2">
+							<i class="bi bi-layout-split"></i>
+						</span> 
+						<span class="spanTitulo">Asiento</span>
+						<span class="ms-auto"> 
+							<span><i class="bi bi-chevron-down"></i></span>
+						</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="asiento">
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/asiento}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Activos</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/asiento}"> 
+								<span class="me-2">
+								<i class="bi bi-speedometer2"></i></span> 
+								<span>Todos</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				
+				
+				<!-- FUNCION -->
+				<li class="nav-item dropdown w-100">
+					<a class="nav-link links pl-4 sidebar-link" id="funcion" data-bs-toggle="dropdown" aria-expanded="false"> 
+						<span class="me-2">
+							<i class="bi bi-layout-split"></i>
+						</span> 
+						<span class="spanTitulo">Funcion</span>
+						<span class="ms-auto"> 
+							<span><i class="bi bi-chevron-down"></i></span>
+						</span>
+					</a>
+					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="funcion">
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/funcion/registrar}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Agregar</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/funcion}"> 
+								<span class="me-2">
+									<i class="bi bi-speedometer2"></i>
+								</span> 
+								<span>Activos</span>
+							</a>
+						</li>
+						<li>
+							<a class="dropdown-item text-light" th:href="@{/funcion}"> 
+								<span class="me-2">
+								<i class="bi bi-speedometer2"></i></span> 
+								<span>Todos</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				
 				<!-- TICKET -->
 				<li class="nav-item dropdown w-100">
 					<a class="nav-link links pl-4 sidebar-link" id="ticket" data-bs-toggle="dropdown" aria-expanded="false"> 
@@ -114,14 +221,6 @@
 						</span>
 					</a>
 					<ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="ticket">
-						<li>
-							<a class="dropdown-item text-light" th:href="@{/ticket/registrar}"> 
-								<span class="me-2">
-									<i class="bi bi-speedometer2"></i>
-								</span> 
-								<span>Agregar</span>
-							</a>
-						</li>
 						<li>
 							<a class="dropdown-item text-light" th:href="@{/ticket}"> 
 								<span class="me-2">

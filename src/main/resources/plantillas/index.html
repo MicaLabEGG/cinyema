@@ -18,63 +18,75 @@
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 	<section id="menu" class="pt-5">
 		<div class="container">
-			<h1 class="text-center"><b>Promociones</b></h1>
 			<div class="slider">
 				<div class="owl-carousel">
 					<div class="slider-card">
 						<div class="d-flex justify-content-center align-items-center mb-4">
-							<img src="images/slide-1.jpg" alt="">
+							<img src="https://www.plazaeboli.com/wp-content/uploads/2019/09/2x1-Entradas-cine.jpg" alt="">
 						</div>
-						<h5 class="mb-0 text-center"><b>HTML CSS3 Tutorials</b></h5>
-						<p class="text-center p-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-							temporibus quidem magni qui doloribus quasi natus inventore nisi velit minima.</p>
 					</div>
 					<div class="slider-card">
 						<div class="d-flex justify-content-center align-items-center mb-4">
-							<img src="images/slide-2.jpg" alt="">
+							<img src="https://www.otroscines.com/images/fotos/cine-argentino-50-655.jpg" alt="">
 						</div>
-						<h5 class="mb-0 text-center"><b>Wordpress Tutorials</b></h5>
-						<p class="text-center p-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-							temporibus quidem magni qui doloribus quasi natus inventore nisi velit minima.</p>
 					</div>
 					<div class="slider-card">
 						<div class="d-flex justify-content-center align-items-center mb-4">
-							<img src="images/slide-3.jpg" alt="">
+							<img src="https://pbs.twimg.com/media/DhsSHRgVMAE1Ig6?format=png&name=medium" alt="">
 						</div>
-						<h5 class="mb-0 text-center"><b>PHP MySQL Tutorials</b></h5>
-						<p class="text-center p-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-							temporibus quidem magni qui doloribus quasi natus inventore nisi velit minima.</p>
 					</div>
 					<div class="slider-card">
 						<div class="d-flex justify-content-center align-items-center mb-4">
-							<img src="images/slide-4.jpg" alt="">
+							<img src="https://scontent.fros9-1.fna.fbcdn.net/v/t1.6435-9/52146522_10156366485773422_4392539074540339200_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=730e14&_nc_ohc=eFhKLHjTy-wAX-i7VxZ&_nc_ht=scontent.fros9-1.fna&oh=e9d4877d5b1257053f0f1b19196aef6c&oe=61BF9313" alt="">
 						</div>
-						<h5 class="mb-0 text-center"><b>Javascript Tutorials</b></h5>
-						<p class="text-center p-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-							temporibus quidem magni qui doloribus quasi natus inventore nisi velit minima.</p>
 					</div>
-					<div class="slider-card">
-						<div class="d-flex justify-content-center align-items-center mb-4">
-							<img src="images/slide-5.jpg" alt="">
-						</div>
-						<h5 class="mb-0 text-center"><b>Bootstrap Tutorials</b></h5>
-						<p class="text-center p-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam
-							temporibus quidem magni qui doloribus quasi natus inventore nisi velit minima.</p>
-					</div>
+				
 				</div>
 			</div>
 		</div>
 	</section>
-	<section id="pelicula-index" class="container">
+	<section id="pelicula-index" class="container-fluid">
 		<div class="row">
 			<div class="col-auto">
-				<input type="checkbox" class="check-menu" id="menu-busqueda">
-				<label class="barra-menu" for="menu-busqueda">
-					
-					<i class="fas fa-arrow-right"></i>
-					
-				</label>
+			<div id="menuBusqueda" class="menu-busqueda-collapse">
+				<div class="panel-menu">
+					<form action="/busquedaPorTitulo" method="post">
+						<div class="form-group">
+							<input type="text" class="form-control" th:value="${titulo}" placeholder="Busqueda por titulo"></input>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary" type="submit">Buscar</button>
+						</div>
+					</form>
+					<div class="input-group">
+						<button class="btn btn-outline-secondary dropdown-toggle" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Genero</button>
+						<ul class="dropdown-menu" >
+							<li th:each="genero : ${T(com.cinyema.app.enumeraciones.Genero).values()}"><a
+									class="dropdown-item" th:href="@{/__${genero}__}" th:text="${genero}"></a></li>
+						</ul>
+					</div>
+					<div class="input-group">
+						<button class="btn btn-outline-secondary dropdown-toggle" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Formato</button>
+						<ul class="dropdown-menu">
+							<li th:each="formato : ${T(com.cinyema.app.enumeraciones.Formato).values()}"><a
+									class="dropdown-item" th:href="@{/(formato=${formato})}" th:text="${formato}"></a>
+							</li>
+						</ul>
+					</div>
+					<div class="input-group">
+						<button class="btn btn-outline-secondary dropdown-toggle" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Clasificacion</button>
+						<ul class="dropdown-menu">
+							<li th:each="clasificacion : ${T(com.cinyema.app.enumeraciones.Calificacion).values()}"><a
+									class="dropdown-item" th:href="@{/(clasificacion=${clasificacion})}"
+									th:text="${clasificacion}"></a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
+		</div>
 			<div class="col-auto">
 				<div th:insert="fragmentos/cardPelicula :: _cardPelicula(peliculas=${peliculas})"></div>
 				<div th:insert="fragmentos/cardPelicula :: _cardPeliculaModal(peliculas=${peliculas})"></div>

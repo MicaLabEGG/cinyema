@@ -4,10 +4,17 @@
         <div class="col-md-9 mb-3 tamTabla">
           <div class="card">
             <div class="card-header">
-              <span><i class="bi bi-table me-2"></i></span>
-              <h1 class="text-center">Pelicula</h1>
+              <span><i class="bi bi-table me-2"></i>Tabla de Peliculas</span>
             </div>
-            <div class="card-body">
+            <div class="col col-md-4 mt-2 ms-2 mb-3">
+				<form th:action="@{/pelicula/buscarPelicula}" th:object=${pelicula} method="POST" class="form">
+                  <input class="buscador" th:value="${nombre}" type="text" placeholder=" Buscar">
+                  <button class="btn btn_buscar" type="submit"><span><i class="uil uil-search"></i></span></button>
+                  <a class="btn btn-light btn_actualizar" th:href="@{/pelicula}"><i class="uil uil-sync"></i></a>
+	      	  	</form>
+	      	  	<p class="errorBuscar" th:if="${ErrorBuscar != null}" th:text="${ErrorBuscar}"></p>
+			</div>
+			<div>
               <div class="table-responsive">
                 <table id="datatablesSimple" class="table table-striped data-table">
 		            <thead>
@@ -22,6 +29,7 @@
 		                    <th scope="col">Pais</th>
 		                    <th scope="col">Idioma</th>
 		                    <th scope="col">Subtitulo</th>
+		                    <th scope="col">Formato</th>
 		                    <th scope="col">Duracion</th>
 		                    <th scope="col">Trailer</th>
 		                    <th scope="col">Alta</th>
@@ -41,6 +49,7 @@
 		                    <td th:text="${pelicula.pais}"></td>
 		                    <td th:text="${pelicula.idioma}"></td>
 		                    <td th:text="${pelicula.subtitulo}"></td>
+		                    <td th:text="${pelicula.formato}"></td>
 		                    <td th:text="${pelicula.duracion}"></td>
 		                    <td th:text="${pelicula.trailer}"></td>
 		                    <td>

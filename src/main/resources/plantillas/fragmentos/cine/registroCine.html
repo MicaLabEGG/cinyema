@@ -1,9 +1,9 @@
-<div id="tablaAdmin" th:fragment="_registroCine(registro,error,salas,cine)">
+<div id="registros" th:fragment="_registroCine(registro,error,salas,cine)">
 	<section class="container">
 	    <div class="row vh-100 justify-content-center align-items-center">
 	        <div class="col-auto">
-	            <h1 th:text="${registrar}" class="text-center text-light"></h1>
-	            <div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
+
+	            <div th:if="${error}!=null" class="card text-light bg-danger mb-3" style="max-width: 23rem;">
 	                <div class="card-body">
 	                    <h5 class="card-title">Error</h5>
 	                    <p class="card-text" th:text="${error}"></p>
@@ -11,14 +11,17 @@
 	            </div>
 	            
 	            <form th:object="${cine}" th:action="@{/cine/registrar}" method="POST">
+	                <div class="text-center titulo">
+						<h1 class="text-center text-light" th:text="${registrar}"></h1>
+					</div>
 	                
 	                <div class="form-group">
-	                    <label class="form-label text-light">Nombre Cine</label>
+	                    <label class="text-light">Nombre Cine</label>
 	                    <input type="text" class="form-control" th:field="*{nombre}" th:value="${nombre}" required></input>
 	                </div>
 	               
 	               <div class="form-group">
-	                    <label class="form-label text-light">Nombre Sala</label>
+	                    <label class="text-light">Nombre Sala</label>
 	                    <select multiple class="form-select" th:field="*{salas}" required>
 	                        <option th:each="sala : ${salas}" 
 	                         th:value="${{sala}}" th:text="${sala.nombreSala}"></option>
@@ -26,26 +29,28 @@
 	                </div>
 	                
 	                <div class="form-group">
-	                    <label class="form-label text-light">Direccion</label>
+	                    <label class="text-light">Direccion</label>
 	                    <input type="text" class="form-control" th:field="*{direccion}" th:value="${direccion}" required></input>
 	                </div>
 	                
 	               <div class="form-group">
-	                    <label class="form-label text-light">Mail</label>
+	                    <label class="text-light">Mail</label>
 	                    <input type="text" class="form-control" th:field="*{mail}" th:value="${mail}" required></input>
 	                </div>
 	                
 	                <div class="form-group">
-	                    <label class="form-label text-light">Telefono</label>
+	                    <label class="text-light">Telefono</label>
 	                    <input type="text" class="form-control" th:field="*{telefono}" th:value="${telefono}" required></input>
 	                </div>
 	                
 	                <div class="form-group">
-	                    <label class="form-label text-light">Precio</label>
+	                    <label class="text-light">Precio</label>
 	                    <input type="number" class="form-control" th:field="*{precio}" th:value="${precio}" required></input>
 	                </div>
 	
-	                <button class="btn btn-primary" type="submit">Guardar</button>
+	                <div class="text-center boton">
+						<button class="btn btn-primary" type="submit">Guardar</button>
+					</div>	
 	
 	            </form>
 	        </div>

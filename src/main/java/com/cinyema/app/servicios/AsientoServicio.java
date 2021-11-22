@@ -50,18 +50,14 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 		}	
 	}
 	
-	@Override
 	@Transactional(readOnly = true)
-	public List<Asiento> listar(){
+	public List<Asiento> listar(Long idFuncion){
 		List<Asiento> listaAsientos = asientoRepositorio.findAll();
 		Collections.sort(listaAsientos, (o1, o2) -> o1.getNumeroDeAsiento().compareTo(o2.getNumeroDeAsiento()));
-		long numero = 773257365;
-		List<Long> ocupados = ticketRepositorio.listaAsientosOcupados(numero);
+		List<Long> ocupados = ticketRepositorio.listaAsientosOcupados(idFuncion);
 		for (Asiento asiento1 : listaAsientos) {
 			
 			for (long long1 : ocupados) {
-				System.err.println(asiento1.getIdAsiento());
-				System.err.println(long1);
 				
 				if (asiento1.getIdAsiento() == long1) {
 					asiento1.setLibre(false);
@@ -69,6 +65,10 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 			}
 		}
 		return listaAsientos ;
+	}
+	
+	public long totalAsiento() throws Exception {
+		return asientoRepositorio.count();
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
@@ -117,5 +117,11 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 			throw new Exception("*Error en la disponibilidad del asiento");
 		}
 		
+	}
+
+	@Override
+	public List<Asiento> listar() throws Exception {
+		List<Asiento> listaAsientos = asientoRepositorio.findAll();
+		return listaAsientos;
 	}	
 }

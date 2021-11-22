@@ -112,19 +112,34 @@ public class SalaServicio implements ServicioBase<Sala>{
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public List<Asiento> obtenerAsientosLibres(Sala sala) {
 		List<Asiento> asiLibres = new ArrayList<Asiento>();
-		List<Asiento> todos = sala.getAsientos();
-		for (Asiento asiento : todos) {
-			if(asiento.getLibre() == true) {
-				asiLibres.add(asiento);
-			}
+		List<Funcion> funcion = sala.getFunciones();
+		for (Funcion funcion2 : funcion) {
+			List <Asiento> todos = asientoServicio.listar(funcion2.getIdFuncion());
+			for (Asiento asiento : todos) {
+				if(asiento.getLibre() == true) {
+					asiLibres.add(asiento);
+		        }
+		    }
 		}
 		return asiLibres;
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public List<Funcion> obtenerFuncionesPorSalaId(Long idSala) {
-		List<Funcion> funciones = funcionRepositorio.obtenerFuncionesPorSalaId(idSala);
+	public List<Funcion> obtenerFuncionesPorPeliculaId(Long idPelicula) {
+		List<Funcion> funciones = funcionRepositorio.obtenerFuncionesPorPeliculaId(idPelicula);
 		return funciones;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public List<Funcion> obtenerFuncionesPorPeliculaIdAndFecha(Long idPelicula, String fecha) {
+		List<Funcion> funciones = funcionRepositorio.obtenerFuncionesPorPeliculaAndFecha(idPelicula, fecha);
+		return funciones;
+	}
+	
+	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
+	public Funcion obtenerFuncionesPorPeliculaIdAndFechaAndHorario(Long idPelicula, String fecha, String horario) {
+		Funcion funcion = funcionRepositorio.obtenerFuncionesPorPeliculaAndFechaAndHorario(idPelicula, fecha, horario);
+		return funcion;
 	}
 
 	@Override
@@ -139,6 +154,10 @@ public class SalaServicio implements ServicioBase<Sala>{
 		return salaRepositorio.findAll();
 	}
 
+	public long totalSala() throws Exception {
+		return salaRepositorio.count();
+	}
+	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Sala obtenerPorId(Long id) {
 		return salaRepositorio.getById(id);

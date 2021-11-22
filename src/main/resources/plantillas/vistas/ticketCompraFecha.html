@@ -69,55 +69,16 @@
 						<div class="container">
 							<h2 class="card-title text-center mb-4 tituloBoleto">Boleto</h2>
 
-							<form th:object="${ticket}" th:action="@{/ticket/compra/__${ticket.idTicket}__}" method="POST">
-								<div class="form-group" hidden>
-									<label class="form-label"><strong>Usuario:</strong></label>
-									<input type="text" class="form-control" th:field="*{usuario}" th:placeholder="${ticket.usuario.nombreDeUsuario}" th:value="${usuario}" 
-										readonly required></input>
-								</div>
-								<div class="form-group" hidden>
-									<label class="form-label"><strong>Pelicula:</strong></label>
-									<input type="text" class="form-control" th:field="*{pelicula}" th:placeholder="${ticket.pelicula.titulo}" th:value="${pelicula}"
-										readonly required></input>
-								</div>
 								<div class="form-group">
 									<p>Pelicula: <b th:text="${pelicula.titulo}"></b></p>
 								</div>
 								<div class="form-group">
 									<p>Usuario: <b th:text="${usuario.nombreDeUsuario}"></b></p>
 								</div>
-								<div class="form-group">
-									<p>Salas: <strong><small th:each="sala : ${salas}" th:text="${sala.nombreSala}+', '"></small></strong></p>
-									<!-- <p>Sala: <b th:text="${sala.nombreSala}"></b></p> -->
-								</div>	
-								<div class="form-group">
-									<p>Precio: <strong><small th:each="sala : ${salas}" th:text="${sala.cine.precio}+', '"></small></strong></p>
-									<!--<p>Precio: <b th:text="${sala.cine.precio}"></b></p> -->
+								
+								<div>
+									<a class="btn btn-success" th:each="funcion : ${funciones}" th:href="@{/ticket/compra/__${pelicula.idPelicula}__/__${funcion.fecha}__}" th:text="${funcion.fecha}"></a>
 								</div>
-								<div class="form-group" hidden>
-                                   <label class="form-label">Dia:</label>
-                                   <input type="text" class="form-control" th:field="*{funcion}" th:value="${funcion}" 
-										readonly required></input>
-                                </div>
-                                
-                                <div class="form-group mt-2">
-                                    <p>Fecha: <b th:text="${funcion.fecha}"></b></p>
-                                </div>
-                                <div class="form-group mt-2">
-                                    <p>Hora: <b th:text="${funcion.horario}"></b></p>
-                                </div>
-                                
-								<div class="form-group mt-2">
-                                   <label class="form-label">Asiento:</label>
-                                   <select class="form-select" th:field="*{asiento}" required>
-                                           <option th:each="asiento : ${asientos}" 
-                                               th:value="${asiento.idAsiento}" th:text="${asiento.numeroDeAsiento}"></option>
-                                   </select>
-                                </div>
-								<div class="form-row text-center mt-4">
-									<button type="submit" class="btn btn-success m-3">Comprar</button>
-								</div>
-							</form>
 						</div>
 					</div>
 				</div>

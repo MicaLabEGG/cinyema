@@ -3,7 +3,7 @@
 		<div th:each="pelicula : ${peliculas}" class="col-md-3 img-card-caja text-center">
 
 			<button data-bs-toggle="modal" th:attr="data-bs-target='#modalPelicula'+${pelicula.idPelicula}">
-				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-fluid img-card-pelicula" alt="...">
+				<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}" class="img-card-pelicula" alt="...">
 				<div class="img-card-titulo">
 					<h5 th:text="${pelicula.titulo}"></h5>
 				</div>
@@ -16,9 +16,9 @@
 <div th:fragment="_cardPeliculaModal(peliculas)">
 	<div th:each="pelicula : ${peliculas}" class="modal fade" th:attr="id='modalPelicula'+${pelicula.idPelicula}"
 		tabindex="-1" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog modal-dialog-centered modal-lg">
 			<div class="modal-content">
-				<div class="card mb-3" style="max-width: 900px;">
+				<div class="card bg-dark text-light" style="width: 970px;">
 					<div class="row g-0">
 						<div class="col-md-4">
 							<img th:src="*{'data:imagen/jpeg;base64,'+{pelicula.imagen}}"
@@ -26,25 +26,19 @@
 						</div>
 						<div class="col-md-8">
 							<div class="card-body">
-								<h5 class="card-title" th:text="${pelicula.titulo}"></h5>
-								<p class="card-text" th:text="${pelicula.descripcion}"></p>
+								<h5 class="card-title mb-4 text-center" th:text="${pelicula.titulo}"></h5>
+								<p class="card-text">Sinopsis: <small th:text="${pelicula.descripcion}"></small></p>
 								<p class="card-text">Director: <small th:text="${pelicula.director.nombre}"></small></p>
-								<p class="card-text">Actores: <small th:each="actor : ${pelicula.actores}"
-										th:text="${actor.nombreCompleto}+', '"></small></p>
+								<p class="card-text">Actores: <small th:each="actor : ${pelicula.actores}" th:text="${actor.nombreCompleto}+', '"></small></p>
 								<ul class="list-group list-group-horizontal">
-									<li class="list-group-item">Genero: <small th:text="${pelicula.genero}"></small>
-									</li>
-									<li class="list-group-item">Duracion: <small th:text="${pelicula.duracion}"></small>
-									</li>
-									<li class="list-group-item">Año: <small th:text="${pelicula.anio}"></small></li>
-									<li class="list-group-item">Pais: <small th:text="${pelicula.pais}"></small></li>
-									<li class="list-group-item">Idioma: <small th:text="${pelicula.idioma}"></small>
-									</li>
-									<li class="list-group-item">Subtitulo: <small
-											th:text="${pelicula.subtitulo}"></small>
-									</li>
+									<li class="list-group-item bg-dark text-light">Genero: <small th:text="${pelicula.genero}"></small></li>
+									<li class="list-group-item bg-dark text-light">Duracion: <small th:text="${pelicula.duracion}"></small></li>
+									<li class="list-group-item bg-dark text-light">Año: <small th:text="${pelicula.anio}"></small></li>
+									<li class="list-group-item bg-dark text-light">Pais: <small th:text="${pelicula.pais}"></small></li>
+									<li class="list-group-item bg-dark text-light">Idioma: <small th:text="${pelicula.idioma}"></small></li>
+									<li class="list-group-item bg-dark text-light">Subtitulo: <small th:text="${pelicula.subtitulo}"></small></li>
 								</ul>
-								<div class="card-body">
+								<div class="card-body text-center mt-5">
 									<button type="button" class="btn btn-secondary"
 										data-bs-dismiss="modal">Volver</button>
 									<a sec:authorize="isAuthenticated()"

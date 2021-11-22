@@ -58,8 +58,6 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 		for (Asiento asiento1 : listaAsientos) {
 			
 			for (long long1 : ocupados) {
-				System.err.println(asiento1.getIdAsiento());
-				System.err.println(long1);
 				
 				if (asiento1.getIdAsiento() == long1) {
 					asiento1.setLibre(false);

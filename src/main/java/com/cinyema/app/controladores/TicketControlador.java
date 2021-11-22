@@ -1,7 +1,5 @@
 package com.cinyema.app.controladores;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cinyema.app.Utility;
+import com.cinyema.app.entidades.Funcion;
 import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.servicios.AsientoServicio;
@@ -183,8 +181,34 @@ public class TicketControlador {
 			return "vistas/ticketCompraHorario";
 		}
 	}
+	
+	@GetMapping("/compra/{idPelicula}/{fecha}/{horario}")
+	public String compraHora(ModelMap modelo, Authentication autenticacion, @PathVariable Long idPelicula,@PathVariable String fecha,@PathVariable String horario) throws Exception {
+		try {
+			System.err.println(horario + "hola");
+			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
+			Funcion funcion = salaServicio.obtenerFuncionesPorPeliculaIdAndFechaAndHorario(idPelicula, fecha, horario);
+			modelo.addAttribute("funcion", funcion);
+			System.err.println(funcion.toString());
+			Sala sala = servicioPelicula.obtenerSalaPorFuncion(funcion.getIdFuncion());
+			modelo.addAttribute("sala", sala);
+			modelo.addAttribute("asientos", servicioAsiento.listar(funcion.getIdFuncion()));
+			Ticket ticket = servicioTicket.registrarVacio();
+			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+			ticket.setFuncion(funcion);
+			//ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
+			System.err.println(ticket.toString());
+			modelo.addAttribute("ticket", ticket);
+			return "vistas/ticketCompra";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.put("error", e.getMessage());
+			return "vistas/ticketCompra";
+		}
+	}
 
-	@PostMapping("/compra/{idTicket}")
+	@PostMapping("/compra/{idPelicula}/{fecha}/{horario}")
 	public String compra(ModelMap modelo, Ticket ticket, HttpServletRequest request) throws Exception {
 		try {
 			servicioTicket.registrar(ticket);

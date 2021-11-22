@@ -45,17 +45,51 @@
 			</div>
 		</div>
 	</section>
-	<section id="pelicula-index" class="container">
+	<section id="pelicula-index" class="container-fluid">
 		<div class="row">
 			<div class="col-auto">
-				<input type="checkbox" class="check-menu" id="menu-busqueda">
-				<label class="barra-menu" for="menu-busqueda">
-					
-					<i class="fas fa-arrow-right"></i>
-					
-				</label>
+			<div id="menuBusqueda" class="menu-busqueda-collapse">
+				<div class="panel-menu">
+					<form action="/busquedaPorTitulo" method="post">
+						<div class="form-group">
+							<input type="text" class="form-control" th:name="titulo" th:value="${titulo}" placeholder="Busqueda por titulo"></input>
+						</div>
+						<div class="form-group">
+							<button class="btn btn-primary" type="submit">Buscar</button>
+						</div>
+					</form>
+					<div class="input-group">
+						<button class="btn btn-outline-secondary dropdown-toggle" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Genero</button>
+						<ul class="dropdown-menu" >
+							<li th:each="genero : ${T(com.cinyema.app.enumeraciones.Genero).values()}"><a
+									class="dropdown-item" th:href="@{/__${genero}__}" th:text="${genero}"></a></li>
+						</ul>
+					</div>
+					<div class="input-group">
+						<button class="btn btn-outline-secondary dropdown-toggle" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Formato</button>
+						<ul class="dropdown-menu">
+							<li th:each="formato : ${T(com.cinyema.app.enumeraciones.Formato).values()}"><a
+									class="dropdown-item" th:href="@{/buscar/{formato}(formato=${formato})}" th:text="${formato}"></a>
+							</li>
+						</ul>
+					</div>
+					<!--<div class="input-group">
+						<button class="btn btn-outline-secondary dropdown-toggle" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">Clasificacion</button>
+						<ul class="dropdown-menu">
+							<li th:each="clasificacion : ${T(com.cinyema.app.enumeraciones.Calificacion).values()}"><a
+									class="dropdown-item" th:href="@{/{clasificacion}(clasificacion=${clasificacion})}"
+									th:text="${clasificacion}"></a></li>
+						</ul>
+					</div>-->
+				</div>
 			</div>
-			<div class="col-auto">
+		</div>
+			<div class="col-md-9">
+				<h1 class="text-center container-fluid" th:if="${error}==null">Lista de Peliculas</h1>
+				<h1 class="text-center container-fluid" th:if="${error}!=null" th:text="${error}"></h1>
 				<div th:insert="fragmentos/cardPelicula :: _cardPelicula(peliculas=${peliculas})"></div>
 				<div th:insert="fragmentos/cardPelicula :: _cardPeliculaModal(peliculas=${peliculas})"></div>
 			</div>

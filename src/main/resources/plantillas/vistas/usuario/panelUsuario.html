@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <head th:insert="fragmentos/head :: _head"></head>
 
@@ -11,58 +12,42 @@
 
 				<!----------------------------------------- CARD USUSARIO -------------------------------------------->
 				<div class="col-sm-3">
-					<br><br><br>
+					<br>
+					<br>
+					<br>
 					<div class="card-usuario">
-						<img src="https://i.pinimg.com/originals/7d/a4/b2/7da4b2a2fccdc1c68e60e4a081ee512d.gif" alt="">
-						<h2 class="card-title" th:text="${usuario.nombreDeUsuario}">Full Name</h2>
+						<img
+							src="https://i.pinimg.com/originals/7d/a4/b2/7da4b2a2fccdc1c68e60e4a081ee512d.gif"
+							alt="">
+						<h2 class="card-title" th:text="${usuario.nombreDeUsuario}">Full
+							Name</h2>
 						<div class="cont">
-							<p><i class="fas fa-envelope"></i> <small th:text="${usuario.mail}"></small></p>
-							<p><i class="fas fa-user-alt"></i> <small th:text="${usuario.nombre}"></small></p>
-							<p><i class="fas fa-calendar-minus"></i> <small
+							<p>
+								<i class="fas fa-envelope"></i> <small th:text="${usuario.mail}"></small>
+							</p>
+							<p>
+								<i class="fas fa-user-alt"></i> <small
+									th:text="${usuario.nombre}"></small>
+							</p>
+							<p>
+								<i class="fas fa-calendar-minus"></i> <small
 									th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
 							</p>
 						</div>
 					</div>
 				</div>
-				
+
 				<!------------------------------------------ CARD BOLETO ------------------------------------------>
 				<div class="col-sm-7">
-					<div class="card mb-3 container-tarjeta-ticket">
-						<div class="row g-0">
-
-							<div class="col-md-5">
-								<div class="container-imagen-boleto">
-									<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight"
-										alt="...">
-								</div>
-							</div>
-
-							<div class="col-md-7">
-								<div class="body-text-ticket d-inline-flex p-2">
-									<div class="row">
-										<h5 class="body-title titulo text-center">Harry Potter 1</h5>
-										<div class="row">
-											<div class="col-6 ">
-												<p class="body-text-boleto">
-													Showcase (Junín 498)<br>
-													10/12/21 14:30<br>
-													$1500
-												</p>
-											</div>
-											<div class="col-6">
-												<p class="body-text-boleto">
-													Showcase (Junín 498)<br>
-													10/12/21 14:30<br>
-													$1500
-												</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+					<div th:if="${listar}!= null">
+						<div
+							th:replace="fragmentos/ticket/cardBoletoUsuario.html :: _cardBoletoUsuario(tickets=${tickets}, listar=${listar})">
 						</div>
 					</div>
-					<!-------------------------------------------------------------------------------------------->
+				</div>
+			</div>
+		</div>
+		<!-------------------------------------------------------------------------------------------->
 	</section>
 
 	<footer th:insert="fragmentos/footer :: _footer"></footer>

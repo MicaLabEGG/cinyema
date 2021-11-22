@@ -9,7 +9,9 @@
   --color-text2: #989898;
   --color-titulo: #ffffff;
   --color-amarillo: #FAED1F;
-  --color-naranja: #F37735; 
+  --color-naranja: #F37735;
+  --color-degrade-naranja: #f25300;
+  --color-degrade-amarillo: #fff00c;
 }
 
 html {
@@ -500,27 +502,25 @@ main{
 /*--------------------------------------------------------------
 # menu-busqueda-index
 --------------------------------------------------------------*/
-.barra-menu {
-  width: 1rem;
+#menuBusqueda {
+  background-color: var(--fondo-secciones);
+  color: var(--color-text);
   height: 100%;
-  position: absolute;
-  left: 0%;
-  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+  left: -5%;
+  position: relative;
+  border: none;
+	border-right: 0.5rem solid transparent;
+	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+	border-image-slice: 2;
 }
 
-.barra-menu i {
-  font-size: 2rem;
-  position: absolute;
-  top:50%;
-  left:-22%;
-  z-index: -1;
-  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.panel-menu {
+  width: 100%;
+  padding: 20px 0px;
 }
 
-.check-menu:checked ~ .barra-menu {
-  left: 30%;
+.panel-menu .form-group, .panel-menu .input-group {
+  margin: 10px;
 }
 
 /*--------------------------------------------------------------
@@ -539,7 +539,7 @@ main{
 }
 
 .img-card-pelicula:hover ~ .img-card-titulo h5, .img-card-titulo h5:hover {
-  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+  background: linear-gradient(to bottom, var(--color-degrade-naranja), var(--color-degrade-amarillo));
   font-weight: bold;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -555,7 +555,7 @@ button .img-card-pelicula {
   position: absolute;
   top: 80%;
   width: 225px;
-  background-color: var(--fondo-secciones);
+  background-color: var(--color-naranja);
   opacity: 0.9;
 }
 
@@ -567,7 +567,84 @@ button .img-card-pelicula {
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
+.bg-footer {
+    background-color: #33383c;
+    padding: 50px 0 30px;
+}
 
+.logo-footer img {
+	height: 110px;
+	width: 110px;
+}
+
+.footer-heading {
+    letter-spacing: 2px;
+}
+
+.footer-link a {
+    color: #acacac;
+    line-height: 40px;
+    font-size: 14px;
+    transition: all 0.5s;
+    text-decoration: none;
+}
+
+.footer-link a:hover {
+    color: var(--color-degrade-amarillo);
+}
+
+.contact-info {
+    color: #acacac;
+    font-size: 14px;
+}
+
+.footer-social-icon {
+    font-size: 15px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    line-height: 34px;
+    text-align: center;
+    display: inline-block;
+}
+
+.facebook {
+    background-color: #4e71a8;
+    color: #ffffff;
+}
+
+.twitter {
+    background-color: #55acee;
+    color: #ffffff;
+}
+
+.google {
+    background-color: #d6492f;
+    color: #ffffff;
+}
+
+.footer-alt {
+    color: #acacac;
+}
+
+.footer-heading {
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.footer-heading:after {
+    content: '';
+    width: 25px;
+    border-bottom: 1px solid #FFF;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: block;
+    border-bottom: 1px solid var(--color-degrade-amarillo);
+}
+
+
+/*
 #footer {
   background: var(--fondo-secciones);
   padding: 0 0 30px 0;
@@ -638,5 +715,5 @@ button .img-card-pelicula {
   font-size: 13px;
   color: #fff;
 }
-
+*/
 

@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cinyema.app.Utility;
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.entidades.Usuario;
+import com.cinyema.app.enumeraciones.Formato;
+import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.servicios.ActorServicio;
 import com.cinyema.app.servicios.AsientoServicio;
 import com.cinyema.app.servicios.CineServicio;
@@ -68,9 +70,21 @@ public class MainControlador {
 		return "index";
 	}
 	
-	@GetMapping("/{genero}")
-	public String buscarPorGenero(ModelMap modelo, @PathVariable String genero) throws Exception {
+	@PostMapping("/busquedaPorTitulo")
+	public String buscarPorTitulo(ModelMap modelo,@RequestParam("titulo") String titulo) {
 		try {
+			modelo.addAttribute("peliculas", peliculaServicio.obtenerPeliculaPorTitulo(titulo));
+			return "index";
+		} catch (Exception e) {
+			modelo.addAttribute("error", e.getMessage());
+			return "index";
+		}
+	}
+	
+	@GetMapping("/{genero}")
+	public String buscarPorGenero(ModelMap modelo, @PathVariable Genero genero) throws Exception {
+		try {
+			System.err.println(genero);
 			modelo.addAttribute("peliculas", peliculaServicio.obtenerPeliculaPorGenero(genero));
 			return "index";
 		} catch (Exception e) {
@@ -80,8 +94,8 @@ public class MainControlador {
 		
 	}
 
-	@GetMapping("/{formato}")
-	public String buscarPorFormato(ModelMap modelo, @PathVariable String formato) throws Exception {
+	@GetMapping("/buscar/{formato}")
+	public String buscarPorFormato(ModelMap modelo, @PathVariable Formato formato) throws Exception {
 		try {
 			modelo.addAttribute("peliculas", peliculaServicio.obtenerPeliculaPorFormato(formato));
 			return "index";

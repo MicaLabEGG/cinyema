@@ -3,14 +3,18 @@ package com.cinyema.app.servicios;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Sala;
+import com.cinyema.app.enumeraciones.Formato;
+import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.repositorios.PeliculaRepositorio;
 import com.cinyema.app.repositorios.SalaRepositorio;
 
@@ -74,7 +78,8 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 	}
 
 	@Transactional(readOnly = true)
-	public List<Pelicula> obtenerPeliculaPorGenero(String genero) throws Exception {
+	public List<Pelicula> obtenerPeliculaPorGenero(Genero genero) throws Exception {
+		System.err.println(genero);
 		List<Pelicula> peliculas = repositorioPelicula.buscarPeliculaPorGenero(genero);
 		if (!peliculas.isEmpty()) {
 			return peliculas;
@@ -84,7 +89,7 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 	}
 
 	@Transactional(readOnly = true)
-	public List<Pelicula> obtenerPeliculaPorFormato(String formato) throws Exception {
+	public List<Pelicula> obtenerPeliculaPorFormato(Formato formato) throws Exception {
 		List<Pelicula> peliculas = repositorioPelicula.buscarPeliculaPorFormato(formato);
 		if (!peliculas.isEmpty()) {
 			return peliculas;

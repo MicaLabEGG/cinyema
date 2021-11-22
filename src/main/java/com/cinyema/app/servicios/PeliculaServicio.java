@@ -73,13 +73,9 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 		}
 	}
 	
-	public List<Sala> obtenerSalaPorFuncionIdPelicula(Long idPelicula) throws Exception{
-		List<Sala> salas = salaRepositorio.buscarSalaPorFuncionidPelicula(idPelicula);
-		if (salas != null) {
-			return salas;
-		} else {
-			throw new Exception("No se encontró la sala donde esta la funcion que tiene la película");
-		}
+	public Sala obtenerSalaPorFuncion(Long idFuncion) throws Exception{
+		Sala sala = salaRepositorio.buscarSalaPorIdFuncion(idFuncion);
+		return sala;
 	}
     
 	@Override

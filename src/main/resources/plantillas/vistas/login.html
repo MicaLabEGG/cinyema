@@ -6,43 +6,50 @@
 <body>
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
 
-	<section id="login-registro" >
+	<section id="login-registro" class="container w-75 mt-4 shadow">
 	
-	
-		<div class="row vh-50 justify-content-center align-items-center m-5">
-			<div class="col-auto">
-				<h1 class="text-center">Log in</h1>
-	
-				<div th:if="${error}" class="alert-danger alert-dimissible fade show mt-3" role="alert">
-					<span th:text="${error}"></span>
-				</div>
-				<div th:if="${param.logout}" class="alert-success alert-dimissible fade show mt-3" role="alert">
-					<span>Has cerrado sesión con exito</span>
-				</div>
-	
-				<form action="/logincheck" method="POST">
-					<div class="form-group">
-						<label class="form-label">Nombre de Usuario</label> <input type="text" class="form-control"
-							name="nombredeusuario" placeholder="Nombre de Usuario">
-					</div>
-					<div class="form-group">
-						<label class="form-label">Contraseña</label> <input type="password" class="form-control"
-							name="contrasenia" placeholder="Password">
-					</div>
-	
-					<div class="form-row text-center">
-						<small>¿Nuevo en Cinyema?
-							<a th:href="@{/registrar}">Crear cuenta</a>
-						</small>
-					</div>
-	
-					<div class="form-row text-center">
-						<button type="submit" class="btn btn-dark m-3">Entrar</button>
-					</div>
-				</form>
-	
+		<div class="login-registro">
+			 
+			<div th:if="${error}" class="alert-danger alert-dimissible fade show mt-3" role="alert">
+				<span th:text="${error}"></span>
 			</div>
-		</div>
+			<div th:if="${param.logout}" class="alert-success alert-dimissible fade show mt-3" role="alert">
+				<span>Has cerrado sesión con exito</span>
+			</div>
+			
+			
+			<div class="row align-items-center align-items-stretch">
+				<div class="col p-5 col-lg-7 col-xl-6 fondo">
+					<div class="text-center">
+					<img class="logoY" src="/img/logoY.png" alt="" style="width:100px">
+					</div>
+					<h2 class="fw-bold text-center pt-5 mb-5 tituloLogin">Login</h2>
+				
+					<form action="/logincheck" method="POST">
+						<div class="my-4 grupo">
+							<label for="nombredeusuario" class="form-label text-light">Nombre de Usuario</label> 
+							<input type="text" class="form-control" name="nombredeusuario" id="nombredeusuario">
+						</div>
+						<div class="my-4 grupo">
+							<label for="contrasenia" class="form-label text-light">Contraseña</label> <input type="password" class="form-control"
+								name="contrasenia" id="contrasenia">
+						</div>
+						<div class="my-4 text-center">
+	                        <button type="submit" class="btnIngresar">Iniciar Sesi�n</button>
+	                    </div>
+	                    <div class="my-4 text-center">
+	                        <span class="text-light">No tienes una cuenta? 
+	                            <a th:href="@{/registrar}" class="opciones">Reg�strate</a>
+	                        </span>
+	                    </div>
+					</form>
+	
+				</div>
+				<!-- imagen-->
+		        <div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 bg">
+		        </div>
+	        </div>
+	    </div>
 	</section>
 	
 	<footer th:insert="fragmentos/footer :: _footer"></footer>

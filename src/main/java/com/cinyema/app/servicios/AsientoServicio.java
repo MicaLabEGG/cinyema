@@ -64,16 +64,12 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 				}
 			}
 		}
+		
 		for (Asiento asiento : listaAsientos) {
 			if(asiento.getLibre()==true) {
 				asiLibres.add(asiento);
 			}
 		}
-//		for (Asiento asiento1 : asiLibres) {
-//			if(asiento1.) {
-//				asiLibres.add(asiento);
-//			}
-//		}
 		
 		return asiLibres ;
 	}

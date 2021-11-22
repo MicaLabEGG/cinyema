@@ -124,8 +124,12 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 	}
 	
 	public int cantidadPeliculaAlta() {
-		double alta = repositorioPelicula.cantidadAlta() * 100 / repositorioPelicula.cantidadTotal();
-		return (int) Math.round(alta);
+		if(repositorioPelicula.cantidadAlta() == 0 ) {
+			return 0;
+		}else{
+		    double alta = repositorioPelicula.cantidadAlta() * 100 / repositorioPelicula.cantidadTotal();
+		    return (int) Math.round(alta);
+	    }
 	}
 	
 	public int cantidadPeliculaBaja() {

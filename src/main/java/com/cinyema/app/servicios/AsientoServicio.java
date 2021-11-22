@@ -56,9 +56,7 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 		Collections.sort(listaAsientos, (o1, o2) -> o1.getNumeroDeAsiento().compareTo(o2.getNumeroDeAsiento()));
 		List<Long> ocupados = ticketRepositorio.listaAsientosOcupados(idFuncion);
 		for (Asiento asiento1 : listaAsientos) {
-			
 			for (long long1 : ocupados) {
-				
 				if (asiento1.getIdAsiento() == long1) {
 					asiento1.setLibre(false);
 				}

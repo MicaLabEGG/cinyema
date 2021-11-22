@@ -80,6 +80,18 @@ public class MainControlador {
 		
 	}
 
+	@GetMapping("/{formato}")
+	public String buscarPorFormato(ModelMap modelo, @PathVariable String formato) throws Exception {
+		try {
+			modelo.addAttribute("peliculas", peliculaServicio.obtenerPeliculaPorFormato(formato));
+			return "index";
+		} catch (Exception e) {
+			modelo.addAttribute("error", e.getMessage());
+			return "index";
+		}
+		
+	}
+
 	@GetMapping("/login")
 	public String login(ModelMap modelo, @RequestParam(required = false) String error,
 			@RequestParam(required = false) String nombreDeUsuario, @RequestParam(required = false) String logout) {

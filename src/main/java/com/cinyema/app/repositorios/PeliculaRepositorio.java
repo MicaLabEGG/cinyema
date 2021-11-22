@@ -23,6 +23,9 @@ public interface PeliculaRepositorio extends JpaRepository<Pelicula,Long>{
 	
 	@Query("SELECT p FROM Pelicula p WHERE p.genero = :genero")
 	public List<Pelicula> buscarPeliculaPorGenero(@Param("genero") String genero);
+
+	@Query("SELECT p FROM Pelicula p WHERE p.formato = :formato")
+	public List<Pelicula> buscarPeliculaPorFormato(@Param("formato") String formato);
 	
 	@Query(value = "SELECT COUNT(p) FROM Pelicula p WHERE p.alta = true")
 	public long cantidadAlta();

@@ -1,0 +1,39 @@
+
+<div th:fragment="_cardBoletoUsuario(tickets,listar)">
+	
+		<div th:each="ticket : ${tickets}" class="card mb-3 container-tarjeta-ticket">
+			<div class="row g-0">
+
+				<div class="col-md-5">
+					<div class="container-imagen-boleto">
+						<img src="/img/error/400.jpg"
+							class="card-img-top p-2 flex-fill bd-highlight" alt="...">
+					</div>
+				</div>
+
+				<div class="col-md-7">
+					<div class="body-text-ticket d-inline-flex p-2">
+						<div class="row">
+							<h5 class="body-title titulo text-center">
+								<small th:text="${ticket.funcion.pelicula.titulo}"></small>
+							</h5>
+							<div class="row">
+								<div class="col-6 ">
+									<p class="body-text-boleto">
+									    <p style="color:orange;">Nombre Cine: <small style="color: white;" th:text="${ticket.funcion.sala.cine.nombre}"></small></p>
+                                        <p>Direccion Cine</p>
+                                        <small th:text="${ticket.funcion.sala.cine.direccion}"></small>
+                                        <p>Fecha</p>
+                                        <small th:text="${ticket.funcion.fecha}"></small>
+                                        <p>Horario</p>
+                                        <small th:text="${ticket.funcion.horario}"></small>
+                                        <p>Precio</p>
+										<small th:text="${ticket.funcion.sala.cine.precio}"></small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>

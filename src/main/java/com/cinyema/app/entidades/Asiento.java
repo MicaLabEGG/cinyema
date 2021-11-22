@@ -1,5 +1,6 @@
 package com.cinyema.app.entidades;
 
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,8 +20,8 @@ public class Asiento {
 	private String numeroDeAsiento;
 	private Boolean libre;
 	
-	@OneToOne(mappedBy = "asiento")
-	private Ticket ticket;
+	@OneToMany(mappedBy = "asiento")
+	private List<Ticket> tickets;
 	
 	public Long randomId() {
 		String uuid = UUID.randomUUID().toString();

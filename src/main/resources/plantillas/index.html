@@ -71,19 +71,19 @@
 							data-bs-toggle="dropdown" aria-expanded="false">Formato</button>
 						<ul class="dropdown-menu">
 							<li th:each="formato : ${T(com.cinyema.app.enumeraciones.Formato).values()}"><a
-									class="dropdown-item" th:href="@{/(formato=${formato})}" th:text="${formato}"></a>
+									class="dropdown-item" th:href="@{/{formato}(formato=${formato})}" th:text="${formato}"></a>
 							</li>
 						</ul>
 					</div>
-					<div class="input-group">
+					<!--<div class="input-group">
 						<button class="btn btn-outline-secondary dropdown-toggle" type="button"
 							data-bs-toggle="dropdown" aria-expanded="false">Clasificacion</button>
 						<ul class="dropdown-menu">
 							<li th:each="clasificacion : ${T(com.cinyema.app.enumeraciones.Calificacion).values()}"><a
-									class="dropdown-item" th:href="@{/(clasificacion=${clasificacion})}"
+									class="dropdown-item" th:href="@{/{clasificacion}(clasificacion=${clasificacion})}"
 									th:text="${clasificacion}"></a></li>
 						</ul>
-					</div>
+					</div>-->
 				</div>
 			</div>
 		</div>

@@ -72,6 +72,16 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 			throw new Exception("No se encontró el título de la película");
 		}
 	}
+
+	@Transactional(readOnly = true)
+	public List<Pelicula> obtenerPeliculaPorGenero(String genero) throws Exception {
+		List<Pelicula> peliculas = repositorioPelicula.buscarPeliculaPorGenero(genero);
+		if (!peliculas.isEmpty()) {
+			return peliculas;
+		} else {
+			throw new Exception("No hay película de este genero");
+		}
+	}
 	
 	public Sala obtenerSalaPorFuncion(Long idFuncion) throws Exception{
 		Sala sala = salaRepositorio.buscarSalaPorIdFuncion(idFuncion);

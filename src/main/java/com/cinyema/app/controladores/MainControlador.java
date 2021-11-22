@@ -13,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,6 +66,18 @@ public class MainControlador {
 	public String index(ModelMap modelo) {
 		modelo.addAttribute("peliculas", peliculaServicio.listarPeliculasActivas());
 		return "index";
+	}
+	
+	@GetMapping("/{genero}")
+	public String buscarPorGenero(ModelMap modelo, @PathVariable String genero) throws Exception {
+		try {
+			modelo.addAttribute("peliculas", peliculaServicio.obtenerPeliculaPorGenero(genero));
+			return "index";
+		} catch (Exception e) {
+			modelo.addAttribute("error", e.getMessage());
+			return "index";
+		}
+		
 	}
 
 	@GetMapping("/login")

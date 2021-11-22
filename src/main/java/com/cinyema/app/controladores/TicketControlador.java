@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cinyema.app.Utility;
+import com.cinyema.app.entidades.Funcion;
 import com.cinyema.app.entidades.Sala;
 import com.cinyema.app.entidades.Ticket;
 import com.cinyema.app.servicios.AsientoServicio;
@@ -147,25 +147,68 @@ public class TicketControlador {
 			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
-			Sala sala = servicioPelicula.obtenerSalaPorFuncionIdPelicula(idPelicula);
-			modelo.addAttribute("sala", sala);
-			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorSalaId(sala.getIdSala()));
-			modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala));
-			Ticket ticket = servicioTicket.registrarVacio();
-			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
-//			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
-			modelo.addAttribute("ticket", ticket);
-			return "vistas/ticketCompra";
+//			List<Sala> salas = servicioPelicula.obtenerSalaPorFuncionIdPelicula(idPelicula);
+//			modelo.addAttribute("salas", salas);
+			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorPeliculaId(idPelicula));
+//			for (Sala sala1 : salas) {
+//				modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala1));
+//			}
+//			Ticket ticket = servicioTicket.registrarVacio();
+//			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+////			ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
+//			modelo.addAttribute("ticket", ticket);
+			return "vistas/ticketCompraFecha";
 		} catch (Exception e) {
 			e.printStackTrace();
 			modelo.put("error", e.getMessage());
 			//modelo.addAttribute("compra", "Compra Ticket");
 			modelo.addAttribute("ticket", servicioTicket.registrarVacio());
+			return "vistas/ticketCompraFecha";
+		}
+	}
+	
+	@GetMapping("/compra/{idPelicula}/{fecha}")
+	public String compraFecha(ModelMap modelo, Authentication autenticacion, @PathVariable Long idPelicula,@PathVariable String fecha) throws Exception {
+		try {
+			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
+			modelo.put("fecha", fecha);
+			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorPeliculaIdAndFecha(idPelicula, fecha));
+			return "vistas/ticketCompraHorario";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.put("error", e.getMessage());
+			return "vistas/ticketCompraHorario";
+		}
+	}
+	
+	@GetMapping("/compra/{idPelicula}/{fecha}/{horario}")
+	public String compraHora(ModelMap modelo, Authentication autenticacion, @PathVariable Long idPelicula,@PathVariable String fecha,@PathVariable String horario) throws Exception {
+		try {
+			System.err.println(horario + "hola");
+			modelo.addAttribute("usuario", servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
+			Funcion funcion = salaServicio.obtenerFuncionesPorPeliculaIdAndFechaAndHorario(idPelicula, fecha, horario);
+			modelo.addAttribute("funcion", funcion);
+			System.err.println(funcion.toString());
+			Sala sala = servicioPelicula.obtenerSalaPorFuncion(funcion.getIdFuncion());
+			modelo.addAttribute("sala", sala);
+			modelo.addAttribute("asientos", servicioAsiento.listar(funcion.getIdFuncion()));
+			Ticket ticket = servicioTicket.registrarVacio();
+			ticket.setUsuario(servicioUsuario.obtenerUsuarioPorNombre(autenticacion.getName()));
+			ticket.setFuncion(funcion);
+			//ticket.setPelicula(servicioPelicula.obtenerPorId(idPelicula));
+			System.err.println(ticket.toString());
+			modelo.addAttribute("ticket", ticket);
+			return "vistas/ticketCompra";
+		} catch (Exception e) {
+			e.printStackTrace();
+			modelo.put("error", e.getMessage());
 			return "vistas/ticketCompra";
 		}
 	}
 
-	@PostMapping("/compra/{idTicket}")
+	@PostMapping("/compra/{idPelicula}/{fecha}/{horario}")
 	public String compra(ModelMap modelo, Ticket ticket, HttpServletRequest request) throws Exception {
 		try {
 			servicioTicket.registrar(ticket);

@@ -19,7 +19,7 @@
 	
 			<div th:if="${registrar}!= null">
 				<div
-					th:replace="fragmentos/usuario/registrarUsuario.html :: _registrarUsuario(usuario=${usuario}, error=${error},registrar=${registrar})">
+					th:replace="fragmentos/usuario/registroUsuario.html :: _registrarUsuario(usuario=${usuario}, error=${error},registrar=${registrar})">
 				</div>
 			</div>
 	
@@ -34,9 +34,6 @@
 	
 	<script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/dataTables-demo.js"></script>
-    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-	<script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap5.min.js"></script>
     <script src="/js/script.js"></script>   
 </body>
 

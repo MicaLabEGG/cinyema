@@ -3,14 +3,18 @@ package com.cinyema.app.servicios;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.cinyema.app.entidades.Pelicula;
 import com.cinyema.app.entidades.Sala;
+import com.cinyema.app.enumeraciones.Formato;
+import com.cinyema.app.enumeraciones.Genero;
 import com.cinyema.app.repositorios.PeliculaRepositorio;
 import com.cinyema.app.repositorios.SalaRepositorio;
 
@@ -72,14 +76,31 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 			throw new Exception("No se encontró el título de la película");
 		}
 	}
-	
-	public Sala obtenerSalaPorFuncionIdPelicula(Long idPelicula) throws Exception{
-		Sala sala = salaRepositorio.buscarSalaPorFuncionidPelicula(idPelicula);
-		if (sala != null) {
-			return sala;
+
+	@Transactional(readOnly = true)
+	public List<Pelicula> obtenerPeliculaPorGenero(Genero genero) throws Exception {
+		System.err.println(genero);
+		List<Pelicula> peliculas = repositorioPelicula.buscarPeliculaPorGenero(genero);
+		if (!peliculas.isEmpty()) {
+			return peliculas;
 		} else {
-			throw new Exception("No se encontró la sala donde esta la funcion que tiene la película");
+			throw new Exception("No hay película de este genero");
 		}
+	}
+
+	@Transactional(readOnly = true)
+	public List<Pelicula> obtenerPeliculaPorFormato(Formato formato) throws Exception {
+		List<Pelicula> peliculas = repositorioPelicula.buscarPeliculaPorFormato(formato);
+		if (!peliculas.isEmpty()) {
+			return peliculas;
+		} else {
+			throw new Exception("No hay película de este formato");
+		}
+	}
+	
+	public Sala obtenerSalaPorFuncion(Long idFuncion) throws Exception{
+		Sala sala = salaRepositorio.buscarSalaPorIdFuncion(idFuncion);
+		return sala;
 	}
     
 	@Override
@@ -128,8 +149,12 @@ public class PeliculaServicio implements ServicioBase<Pelicula>{
 	}
 	
 	public int cantidadPeliculaAlta() {
-		double alta = repositorioPelicula.cantidadAlta() * 100 / repositorioPelicula.cantidadTotal();
-		return (int) Math.round(alta);
+		if(repositorioPelicula.cantidadAlta() == 0 ) {
+			return 0;
+		}else{
+		    double alta = repositorioPelicula.cantidadAlta() * 100 / repositorioPelicula.cantidadTotal();
+		    return (int) Math.round(alta);
+	    }
 	}
 	
 	public int cantidadPeliculaBaja() {

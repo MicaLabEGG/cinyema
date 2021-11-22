@@ -1,38 +1,50 @@
 
 <div th:fragment="_cardBoletoUsuario(tickets,listar)">
-	
-		<div th:each="ticket : ${tickets}" class="card mb-3 container-tarjeta-ticket">
-			<div class="row g-0">
 
-				<div class="col-md-5">
-					<div class="container-imagen-boleto">
-						<img src="/img/error/400.jpg"
-							class="card-img-top p-2 flex-fill bd-highlight" alt="...">
-					</div>
+	<div th:each="ticket : ${tickets}"
+		class="card mb-3 container-tarjeta-ticket">
+		<div class="row g-0">
+
+			<div class="col-md-5">
+				<div class="container-imagen-boleto">
+					<img
+						th:src="*{'data:imagen/jpeg;base64,'+{ticket.funcion.pelicula.imagen}}"
+						class="img-fluid rounded mx-auto d-block" alt="..." width="65%">
 				</div>
+			</div>
 
-				<div class="col-md-7">
-					<div class="body-text-ticket d-inline-flex p-2">
+			<div class="col-md-7">
+				<div class="body-text-ticket d-inline-flex p-2">
+					<div class="row">
+						<h5 class="body-title titulo text-center">
+							<small th:text="${ticket.funcion.pelicula.titulo}"></small>
+						</h5>
 						<div class="row">
-							<h5 class="body-title titulo text-center">
-								<small th:text="${ticket.funcion.pelicula.titulo}"></small>
-							</h5>
-							<div class="row">
-								<div class="col-6 ">
-									<p class="body-text-boleto">
-
-										10/12/21 14:30<br> $1500
-									</p>
-								</div>
-								<div class="col-6">
-									<p class="body-text-boleto">
-										Showcase (Junín 498)<br> 10/12/21 14:30<br> $1500
-									</p>
-								</div>
-							</div>
+							<p class="body-text-boleto">
+							<p style="color: orange;">
+								Nombre Cine: <small style="color: white;"
+									th:text="${ticket.funcion.sala.cine.nombre}"></small>
+							</p>
+							<p style="color: orange;">
+								Direccion Cine: <small style="color: white;"
+									th:text="${ticket.funcion.sala.cine.direccion}"></small>
+							</p>
+							<p style="color: orange;">
+								Fecha: <small style="color: white;"
+									th:text="${ticket.funcion.fecha}"></small>
+							</p>
+							<p style="color: orange;">
+								Horario: <small style="color: white;"
+									th:text="${ticket.funcion.horario}"></small>
+							</p>
+							<p style="color: orange;">
+								Precio: <small style="color: white;"
+									th:text="${ticket.funcion.sala.cine.precio}"></small>
+							</p>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-</div>
+	</div>
+</div>		

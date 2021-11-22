@@ -20,14 +20,15 @@
 							<div class="row">
 								<div class="col-6 ">
 									<p class="body-text-boleto">
-
-										10/12/21 14:30<br> $1500
-									</p>
-								</div>
-								<div class="col-6">
-									<p class="body-text-boleto">
-										Showcase (Junín 498)<br> 10/12/21 14:30<br> $1500
-									</p>
+									    <p style="color:orange;">Nombre Cine: <small style="color: white;" th:text="${ticket.funcion.sala.cine.nombre}"></small></p>
+                                        <p>Direccion Cine</p>
+                                        <small th:text="${ticket.funcion.sala.cine.direccion}"></small>
+                                        <p>Fecha</p>
+                                        <small th:text="${ticket.funcion.fecha}"></small>
+                                        <p>Horario</p>
+                                        <small th:text="${ticket.funcion.horario}"></small>
+                                        <p>Precio</p>
+										<small th:text="${ticket.funcion.sala.cine.precio}"></small>
 								</div>
 							</div>
 						</div>

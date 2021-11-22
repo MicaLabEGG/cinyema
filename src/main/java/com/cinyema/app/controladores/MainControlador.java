@@ -193,11 +193,15 @@ public class MainControlador {
 			Date fechaNacimiento = new SimpleDateFormat("yyyy-MM-dd").parse(usuario.getFechaNacimiento());
 			modelo.put("fechaNacimiento", fechaNacimiento);
 			modelo.addAttribute("usuario", usuario);
-			List <Ticket> tickets = usuario.getTicket();
-			for (Ticket ticket : tickets) {
-				//ticket.getFuncion().getPelicula();
-				modelo.addAttribute("pelicula", ticket.getFuncion().getPelicula());
-			}
+			modelo.addAttribute("tickets", usuario.getTicket());
+			modelo.addAttribute("listar", "Lista de Boletos");
+			
+			//List <Ticket> tickets = usuario.getTicket();
+//			for (Ticket ticket : tickets) {
+//				//ticket.getFuncion().getPelicula();
+//				modelo.addAttribute("pelicula", ticket.getFuncion().getPelicula());
+//				modelo.addAttribute("funcion", ticket.getFuncion());
+//			}
 			return "vistas/usuario/panelUsuario";
 		} catch (Exception e) {
 			modelo.addAttribute("error", "No se encontro el usuario");

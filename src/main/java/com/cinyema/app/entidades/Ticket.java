@@ -25,7 +25,8 @@ public class Ticket {
 	@ManyToOne
 	@JoinColumn(name = "FK_TICKFUNC", nullable = false, updatable = false)
 	private Funcion funcion;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "FK_TICKASIEN", nullable = false, updatable = false)
 	private Asiento asiento;
 
 	public Ticket(Long idTicket, Usuario usuario, Funcion funcion, Asiento asiento) {

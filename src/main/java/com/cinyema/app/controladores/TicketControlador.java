@@ -149,7 +149,7 @@ public class TicketControlador {
 			modelo.addAttribute("pelicula", servicioPelicula.obtenerPorId(idPelicula));
 //			List<Sala> salas = servicioPelicula.obtenerSalaPorFuncionIdPelicula(idPelicula);
 //			modelo.addAttribute("salas", salas);
-			modelo.addAttribute("funciones", salaServicio.obtenerFuncionesPorPeliculaId(idPelicula));
+			modelo.addAttribute("fechas", salaServicio.obtenerFuncionesPorPeliculaId(idPelicula));
 //			for (Sala sala1 : salas) {
 //				modelo.addAttribute("asientos", salaServicio.obtenerAsientosLibres(sala1));
 //			}

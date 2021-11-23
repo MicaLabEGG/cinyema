@@ -10,10 +10,7 @@
 	
 		<div class="login-registro">
 			 
-			<div th:if="${error}" class="alert-danger alert-dimissible fade show mt-3" role="alert">
-				<span th:text="${error}"></span>
-			</div>
-			<div th:if="${param.logout}" class="alert-success alert-dimissible fade show mt-3" role="alert">
+			<div th:if="${param.logout}" class="alert-success alert-dimissible fade show mt-3 text-center" role="alert">
 				<span>Has cerrado sesión con exito</span>
 			</div>
 			
@@ -34,20 +31,24 @@
 							<label for="contrasenia" class="form-label text-light">Contraseña</label> <input type="password" class="form-control"
 								name="contrasenia" id="contrasenia">
 						</div>
+						
+						<div class="my-4 grupo">
+							<p th:if="${error != null}" th:text="${error}"></p>
+						</div>
+						
 						<div class="my-4 text-center">
-	                        <button type="submit" class="btnIngresar">Iniciar Sesi�n</button>
+	                        <button type="submit" class="btnIngresar">Iniciar Sesión</button>
 	                    </div>
 	                    <div class="my-4 text-center">
-	                        <span class="text-light">No tienes una cuenta? 
-	                            <a th:href="@{/registrar}" class="opciones">Reg�strate</a>
+	                        <span class="text-light">¿No tienes una cuenta? 
+	                            <a th:href="@{/registrar}" class="opciones">Regístrate</a>
 	                        </span>
 	                    </div>
 					</form>
 	
 				</div>
 				<!-- imagen-->
-		        <div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 bg">
-		        </div>
+		        <div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 bg"></div>
 	        </div>
 	    </div>
 	</section>

@@ -92,7 +92,7 @@
 								</div>
 								
 								<div>
-									<a class="btn btn-success me-2" th:each="funcion : ${funciones}" th:href="@{{fecha}/{horario}(fecha=${fecha},horario=${funcion.horario})}" th:text="${funcion.horario}"></a>
+									<a class="btn btn-success me-2 mb-2" th:each="funcion : ${funciones}" th:href="@{{fecha}/{horario}(fecha=${fecha},horario=${funcion.horario})}" th:text="${funcion.horario}"></a>
 								</div>
 						</div>
 					</div>

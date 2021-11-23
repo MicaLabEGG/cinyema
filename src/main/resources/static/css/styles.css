@@ -108,6 +108,19 @@ nav .logo img:hover {
   transform: translateY(-2px);
 }
 
+/*--------------------------------------------------------------
+# Sub Nav
+--------------------------------------------------------------*/
+#subNav-index {
+	height: 40px;
+	background: var(--fondo-secciones);
+}
+
+#subNav-index h1{
+	color: var(--color-text2);
+	font-family: 'Nunito', sans-serif;
+	font-size: 34px;
+}
 
 /*--------------------------------------------------------------
 # Login-Registro
@@ -600,6 +613,17 @@ main{
 /*--------------------------------------------------------------
 # cardPelicula
 --------------------------------------------------------------*/
+#cajaCard img{
+	border-radius: 10px;
+	box-shadow: -4px 4px 5px 0 #000;
+  	transition: 0.8s;
+}
+
+#cajaCard img:hover{
+	transform: translateY(-10px);
+  	box-shadow: 0 2px 10px rgb(255, 211, 130), 0 2px 10px rgba(197, 151, 1, 0.877);
+}
+
 .img-card-caja {
   position: relative;
   display: inline-block;
@@ -613,7 +637,7 @@ main{
 }
 
 .img-card-pelicula:hover ~ .img-card-titulo h5, .img-card-titulo h5:hover {
-  background: linear-gradient(to bottom, var(--color-degrade-naranja), var(--color-degrade-amarillo));
+  background: linear-gradient(to bottom, var(--color-amarillo), var(--color-degrade-amarillo));
   font-weight: bold;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -629,7 +653,7 @@ button .img-card-pelicula {
   position: absolute;
   top: 80%;
   width: 225px;
-  background-color: var(--color-naranja);
+  background-color: rgba(197, 151, 1, 0.877);
   opacity: 0.9;
 }
 

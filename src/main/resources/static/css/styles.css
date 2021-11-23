@@ -642,13 +642,15 @@ button .img-card-pelicula {
 # Footer
 --------------------------------------------------------------*/
 .bg-footer {
-    background-color: #33383c;
+    background-color: var(--fondo-secciones);
     padding: 50px 0 30px;
 }
 
 .logo-footer img {
 	height: 110px;
 	width: 110px;
+	margin-left: 50px;
+	margin-top: 20px;
 }
 
 .footer-heading {
@@ -680,6 +682,17 @@ button .img-card-pelicula {
     line-height: 34px;
     text-align: center;
     display: inline-block;
+}
+
+.footer-social-icon:hover {
+    font-size: 15px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    line-height: 34px;
+    text-align: center;
+    display: inline-block;
+    background-color: rgba(255, 174, 80,3);
 }
 
 .facebook {

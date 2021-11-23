@@ -1,10 +1,11 @@
-<div id="tablaAdmin" th:fragment="_verificacionFallidaUsuario(usuario,error,registrar)">
-	<section class="container">
+<div id="verificaciones" th:fragment="_verificacionFallidaUsuario(usuario,error,registrar)">
+	<section class="container verificacion">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
-				<h2 class="text-light">Verificación del Usuario</h2>
-				<h4 class="text-light">Su cuenta ya ha sido verificada o el código de verificación no es válido</h4>
-				<h4 class="text-light"><a th:href="@{/login}">Haga clic aquí para iniciar sesión</a></h4>
+				<h1 class="text-light">Verificación del Usuario</h1>
+				<h3 class="text-light">Su cuenta ya ha sido verificada o el código de verificación no es válido</h3>
+				<br>
+				<h4 class="text-light"><i class="uil uil-mouse"></i><a th:href="@{/login}">Haga clic aquí para iniciar sesión</a></h4>
         	</div>
     	</div>
     </section>

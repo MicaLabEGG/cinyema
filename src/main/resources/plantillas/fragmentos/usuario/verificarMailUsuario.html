@@ -1,11 +1,12 @@
-<div id="tablaAdmin" th:fragment="_verificarMailUsuario(usuario,error,registrar)">
-	<section class="container">
+<div id="verificaciones" th:fragment="_verificarMailUsuario(usuario,error,registrar)">
+	<section class="container verificacion">
 		<div class="row vh-50 justify-content-center align-items-center">
 			<div class="col-auto">
-				<h2 class="text-light">Registro de Usuario</h2>
-				<h4 class="text-light">Se ha registrado correctamente como usuario de Cinyema</h4>
+				<h1 class="text-light">Registro de Usuario</h1>
+				<h3 class="text-light">Se ha registrado correctamente como usuario de Cinyema</h3>
 				<p class="text-light">Por favor, compruebe su correo electrónico para verificar su cuenta</p>
-	        	<h4 class="text-light"><a th:href="@{/login}">Haga clic aquí para iniciar sesión</a></h4>
+				<br>
+	        	<h4 class="text-light"><i class="uil uil-mouse"></i><a th:href="@{/login}">Haga clic aquí para iniciar sesión</a></h4>
         	</div>
     	</div>
     </section>

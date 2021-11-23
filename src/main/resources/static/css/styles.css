@@ -662,6 +662,23 @@ button .img-card-pelicula {
   font-size: 16px;
   margin: auto;
 }
+
+/*--------------------------------------------------------------
+# Verificacion
+--------------------------------------------------------------*/
+#verificaciones{
+	margin: 250px 0px 100px 0px;
+}
+
+.verificacion{
+	height: 500px;
+	margin: auto;
+}
+
+.verificacion h4 a{
+	text-decoration: none;
+}
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/

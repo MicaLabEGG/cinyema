@@ -186,6 +186,10 @@ nav .logo img:hover {
     color: #d8b819;
 }
 
+#login-registro p{
+	color: red;
+}
+
 
 /*--------------------------------------------------------------
 # Formularios de Registros

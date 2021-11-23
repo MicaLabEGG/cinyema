@@ -110,7 +110,7 @@ public class MainControlador {
 	public String login(ModelMap modelo, @RequestParam(required = false) String error,
 			@RequestParam(required = false) String nombreDeUsuario, @RequestParam(required = false) String logout) {
 		if (error != null) {
-			modelo.addAttribute("error", "El usuario o la contraseña son inválidos. Vuelva a intentar");
+			modelo.addAttribute("error", "*El usuario o contraseña es inválido. Vuelva a intentar");
 		}
 		if (nombreDeUsuario != null) {
 			modelo.addAttribute("nombreDeUsuario", nombreDeUsuario);

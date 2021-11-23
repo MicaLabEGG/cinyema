@@ -1,6 +1,7 @@
 package com.cinyema.app.servicios;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -199,31 +200,47 @@ public class UsuarioServicio implements UserDetailsService, ServicioBase<Usuario
 	}
 
 	public void validar(Usuario usuario) throws Exception {
-		Date hoy = new Date();
+		
+		
+		if (StringUtils.isBlank(usuario.getNombreDeUsuario()) && StringUtils.isBlank(usuario.getNombre())
+				&& usuario.getMail().isEmpty() && usuario.getContrasenia().isEmpty()) {
+			throw new Exception("*Los campos estan vacíos");
+		}
 
+		if (usuario.getNombreDeUsuario() == null || StringUtils.isBlank(usuario.getNombreDeUsuario())) {
+			throw new Exception("*El nombre de usuario es inválido");
+		}
+		
+		if (usuarioRepositorio.buscarPorNombreDeUsuario(usuario.getNombreDeUsuario()) != null) {
+			throw new Exception("*El nombre de usuario ya existe");
+		}
+				
 		if (usuario.getNombre() == null || StringUtils.isBlank(usuario.getNombre())) {
-			throw new Exception("Nombre de usuario inválido");
+			throw new Exception("*El nombre y apellido es inválido");
 		}
 
 		// codigo de validacion de mail sacado de internet :D
 		if (usuario.getMail() == null || usuario.getMail().isEmpty() || !usuario.getMail().contains("@")) {
-			throw new Error("E-mail de usuario inválido");
+			throw new Exception("*El mail es inválido");
 		}
 
-		if (usuario.getNombreDeUsuario() == null || StringUtils.isBlank(usuario.getNombreDeUsuario())) {
-			throw new Exception("Nombre de usuario inválido");
+		if (usuario.getContrasenia() == null || usuario.getContrasenia().isEmpty() || usuario.getContrasenia().contains("  ")) {
+			throw new Exception("*La contraseña es inválida");
 		}
-
-		if (usuario.getContrasenia() == null || usuario.getContrasenia().isEmpty()
-				|| usuario.getContrasenia().contains("  ") || usuario.getContrasenia().length() <= 6) {
-			throw new Exception("Contraseña inválida");
-		}
-
-//		if (usuario.getFechaNacimiento() == null || usuario.getFechaNacimiento().after(hoy)) {
-//			throw new Exception("Fecha de nacimiento inválida");
-//		}
 		
+		if (usuario.getContrasenia().length() <= 6) {
+			throw new Exception("*La contraseña debe tener al menos 6 caracteres");
+		}
+		
+		Date hoy = new Date();
+		// conversion de fecha tipo string a tipo date
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date fechaNacimiento = sdf.parse(usuario.getFechaNacimiento());
 
+		if (usuario.getFechaNacimiento() == null || fechaNacimiento.after(hoy)) {
+			throw new Exception("*La fecha de nacimiento es inválida");
+		}
+		
 	}
 
 	@Override

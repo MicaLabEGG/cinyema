@@ -6,9 +6,12 @@
   --fondo-html: #201F20;
   --fondo-secciones: #040405;
   --color-text: #6C6D70;
-  --color-titulo: #fff;
+  --color-text2: #989898;
+  --color-titulo: #ffffff;
   --color-amarillo: #FAED1F;
-  --color-naranja: #F37735; 
+  --color-naranja: #F37735;
+  --color-degrade-naranja: #f25300;
+  --color-degrade-amarillo: #fff00c;
 }
 
 html {
@@ -26,10 +29,12 @@ body {
 --------------------------------------------------------------*/
 
 .navbar{
+  height: 85px;
   transition: all 0.5s;
   z-index: 997;
   padding: 15px 0;
   background: var(--fondo-secciones);
+ box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px;
 }
 
 nav .logo {
@@ -42,22 +47,22 @@ nav .logo {
   text-transform: uppercase;
 }
 
-
 nav .logo img {
   max-height: 45px;
 }
 
+/*
 nav .logo img:hover {
   transform: translateY(-1px);
   box-shadow: 0 19px 38px rgba(126, 126, 126, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
-
+*/
 
 #login{
 	margin: 5px 0px 0px 0px;
 }
 
-#login ul li a:hover{
+#login ul li a{
 	color: #ffbb38;
 }
 
@@ -103,71 +108,262 @@ nav .logo img:hover {
   transform: translateY(-2px);
 }
 
+/*--------------------------------------------------------------
+# Sub Nav
+--------------------------------------------------------------*/
+#subNav-index {
+	height: 40px;
+	background: var(--fondo-secciones);
+}
+
+#subNav-index h1{
+	color: var(--color-text2);
+	font-family: 'Nunito', sans-serif;
+	font-size: 34px;
+}
 
 /*--------------------------------------------------------------
-# Formulario Login-Registro
+# Login-Registro
 --------------------------------------------------------------*/
 
 #login-registro{
-	margin: 100px 0px 100px 0px;
+	margin: auto;
+}
+
+#login-registro .login-registro{
+	margin: 150px 0px 100px 0px;
+}
+
+#login-registro .bg{
+    background-image: url("/img/bg.png");
+    background-position: center;
+}
+
+#login-registro .fondo{
+    background-color: #020403;
+}
+
+#login-registro .logoY{
+    border-radius: 50px;
+    margin: auto;
+}
+
+#login-registro .logoY:hover{
+    transform: translateY(-3px);
+}
+
+#login-registro .formulario{
+    align-items: center;
+}
+
+#login-registro .tituloLogin{
+    color: white;
+}
+
+#login-registro .tituloLogin:hover{
+    color: #d8b819;
+}
+
+#login-registro .grupo{
+    width: 55%;
+    margin: auto;
+}
+
+#login-registro .btnIngresar {
+    margin: 20px 0px 10px 0px;
+    background: linear-gradient(to right, #ffa751, #ffe259);
+    border-radius: 4px;
+    padding: 7px 25px 8px 25px;
+    white-space: nowrap;
+    transition: 0.3s;
+    font-size: 16px;
+    font-weight: 600;
+    border: 2px solid #ffc451;
+    text-decoration: none;
+    color: black;
+}
+
+#login-registro .btnIngresar:hover {
+    background: linear-gradient(to right, #ffe259, #ffa751);
+    color: #343a40;
+    transform: translateY(-2px);
+    border: 2px solid #f7902a;
+}
+
+#login-registro .opciones{
+    text-decoration: none;
+    color: white;
+}
+
+#login-registro .opciones:hover{
+    color: #d8b819;
+}
+
+#login-registro p{
+	color: red;
+}
+
+
+/*--------------------------------------------------------------
+# Formularios de Registros
+--------------------------------------------------------------*/
+
+#registros{
+	margin: 150px 0px 100px 270px;
+}
+
+#registros form{
+	background-color: rgb(0, 0, 0);
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 100px;
+    border-radius: 16px;
+    padding: 35px 25px;
+    padding-bottom: 25px;
+    opacity: 0.8;
+    box-shadow: 0 0 6px 0 rgba(255, 255, 255, 0.8);
+}
+
+#registros .titulo{
+	margin: 0px 0px 20px 0px;
+}
+
+#registros .form-group{
+	margin: 0px 0px 10px 0px;
+}
+
+#registros .boton{
+	margin: 25px 0px 0px 0px;
 }
 
 /*--------------------------------------------------------------
 # Panel Usuario
 --------------------------------------------------------------*/
-/*
-#panelUsuario h1 {
-	color: var(--color-titulo);
-}
-*/
 
 #panelUsuario{
 	margin: 100px 0px 100px 0px;
-	background-image: url(/img/skyline.png);
+	/*background: linear-gradient(to bottom, var(--color-naranja));*/
+	/*background-image: url(/img/skyline.png);
 	background-repeat: no-repeat;
 	background-size: contain;
-	background-position: bottom;
+	background-position: bottom;*/
 }
 
-#tarjeta-datos-usuario {
-	color: #fff;
-	background-color: #2b2b2b;
-	border: groove grey;
-	border-radius: 5px;
-	padding-bottom: 100 px;
-	height: 400 px;
+/*-- card usuario --*/
+.card-usuario{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 0 0 15px 15px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    width: 250px;
+    padding-bottom: 15px;
+    background-color: rgb(10, 10, 10);
 }
 
-.linea-separadora {
-	text-align: center;
-	height: 0.2px;
-  	width: 60%;
- 	background-color: #f29a2e;
- 	margin: 10px 0px 20px 0px;
- }
+.card-usuario img{
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-image: linear-gradient(60deg, var(--color-amarillo), var(--color-naranja));
+    padding: 5px;
+    margin-top: -45px;
+}
 
-#contenedor-boletos {
-	color: var(--color-text);
+.card-usuario h2{
+    margin: 10px 0;
+    color: var(--color-titulo);
+}
+
+.cont{
+    width: 90%;
+    height: 0;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.6s ease;
+    color: var(--color-text2);
+}
+
+.card-usuario:hover > .cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    height: 100px;
+}
+
+/*-- card boleto --*/
+
+.container-imagen-boleto {
 	background-color: var(--fondo-secciones);
 }
 
-.tarjeta-ticket {
-	color: var(--fondo-html);
-	background-color: var(--color-text);
-	border: none;
-	border-right: 0.5rem solid transparent;
-	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
-	border-image-slice: 2; 
-	transition: 0.5s;
-	text-align: center;
-	padding: 3x;
-	border-radius: 5px;
+.container-imagen-boleto img {
+	height: 100%;
 }
 
-.tarjeta-ticket:hover {
-	background-color: #aaa;
-	box-shadow: 6px 6px 2px rgba(130,130,130,0.5);
+.container-tarjeta-ticket {
+	background-color: #181818;
+	border: none;
+	border-right: 0.2rem solid transparent;
+	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+	border-image-slice: 1; 
+	transition: 0.5s;
+	text-align: center;
+	box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+	margin: 20px;
 }
+
+.container-tarjeta-ticket:hover {
+	box-shadow: rgba(0, 0, 0, 0.24) 15px 15px 15px;
+}
+
+.body-text-ticket {
+	margin: 20px;
+}
+
+.body-text-ticket .titulo {
+	color: var(--color-titulo);
+	font-weight: bold;
+	border: var(--fondo-secciones);
+	
+}
+
+.body-text-ticket .body-text-boleto {
+	color: #989898;
+}
+
+/* PARTE DE USUARIO MANUAL (PRIMERA VERSION COMENTADA EN EL HTML POR LAS DUDAS) 
+
+#tarjeta-datos-usuario {
+	color: #fff;
+	background-color: #181818;
+	border: var(--color-amarillo) 0.3px solid;
+	border-image: linear-gradient(to bottom, var(--color-amarillo), var(--fondo-secciones));
+	border-image-slice: 2; 
+	border-radius: 10px;
+	padding-bottom: 100 px;
+	margin: 30px;
+}
+
+#tarjeta-datos-usuario h2 {
+	font-weight: bold;
+}
+
+#tarjeta-datos-usuario .card-user-body {
+	margin: 0px 20px 40px 20px;
+}
+
+#tarjeta-datos-usuario .circulo-usuario {
+	margin: 30px auto 3px auto;
+}
+
+#tarjeta-datos-usuario .circulo-logo-usuario {
+ color:black;
+
+}
+*/
 
 /*--------------------------------------------------------------
 # Panel Admin
@@ -183,7 +379,7 @@ nav .logo img:hover {
   transform: none;
   visibility: visible !important;
   height: calc(100% - 97px);
-  top: 97px;
+  top: 85px;
 }
 .sidebar-link {
   display: flex;
@@ -222,11 +418,11 @@ main{
 # Cards Panel Admin
 --------------------------------------------------------------*/
 
-.cardsAdmin{
+#cardAdmin .cardsAdmin{
 	margin: 150px 0px 100px 0px;
 }
 
-.card-body:hover {
+#cardAdmin .card-body:hover {
   transform: translateY(-2px);
   box-shadow: 0 2px 10px 2px rgba(255, 255, 255, 0.8);
   cursor: pointer;
@@ -236,34 +432,95 @@ main{
 # Tablas Panel Admin
 --------------------------------------------------------------*/
 
-.tamTabla{
-	margin: auto;
-	width: 95%;
-}
-
 #tablaAdmin{
 	margin: 200px 0px 100px 270px;
 }
 
-table {
+#tablaAdmin .tamTabla{
+	margin: auto;
+	width: 95%;
+}
+
+#tablaAdmin table {
   border-collapse: collapse;
 }
 
+#tablaAdmin .buscador{
+	width: 50%;
+	height: 41px;
+	margin: 15px 0 0px 0px;
+	border-radius: 5px;
+	border-color: black;
+	color: black;
+}
+
+#tablaAdmin .buscador:hover{
+	border-color: gray;
+}
+
+#tablaAdmin .btn_buscar{
+	margin: 0px 0 2px 0px;
+	border-color: black;
+	height: 40px;
+	width: 42px;
+}
+
+#tablaAdmin .btn_buscar:hover{
+	border-color: gray;
+}
+
+#tablaAdmin .btn_actualizar{
+	margin: 0px 0 2px 0px;
+	border-color: black;
+	height: 40px;
+	width: 42px;
+}
+
+#tablaAdmin .btn_actualizar:hover{
+	border-color: gray;
+}
+
+#tablaAdmin .errorBuscar{
+	color: red;
+}
 
 /*--------------------------------------------------------------
 # Ticket Compra
 --------------------------------------------------------------*/
 
 #ticketCompra{
-	margin: 100px 0px 100px 0px;
+	margin: 150px 0px 100px 0px;
 }
+
+#ticketCompra .trailer{
+	color: white;
+	text-decoration: none;
+}
+
+#ticketCompra .trailer:hover{
+	color: #ffc451;
+}
+
+#ticketCompra .sinopsis{
+	color:white;
+}
+
+#ticketCompra .tituloBoleto{
+	color: #ffc451;
+}
+
+#ticketCompra .tituloBoleto:hover{
+	color: #ffff80;
+}
+
+
 
 /*--------------------------------------------------------------
 # Menu Principal
 --------------------------------------------------------------*/
 
 #menu{
-	margin: 100px 0px 100px 0px;
+	margin: 50px 0px 50px 0px;
 }
 
 .slider {
@@ -279,18 +536,22 @@ table {
   color: #fff;
 }
 .slider-card {
-  background: #fff;
   padding: 0px 0px;
-  margin: 50px 15px 90px 15px;
+  margin: 40px 30px 80px 40px;
   border-radius: 5px;
   box-shadow: 0 15px 45px -20px rgb(0 0 0 / 73%);
   transform: scale(0.9);
   opacity: 0.5;
   transition: all 0.3s;
 }
+
 .slider-card img {
   border-radius: 5px 5px 0px 0px;
+  height: 250px;
+  width: 100%;
+  background-color: none;
 }
+
 .owl-nav .owl-prev {
   position: absolute;
   top: calc(50% - 25px);
@@ -299,6 +560,7 @@ table {
   font-size: 30px !important;
   z-index: 1;
 }
+
 .owl-nav .owl-next {
   position: absolute;
   top: calc(50% - 25px);
@@ -311,47 +573,57 @@ table {
   text-align: center;
 }
 .owl-dots .owl-dot {
-  height: 10px;
-  width: 10px;
+  height: 7px;
+  width: 7px;
   border-radius: 10px;
-  background: #ccc !important;
+  background: var(--color-text2) !important;
   margin-left: 3px;
   margin-right: 3px;
   outline: none;
 }
+
 .owl-dots .owl-dot.active {
-  background: #f44336 !important;
+  background: #f4bb39 !important;
 }
 
 /*--------------------------------------------------------------
 # menu-busqueda-index
 --------------------------------------------------------------*/
-.barra-menu {
-  width: 1rem;
+#menuBusqueda {
+  background-color: var(--fondo-secciones);
+  color: var(--color-text);
   height: 100%;
-  position: absolute;
-  left: 0%;
-  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+  left: -5%;
+  position: relative;
+  border: none;
+	border-right: 0.5rem solid transparent;
+	border-image: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+	border-image-slice: 2;
 }
 
-.barra-menu i {
-  font-size: 2rem;
-  position: absolute;
-  top:50%;
-  left:-22%;
-  z-index: -1;
-  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.panel-menu {
+  width: 100%;
+  padding: 20px 0px;
 }
 
-.check-menu:checked ~ .barra-menu {
-  left: 30%;
+.panel-menu .form-group, .panel-menu .input-group {
+  margin: 10px;
 }
 
 /*--------------------------------------------------------------
 # cardPelicula
 --------------------------------------------------------------*/
+#cajaCard img{
+	border-radius: 10px;
+	box-shadow: -4px 4px 5px 0 #000;
+  	transition: 0.8s;
+}
+
+#cajaCard img:hover{
+	transform: translateY(-10px);
+  	box-shadow: 0 2px 10px rgb(255, 211, 130), 0 2px 10px rgba(197, 151, 1, 0.877);
+}
+
 .img-card-caja {
   position: relative;
   display: inline-block;
@@ -365,7 +637,7 @@ table {
 }
 
 .img-card-pelicula:hover ~ .img-card-titulo h5, .img-card-titulo h5:hover {
-  background: linear-gradient(to bottom, var(--color-naranja), var(--color-amarillo));
+  background: linear-gradient(to bottom, var(--color-amarillo), var(--color-degrade-amarillo));
   font-weight: bold;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -381,7 +653,7 @@ button .img-card-pelicula {
   position: absolute;
   top: 80%;
   width: 225px;
-  background-color: var(--fondo-secciones);
+  background-color: rgba(197, 151, 1, 0.877);
   opacity: 0.9;
 }
 
@@ -390,10 +662,117 @@ button .img-card-pelicula {
   font-size: 16px;
   margin: auto;
 }
+
+/*--------------------------------------------------------------
+# Verificacion
+--------------------------------------------------------------*/
+#verificaciones{
+	margin: 250px 0px 100px 0px;
+}
+
+.verificacion{
+	height: 500px;
+	margin: auto;
+}
+
+.verificacion h4 a{
+	text-decoration: none;
+}
+
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
+.bg-footer {
+    background-color: var(--fondo-secciones);
+    padding: 50px 0 30px;
+}
 
+.logo-footer img {
+	height: 110px;
+	width: 110px;
+	margin-left: 50px;
+	margin-top: 20px;
+}
+
+.footer-heading {
+    letter-spacing: 2px;
+}
+
+.footer-link a {
+    color: #acacac;
+    line-height: 40px;
+    font-size: 14px;
+    transition: all 0.5s;
+    text-decoration: none;
+}
+
+.footer-link a:hover {
+    color: var(--color-degrade-amarillo);
+}
+
+.contact-info {
+    color: #acacac;
+    font-size: 14px;
+}
+
+.footer-social-icon {
+    font-size: 15px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    line-height: 34px;
+    text-align: center;
+    display: inline-block;
+}
+
+.footer-social-icon:hover {
+    font-size: 15px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    line-height: 34px;
+    text-align: center;
+    display: inline-block;
+    background-color: rgba(255, 174, 80,3);
+}
+
+.facebook {
+    background-color: #4e71a8;
+    color: #ffffff;
+}
+
+.twitter {
+    background-color: #55acee;
+    color: #ffffff;
+}
+
+.google {
+    background-color: #d6492f;
+    color: #ffffff;
+}
+
+.footer-alt {
+    color: #acacac;
+}
+
+.footer-heading {
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.footer-heading:after {
+    content: '';
+    width: 25px;
+    border-bottom: 1px solid #FFF;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: block;
+    border-bottom: 1px solid var(--color-degrade-amarillo);
+}
+
+
+/*
 #footer {
   background: var(--fondo-secciones);
   padding: 0 0 30px 0;
@@ -464,5 +843,5 @@ button .img-card-pelicula {
   font-size: 13px;
   color: #fff;
 }
-
+*/
 

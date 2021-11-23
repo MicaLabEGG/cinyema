@@ -1,90 +1,97 @@
-<div id="tablaAdmin" th:fragment="_registroPelicula(registro,error,directores,actores,pelicula)">
+<div id="registros" th:fragment="_registroPelicula(registro,error,directores,actores,pelicula)">
 <section class="container">
     <div class="row vh-100 justify-content-center align-items-center">
         <div class="col-auto">
-        	<h1 class="text-center text-light" th:text="${registrar}"></h1>
-            <div th:if="${error}!=null" class="card text-white bg-danger mb-3" style="max-width: 23rem;">
+        	
+            <div th:if="${error}!=null" class="card text-light bg-danger mb-3" style="max-width: 23rem;">
                 <div class="card-body">
                     <h5 class="card-title">Error</h5>
                     <p class="card-text" th:text="${error}"></p>
                 </div>
             </div>
+            
             <form th:object="${pelicula}" th:action="@{/pelicula/registrar}" method="POST" enctype="multipart/form-data">
+                <div class="text-center titulo">
+					<h1 class="text-center text-light" th:text="${registrar}"></h1>
+				</div>
+                
                 <div class="form-group">
-                    <label class="form-label text-light">Titulo</label>
+                    <label class="text-light">Titulo</label>
                     <input type="text" class="form-control" th:field="*{titulo}" th:value="${titulo}" required></input>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Descripcion</label>
+                    <label class="text-light">Descripcion</label>
                     <textarea class="form-control" style="height: 100px" th:field="*{descripcion}" th:value="${descripcion}"></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Genero</label>
+                    <label class="text-light">Genero</label>
                     <select class="form-select" th:field="*{genero}" required>
                         <option th:each="genero : ${T(com.cinyema.app.enumeraciones.Genero).values()}" 
         th:value="${genero}" th:text="${genero}"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Director</label>
+                    <label class="text-light">Director</label>
                     <select class="form-select" th:field="*{director}" required>
                         <option th:each="director : ${directores}" 
         th:value="${director.idDirector}" th:text="${director.nombre}"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Actores</label>
+                    <label class="text-light">Actores</label>
                     <select multiple class="form-select" th:field="*{actores}" required>
                         <option th:each="actor : ${actores}" 
         th:value="${{actor}}" th:text="${actor.nombreCompleto}"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Anio</label>
+                    <label class="text-light">Anio</label>
                     <input type="number" class="form-control" th:field="*{anio}" th:value="${anio}" required></input>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Pais</label>
+                    <label class="text-light">Pais</label>
                     <select class="form-select" th:field="*{pais}" required>
                         <option th:each="pais : ${T(com.cinyema.app.enumeraciones.Pais).values()}" 
         th:value="${pais}" th:text="${pais}"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Idioma</label>
+                    <label class="text-light">Idioma</label>
                     <select class="form-select" th:field="*{idioma}" required>
                         <option th:each="idioma: ${T(com.cinyema.app.enumeraciones.Idioma).values()}" 
         th:value="${idioma}" th:text="${idioma}"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Subtitulo</label>
+                    <label class="text-light">Subtitulo</label>
                     <select class="form-select" th:field="*{subtitulo}" required>
                         <option th:each="subtitulo : ${T(com.cinyema.app.enumeraciones.Subtitulo).values()}" 
         th:value="${subtitulo}" th:text="${subtitulo}"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Formato</label>
+                    <label class="text-light">Formato</label>
                     <select class="form-select" th:field="*{formato}" required>
                         <option th:each="formato : ${T(com.cinyema.app.enumeraciones.Formato).values()}" 
                               th:value="${formato}" th:text="${formato}"></option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label text-light">Duracion</label>
+                    <label class="text-light">Duracion</label>
                     <input type="text" class="form-control" th:field="*{duracion}" th:value="${duracion}" required></input>
                 </div>
                 <div class="form-group">
-                    <label for="formFile" class="form-label text-light">Imagen</label>
+                    <label for="formFile" class="text-light">Imagen</label>
                     <input type="file" class="form-control"  id="formFile" name="archivo" th:value="${archivo}"></input>
                 </div>
                 <div class="form-group">
-                    <label for="formFile" class="form-label text-light">Trailer</label>
+                    <label for="formFile" class="text-light">Trailer</label>
                     <input type="text" class="form-control"  id="formFile" name="archivoVideo" th:value="${archivoVideo}"></input>
                 </div>
-
-                <button class="btn btn-primary" type="submit">Guardar</button>
+				
+				<div class="text-center boton">
+                	<button class="btn btn-primary" type="submit">Guardar</button>
+                </div>
 
             </form>
         </div>

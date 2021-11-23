@@ -24,7 +24,8 @@ public class Funcion {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private String fecha;
 	private String horario;
-	@OneToOne
+	@ManyToOne
+	@JoinColumn(name = "pelicula_id")
 	private Pelicula pelicula;
 	@ManyToOne
 	@JoinColumn(name = "sala_id")
@@ -96,8 +97,7 @@ public class Funcion {
 
 	@Override
 	public String toString() {
-		return "Funcion [idFuncion=" + idFuncion + ", fecha=" + fecha + ", horario=" + horario + ", pelicula="
-				+ pelicula + ", tickets=" + tickets + "]";
+		return "Funcion [idFuncion=" + idFuncion + ", fecha=" + fecha + ", horario=" + horario + ", tickets=" + tickets + "]";
 	}
 
 	public Long randomId() {

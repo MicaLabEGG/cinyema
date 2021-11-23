@@ -17,6 +17,8 @@ public interface SalaRepositorio extends JpaRepository<Sala, Long> {
 //	public Sala buscarSalaPorPelicula(@Param("titulo") String titulo);
 	
 	@Query("SELECT s FROM Sala s JOIN s.funciones f WHERE f.pelicula.idPelicula = :idPelicula")
-	public Sala buscarSalaPorFuncionidPelicula(@Param("idPelicula") Long idPelicula);
+	public List<Sala> buscarSalaPorFuncionidPelicula(@Param("idPelicula") Long idPelicula);
 
+	@Query("SELECT s FROM Sala s JOIN s.funciones f WHERE f.idFuncion = :idFuncion")
+	public Sala buscarSalaPorIdFuncion(@Param("idFuncion") Long idFuncion);
 }

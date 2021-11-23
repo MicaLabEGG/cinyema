@@ -5,90 +5,53 @@
 
 <body>
 	<nav th:insert="fragmentos/navbar :: _navbar"></nav>
-
 	<section id="panelUsuario">
 		<div class="container-fluid">
 			<div class="row justify-content-center">
+				<!----------------------------------------- CARD USUSARIO -------------------------------------------->
 				<div class="col-sm-3">
-					<div class="card" id="tarjeta-datos-usuario">
-						<div class="card-body text-center">
-							<h2 class="card-title" th:text="${usuario.nombreDeUsuario}"></h2>
-							<div class="linea-separadora"></div>
-							<p><i class="fas fa-envelope"></i> <small th:text="${usuario.mail}"></small></p>
-							<p><i class="fas fa-user-alt"></i> <small th:text="${usuario.nombre}"></small></p>
-							<p><i class="fas fa-calendar-minus"></i> <small th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
+					<br>
+					<br>
+					<br>
+					<div class="card-usuario">
+						<img src="https://i.pinimg.com/originals/7d/a4/b2/7da4b2a2fccdc1c68e60e4a081ee512d.gif" alt="">
+						<h2 class="card-title" th:text="${usuario.nombreDeUsuario}">Full
+							Name</h2>
+						<div class="cont">
+							<p>
+								<i class="fas fa-envelope"></i> <small th:text="${usuario.mail}"></small>
+							</p>
+							<p>
+								<i class="fas fa-user-alt"></i> <small th:text="${usuario.nombre}"></small>
+							</p>
+							<p>
+								<i class="fas fa-calendar-minus"></i> <small
+									th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
 							</p>
 						</div>
 					</div>
 				</div>
-
+				<!------------------------------------------ CARD BOLETO ------------------------------------------>
 				<div class="col-sm-7">
-				<!--<h1 class="text-center">Historial de Compras</h1>-->
-					<div class="card mb-3 tarjeta-ticket">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body">
-									<h5 class="card-title titulo">Harry Potter 1</h5>
-									<p class="card-text">
-										Showcase (Junín 498)<br>
-										10/12/21 14:30<br>
-										$1500
-									</p>
-								</div>
-							</div>
+					<div th:if="${listar}!= null">
+						<div
+							th:replace="fragmentos/ticket/cardBoletoUsuario.html :: _cardBoletoUsuario(tickets=${tickets}, listar=${listar})">
 						</div>
 					</div>
-					<div class="card mb-3 tarjeta-ticket">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body">
-									<h5 class="card-title titulo">Harry Potter 1</h5>
-									<p class="card-text">
-										Showcase (Junín 498)<br>
-										10/12/21 14:30<br>
-										$1500
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="card mb-3 tarjeta-ticket">
-						<div class="row g-0">
-							<div class="col-md-4">
-								<img src="/img/error/400.jpg" class="card-img-top p-2 flex-fill bd-highlight" alt="...">
-							</div>
-							<div class="col-md-8">
-								<div class="card-body">
-									<h5 class="card-title titulo">Harry Potter 1</h5>
-									<p class="card-text">
-										Showcase (Junín 498)<br>
-										10/12/21 14:30<br>
-										$1500
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					
 				</div>
+				<!-------------------------------------------------------------------------------------------->
 			</div>
 		</div>
 	</section>
 
 	<footer th:insert="fragmentos/footer :: _footer"></footer>
-
 	<script th:replace="fragmentos/head :: _scriptBoostrap"></script>
 </body>
 
 </html>
 
-<!-- 
+<!--- parte manual TABLA boleto ---
+	
 	<table class="table table-dark">
 								<thead>
 									<tr>
@@ -109,4 +72,23 @@
 									</tr>
 								</tbody>
 							</table>
--->
+	
+	--- parte manual card perfirl ---
+	
+	<div class="card" id="tarjeta-datos-usuario">
+						<span class="fa-stack fa-lg fa-4x circulo-usuario">
+							<i class="fa fa-circle fa-stack-2x"></i>
+							<i class="fas fa-user fa-stack-1x fa-inverse circulo-logo-usuario"></i>
+						</span>
+						<div class="card-user-body text-center">
+							<h2 class="card-title" th:text="${usuario.nombreDeUsuario}"></h2>
+							<div class="card-text">
+								<p><i class="fas fa-envelope"></i> <small th:text="${usuario.mail}"></small></p>
+								<p><i class="fas fa-user-alt"></i> <small th:text="${usuario.nombre}"></small></p>
+								<p><i class="fas fa-calendar-minus"></i> <small
+										th:text="${#dates.format({fechaNacimiento}, 'dd/MM/yyyy')}"></small>
+								</p>
+							</div>
+						</div>
+					</div>					
+--->

@@ -2,8 +2,10 @@ package com.cinyema.app.servicios;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -125,9 +127,17 @@ public class SalaServicio implements ServicioBase<Sala>{
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
-	public List<Funcion> obtenerFuncionesPorPeliculaId(Long idPelicula) {
+	public List<String> obtenerFuncionesPorPeliculaId(Long idPelicula) {
 		List<Funcion> funciones = funcionRepositorio.obtenerFuncionesPorPeliculaId(idPelicula);
-		return funciones;
+		List<String> fechas = new ArrayList();
+		for (Funcion funcion : funciones) {
+			fechas.add(funcion.getFecha());
+		}
+		
+		Set<String> setCombined = new HashSet<>(fechas);
+		List<String> fechasfinal = new ArrayList<>(setCombined);
+		
+		return fechasfinal;
 	}
 	
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })

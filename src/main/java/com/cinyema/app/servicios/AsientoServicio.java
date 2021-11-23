@@ -1,5 +1,6 @@
 package com.cinyema.app.servicios;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -52,6 +53,7 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 	
 	@Transactional(readOnly = true)
 	public List<Asiento> listar(Long idFuncion){
+		List<Asiento> asiLibres = new ArrayList<Asiento>();
 		List<Asiento> listaAsientos = asientoRepositorio.findAll();
 		Collections.sort(listaAsientos, (o1, o2) -> o1.getNumeroDeAsiento().compareTo(o2.getNumeroDeAsiento()));
 		List<Long> ocupados = ticketRepositorio.listaAsientosOcupados(idFuncion);
@@ -62,7 +64,14 @@ public class AsientoServicio implements ServicioBase<Asiento> {
 				}
 			}
 		}
-		return listaAsientos ;
+		
+		for (Asiento asiento : listaAsientos) {
+			if(asiento.getLibre()==true) {
+				asiLibres.add(asiento);
+			}
+		}
+		
+		return asiLibres ;
 	}
 	
 	public long totalAsiento() throws Exception {

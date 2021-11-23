@@ -46,7 +46,7 @@
 						<div class="tab-pane fade text-light mt-4" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 	
 							<p>Titulo: <strong th:text="*{titulo}"></strong></p>
-							<p>Año: <strong th:text="*{anio}"></strong></p>
+							<p>Aï¿½o: <strong th:text="*{anio}"></strong></p>
 							<p>Duracion: <strong th:text="*{duracion}"></strong></p>
 							<p>Genero: <strong th:text="*{genero}"></strong></p>
 							<p>Pais: <strong th:text="*{pais}"></strong></p>
@@ -77,7 +77,7 @@
 								</div>
 								
 								<div>
-									<a class="btn btn-success" th:each="funcion : ${funciones}" th:href="@{/ticket/compra/__${pelicula.idPelicula}__/__${funcion.fecha}__}" th:text="${funcion.fecha}"></a>
+									<a class="btn btn-success" th:each="fecha : ${fechas}" th:href="@{/ticket/compra/__${pelicula.idPelicula}__/__${fecha}__}" th:text="${fecha}"></a>
 								</div>
 						</div>
 					</div>

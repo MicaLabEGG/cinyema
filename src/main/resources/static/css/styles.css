@@ -114,8 +114,82 @@ nav .logo img:hover {
 --------------------------------------------------------------*/
 
 #login-registro{
-	margin: 100px 0px 100px 0px;
+	margin: auto;
 }
+
+#login-registro .login-registro{
+	margin: 150px 0px 100px 0px;
+}
+
+#login-registro .bg{
+    background-image: url("/img/bg.png");
+    background-position: center;
+}
+
+#login-registro .fondo{
+    background-color: #020403;
+}
+
+#login-registro .logoY{
+    border-radius: 50px;
+    margin: auto;
+}
+
+#login-registro .logoY:hover{
+    transform: translateY(-3px);
+}
+
+#login-registro .formulario{
+    align-items: center;
+}
+
+#login-registro .tituloLogin{
+    color: white;
+}
+
+#login-registro .tituloLogin:hover{
+    color: #d8b819;
+}
+
+#login-registro .grupo{
+    width: 55%;
+    margin: auto;
+}
+
+#login-registro .btnIngresar {
+    margin: 20px 0px 10px 0px;
+    background: linear-gradient(to right, #ffa751, #ffe259);
+    border-radius: 4px;
+    padding: 7px 25px 8px 25px;
+    white-space: nowrap;
+    transition: 0.3s;
+    font-size: 16px;
+    font-weight: 600;
+    border: 2px solid #ffc451;
+    text-decoration: none;
+    color: black;
+}
+
+#login-registro .btnIngresar:hover {
+    background: linear-gradient(to right, #ffe259, #ffa751);
+    color: #343a40;
+    transform: translateY(-2px);
+    border: 2px solid #f7902a;
+}
+
+#login-registro .opciones{
+    text-decoration: none;
+    color: white;
+}
+
+#login-registro .opciones:hover{
+    color: #d8b819;
+}
+
+#login-registro p{
+	color: red;
+}
+
 
 /*--------------------------------------------------------------
 # Formularios de Registros

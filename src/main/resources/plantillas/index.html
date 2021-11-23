@@ -93,7 +93,7 @@
 			</div>
 		</div>
 			<div class="col-md-9">			
-				<h1 class="text-center container-fluid" th:if="${error}!=null" th:text="${error}"></h1>
+				<h1 style="color: white;" class="text-center container-fluid" th:if="${error}!=null" th:text="${error}"></h1>
 				<div th:insert="fragmentos/cardPelicula :: _cardPelicula(peliculas=${peliculas})"></div>
 				<div th:insert="fragmentos/cardPelicula :: _cardPeliculaModal(peliculas=${peliculas})"></div>
 			</div>

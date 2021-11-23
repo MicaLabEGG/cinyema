@@ -1,14 +1,11 @@
-
 <div th:fragment="_cardBoletoUsuario(tickets,listar)">
 
-	<div th:each="ticket : ${tickets}"
-		class="card mb-3 container-tarjeta-ticket">
+	<div th:each="ticket : ${tickets}" class="card mb-3 container-tarjeta-ticket">
 		<div class="row g-0">
 
 			<div class="col-md-5">
 				<div class="container-imagen-boleto">
-					<img
-						th:src="*{'data:imagen/jpeg;base64,'+{ticket.funcion.pelicula.imagen}}"
+					<img th:src="*{'data:imagen/jpeg;base64,'+{ticket.funcion.pelicula.imagen}}"
 						class="img-fluid rounded mx-auto d-block" alt="..." width="65%">
 				</div>
 			</div>
@@ -30,12 +27,10 @@
 									th:text="${ticket.funcion.sala.cine.direccion}"></small>
 							</p>
 							<p style="color: orange;">
-								Fecha: <small style="color: white;"
-									th:text="${ticket.funcion.fecha}"></small>
+								Fecha: <small style="color: white;" th:text="${ticket.funcion.fecha}"></small>
 							</p>
 							<p style="color: orange;">
-								Horario: <small style="color: white;"
-									th:text="${ticket.funcion.horario}"></small>
+								Horario: <small style="color: white;" th:text="${ticket.funcion.horario}"></small>
 							</p>
 							<p style="color: orange;">
 								Precio: <small style="color: white;"
@@ -47,4 +42,4 @@
 			</div>
 		</div>
 	</div>
-</div>		
+</div>

@@ -2,17 +2,8 @@
 	<section id="login-registro" class="container w-75 mt-4 shadow">
 		<div class="login-registro">
 			
-			<div th:if="${error}!=null" class="card text-light bg-danger mb-3" style="max-width: 23rem;">
-				<div class="card-body">
-					<h5 class="card-title">Error</h5>
-					<p class="card-text" th:text="${error}"></p>
-				</div>
-			</div>
-				
 			<div class="row align-items-center align-items-stretch">
-					<div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 bg">
-                
-            		</div>
+					<div class="col d-none d-lg-block col-md-5 col-lg-5 col-xl-6 bg"></div>
 					
 					<div class="col p-3 col-lg-7 col-xl-6 fondo">
 						<div class="text-center">
@@ -26,7 +17,7 @@
 								<input type="text" class="form-control" id="nombredeusuario" th:field="*{nombreDeUsuario}">
 							</div>
 							<div class="my-3 grupo">
-								<label for="nombreApellido" class="form-label text-light">Nombre</label> 
+								<label for="nombreApellido" class="form-label text-light">Nombre y Apellido</label> 
 								<input type="text" class="form-control" id="nombreApellido" th:field="*{nombre}">
 							</div>
 							<div class="my-3 grupo">
@@ -40,6 +31,10 @@
 							<div class="my-3 grupo">
 								<label for="contrasenia" class="form-label text-light">Contraseña</label> 
 								<input type="password" class="form-control" id="contrasenia" th:field="*{contrasenia}">
+							</div>
+							
+							<div class="my-4 grupo">
+								<p th:if="${error != null}" th:text="${error}"></p>
 							</div>
 							
 							<div class="my-4 text-center">

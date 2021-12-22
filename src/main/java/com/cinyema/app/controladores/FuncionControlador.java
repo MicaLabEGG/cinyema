@@ -88,7 +88,11 @@ public class FuncionControlador {
 	public String editar(ModelMap modelo, @PathVariable Long idFuncion) throws Exception {
 		try {	
 		    modelo.addAttribute("editar", "Editar Funcion");
+		    //Funcion funcion = funcionServicio.obtenerPorId(idFuncion);
+		    //Sala sala = funcion.getSala();
 			modelo.addAttribute("funcion", funcionServicio.obtenerPorId(idFuncion));
+			modelo.addAttribute("salas", salaServicio.listar());
+			modelo.addAttribute("peliculas", peliculaServicio.listar());
 			return "vistas/admin/funcion";
 		}catch (Exception e) {
 			e.printStackTrace();

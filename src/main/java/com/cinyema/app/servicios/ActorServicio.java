@@ -20,6 +20,7 @@ public class ActorServicio implements ServicioBase<Actor> {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = { Exception.class })
 	public Actor registrar(Actor actor) throws Exception {
+		//sdsdsdsdsdsdsds
 		validar(actor);
 		return actorRepositorio.save(actor);
 	}

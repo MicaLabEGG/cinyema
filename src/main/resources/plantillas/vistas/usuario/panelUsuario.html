@@ -33,6 +33,7 @@
 				</div>
 				<!------------------------------------------ CARD BOLETO ------------------------------------------>
 				<div class="col-sm-7">
+				<h1 align="center">Tus Tickets</h1>
 					<div th:if="${listar}!= null">
 						<div
 							th:replace="fragmentos/ticket/cardBoletoUsuario.html :: _cardBoletoUsuario(tickets=${tickets}, listar=${listar})">

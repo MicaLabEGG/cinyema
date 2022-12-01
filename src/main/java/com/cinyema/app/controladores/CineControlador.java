@@ -88,11 +88,12 @@ public class CineControlador {
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@GetMapping("/editar/{id}")
+	@GetMapping("/editar/{idCine}")
 	public String editar(ModelMap modelo, @PathVariable Long idCine) throws Exception {
         try {
         	modelo.addAttribute("editar", "Editar Cine");
  			modelo.addAttribute("cine", cineServicio.obtenerPorId(idCine));
+ 			modelo.addAttribute("salas", salaServicio.listar());
  			return "vistas/admin/cine";
  		}catch (Exception e) {
  			e.printStackTrace();
@@ -103,7 +104,7 @@ public class CineControlador {
 	}
 	
 	@PreAuthorize("hasAnyRole('ROLE_ADMINISTRADOR')")
-	@PostMapping("/editar/{id}")
+	@PostMapping("/editar/{idCine}")
 	public String editar(ModelMap modelo, Cine cine ) throws Exception {
 		try {
 			cineServicio.editar(cine);
